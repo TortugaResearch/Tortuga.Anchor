@@ -12,8 +12,8 @@ namespace Tortuga.Anchor.Collections
         where T1 : IEquatable<T1>
         where T2 : IEquatable<T2>
     {
-        readonly T1 m_Item1;
-        readonly T2 m_Item2;
+        private readonly T1 m_Item1;
+        private readonly T2 m_Item2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Pair{T1, T2}"/> struct.
@@ -49,14 +49,77 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Serves as a hash function for a particular type. 
+        /// Performs an implicit conversion from <see cref="Pair{T1, T2}"/> to <see cref="KeyValuePair{T1, T2}"/>.
         /// </summary>
+        /// <param name="value">The value.</param>
         /// <returns>
-        /// A hash code for the current <see cref="T:System.Object" />.
+        /// The result of the conversion.
         /// </returns>
-        public override int GetHashCode()
+        public static implicit operator KeyValuePair<T1, T2>(Pair<T1, T2> value)
         {
-            return Item1.GetHashCode() ^ Item2.GetHashCode();
+            return value.ToKeyValuePair();
+        }
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Tuple{T1, T2}"/> to <see cref="Pair{T1, T2}"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        public static implicit operator Pair<T1, T2>(Tuple<T1, T2> value)
+        {
+            return Pair.FromTuple(value);
+        }
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="KeyValuePair{T1, T2}"/> to <see cref="Pair{T1, T2}"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        public static implicit operator Pair<T1, T2>(KeyValuePair<T1, T2> value)
+        {
+            return Pair.FromKeyValuePair(value);
+        }
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Pair{T1, T2}"/> to <see cref="Tuple{T1, T2}"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        public static implicit operator Tuple<T1, T2>(Pair<T1, T2> value)
+        {
+            return value.ToTuple();
+        }
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="pair1">The pair1.</param>
+        /// <param name="pair2">The pair2.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(Pair<T1, T2> pair1, Pair<T1, T2> pair2)
+        {
+            return !pair1.Equals(pair2);
+        }
+
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="pair1">The pair1.</param>
+        /// <param name="pair2">The pair2.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(Pair<T1, T2> pair1, Pair<T1, T2> pair2)
+        {
+            return pair1.Equals(pair2);
         }
 
         /// <summary>
@@ -90,41 +153,22 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Implements the operator ==.
+        /// Serves as a hash function for a particular type. 
         /// </summary>
-        /// <param name="pair1">The pair1.</param>
-        /// <param name="pair2">The pair2.</param>
         /// <returns>
-        /// The result of the operator.
+        /// A hash code for the current <see cref="T:System.Object" />.
         /// </returns>
-        public static bool operator ==(Pair<T1, T2> pair1, Pair<T1, T2> pair2)
+        public override int GetHashCode()
         {
-            return pair1.Equals(pair2);
+            return Item1.GetHashCode() ^ Item2.GetHashCode();
         }
-
         /// <summary>
-        /// Implements the operator !=.
+        /// Convert to a KeyValuePair.
         /// </summary>
-        /// <param name="pair1">The pair1.</param>
-        /// <param name="pair2">The pair2.</param>
-        /// <returns>
-        /// The result of the operator.
-        /// </returns>
-        public static bool operator !=(Pair<T1, T2> pair1, Pair<T1, T2> pair2)
+        /// <returns></returns>
+        public KeyValuePair<T1, T2> ToKeyValuePair()
         {
-            return !pair1.Equals(pair2);
-        }
-
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="Pair{T1, T2}"/> to <see cref="Tuple{T1, T2}"/>.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
-        public static implicit operator Tuple<T1, T2>(Pair<T1, T2> value)
-        {
-            return value.ToTuple();
+            return new KeyValuePair<T1, T2>(Item1, Item2);
         }
 
         /// <summary>
@@ -135,53 +179,5 @@ namespace Tortuga.Anchor.Collections
         {
             return new Tuple<T1, T2>(Item1, Item2);
         }
-
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="Pair{T1, T2}"/> to <see cref="KeyValuePair{T1, T2}"/>.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
-        public static implicit operator KeyValuePair<T1, T2>(Pair<T1, T2> value)
-        {
-            return value.ToKeyValuePair();
-        }
-
-        /// <summary>
-        /// Convert to a KeyValuePair.
-        /// </summary>
-        /// <returns></returns>
-        public KeyValuePair<T1, T2> ToKeyValuePair()
-        {
-            return new KeyValuePair<T1, T2>(Item1, Item2);
-        }
-
-
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="Tuple{T1, T2}"/> to <see cref="Pair{T1, T2}"/>.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
-        public static implicit operator Pair<T1, T2>(Tuple<T1, T2> value)
-        {
-            return Pair.FromTuple(value);
-        }
-
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="KeyValuePair{T1, T2}"/> to <see cref="Pair{T1, T2}"/>.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// The result of the conversion.
-        /// </returns>
-        public static implicit operator Pair<T1, T2>(KeyValuePair<T1, T2> value)
-        {
-            return Pair.FromKeyValuePair(value);
-        }
-
-
     }
 }

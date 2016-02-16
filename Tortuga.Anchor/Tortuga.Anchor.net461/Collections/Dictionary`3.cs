@@ -133,6 +133,58 @@ namespace Tortuga.Anchor.Collections
 
 
         /// <summary>
+        /// Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </summary>
+        /// <returns>
+        /// The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </returns>
+        public int Count
+        {
+            get { return m_Base.Count; }
+        }
+
+        bool ICollection<KeyValuePair<Pair<TKey1, TKey2>, TValue>>.IsReadOnly
+        {
+            get { return false; }
+        }
+        IEnumerable<Pair<TKey1, TKey2>> IReadOnlyDictionary<Pair<TKey1, TKey2>, TValue>.Keys
+        {
+            get { return m_Base.Keys; }
+        }
+
+        IEnumerable<TValue> IReadOnlyDictionary<Pair<TKey1, TKey2>, TValue>.Values
+        {
+            get { return m_Base.Values; }
+        }
+
+        /// <summary>
+        /// Gets or sets the element with the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns></returns>
+        public TValue this[Pair<TKey1, TKey2> key]
+        {
+            get { return m_Base[key]; }
+            set { m_Base[key] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value with the specified keys.
+        /// </summary>
+        /// <value>
+        /// 
+        /// </value>
+        /// <param name="key1">The first key.</param>
+        /// <param name="key2">The second key.</param>
+        /// <returns></returns>
+        [SuppressMessage("Microsoft.Design", "CA1023:IndexersShouldNotBeMultidimensional")]
+        public TValue this[TKey1 key1, TKey2 key2]
+        {
+            get { return m_Base[Pair.Create(key1, key2)]; }
+            set { m_Base[Pair.Create(key1, key2)] = value; }
+        }
+
+        /// <summary>
         /// Adds an element with the provided key and value to the <see cref="T:System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <param name="key">
@@ -162,6 +214,45 @@ namespace Tortuga.Anchor.Collections
         public void Add(TKey1 key1, TKey2 key2, TValue value)
         {
             m_Base.Add(Pair.Create(key1, key2), value);
+        }
+
+        /// <summary>
+        /// Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </summary>
+        /// <param name="item">
+        /// The object to add to the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </param>
+        /// <exception cref="T:System.NotSupportedException">
+        /// The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
+        /// </exception>
+        public void Add(KeyValuePair<Pair<TKey1, TKey2>, TValue> item)
+        {
+            m_Interface.Add(item);
+        }
+
+        /// <summary>
+        /// Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </summary>
+        /// <exception cref="T:System.NotSupportedException">
+        /// The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only. 
+        /// </exception>
+        public void Clear()
+        {
+            m_Base.Clear();
+        }
+
+        /// <summary>
+        /// Determines whether the <see cref="T:System.Collections.Generic.ICollection`1" /> contains a specific value.
+        /// </summary>
+        /// <returns>
+        /// true if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false.
+        /// </returns>
+        /// <param name="item">
+        /// The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </param>
+        public bool Contains(KeyValuePair<Pair<TKey1, TKey2>, TValue> item)
+        {
+            return m_Base.Contains(item);
         }
 
         /// <summary>
@@ -202,6 +293,32 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="arrayIndex"></param>
+        public void CopyTo(KeyValuePair<Pair<TKey1, TKey2>, TValue>[] array, int arrayIndex)
+        {
+            m_Interface.CopyTo(array, arrayIndex);
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
+        /// </returns>
+        public IEnumerator<KeyValuePair<Pair<TKey1, TKey2>, TValue>> GetEnumerator()
+        {
+            return m_Base.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return m_Base.GetEnumerator();
+        }
+
+        /// <summary>
         /// Removes the element with the specified key from the <see cref="T:System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <returns>
@@ -236,6 +353,23 @@ namespace Tortuga.Anchor.Collections
 
 
         /// <summary>
+        /// Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </summary>
+        /// <returns>
+        /// true if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false. This method also returns false if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </returns>
+        /// <param name="item">
+        /// The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// </param>
+        /// <exception cref="T:System.NotSupportedException">
+        /// The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
+        /// </exception>
+        public bool Remove(KeyValuePair<Pair<TKey1, TKey2>, TValue> item)
+        {
+            return m_Interface.Remove(item);
+        }
+
+        /// <summary>
         /// Gets the value associated with the specified key.
         /// </summary>
         /// <param name="key">The key whose value to get.</param>
@@ -267,142 +401,6 @@ namespace Tortuga.Anchor.Collections
         /// An <see cref="T:System.Collections.Generic.ICollection`1" /> containing the values in the object that implements <see cref="T:System.Collections.Generic.IDictionary`2" />.
         /// </returns>
         public ICollection<TValue> Values
-        {
-            get { return m_Base.Values; }
-        }
-
-        /// <summary>
-        /// Gets or sets the element with the specified key.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
-        public TValue this[Pair<TKey1, TKey2> key]
-        {
-            get { return m_Base[key]; }
-            set { m_Base[key] = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value with the specified keys.
-        /// </summary>
-        /// <value>
-        /// 
-        /// </value>
-        /// <param name="key1">The first key.</param>
-        /// <param name="key2">The second key.</param>
-        /// <returns></returns>
-        [SuppressMessage("Microsoft.Design", "CA1023:IndexersShouldNotBeMultidimensional")]
-        public TValue this[TKey1 key1, TKey2 key2]
-        {
-            get { return m_Base[Pair.Create(key1, key2)]; }
-            set { m_Base[Pair.Create(key1, key2)] = value; }
-        }
-
-        /// <summary>
-        /// Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </summary>
-        /// <param name="item">
-        /// The object to add to the <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </param>
-        /// <exception cref="T:System.NotSupportedException">
-        /// The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
-        /// </exception>
-        public void Add(KeyValuePair<Pair<TKey1, TKey2>, TValue> item)
-        {
-            m_Interface.Add(item);
-        }
-
-
-        /// <summary>
-        /// Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </summary>
-        /// <exception cref="T:System.NotSupportedException">
-        /// The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only. 
-        /// </exception>
-        public void Clear()
-        {
-            m_Base.Clear();
-        }
-
-        /// <summary>
-        /// Determines whether the <see cref="T:System.Collections.Generic.ICollection`1" /> contains a specific value.
-        /// </summary>
-        /// <returns>
-        /// true if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false.
-        /// </returns>
-        /// <param name="item">
-        /// The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </param>
-        public bool Contains(KeyValuePair<Pair<TKey1, TKey2>, TValue> item)
-        {
-            return m_Base.Contains(item);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="array"></param>
-        /// <param name="arrayIndex"></param>
-        public void CopyTo(KeyValuePair<Pair<TKey1, TKey2>, TValue>[] array, int arrayIndex)
-        {
-            m_Interface.CopyTo(array, arrayIndex);
-        }
-
-        /// <summary>
-        /// Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </summary>
-        /// <returns>
-        /// The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </returns>
-        public int Count
-        {
-            get { return m_Base.Count; }
-        }
-
-        bool ICollection<KeyValuePair<Pair<TKey1, TKey2>, TValue>>.IsReadOnly
-        {
-            get { return false; }
-        }
-
-        /// <summary>
-        /// Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </summary>
-        /// <returns>
-        /// true if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false. This method also returns false if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </returns>
-        /// <param name="item">
-        /// The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1" />.
-        /// </param>
-        /// <exception cref="T:System.NotSupportedException">
-        /// The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
-        /// </exception>
-        public bool Remove(KeyValuePair<Pair<TKey1, TKey2>, TValue> item)
-        {
-            return m_Interface.Remove(item);
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
-        /// </returns>
-        public IEnumerator<KeyValuePair<Pair<TKey1, TKey2>, TValue>> GetEnumerator()
-        {
-            return m_Base.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return m_Base.GetEnumerator();
-        }
-
-        IEnumerable<Pair<TKey1, TKey2>> IReadOnlyDictionary<Pair<TKey1, TKey2>, TValue>.Keys
-        {
-            get { return m_Base.Keys; }
-        }
-
-        IEnumerable<TValue> IReadOnlyDictionary<Pair<TKey1, TKey2>, TValue>.Values
         {
             get { return m_Base.Values; }
         }

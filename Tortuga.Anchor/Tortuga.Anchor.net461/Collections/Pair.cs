@@ -25,6 +25,20 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
+        /// Convert from a KeyValuePair.
+        /// </summary>
+        /// <typeparam name="T1">The type of the first item.</typeparam>
+        /// <typeparam name="T2">The type of the second item.</typeparam>
+        /// <param name="value">The value.</param>
+        /// <returns>Pair&lt;T1, T2&gt;.</returns>
+        public static Pair<T1, T2> FromKeyValuePair<T1, T2>(KeyValuePair<T1, T2> value)
+            where T1 : IEquatable<T1>
+            where T2 : IEquatable<T2>
+        {
+            return new Pair<T1, T2>(value.Key, value.Value);
+        }
+
+        /// <summary>
         /// Convert from a tuple.
         /// </summary>
         /// <typeparam name="T1">The type of the first item.</typeparam>
@@ -39,20 +53,6 @@ namespace Tortuga.Anchor.Collections
                 return new Pair<T1, T2>(default(T1), default(T2));
 
             return new Pair<T1, T2>(value.Item1, value.Item2);
-        }
-
-        /// <summary>
-        /// Convert from a KeyValuePair.
-        /// </summary>
-        /// <typeparam name="T1">The type of the first item.</typeparam>
-        /// <typeparam name="T2">The type of the second item.</typeparam>
-        /// <param name="value">The value.</param>
-        /// <returns>Pair&lt;T1, T2&gt;.</returns>
-        public static Pair<T1, T2> FromKeyValuePair<T1, T2>(KeyValuePair<T1, T2> value)
-            where T1 : IEquatable<T1>
-            where T2 : IEquatable<T2>
-        {
-            return new Pair<T1, T2>(value.Key, value.Value);
         }
     }
 }

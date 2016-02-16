@@ -67,6 +67,7 @@
     <Compile Include="ComponentModel\IPropertyChangeTracking.cs" />
     <Compile Include="ComponentModel\ItemEventArgs`1.cs" />
     <Compile Include="Eventing\INotifyItemPropertyChanged.cs" />
+    <Compile Include="Eventing\RelayedEventArgs`1.cs" />
     <Compile Include="Eventing\RelayedEventArgs.cs" />
     <Compile Include="Eventing\RelayedEventHandler`1.cs" />
     <Compile Include="GlobalSuppressions.cs" />

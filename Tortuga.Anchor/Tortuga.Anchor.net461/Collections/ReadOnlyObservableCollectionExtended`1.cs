@@ -41,15 +41,15 @@ namespace Tortuga.Anchor.Collections
         }
 
 
-        void OnSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            OnCollectionChanged(e);
-        }
-
         /// <summary>
         /// Occurs when an item is added or removed.
         /// </summary>
         public event NotifyCollectionChangedEventHandler CollectionChanged;
+
+        /// <summary>
+        /// Use this event to listen for changes to properties on items contained by this collection without having to explicitly attach an event handler to each item.
+        /// </summary>
+        public event RelayedEventHandler<PropertyChangedEventArgs> ItemPropertyChanged;
 
         /// <summary>
         /// Occurs when a property value changes.
@@ -57,10 +57,12 @@ namespace Tortuga.Anchor.Collections
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Use this event to listen for changes to properties on items contained by this collection without having to explicitly attach an event handler to each item.
+        /// The list being wrapped.
         /// </summary>
-        public event RelayedEventHandler<PropertyChangedEventArgs> ItemPropertyChanged;
-
+        protected ObservableCollectionExtended<T> SourceList
+        {
+            get { return m_List; }
+        }
 
         /// <summary>
         /// Raises the CollectionChanged
@@ -79,7 +81,6 @@ namespace Tortuga.Anchor.Collections
             }
             OnPropertyChanged(CommonProperties.ItemIndexedProperty);
         }
-
 
         /// <summary>
         /// Raises the PropertyChanged
@@ -111,6 +112,16 @@ namespace Tortuga.Anchor.Collections
         /// </remarks>
         protected virtual void OnSourcePropertyChanged(string propertyName) { }
 
+        void OnItemPropertyChanged(object sender, RelayedEventArgs<PropertyChangedEventArgs> e)
+        {
+            if (ItemPropertyChanged != null)
+                ItemPropertyChanged(this, e);
+        }
+
+        void OnSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnCollectionChanged(e);
+        }
         void OnSourcePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.PropertyName))
@@ -118,22 +129,5 @@ namespace Tortuga.Anchor.Collections
             else if (e.PropertyName != CommonProperties.CountProperty.PropertyName && e.PropertyName != CommonProperties.ItemIndexedProperty.PropertyName)
                 OnSourcePropertyChanged(e.PropertyName);
         }
-
-
-        void OnItemPropertyChanged(object sender, RelayedEventArgs<PropertyChangedEventArgs> e)
-        {
-            if (ItemPropertyChanged != null)
-                ItemPropertyChanged(this, e);
-        }
-
-        /// <summary>
-        /// The list being wrapped.
-        /// </summary>
-        protected ObservableCollectionExtended<T> SourceList
-        {
-            get { return m_List; }
-        }
-
-
     }
 }
