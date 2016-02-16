@@ -54,12 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RandomExtended.cs" />
     <Compile Include="Collections\CommonProperties.cs" />
     <Compile Include="Collections\Dictionary`3.cs" />
     <Compile Include="Collections\ObservableCollectionExtended`1.cs" />
     <Compile Include="Collections\Pair.cs" />
     <Compile Include="Collections\Pair`2.cs" />
     <Compile Include="Collections\ReadOnlyObservableCollectionExtended`1.cs" />
+    <Compile Include="CollectionUtilities.cs" />
     <Compile Include="ComponentModel\IDetailedPropertyChangeTracking.cs" />
     <Compile Include="ComponentModel\INotifyCollectionChanged`1.cs" />
     <Compile Include="ComponentModel\IPropertyChangeTracking.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Metadata\PropertyMetadataCollection.cs" />
     <Compile Include="Modeling\IgnoreOnInsertAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
