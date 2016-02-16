@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Tortuga.Anchor</id>
+    <version></version>
+    <authors>David Tomcik, Jonathan Allen</authors>
+    <copyright>Copyright David Tomcik, Jonathan Allen 2016</copyright>
+    <description>Commons and data modeling library for the Toruga project.</description>
+    <tags>.net461</tags>
+    <language>en-US</language>
+    <references>
+      <reference file="Tortuga.Anchor.dll" />
+    </references>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="net461" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
