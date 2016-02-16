@@ -49,9 +49,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -66,11 +64,20 @@
     <Compile Include="ComponentModel\INotifyCollectionChanged`1.cs" />
     <Compile Include="ComponentModel\IPropertyChangeTracking.cs" />
     <Compile Include="ComponentModel\ItemEventArgs`1.cs" />
+    <Compile Include="Modeling\CalculatedFieldAttribute.cs" />
+    <Compile Include="Modeling\DecomposeAttribute.cs" />
+    <Compile Include="Modeling\IgnoreOnUpdateAttribute.cs" />
+    <Compile Include="DataAnnotations\ValidationResultCollection.cs" />
     <Compile Include="Eventing\INotifyItemPropertyChanged.cs" />
     <Compile Include="Eventing\RelayedEventArgs`1.cs" />
     <Compile Include="Eventing\RelayedEventArgs.cs" />
     <Compile Include="Eventing\RelayedEventHandler`1.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Metadata\ClassMetadata.cs" />
+    <Compile Include="Metadata\MetadataCache.cs" />
+    <Compile Include="Metadata\PropertyMetadata.cs" />
+    <Compile Include="Metadata\PropertyMetadataCollection.cs" />
+    <Compile Include="Modeling\IgnoreOnInsertAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
