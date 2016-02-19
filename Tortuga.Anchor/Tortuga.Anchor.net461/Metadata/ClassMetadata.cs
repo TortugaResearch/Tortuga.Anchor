@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Tortuga.Anchor.Metadata
     {
         private string m_MappedSchemaName;
         private string m_MappedTableName;
+        private ImmutableList<string> m_ColumnMap;
 
         internal ClassMetadata(Type type)
         {
@@ -98,6 +100,20 @@ namespace Tortuga.Anchor.Metadata
             var thisMethodDefinition = propertyInfoGetGetMethod.GetRuntimeBaseDefinition();
 
             return baseMethodDefinition.DeclaringType != thisMethodDefinition.DeclaringType;
+        }
+
+        /// <summary>
+        /// Gets the database columns for this class.
+        /// </summary>
+        /// <remarks>This honors the Column and Decompose attributes.</remarks>
+        public ImmutableList<string> ColumnsFor
+        {
+            get
+            {
+                if (m_ColumnMap == null)
+                    m_ColumnMap = ImmutableList.CreateRange(MetadataCache.GetColumnsFor(this, null));
+                return m_ColumnMap;
+            }
         }
     }
 }
