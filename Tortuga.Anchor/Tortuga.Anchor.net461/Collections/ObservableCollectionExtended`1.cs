@@ -17,7 +17,7 @@ namespace Tortuga.Anchor.Collections
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-    public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, IReadOnlyList<T>
+    public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, IReadOnlyList<T>, INotifyItemPropertyChanged
     {
         /// <summary>
         /// When someone attaches to the ItemPropertyChanged event this is set to true and we start listening for change notifications.

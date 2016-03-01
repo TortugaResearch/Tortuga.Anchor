@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -53,13 +55,24 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Collections\CollectionUtilitiesTests.cs" />
+    <Compile Include="Collections\Dictionary3Tests.cs" />
+    <Compile Include="Collections\ExtendedObservableCollectionTests.cs" />
+    <Compile Include="Collections\ExtendedReadOnlyObservableCollectionTests.cs" />
+    <Compile Include="ComponentModel\ItemEventArgsTests.cs" />
     <Compile Include="Dragnet\CollectionChangedEventTest.cs" />
     <Compile Include="Dragnet\EventPair`1.cs" />
     <Compile Include="Dragnet\EventTest.cs" />
+    <Compile Include="Dragnet\Memory.cs" />
     <Compile Include="Dragnet\PropertyChangedEventTest.cs" />
     <Compile Include="Dragnet\Severity.cs" />
     <Compile Include="Dragnet\VerificationStep.cs" />
     <Compile Include="Dragnet\Verify.cs" />
+    <Compile Include="Eventing\RelayedEventArgsTests.cs" />
+    <Compile Include="HelperClasses\ItemAddedEventTest`1.cs" />
+    <Compile Include="HelperClasses\ItemPropertyChangedEventAssert.cs" />
+    <Compile Include="HelperClasses\ItemRemovedEventAssert.cs" />
+    <Compile Include="HelperClasses\TestUtilities.cs" />
     <Compile Include="Metadata\BadMock.cs" />
     <Compile Include="Metadata\DataMapMock.cs" />
     <Compile Include="Metadata\MetadataCacheTests.cs" />
@@ -83,10 +96,7 @@
       <Name>Tortuga.Anchor.net461</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Eventing\" />
-    <Folder Include="HelperClasses\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

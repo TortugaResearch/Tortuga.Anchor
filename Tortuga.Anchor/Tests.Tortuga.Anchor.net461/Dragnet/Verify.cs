@@ -74,6 +74,18 @@ namespace Tortuga.Dragnet
             m_TestResults.Enqueue(new VerificationStep(checkType, message, severity));
         }
 
+        internal void ItemsAreEqual<T>(IList<T> expectedList, IList<T> actualList, string message)
+        {
+            IsNotNull(expectedList, $"expectedValue list. {message}");
+            IsNotNull(actualList, $"actualValue list. {message}");
+
+            AreEqual(expectedList.Count, actualList.Count, $"The counts differ between the two lists. {message}");
+            for (var i = 0; i < expectedList.Count; i++)
+            {
+                AreEqual(expectedList[i], actualList[i], $"The lists differ in slot {i}. {message}");
+            }
+        }
+
         public void Inconclusive(string message)
         {
             m_TestResults.Enqueue(new VerificationStep(null, message, Severity.Inconclusive));
