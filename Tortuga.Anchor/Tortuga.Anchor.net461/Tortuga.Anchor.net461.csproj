@@ -90,6 +90,7 @@
     <Compile Include="Modeling\SimpleModelBase.cs" />
     <Compile Include="Modeling\SimpleModelCollection`1.cs" />
     <Compile Include="Modeling\UpdateMode.cs" />
+    <Compile Include="Modeling\ValidationContextHelper.cs" />
     <Compile Include="Modeling\ValueChanged`1.cs" />
     <Compile Include="RandomExtended.cs" />
     <Compile Include="Collections\CommonProperties.cs" />

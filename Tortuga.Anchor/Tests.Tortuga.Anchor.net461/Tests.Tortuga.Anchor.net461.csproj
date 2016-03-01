@@ -55,6 +55,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ChangeTracking\ChangeTrackingTests.cs" />
+    <Compile Include="ChangeTracking\Customer.cs" />
+    <Compile Include="ChangeTracking\Order.cs" />
+    <Compile Include="ChangeTracking\OrderLine.cs" />
+    <Compile Include="ChangeTracking\OrderLinesCollection.cs" />
+    <Compile Include="ChangeTracking\OrdersCollection.cs" />
     <Compile Include="Collections\CollectionUtilitiesTests.cs" />
     <Compile Include="Collections\Dictionary3Tests.cs" />
     <Compile Include="Collections\ExtendedObservableCollectionTests.cs" />
@@ -83,12 +89,33 @@
     <Compile Include="Metadata\ShadowedMock.cs" />
     <Compile Include="Metadata\ShadowedMockBase.cs" />
     <Compile Include="Mocks\Bar.cs" />
+    <Compile Include="Mocks\ChangeTrackingPerson.cs" />
+    <Compile Include="Mocks\ChangeTrackingPersonCollection.cs" />
+    <Compile Include="Mocks\ChangeTrackingPersonCollectionRoot.cs" />
+    <Compile Include="Mocks\CustomPropertyBag.cs" />
+    <Compile Include="Mocks\EditablePerson.cs" />
+    <Compile Include="Mocks\EditablePersonCollection.cs" />
     <Compile Include="Mocks\Foo.cs" />
     <Compile Include="Mocks\FooCollection.cs" />
+    <Compile Include="Mocks\MockChangeTracking.cs" />
     <Compile Include="Mocks\Notifier.cs" />
     <Compile Include="Mocks\NotifierCollection.cs" />
     <Compile Include="Mocks\ReadOnlyFooCollection.cs" />
+    <Compile Include="Mocks\SimplePerson.cs" />
+    <Compile Include="Mocks\SimplePersonCollection.cs" />
     <Compile Include="Mocks\WeakNotifier.cs" />
+    <Compile Include="Modeling.Internals\ChangeTrackingPropertyBagTests.cs" />
+    <Compile Include="Modeling.Internals\EditableObjectPropertyBagTests.cs" />
+    <Compile Include="Modeling.Internals\PropertyBagBaseTests.cs" />
+    <Compile Include="Modeling.Internals\PropertyBagTests.cs" />
+    <Compile Include="Modeling.Internals\ValidationResultEqualityComparerTests.cs" />
+    <Compile Include="Modeling\ChangeTrackingModelBaseTests.cs" />
+    <Compile Include="Modeling\ChangeTrackingModelCollectionTests.cs" />
+    <Compile Include="Modeling\DataErrorsChangedEventArgsTests.cs" />
+    <Compile Include="Modeling\EditableObjectModelBaseTests.cs" />
+    <Compile Include="Modeling\EditableObjectModelCollectionTests.cs" />
+    <Compile Include="Modeling\SimpleModelBaseCollectionTests.cs" />
+    <Compile Include="Modeling\SimpleModelBaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomExtendedTests.cs" />
     <Compile Include="TaskUtilitiesTests.cs" />

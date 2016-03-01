@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,7 +22,7 @@ namespace Tortuga.Anchor.Modeling
     /// <typeparam name="T">The type of object being stored</typeparam>
     /// <typeparam name="TPropertyTracking">The type of property tracking desired.</typeparam>
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public abstract partial class ModelCollection<T, TPropertyTracking> : ObservableCollectionExtended<T>, INotifyDataErrorInfo
+    public abstract partial class ModelCollection<T, TPropertyTracking> : ObservableCollectionExtended<T>, INotifyDataErrorInfo, IDataErrorInfo
         where TPropertyTracking : PropertyBagBase
     {
         readonly ErrorsDictionary m_Errors = new ErrorsDictionary();
@@ -453,9 +454,6 @@ namespace Tortuga.Anchor.Modeling
         }
 
 
-
-#if ATTRIBUTE_VALIDATION
-
         partial void AttributeBasedValidation(string propertyName, ValidationResultCollection results)
         {
             var property = Properties.Metadata.Properties[propertyName];
@@ -466,13 +464,7 @@ namespace Tortuga.Anchor.Modeling
                 Validator.TryValidateProperty(property.InvokeGet(this), context, results);
             }
         }
-#endif
 
-    }
-
-#if DataErrorInfo
-    partial class ModelCollection<T, TPropertyTracking> : IDataErrorInfo
-    {
         /// <summary>
         /// Gets an error message indicating what is wrong with this object.
         /// </summary>
@@ -500,6 +492,5 @@ namespace Tortuga.Anchor.Modeling
             }
         }
     }
-#endif
 }
 
