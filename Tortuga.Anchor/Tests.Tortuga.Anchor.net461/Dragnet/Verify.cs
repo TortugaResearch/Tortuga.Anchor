@@ -1,0 +1,324 @@
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+
+#if MSTest
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
+
+
+namespace Tortuga.Dragnet
+{
+    public class Verify : IDisposable
+    {
+
+        private ConcurrentQueue<VerificationStep> m_TestResults = new ConcurrentQueue<VerificationStep>();
+
+        public override string ToString()
+        {
+            string Breaker = Environment.NewLine + "*****" + Environment.NewLine;
+            return string.Join(Breaker, m_TestResults.Select(x => x.ToString()));
+        }
+
+        public bool IsNotNull<T>(T actual, string message) where T : class
+        {
+
+            if (actual == null)
+            {
+                Fail($"Expected value was not null but the actual value was <null>. {message}");
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool IsNull<T>(T actual, string message) where T : class
+        {
+
+            if (actual != null)
+            {
+                Fail($"Expected value was <null> but the actual value was {actual}. {message}");
+                return false;
+            }
+
+            return true;
+        }
+
+        void IDisposable.Dispose()
+        {
+#if MSTest
+            if (m_TestResults.Any(x => x.Severity == Severity.Inconclusive))
+                throw new AssertInconclusiveException(ToString());
+            else if (m_TestResults.Any(x => x.Severity == Severity.Failed))
+                throw new AssertFailedException(ToString());
+#endif
+        }
+
+        internal void WriteLine(string message)
+        {
+            Debug.WriteLine(message);
+            Add(message, Severity.Message);
+        }
+
+        private void Add(string message, Severity severity)
+        {
+            m_TestResults.Enqueue(new VerificationStep(null, message, severity));
+        }
+
+        private void Add(string checkType, string message, Severity severity)
+        {
+            m_TestResults.Enqueue(new VerificationStep(checkType, message, severity));
+        }
+
+        public void Inconclusive(string message)
+        {
+            m_TestResults.Enqueue(new VerificationStep(null, message, Severity.Inconclusive));
+        }
+
+        public void Fail(string message)
+        {
+            m_TestResults.Enqueue(new VerificationStep(null, message, Severity.Failed));
+        }
+
+        public bool AreEqual<T>(T expected, T actual, string message)
+        {
+            if (expected == null && actual == null)
+                return true;
+
+            if (expected == null)
+            {
+                Fail($"Expected value was <null> but the actual value was {actual}. {message}");
+                return false;
+            }
+
+            if (actual == null)
+            {
+                Fail($"Expected value was {expected} but the actual value was <null>. {message}");
+                return false;
+            }
+
+            if (ReferenceEquals(expected, actual))
+                return true;
+
+            if (expected is IEquatable<T> && ((IEquatable<T>)expected).Equals(actual))
+                return true;
+
+            if (object.Equals(expected, actual))
+                return true;
+
+            Fail($"Expected value was {expected} but the actual value was {actual}. {message}");
+
+            return false;
+        }
+
+        public bool AreEqual(double expected, double actual, double tolerance, string message)
+        {
+            var min = expected - tolerance;
+            var max = expected + tolerance;
+            if (actual < min || actual > max)
+            {
+                Fail($"Value {actual} is outside the tolerance [{min}, {max}]. {message}");
+                return false;
+            }
+            return true;
+        }
+
+        public bool IsTrue(bool actual, string message)
+        {
+            return AreEqual(true, actual, message);
+        }
+
+        public bool IsFalse(bool actual, string message)
+        {
+            return AreEqual(false, actual, message);
+        }
+
+        public bool IsTrueForAll<T>(IEnumerable<T> list, Func<T, bool> predicate, string message)
+        {
+            if (list == null)
+                return true;
+
+            var count = 0;
+            var result = true;
+            foreach (var item in list)
+            {
+                var actual = predicate(item);
+                result = result && actual;
+
+                IsTrue(actual, message + $" [Item {count}]");
+
+                count++;
+            }
+
+            return result;
+        }
+
+        public bool IsBetween<T>(T minValue, T actualValue, T maxValue, string message) where T : IComparable<T>
+        {
+            var result = true;
+
+            if (minValue.CompareTo(actualValue) > 0)
+            {
+                Fail($"Actual actualValue {actualValue} is less than allowed minimum {minValue}. {message}");
+                result = false;
+            }
+
+            if (actualValue.CompareTo(maxValue) > 0)
+            {
+                Fail($"Actual actualValue {actualValue} is greater than allowed maximum {maxValue}. {message}");
+                result = false;
+            }
+
+            return result;
+        }
+
+        internal bool AreSame<T>(T expected, T actual, string message)
+            where T : class
+        {
+            if (expected == null && actual == null)
+                return true;
+
+            if (expected == null)
+            {
+                Fail($"Expected value was <null> but the actual value was {actual}. {message}");
+                return false;
+            }
+
+            if (actual == null)
+            {
+                Fail($"Expected value was {expected} but the actual value was <null>. {message}");
+                return false;
+            }
+
+            if (ReferenceEquals(expected, actual))
+                return true;
+
+            if (expected is IEquatable<T> && ((IEquatable<T>)expected).Equals(actual) || object.Equals(expected, actual))
+            {
+                Fail($"Expected value equals actual value, but they aren't the same object. {message}");
+                return false;
+            }
+
+            Fail($"Expected value was {expected} but the actual value was {actual}. {message}");
+
+            return false;
+        }
+
+
+
+        public TException Exception<TException>(Action body) where TException : Exception
+        {
+            if (body == null)
+                throw new ArgumentNullException("body", "body is null.");
+            try
+            {
+                body();
+                Fail(string.Format("Expected an exception of type {0}", typeof(TException).Name));
+            }
+            catch (TException ex)
+            {
+                return ex;
+            }
+            catch (Exception ex)
+            {
+                Fail(string.Format("Expected exception of type {0} but got a {1}", typeof(TException).Name, ex.GetType().Name));
+            }
+
+            throw new InvalidProgramException(); //this line can never be hit.
+        }
+
+
+        public TException Exception<TException>(Action body, string message) where TException : Exception
+        {
+            if (body == null)
+                throw new ArgumentNullException("body", "body is null.");
+            try
+            {
+                body();
+            }
+            catch (TException ex)
+            {
+                return ex;
+            }
+            catch (Exception ex)
+            {
+                Fail(string.Format("Expected exception of type {0} but got a {1}", typeof(TException).Name, ex.GetType().Name));
+            }
+            Fail(string.Format("Expected an exception of type {0} because {1}", typeof(TException).Name, message));
+
+            throw new InvalidProgramException(); //this line can never be hit.
+        }
+
+
+        public async Task<TException> ExceptionAsync<TException>(Func<Task> body, string message) where TException : Exception
+        {
+            try
+            {
+                await body();
+            }
+            catch (TException ex)
+            {
+                return ex;
+            }
+            catch (Exception ex)
+            {
+                Fail(string.Format("Expected exception of type {0} but got a {1}", typeof(TException).Name, ex.GetType().Name));
+            }
+            Fail(string.Format("Expected an exception of type {0} because {1}", typeof(TException).Name, message));
+
+            throw new Exception(); //this line can never be hit.
+        }
+
+
+        public ArgumentNullException ArgumentNullException(string expectedParamName, Action body)
+        {
+            var ex = Exception<ArgumentNullException>(body);
+            AreEqual(expectedParamName, ex.ParamName, "ArgumentNullException.ParamName was incorrectly set");
+            return ex;
+        }
+
+
+        public ArgumentOutOfRangeException ArgumentOutOfRangeException(string expectedParamName, string expectedActualValue, Action body)
+        {
+            var ex = Exception<ArgumentOutOfRangeException>(body);
+            AreEqual(expectedParamName, ex.ParamName, "ArgumentOutOfRangeException.ParamName was incorrectly set");
+            Assert.AreEqual(expectedActualValue, ex.ActualValue, "ArgumentOutOfRangeException.ActualValue was incorrectly set");
+            return ex;
+        }
+
+
+        public ArgumentOutOfRangeException ArgumentOutOfRangeException(string expectedParamName, int expectedActualValue, Action body)
+        {
+            var ex = Exception<ArgumentOutOfRangeException>(body);
+            AreEqual(expectedParamName, ex.ParamName, "ArgumentOutOfRangeException.ParamName was incorrectly set");
+            Assert.AreEqual(expectedActualValue, ex.ActualValue, "ArgumentOutOfRangeException.ActualValue was incorrectly set");
+            return ex;
+        }
+
+
+        public ArgumentOutOfRangeException ArgumentOutOfRangeException(string expectedParamName, int expectedActualValue, Action<int> body)
+        {
+            var ex = Exception<ArgumentOutOfRangeException>(() => body(expectedActualValue));
+            AreEqual(expectedParamName, ex.ParamName, "ArgumentOutOfRangeException.ParamName was incorrectly set");
+            Assert.AreEqual(expectedActualValue, ex.ActualValue, "ArgumentOutOfRangeException.ActualValue was incorrectly set");
+            return ex;
+        }
+
+
+        public ArgumentException ArgumentException(string expectedParamName, Action body, string message)
+        {
+            var ex = Exception<ArgumentException>(body, message);
+            AreEqual(expectedParamName, ex.ParamName, "ArgumentException.ParamName was incorrectly set");
+            return ex;
+        }
+
+        public NotSupportedException NotSupportedException(Action body)
+        {
+            return Exception<NotSupportedException>(body, "This operation was expectedValue to throw a not supported exception.");
+        }
+    }
+}
