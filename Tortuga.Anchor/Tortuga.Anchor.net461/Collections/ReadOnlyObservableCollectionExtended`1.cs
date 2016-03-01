@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -7,15 +8,20 @@ using Tortuga.Anchor.Eventing;
 namespace Tortuga.Anchor.Collections
 {
     /// <summary>
-    /// A ReadOnlyObservableCollection that includes the functionality from ObservableCollectionExtended. 
+    /// A ReadOnlyObservableCollection that includes the functionality from ExtendedObservableCollection. 
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
     public class ReadOnlyObservableCollectionExtended<T> : ReadOnlyCollection<T>,
-    INotifyCollectionChanged, INotifyPropertyChanged, INotifyItemPropertyChanged
+    INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionChangedWeak, INotifyPropertyChangedWeak, INotifyItemPropertyChanged
     {
         private readonly ObservableCollectionExtended<T> m_List;
+        private readonly Listener<NotifyCollectionChangedEventArgs> m_SourceCollectionChanged;
+        private readonly Listener<RelayedEventArgs<PropertyChangedEventArgs>> m_SourceItemPropertyChanged;
+        private readonly IListener<PropertyChangedEventArgs> m_SourcePropertyChanged;
+        private CollectionChangedEventManager m_CollectionChangeEventManager;
         private int m_PreviousCount;
+        private PropertyChangedEventManager m_PropertyChangedEventManager;
 
         /// <summary>
         /// Initializes a new instance of the ExtendedReadOnlyObservableCollection
@@ -33,9 +39,14 @@ namespace Tortuga.Anchor.Collections
         {
             m_List = list;
 
-            list.CollectionChanged += OnSourceCollectionChanged;
-            list.PropertyChanged += OnSourcePropertyChanged;
-            list.ItemPropertyChanged += OnItemPropertyChanged;
+            m_SourceCollectionChanged = new Listener<NotifyCollectionChangedEventArgs>(OnSourceCollectionChanged);
+            m_SourcePropertyChanged = new Listener<PropertyChangedEventArgs>(OnSourcePropertyChanged);
+            m_SourceItemPropertyChanged = new Listener<RelayedEventArgs<PropertyChangedEventArgs>>(OnItemPropertyChanged);
+
+            list.AddHandler(m_SourceCollectionChanged);
+            list.AddHandler(m_SourcePropertyChanged);
+            list.AddHandler(m_SourceItemPropertyChanged);
+
 
             m_PreviousCount = Count;
         }
@@ -62,6 +73,70 @@ namespace Tortuga.Anchor.Collections
         protected ObservableCollectionExtended<T> SourceList
         {
             get { return m_List; }
+        }
+
+        /// <summary>
+        /// Adds a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void AddHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_CollectionChangeEventManager == null)
+                m_CollectionChangeEventManager = new CollectionChangedEventManager(this);
+
+            m_CollectionChangeEventManager.AddHandler(eventHandler);
+        }
+
+        /// <summary>
+        /// Adds a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_PropertyChangedEventManager == null)
+                m_PropertyChangedEventManager = new PropertyChangedEventManager(this);
+
+            m_PropertyChangedEventManager.AddHandler(eventHandler);
+        }
+
+        /// <summary>
+        /// Removes a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void RemoveHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_CollectionChangeEventManager == null)
+                return;
+
+            m_CollectionChangeEventManager.RemoveHandler(eventHandler);
+        }
+
+        /// <summary>
+        /// Removes a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_PropertyChangedEventManager == null)
+                return;
+
+            m_PropertyChangedEventManager.RemoveHandler(eventHandler);
         }
 
         /// <summary>

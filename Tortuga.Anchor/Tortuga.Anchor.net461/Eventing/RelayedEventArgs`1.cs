@@ -9,8 +9,8 @@ namespace Tortuga.Anchor.Eventing
 
     public class RelayedEventArgs<T> : EventArgs where T : EventArgs
     {
-        readonly T m_EventArgs;
-        readonly object m_OriginalSender;
+        private readonly T m_EventArgs;
+        private readonly object m_OriginalSender;
 
         /// <summary>
         /// Create a new relayed event from an existing event

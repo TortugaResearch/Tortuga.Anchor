@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -17,19 +18,28 @@ namespace Tortuga.Anchor.Collections
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
-    public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, IReadOnlyList<T>, INotifyItemPropertyChanged
+    public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, INotifyCollectionChangedWeak, INotifyPropertyChangedWeak, INotifyItemPropertyChangedWeak, IReadOnlyList<T>
     {
+        private CollectionChangedEventManager m_CollectionChangeEventManager;
+
+        private IListener<PropertyChangedEventArgs> m_ItemPropertyChanged;
+
+        private ItemPropertyChangedEventManager m_ItemPropertyChangedEventManager;
+
         /// <summary>
         /// When someone attaches to the ItemPropertyChanged event this is set to true and we start listening for change notifications.
         /// </summary>
         private bool m_ListeningToItemEvents;
 
-        //This is created on demand.
+        private PropertyChangedEventManager m_PropertyChangedEventManager;
+
+        //These are created on demand.
         private ReadOnlyObservableCollectionExtended<T> m_ReadOnlyWrapper;
+
 
         /// <summary>
         /// Initializes a new instance of the ImprovedObservableCollection class.
-        /// </summary>     
+        /// </summary>  
         public ObservableCollectionExtended()
         {
         }
@@ -48,9 +58,9 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ObservableCollectionExtended{T}"/> class.
+        /// Initializes a new instance of the ImprovedObservableCollection class that contains elements copied from the specified collection.
         /// </summary>
-        /// <param name="collection">The collection from which the elements are copied.</param>
+        /// <param name="collection"></param>
         public ObservableCollectionExtended(IEnumerable<T> collection)
         {
             if (collection != null)
@@ -111,10 +121,60 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
+        /// Adds a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void AddHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_CollectionChangeEventManager == null)
+                m_CollectionChangeEventManager = new CollectionChangedEventManager(this);
+
+            m_CollectionChangeEventManager.AddHandler(eventHandler);
+        }
+
+        /// <summary>
+        /// Adds a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_PropertyChangedEventManager == null)
+                m_PropertyChangedEventManager = new PropertyChangedEventManager(this);
+
+            m_PropertyChangedEventManager.AddHandler(eventHandler);
+        }
+
+        /// <summary>
+        /// Adds a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void AddHandler(IListener<RelayedEventArgs<PropertyChangedEventArgs>> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_ItemPropertyChangedEventManager == null)
+            {
+                m_ItemPropertyChangedEventManager = new ItemPropertyChangedEventManager(this);
+                ListenToEvents();
+            }
+
+            m_ItemPropertyChangedEventManager.AddHandler(eventHandler);
+        }
+
+        /// <summary>
         /// Adds a list of values to this collection
         /// </summary>
-        /// <param name="list">The list.</param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="list"></param>
         public void AddRange(IEnumerable<T> list)
         {
             if (list == null)
@@ -122,6 +182,50 @@ namespace Tortuga.Anchor.Collections
 
             foreach (var item in list)
                 Add(item);
+        }
+
+        /// <summary>
+        /// Removes a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void RemoveHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_CollectionChangeEventManager == null)
+                return;
+
+            m_CollectionChangeEventManager.RemoveHandler(eventHandler);
+        }
+
+        /// <summary>
+        /// Removes a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_PropertyChangedEventManager != null)
+                m_PropertyChangedEventManager.RemoveHandler(eventHandler);
+        }
+
+        /// <summary>
+        /// Removes a weak event handler
+        /// </summary>
+        /// <param name="eventHandler"></param>
+        public void RemoveHandler(IListener<RelayedEventArgs<PropertyChangedEventArgs>> eventHandler)
+        {
+            if (eventHandler == null)
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+
+
+            if (m_ItemPropertyChangedEventManager != null)
+                m_ItemPropertyChangedEventManager.RemoveHandler(eventHandler);
         }
 
         /// <summary>
@@ -157,8 +261,13 @@ namespace Tortuga.Anchor.Collections
             if (ItemAdded != null)
                 ItemAdded(this, new ItemEventArgs<T>(item));
 
-            if (m_ListeningToItemEvents && item is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)item).PropertyChanged += OnItemPropertyChanged;
+            if (m_ListeningToItemEvents)
+            {
+                if (item is INotifyPropertyChangedWeak)
+                    ((INotifyPropertyChangedWeak)item).AddHandler(m_ItemPropertyChanged);
+                else if (item is INotifyPropertyChanged)
+                    ((INotifyPropertyChanged)item).PropertyChanged += OnItemPropertyChanged;
+            }
         }
 
         /// <summary>
@@ -171,10 +280,16 @@ namespace Tortuga.Anchor.Collections
             if (ItemRemoved != null)
                 ItemRemoved(this, new ItemEventArgs<T>(item));
 
-            if (m_ListeningToItemEvents && item is INotifyPropertyChanged)
-                ((INotifyPropertyChanged)item).PropertyChanged -= OnItemPropertyChanged;
+            if (m_ListeningToItemEvents)
+            {
+                if (item is INotifyPropertyChangedWeak)
+                    ((INotifyPropertyChangedWeak)item).RemoveHandler(m_ItemPropertyChanged);
+                else if (item is INotifyPropertyChanged)
+                    ((INotifyPropertyChanged)item).PropertyChanged -= OnItemPropertyChanged;
+            }
 
         }
+
         /// <summary>
         /// Raises the <see cref="E:System.Collections.ObjectModel.ObservableCollection`1.PropertyChanged" /> event with the provided arguments.
         /// </summary>
@@ -189,17 +304,19 @@ namespace Tortuga.Anchor.Collections
         /// <summary>
         /// Removes the element at the specified index of the <see cref="T:System.Collections.ObjectModel.Collection`1" />.
         /// </summary>
-        /// <param name="index">The zero-based index of the element to remove.</param>
-        /// <exception cref="ArgumentOutOfRangeException">
+        /// <param name="index">
+        /// The zero-based index of the element to remove.
+        /// </param>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="index" /> is less than zero -or-<paramref name="index" /> is equal to or greater than <see cref="P:System.Collections.ObjectModel.Collection`1.Count" />.
         /// </exception>
-        /// <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="index" /> is less than zero -or-<paramref name="index" /> is equal to or greater than <see cref="P:System.Collections.ObjectModel.Collection`1.Count" />.</exception>
         /// <remarks>Do NOT invoke this method directly. This may be overridden to provide additional validation before an item is removed to the collection.</remarks>
         protected override void RemoveItem(int index)
         {
             if (index < 0)
-                throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be >= 0");
+                throw new ArgumentOutOfRangeException(nameof(index), index, "index must be >= 0");
             if (index >= Count)
-                throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be < Count");
+                throw new ArgumentOutOfRangeException(nameof(index), index, "index must be < Count");
 
 
             T temp = base[index];
@@ -212,15 +329,13 @@ namespace Tortuga.Anchor.Collections
         /// </summary>
         /// <param name="index">The zero-based index of the element to replace.</param>
         /// <param name="item">The new value for the element at the specified index.</param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// </exception>
         /// <remarks>Do NOT invoke this method directly. This may be overridden to provide additional validation before an item is added to the collection.</remarks>
         protected override void SetItem(int index, T item)
         {
             if (index < 0)
-                throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be >= 0");
+                throw new ArgumentOutOfRangeException(nameof(index), index, "index must be >= 0");
             if (index >= Count)
-                throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be < Count");
+                throw new ArgumentOutOfRangeException(nameof(index), index, "index must be < Count");
 
 
             T temp = base[index];
@@ -236,8 +351,15 @@ namespace Tortuga.Anchor.Collections
             if (m_ListeningToItemEvents)
                 return;
 
+            m_ItemPropertyChanged = new Listener<PropertyChangedEventArgs>(OnItemPropertyChanged);
             foreach (var item in this.OfType<INotifyPropertyChanged>())
-                item.PropertyChanged += OnItemPropertyChanged;
+            {
+                if (item is INotifyPropertyChangedWeak)
+                    ((INotifyPropertyChangedWeak)item).AddHandler(m_ItemPropertyChanged);
+                else
+                    item.PropertyChanged += OnItemPropertyChanged;
+            }
+
 
             m_ListeningToItemEvents = true;
         }

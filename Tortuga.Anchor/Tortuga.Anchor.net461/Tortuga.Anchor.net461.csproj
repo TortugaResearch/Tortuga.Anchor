@@ -52,12 +52,24 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\WeakReferenceCollection.cs" />
+    <Compile Include="Eventing\CollectionChangedEventManager.cs" />
+    <Compile Include="Eventing\EventManager.cs" />
+    <Compile Include="Eventing\IListener.cs" />
+    <Compile Include="Eventing\INotifyCollectionChangedWeak.cs" />
+    <Compile Include="Eventing\INotifyItemPropertyChangedWeak.cs" />
+    <Compile Include="Eventing\INotifyPropertyChangedWeak.cs" />
+    <Compile Include="Eventing\ItemPropertyChangedEventManager.cs" />
+    <Compile Include="Eventing\Listener.cs" />
+    <Compile Include="Eventing\PropertyChangedEventManager.cs" />
+    <Compile Include="Modeling\DecomposeAttribute.cs" />
     <Compile Include="RandomExtended.cs" />
     <Compile Include="Collections\CommonProperties.cs" />
     <Compile Include="Collections\Dictionary`3.cs" />
@@ -71,7 +83,6 @@
     <Compile Include="ComponentModel\IPropertyChangeTracking.cs" />
     <Compile Include="ComponentModel\ItemEventArgs`1.cs" />
     <Compile Include="Modeling\CalculatedFieldAttribute.cs" />
-    <Compile Include="Modeling\DecomposeAttribute.cs" />
     <Compile Include="Modeling\IgnoreOnUpdateAttribute.cs" />
     <Compile Include="DataAnnotations\ValidationResultCollection.cs" />
     <Compile Include="Eventing\INotifyItemPropertyChanged.cs" />
@@ -90,6 +101,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Tortuga.Anchor.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modeling.Internals\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

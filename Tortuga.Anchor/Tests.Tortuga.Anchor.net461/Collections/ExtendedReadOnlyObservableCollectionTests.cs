@@ -1,6 +1,4 @@
 
-
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -9,6 +7,7 @@ using System.ComponentModel;
 using Tests.HelperClasses;
 using Tests.Mocks;
 using Tortuga.Anchor.Collections;
+using Tortuga.Anchor.Eventing;
 using Tortuga.Dragnet;
 
 namespace Tests.Collections
@@ -23,36 +22,49 @@ namespace Tests.Collections
         {
             using (var verify = new Verify())
             {
-                var source = new ObservableCollectionExtended<int>();
-                var target = new ReadOnlyObservableCollectionExtended<int>(source);
-                var wr = new WeakReference(target);
 
-                var sourceEvents = new Queue<NotifyCollectionChangedEventArgs>();
-                var targetEvents = new Queue<NotifyCollectionChangedEventArgs>();
+                Func<WeakReference> builder = () =>
+                {
 
-                var sourceEvents2 = new Queue<PropertyChangedEventArgs>();
-                var targetEvents2 = new Queue<PropertyChangedEventArgs>();
 
-                source.CollectionChanged += (s, e) => sourceEvents.Enqueue(e);
-                target.CollectionChanged += (s, e) => targetEvents.Enqueue(e);
 
-                source.PropertyChanged += (s, e) => sourceEvents2.Enqueue(e);
-                target.PropertyChanged += (s, e) => targetEvents2.Enqueue(e);
+                    var source = new ObservableCollectionExtended<int>();
+                    var target = new ReadOnlyObservableCollectionExtended<int>(source);
 
-                source.Add(1);
-                source.Add(2);
-                source.Add(3);
+                    var sourceEvents = new Queue<NotifyCollectionChangedEventArgs>();
+                    var targetEvents = new Queue<NotifyCollectionChangedEventArgs>();
 
-                verify.AreEqual(3, sourceEvents.Count, "NotifyCollectionChangedEventArgs in source was wrong");
-                verify.AreEqual(3, targetEvents.Count, "NotifyCollectionChangedEventArgs in target was wrong");
-                verify.AreEqual(6, sourceEvents2.Count, "PropertyChangedEventArgs in source was wrong.  There should be 2 per add.");
-                verify.AreEqual(6, targetEvents2.Count, "PropertyChangedEventArgs in target was wrong. There should be 2 per add.");
+                    var sourceEvents2 = new Queue<PropertyChangedEventArgs>();
+                    var targetEvents2 = new Queue<PropertyChangedEventArgs>();
 
-                verify.ItemsAreEqual(source, target, "Events fired by the collection and read-only wrapper should be the same");
+                    source.CollectionChanged += (s, e) => sourceEvents.Enqueue(e);
+                    target.CollectionChanged += (s, e) => targetEvents.Enqueue(e);
 
-                target = null;
+                    source.PropertyChanged += (s, e) => sourceEvents2.Enqueue(e);
+                    target.PropertyChanged += (s, e) => targetEvents2.Enqueue(e);
 
-               
+                    Memory.CycleGC();
+
+                    source.Add(1);
+                    source.Add(2);
+                    source.Add(3);
+
+                    verify.AreEqual(3, sourceEvents.Count, "NotifyCollectionChangedEventArgs in source was wrong");
+                    verify.AreEqual(3, targetEvents.Count, "NotifyCollectionChangedEventArgs in target was wrong");
+                    verify.AreEqual(6, sourceEvents2.Count, "PropertyChangedEventArgs in source was wrong.  There should be 2 per add.");
+                    verify.AreEqual(6, targetEvents2.Count, "PropertyChangedEventArgs in target was wrong. There should be 2 per add.");
+
+                    verify.ItemsAreEqual(source, target, "");
+
+                    return new WeakReference(target);
+                };
+
+                var wr = builder();
+
+
+                Memory.CycleGC();
+
+                verify.IsFalse(wr.IsAlive, "wr wasn't GC'd");
             }
         }
 
@@ -137,16 +149,80 @@ namespace Tests.Collections
             }
         }
 
+        /// <summary>
+        /// This exercises the code path where we remove a listener without first adding one.
+        /// </summary>
+        [TestMethod]
+        public void ExtendedReadOnlyObservableCollection_RemoveHandlerTest()
+        {
+            using (var verify = new Verify())
+            {
+                var list = new ObservableCollectionExtended<int>();
+                var result = new ReadOnlyObservableCollectionExtended<int>(list);
+
+                var collectionChangedEventQueue = new Queue<Tuple<object, NotifyCollectionChangedEventArgs>>();
+                var collectionChangedListener = new Listener<NotifyCollectionChangedEventArgs>((s, e) => collectionChangedEventQueue.Enqueue(Tuple.Create(s, e)));
+                result.RemoveHandler(collectionChangedListener);
+
+                var propertyChangedEventQueue = new Queue<Tuple<object, PropertyChangedEventArgs>>();
+                var propertyChangedListener = new Listener<PropertyChangedEventArgs>((s, e) => propertyChangedEventQueue.Enqueue(Tuple.Create(s, e)));
+                result.RemoveHandler(propertyChangedListener);
+            }
+        }
+
+        /// <summary>
+        /// This exercises the code path where we remove a listener twice
+        /// </summary>
+        [TestMethod]
+        public void ExtendedObservableDictionary_RemoveHandlerTest2()
+        {
+            using (var verify = new Verify())
+            {
+                var list = new ObservableCollectionExtended<int>();
+                var result = new ReadOnlyObservableCollectionExtended<int>(list);
+
+                var collectionChangedEventQueue = new Queue<Tuple<object, NotifyCollectionChangedEventArgs>>();
+                var collectionChangedListener = new Listener<NotifyCollectionChangedEventArgs>((s, e) => collectionChangedEventQueue.Enqueue(Tuple.Create(s, e)));
+                result.AddHandler(collectionChangedListener);
+                result.RemoveHandler(collectionChangedListener);
+                result.RemoveHandler(collectionChangedListener);
+
+                var propertyChangedEventQueue = new Queue<Tuple<object, PropertyChangedEventArgs>>();
+                var propertyChangedListener = new Listener<PropertyChangedEventArgs>((s, e) => propertyChangedEventQueue.Enqueue(Tuple.Create(s, e)));
+                result.AddHandler(propertyChangedListener);
+                result.RemoveHandler(propertyChangedListener);
+                result.RemoveHandler(propertyChangedListener);
+
+            }
+        }
 
 
 
 
 
+        [TestMethod]
+        public void ExtendedObservableCollection_AddNullHandlerTest()
+        {
+            using (var verify = new Verify())
+            {
+                var list = new ObservableCollectionExtended<int>();
+                var result = new ReadOnlyObservableCollectionExtended<int>(list);
+                verify.ArgumentNullException("eventHandler", () => result.AddHandler((IListener<NotifyCollectionChangedEventArgs>)null));
+                verify.ArgumentNullException("eventHandler", () => result.AddHandler((IListener<PropertyChangedEventArgs>)null));
+            }
+        }
 
-        
-
-        
-
+        [TestMethod]
+        public void ExtendedObservableCollection_RemoveNullHandlerTest()
+        {
+            using (var verify = new Verify())
+            {
+                var list = new ObservableCollectionExtended<int>();
+                var result = new ReadOnlyObservableCollectionExtended<int>(list);
+                verify.ArgumentNullException("eventHandler", () => result.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null));
+                verify.ArgumentNullException("eventHandler", () => result.RemoveHandler((IListener<PropertyChangedEventArgs>)null));
+            }
+        }
 
     }
 }

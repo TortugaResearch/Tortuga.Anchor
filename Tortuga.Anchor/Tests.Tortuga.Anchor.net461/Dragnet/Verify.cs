@@ -74,7 +74,7 @@ namespace Tortuga.Dragnet
             m_TestResults.Enqueue(new VerificationStep(checkType, message, severity));
         }
 
-        internal void ItemsAreEqual<T>(IList<T> expectedList, IList<T> actualList, string message)
+        public void ItemsAreEqual<T>(IList<T> expectedList, IList<T> actualList, string message)
         {
             IsNotNull(expectedList, $"expectedValue list. {message}");
             IsNotNull(actualList, $"actualValue list. {message}");
@@ -84,6 +84,56 @@ namespace Tortuga.Dragnet
             {
                 AreEqual(expectedList[i], actualList[i], $"The lists differ in slot {i}. {message}");
             }
+        }
+
+        public void ItemsAreEqual<T>(IEnumerable<T> expectedEnumerable, IEnumerable<T> actualEnumerable, string message)
+        {
+            IsNotNull(expectedEnumerable, $"expectedValue enumerable {message}");
+            IsNotNull(actualEnumerable, $"actualValue enumerable {message}");
+
+            var expectedValue = expectedEnumerable.GetEnumerator();
+            var actualValue = actualEnumerable.GetEnumerator();
+            var index = 0;
+
+            while (expectedValue.MoveNext())
+            {
+                IsTrue(actualValue.MoveNext(), $"actualValue had too few items. {message}");
+                AreEqual(expectedValue.Current, actualValue.Current, $"expectedValue doesn't match actualValue in slot {index}. {message}");
+                index++;
+            }
+
+            IsFalse(actualValue.MoveNext(), $"actualValue had too many items. {message}");
+        }
+
+        public void ItemsAreSame<T>(IList<T> expectedList, IList<T> actualList, string message) where T : class
+        {
+            IsNotNull(expectedList, $"expectedValue list. {message}");
+            IsNotNull(actualList, $"actualValue list. {message}");
+
+            AreEqual(expectedList.Count, actualList.Count, $"The counts differ between the two lists. {message}");
+            for (var i = 0; i < expectedList.Count; i++)
+            {
+                AreSame(expectedList[i], actualList[i], $"The lists differ in slot {i}. {message}");
+            }
+        }
+
+        public void ItemsAreSame<T>(IEnumerable<T> expectedEnumerable, IEnumerable<T> actualEnumerable, string message) where T :class
+        {
+            IsNotNull(expectedEnumerable, "expectedValue enumerable");
+            IsNotNull(actualEnumerable, "actualValue enumerable");
+
+            var expectedValue = expectedEnumerable.GetEnumerator();
+            var actualValue = actualEnumerable.GetEnumerator();
+            var index = 0;
+
+            while (expectedValue.MoveNext())
+            {
+                IsTrue(actualValue.MoveNext(), $"actualValue had too few items. {message}");
+                AreSame(expectedValue.Current, actualValue.Current, $"expectedValue doesn't match actualValue in slot {index}. {message}");
+                index++;
+            }
+
+            IsFalse(actualValue.MoveNext(), $"actualValue had too many items. {message}");
         }
 
         public void Inconclusive(string message)
@@ -167,6 +217,11 @@ namespace Tortuga.Dragnet
             }
 
             return result;
+        }
+
+        internal bool IsEmpty<T>(IReadOnlyCollection<T> list, string message)
+        {
+            return AreEqual(0, list.Count, $"Expected the collection to be empty. {message}");
         }
 
         public bool IsBetween<T>(T minValue, T actualValue, T maxValue, string message) where T : IComparable<T>
