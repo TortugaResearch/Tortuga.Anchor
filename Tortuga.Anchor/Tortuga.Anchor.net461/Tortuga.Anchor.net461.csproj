@@ -69,7 +69,28 @@
     <Compile Include="Eventing\ItemPropertyChangedEventManager.cs" />
     <Compile Include="Eventing\Listener.cs" />
     <Compile Include="Eventing\PropertyChangedEventManager.cs" />
+    <Compile Include="Modeling.Internals\ChangeTrackingPropertyBag.cs" />
+    <Compile Include="Modeling.Internals\CommonProperties.cs" />
+    <Compile Include="Modeling.Internals\EditableObjectPropertyBag.cs" />
+    <Compile Include="Modeling.Internals\ErrorsDictionary.cs" />
+    <Compile Include="Modeling.Internals\ErrorsDictionaryUpdateType.cs" />
+    <Compile Include="Modeling.Internals\IsChangedPropertyChangedEventArgs.cs" />
+    <Compile Include="Modeling.Internals\PropertyBag.cs" />
+    <Compile Include="Modeling.Internals\PropertyBagBase.cs" />
+    <Compile Include="Modeling.Internals\PropertySetModes.cs" />
+    <Compile Include="Modeling.Internals\ValidationResultEqualityComparer.cs" />
+    <Compile Include="Modeling\ChangeTrackingModelBase.cs" />
+    <Compile Include="Modeling\ChangeTrackingModelCollection`1.cs" />
     <Compile Include="Modeling\DecomposeAttribute.cs" />
+    <Compile Include="Modeling\EditableObjectModelBase.cs" />
+    <Compile Include="Modeling\EditableObjectModelCollection`1.cs" />
+    <Compile Include="Modeling\ModelBase.cs" />
+    <Compile Include="Modeling\ModelBase`1.cs" />
+    <Compile Include="Modeling\ModelCollection`2.cs" />
+    <Compile Include="Modeling\SimpleModelBase.cs" />
+    <Compile Include="Modeling\SimpleModelCollection`1.cs" />
+    <Compile Include="Modeling\UpdateMode.cs" />
+    <Compile Include="Modeling\ValueChanged`1.cs" />
     <Compile Include="RandomExtended.cs" />
     <Compile Include="Collections\CommonProperties.cs" />
     <Compile Include="Collections\Dictionary`3.cs" />
@@ -102,9 +123,7 @@
     <None Include="packages.config" />
     <None Include="Tortuga.Anchor.snk" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modeling.Internals\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

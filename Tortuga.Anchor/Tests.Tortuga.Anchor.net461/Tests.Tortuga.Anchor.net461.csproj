@@ -61,6 +61,8 @@
     <Compile Include="Collections\ExtendedReadOnlyObservableCollectionTests.cs" />
     <Compile Include="Collections\WeakReferenceCollectionTests.cs" />
     <Compile Include="ComponentModel\ItemEventArgsTests.cs" />
+    <Compile Include="DataAnnotations\CalculatedFieldAttributeTests.cs" />
+    <Compile Include="DataAnnotations\ValidationResultCollectionTests.cs" />
     <Compile Include="Dragnet\CollectionChangedEventTest.cs" />
     <Compile Include="Dragnet\EventPair`1.cs" />
     <Compile Include="Dragnet\EventTest.cs" />
