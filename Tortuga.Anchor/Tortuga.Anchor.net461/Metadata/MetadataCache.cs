@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Xml.Linq;
 
 namespace Tortuga.Anchor.Metadata
 {
@@ -45,56 +44,6 @@ namespace Tortuga.Anchor.Metadata
                 else if (property.CanWrite)
                 {
                     yield return decompositionPrefix + property.MappedColumnName;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Populates the complex object.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="target">The object being populated.</param>
-        /// <param name="decompositionPrefix">The decomposition prefix.</param>
-        /// <remarks>This honors the Column and Decompose attributes.</remarks>
-        static public void PopulateComplexObject(IReadOnlyDictionary<string, object> source, object target, string decompositionPrefix)
-        {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
-            if (target == null)
-                throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
-
-            foreach (var property in GetMetadata(target.GetType()).Properties)
-            {
-                if (property.CanWrite && source.ContainsKey(decompositionPrefix + property.MappedColumnName))
-                {
-                    var value = source[property.MappedColumnName];
-
-                    //XML values come to us as strings
-                    if (value is string)
-                    {
-                        if (property.PropertyType == typeof(XElement))
-                            value = XElement.Parse((string)value);
-                        else if (property.PropertyType == typeof(XDocument))
-                            value = XDocument.Parse((string)value);
-                    }
-
-                    property.InvokeSet(target, value);
-                }
-                else if (property.Decompose)
-                {
-                    object child = null;
-
-                    if (property.CanRead)
-                        child = property.InvokeGet(target);
-
-                    if (child == null && property.CanWrite && property.PropertyType.GetConstructor(new Type[0]) != null)
-                    {
-                        child = Activator.CreateInstance(property.PropertyType);
-                        property.InvokeSet(target, child);
-                    }
-
-                    if (child != null)
-                        PopulateComplexObject(source, child, decompositionPrefix + property.DecompositionPrefix);
                 }
             }
         }
