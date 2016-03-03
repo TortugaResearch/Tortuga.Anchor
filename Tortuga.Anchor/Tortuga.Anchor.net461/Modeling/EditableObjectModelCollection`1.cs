@@ -14,7 +14,7 @@ namespace Tortuga.Anchor.Modeling
     /// </summary>
     /// <typeparam name="TModelType"></typeparam>
 	[DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public class EditableObjectModelCollection<TModelType> : ModelCollection<TModelType, EditableObjectPropertyBag>, IRevertibleChangeTracking, IEditableObject
+    public class EditableObjectModelCollection<TModelType> : AbstractModelCollection<TModelType, EditableObjectPropertyBag>, IRevertibleChangeTracking, IEditableObject
     {
         readonly List<TModelType> m_OriginalList = new List<TModelType>();
         readonly List<TModelType> m_CheckpointItems = new List<TModelType>();

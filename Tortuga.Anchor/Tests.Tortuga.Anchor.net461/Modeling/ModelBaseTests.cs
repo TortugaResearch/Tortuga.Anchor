@@ -13,10 +13,10 @@ using Tortuga.Dragnet;
 namespace Tests.Modeling
 {
     [TestClass]
-    public class SimpleModelBaseTests
+    public class ModelBaseTests
     {
         [TestMethod]
-        public void SimpleModelBase_AddRemoveHandlerTest()
+        public void ModelBase_AddRemoveHandlerTest()
         {
             var fired = false;
             var person = new SimplePerson();
@@ -32,7 +32,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_AddHandlerNullTest()
+        public void ModelBase_AddHandlerNullTest()
         {
             var person = new SimplePerson();
             try
@@ -47,7 +47,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_RemoveHandlerNullTest()
+        public void ModelBase_RemoveHandlerNullTest()
         {
             var person = new SimplePerson();
             try
@@ -63,7 +63,7 @@ namespace Tests.Modeling
 
 
         [TestMethod]
-        public void SimpleModelBase_BasicFunctionalityTest()
+        public void ModelBase_BasicFunctionalityTest()
         {
             using (var verify = new Verify())
             {
@@ -89,7 +89,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_PropertyChangedTest()
+        public void ModelBase_PropertyChangedTest()
         {
             var person = new SimplePerson();
             try
@@ -105,7 +105,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_ValidationTest()
+        public void ModelBase_ValidationTest()
         {
             using (var verify = new Verify())
             {
@@ -131,7 +131,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_ValidationTest2()
+        public void ModelBase_ValidationTest2()
         {
             using (var verify = new Verify())
             {
@@ -153,7 +153,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetNewTest()
+        public void ModelBase_GetNewTest()
         {
             var person = new SimplePerson();
 
@@ -167,13 +167,13 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_CtrTest()
+        public void ModelBase_CtrTest()
         {
             var employee = new SimplePerson();
         }
 
         [TestMethod]
-        public void SimpleModelBase_BasicValidation()
+        public void ModelBase_BasicValidation()
         {
             var person = new SimplePerson();
             Assert.IsFalse(person.HasErrors);
@@ -213,7 +213,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_MultiFieldValidation()
+        public void ModelBase_MultiFieldValidation()
         {
 
             var person = new SimplePerson();
@@ -248,7 +248,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetFailedTest()
+        public void ModelBase_GetFailedTest()
         {
 
             var person = new SimplePerson();
@@ -264,7 +264,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetFailedTest3()
+        public void ModelBase_GetFailedTest3()
         {
 
             var person = new SimplePerson();
@@ -280,7 +280,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetFailedTest2()
+        public void ModelBase_GetFailedTest2()
         {
 
             var person = new SimplePerson();
@@ -296,7 +296,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetFailedTest4()
+        public void ModelBase_GetFailedTest4()
         {
 
             var person = new SimplePerson();
@@ -312,7 +312,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetNewFailedTest1()
+        public void ModelBase_GetNewFailedTest1()
         {
 
             var person = new SimplePerson();
@@ -328,7 +328,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetNewFailedTest2()
+        public void ModelBase_GetNewFailedTest2()
         {
 
             var person = new SimplePerson();
@@ -344,7 +344,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetNewFailedTest3()
+        public void ModelBase_GetNewFailedTest3()
         {
 
             var person = new SimplePerson();
@@ -360,7 +360,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetNewFailedTest4()
+        public void ModelBase_GetNewFailedTest4()
         {
 
             var person = new SimplePerson();
@@ -376,7 +376,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetNewFailedTest5()
+        public void ModelBase_GetNewFailedTest5()
         {
 
             var person = new SimplePerson();
@@ -392,7 +392,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetNewFailedTest6()
+        public void ModelBase_GetNewFailedTest6()
         {
 
             var person = new SimplePerson();
@@ -408,7 +408,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_GetNewFailedTest7()
+        public void ModelBase_GetNewFailedTest7()
         {
 
             var person = new SimplePerson();
@@ -424,7 +424,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_SetFailedTest1()
+        public void ModelBase_SetFailedTest1()
         {
 
             var person = new SimplePerson();
@@ -440,7 +440,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_SetFailedTest2()
+        public void ModelBase_SetFailedTest2()
         {
 
             var person = new SimplePerson();
@@ -456,7 +456,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_SerializationTest1()
+        public void ModelBase_SerializationTest1()
         {
             var person = new SimplePerson();
             person.FirstName = "Tom";
@@ -475,7 +475,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBase_ValueChangedTest()
+        public void ModelBase_ValueChangedTest()
         {
 
             var person = new SimplePerson();

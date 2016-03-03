@@ -9,20 +9,20 @@ namespace Tortuga.Anchor.Modeling
     /// ModelCollection using the default property bag implementation.
     /// </summary>
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public class SimpleModelCollection<T> : ModelCollection<T, PropertyBag>
+    public class ModelCollection<T> : AbstractModelCollection<T, PropertyBag>
     {
         /// <summary>
         /// Creates a model collection using the default property bag implementation..
         /// </summary>
 
-        protected SimpleModelCollection() { }
+        protected ModelCollection() { }
 
         /// <summary>
         /// Creates a model collection using the default property bag implementation..
         /// </summary>
         /// <param name="list">The list from which the elements are copied.</param>
 
-        protected SimpleModelCollection(List<T> list)
+        protected ModelCollection(List<T> list)
             : base(list)
         { }
 
@@ -31,7 +31,7 @@ namespace Tortuga.Anchor.Modeling
         /// </summary>
         /// <param name="collection">The collection from which the elements are copied.</param>
 
-        protected SimpleModelCollection(IEnumerable<T> collection)
+        protected ModelCollection(IEnumerable<T> collection)
             : base(collection)
         { }
 

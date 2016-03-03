@@ -11,7 +11,7 @@ namespace Tortuga.Anchor.Modeling
     /// This ModelBase adds the IEditableObject interface to the ChangeTrackingModelBase. The IEditableObject methods are designed for dialogs with ok/cancel semantics. Use the IChangeTracking to track unsaved changes.
     /// </summary>
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public class EditableObjectModelBase : ModelBase<EditableObjectPropertyBag>, IDetailedPropertyChangeTracking, IEditableObject
+    public class EditableObjectModelBase : AbstractModelBase<EditableObjectPropertyBag>, IDetailedPropertyChangeTracking, IEditableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EditableObjectModelBase"/> class.

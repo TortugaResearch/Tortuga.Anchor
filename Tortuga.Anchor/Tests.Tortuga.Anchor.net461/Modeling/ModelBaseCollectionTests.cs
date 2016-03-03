@@ -13,11 +13,11 @@ using Tortuga.Dragnet;
 namespace Tests.Modeling
 {
     [TestClass]
-    public class SimpleModelBaseCollectionTests
+    public class ModelBaseCollectionTests
     {
 
         [TestMethod]
-        public void SimpleModelBaseCollection_AddRemoveHandlerTest()
+        public void ModelBaseCollection_AddRemoveHandlerTest()
         {
             var fired = false;
             var person = new SimplePersonCollection();
@@ -33,7 +33,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_AddHandlerNullTest()
+        public void ModelBaseCollection_AddHandlerNullTest()
         {
             var person = new SimplePersonCollection();
             try
@@ -48,7 +48,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_AddHandlerNullTest2()
+        public void ModelBaseCollection_AddHandlerNullTest2()
         {
             var person = new SimplePersonCollection();
             try
@@ -63,7 +63,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_AddHandlerNullTest3()
+        public void ModelBaseCollection_AddHandlerNullTest3()
         {
             var person = new SimplePersonCollection();
             try
@@ -80,7 +80,7 @@ namespace Tests.Modeling
 
 
         [TestMethod]
-        public void SimpleModelBaseCollection_RemoveHandlerNullTest()
+        public void ModelBaseCollection_RemoveHandlerNullTest()
         {
             var person = new SimplePersonCollection();
             try
@@ -95,7 +95,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_RemoveHandlerNullTest2()
+        public void ModelBaseCollection_RemoveHandlerNullTest2()
         {
             var person = new SimplePersonCollection();
             try
@@ -110,7 +110,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_RemoveHandlerNullTest3()
+        public void ModelBaseCollection_RemoveHandlerNullTest3()
         {
             var person = new SimplePersonCollection();
             try
@@ -127,7 +127,7 @@ namespace Tests.Modeling
 
 
         [TestMethod]
-        public void SimpleModelBaseCollection_BasicFunctionalityTest()
+        public void ModelBaseCollection_BasicFunctionalityTest()
         {
             using (var verify = new Verify())
             {
@@ -153,7 +153,7 @@ namespace Tests.Modeling
         }
 
         //[TestMethod]
-        //public void SimpleModelBaseCollection_PropertyChangedTest()
+        //public void ModelBaseCollection_PropertyChangedTest()
         //{
         //	var person = new SimplePersonCollection();
         //	try
@@ -169,7 +169,7 @@ namespace Tests.Modeling
         //}
 
         [TestMethod]
-        public void SimpleModelBaseCollection_ValidationTest()
+        public void ModelBaseCollection_ValidationTest()
         {
             using (var verify = new Verify())
             {
@@ -195,7 +195,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_ValidationTest2()
+        public void ModelBaseCollection_ValidationTest2()
         {
             using (var verify = new Verify())
             {
@@ -223,7 +223,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetNewTest()
+        public void ModelBaseCollection_GetNewTest()
         {
             var person = new SimplePersonCollection();
 
@@ -237,13 +237,13 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_CtrTest()
+        public void ModelBaseCollection_CtrTest()
         {
             var employee = new SimplePersonCollection();
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_BasicValidation()
+        public void ModelBaseCollection_BasicValidation()
         {
             var person = new SimplePersonCollection();
             Assert.IsFalse(person.HasErrors);
@@ -283,7 +283,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_MultiFieldValidation()
+        public void ModelBaseCollection_MultiFieldValidation()
         {
 
             var person = new SimplePersonCollection();
@@ -313,7 +313,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetFailedTest()
+        public void ModelBaseCollection_GetFailedTest()
         {
 
             var person = new SimplePersonCollection();
@@ -330,7 +330,7 @@ namespace Tests.Modeling
 
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetFailedTest3()
+        public void ModelBaseCollection_GetFailedTest3()
         {
 
             var person = new SimplePersonCollection();
@@ -346,7 +346,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetFailedTest2()
+        public void ModelBaseCollection_GetFailedTest2()
         {
 
             var person = new SimplePersonCollection();
@@ -362,7 +362,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetFailedTest4()
+        public void ModelBaseCollection_GetFailedTest4()
         {
 
             var person = new SimplePersonCollection();
@@ -378,7 +378,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetNewFailedTest1()
+        public void ModelBaseCollection_GetNewFailedTest1()
         {
 
             var person = new SimplePersonCollection();
@@ -394,7 +394,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetNewFailedTest2()
+        public void ModelBaseCollection_GetNewFailedTest2()
         {
 
             var person = new SimplePersonCollection();
@@ -410,7 +410,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetNewFailedTest3()
+        public void ModelBaseCollection_GetNewFailedTest3()
         {
 
             var person = new SimplePersonCollection();
@@ -426,7 +426,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetNewFailedTest4()
+        public void ModelBaseCollection_GetNewFailedTest4()
         {
 
             var person = new SimplePersonCollection();
@@ -442,7 +442,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_GetNewFailedTest5()
+        public void ModelBaseCollection_GetNewFailedTest5()
         {
 
             var person = new SimplePersonCollection();
@@ -458,7 +458,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_SetFailedTest1()
+        public void ModelBaseCollection_SetFailedTest1()
         {
 
             var person = new SimplePersonCollection();
@@ -474,7 +474,7 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void SimpleModelBaseCollection_SetFailedTest2()
+        public void ModelBaseCollection_SetFailedTest2()
         {
 
             var person = new SimplePersonCollection();
@@ -491,7 +491,7 @@ namespace Tests.Modeling
 
 
         [TestMethod]
-        public void SimpleModelBaseCollection_CtrTest1()
+        public void ModelBaseCollection_CtrTest1()
         {
             var list = new List<SimplePerson>() { new SimplePerson(), new SimplePerson(), new SimplePerson() };
 
@@ -502,7 +502,7 @@ namespace Tests.Modeling
 
 
         [TestMethod]
-        public void SimpleModelBaseCollection_CtrTest2()
+        public void ModelBaseCollection_CtrTest2()
         {
             var list = new List<SimplePerson>() { new SimplePerson(), new SimplePerson(), new SimplePerson() };
 
@@ -514,7 +514,7 @@ namespace Tests.Modeling
 
 
         [TestMethod]
-        public void SimpleModelBaseCollection_SerializationTest1()
+        public void ModelBaseCollection_SerializationTest1()
         {
             var people = new SimplePersonCollection();
             people.FirstName = "Tom";

@@ -10,7 +10,7 @@ namespace Tortuga.Anchor.Modeling
     /// This ModelBase tracks which fields have changed since the last time AcceptChanges or RejectChanges was called. The purpose of this ModelBase is to easy to determine which objects have unsaved changes.
     /// </summary>
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public class ChangeTrackingModelBase : ModelBase<ChangeTrackingPropertyBag>, IDetailedPropertyChangeTracking
+    public class ChangeTrackingModelBase : AbstractModelBase<ChangeTrackingPropertyBag>, IDetailedPropertyChangeTracking
     {
 
         /// <summary>

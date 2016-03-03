@@ -44,7 +44,7 @@ namespace Tests.Modeling.Internals
             }
         }
 
-        class MockModel : ModelBase<MockPropertyBag>
+        class MockModel : AbstractModelBase<MockPropertyBag>
         {
 
             internal MockPropertyBag GetPropertyBag()

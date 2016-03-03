@@ -25,6 +25,8 @@
     <DocumentationFile>bin\Debug\Tortuga.Anchor.XML</DocumentationFile>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\Tortuga.Anchor.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +39,8 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <CodeAnalysisRuleSet>..\Tortuga.Anchor.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -84,11 +88,11 @@
     <Compile Include="Modeling\DecomposeAttribute.cs" />
     <Compile Include="Modeling\EditableObjectModelBase.cs" />
     <Compile Include="Modeling\EditableObjectModelCollection`1.cs" />
+    <Compile Include="Modeling.Internals\AbstractModelBase.cs" />
+    <Compile Include="Modeling.Internals\AbstractModelBase`1.cs" />
+    <Compile Include="Modeling.Internals\AbstractModelCollection`2.cs" />
     <Compile Include="Modeling\ModelBase.cs" />
-    <Compile Include="Modeling\ModelBase`1.cs" />
-    <Compile Include="Modeling\ModelCollection`2.cs" />
-    <Compile Include="Modeling\SimpleModelBase.cs" />
-    <Compile Include="Modeling\SimpleModelCollection`1.cs" />
+    <Compile Include="Modeling\ModelCollection`1.cs" />
     <Compile Include="Modeling\UpdateMode.cs" />
     <Compile Include="Modeling\ValidationContextHelper.cs" />
     <Compile Include="Modeling\ValueChanged`1.cs" />

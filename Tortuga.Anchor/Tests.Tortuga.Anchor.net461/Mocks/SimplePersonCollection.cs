@@ -5,7 +5,7 @@ using Tortuga.Anchor.Modeling;
 
 namespace Tests.Mocks
 {
-	public class SimplePersonCollection : SimpleModelCollection<SimplePerson>
+	public class SimplePersonCollection : ModelCollection<SimplePerson>
 	{
 		/// <summary>
 		/// Creates a model collection using the default property bag implementation..

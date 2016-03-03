@@ -13,7 +13,7 @@ namespace Tortuga.Anchor.Modeling
     /// </summary>
     /// <typeparam name="TModelType"></typeparam>
 	[DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public class ChangeTrackingModelCollection<TModelType> : ModelCollection<TModelType, ChangeTrackingPropertyBag>, IRevertibleChangeTracking
+    public class ChangeTrackingModelCollection<TModelType> : AbstractModelCollection<TModelType, ChangeTrackingPropertyBag>, IRevertibleChangeTracking
     {
         readonly List<TModelType> m_OriginalList = new List<TModelType>();
         bool m_AllowIsChangedEvents;

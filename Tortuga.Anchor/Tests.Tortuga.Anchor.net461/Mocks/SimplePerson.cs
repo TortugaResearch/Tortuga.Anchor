@@ -6,7 +6,7 @@ using Tortuga.Anchor.Modeling.Internals;
 
 namespace Tests.Mocks
 {
-	public class SimplePerson : SimpleModelBase
+	public class SimplePerson : ModelBase
 	{
 		[Required()]
 		public string FirstName

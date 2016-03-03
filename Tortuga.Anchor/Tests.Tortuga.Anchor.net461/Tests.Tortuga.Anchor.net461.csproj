@@ -114,8 +114,8 @@
     <Compile Include="Modeling\DataErrorsChangedEventArgsTests.cs" />
     <Compile Include="Modeling\EditableObjectModelBaseTests.cs" />
     <Compile Include="Modeling\EditableObjectModelCollectionTests.cs" />
-    <Compile Include="Modeling\SimpleModelBaseCollectionTests.cs" />
-    <Compile Include="Modeling\SimpleModelBaseTests.cs" />
+    <Compile Include="Modeling\ModelBaseCollectionTests.cs" />
+    <Compile Include="Modeling\ModelBaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomExtendedTests.cs" />
     <Compile Include="TaskUtilitiesTests.cs" />
