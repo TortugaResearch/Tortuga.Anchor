@@ -8,6 +8,7 @@
     <description>Commons and data modeling library for the Toruga project.</description>
     <tags>.net461</tags>
     <language>en-US</language>
+    <projectUrl>https://github.com/docevaad/Anchor</projectUrl>
     <references>
       <reference file="Tortuga.Anchor.dll" />
     </references>
