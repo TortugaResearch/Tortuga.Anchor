@@ -73,7 +73,7 @@
 	<Target Name="BuildNugetFile">
 		<Copy SourceFiles="$(MSBuildProjectDirectory)\$(NuspecName)" DestinationFolder="$(BuildOutputPath)" />
 
-		<Message Text="Updaing Nuspec File..." />
+		<Message Text="Updating Nuspec File..." />
 
 		<GetAssemblyIdentity AssemblyFiles="$(VersionSource)">
 			<Output TaskParameter="Assemblies" ItemName="AssemblyIdentity" />

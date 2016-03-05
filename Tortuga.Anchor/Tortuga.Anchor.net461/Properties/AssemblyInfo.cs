@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Tortuga.Anchor")]
+[assembly: AssemblyProduct("Tortuga Anchor")]
 [assembly: AssemblyCopyright("Copyright © 2016 David Tomcik, Jonathan Allen")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
