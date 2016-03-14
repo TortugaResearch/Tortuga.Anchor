@@ -73,6 +73,7 @@
     <Compile Include="Eventing\ItemPropertyChangedEventManager.cs" />
     <Compile Include="Eventing\Listener.cs" />
     <Compile Include="Eventing\PropertyChangedEventManager.cs" />
+    <Compile Include="LockUtilities.cs" />
     <Compile Include="Modeling.Internals\ChangeTrackingPropertyBag.cs" />
     <Compile Include="Modeling.Internals\CommonProperties.cs" />
     <Compile Include="Modeling.Internals\EditableObjectPropertyBag.cs" />
