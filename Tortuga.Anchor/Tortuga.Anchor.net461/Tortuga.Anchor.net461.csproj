@@ -122,6 +122,8 @@
     <Compile Include="Metadata\PropertyMetadataCollection.cs" />
     <Compile Include="Modeling\IgnoreOnInsertAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringJoinOption.cs" />
+    <Compile Include="StringUtilities.cs" />
     <Compile Include="TaskUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
