@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 
 namespace Tortuga.Anchor
 {
@@ -48,6 +49,23 @@ namespace Tortuga.Anchor
 
             foreach (var item in list)
                 target.Add(item);
+        }
+
+        /// <summary>
+        /// Unwraps a list of Tasks and adds their results to the target collection.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="target">The target collection to be added to.</param>
+        /// <param name="list">The list.</param>
+        public static async Task AddRange<T>(this ICollection<T> target, IEnumerable<Task<T>> list)
+        {
+            if (target == null)
+                throw new ArgumentNullException("target", "target is null.");
+            if (list == null)
+                throw new ArgumentNullException("list", "list is null.");
+
+            foreach (var item in list)
+                target.Add(await item);
         }
 
         /// <summary>
