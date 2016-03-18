@@ -18,6 +18,6 @@ namespace Tortuga.Anchor
         /// <summary>
         /// Nulls and empty strings are skipped. This prevents two separators from appearing one after the other.
         /// </summary>
-        DiscardEmptyStrings = 2
+        DiscardEmptyAndNull = 2
     }
 }

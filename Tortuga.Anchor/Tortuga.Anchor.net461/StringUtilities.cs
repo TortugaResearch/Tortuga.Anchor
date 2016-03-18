@@ -88,7 +88,7 @@ namespace Tortuga.Anchor
                 if (!en.MoveNext())
                     return "";
 
-                if (option == StringJoinOption.DiscardEmptyStrings)
+                if (option == StringJoinOption.DiscardEmptyAndNull)
                 {
 
                     //find the first non-empty string
@@ -183,7 +183,7 @@ namespace Tortuga.Anchor
                 if (!en.MoveNext())
                     return "";
 
-                if (option == StringJoinOption.DiscardEmptyStrings)
+                if (option == StringJoinOption.DiscardEmptyAndNull)
                 {
                     //find the first non-empty string
                     while (string.IsNullOrEmpty(en.Current))
