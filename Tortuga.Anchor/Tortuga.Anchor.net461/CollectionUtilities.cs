@@ -16,6 +16,26 @@ namespace Tortuga.Anchor
         /// <typeparam name="T"></typeparam>
         /// <param name="target"></param>
         /// <param name="list"></param>
+        public static void AddRange<T>(this ICollection<T> target, List<T> list)
+        {
+            if (target == null)
+                throw new ArgumentNullException("target", "target is null.");
+            if (target.IsReadOnly)
+                throw new ArgumentException("target.IsReadOnly must be false", "target");
+            if (list == null)
+                throw new ArgumentNullException("list", "list is null.");
+
+
+            foreach (var item in list)
+                target.Add(item);
+        }
+
+        /// <summary>
+        /// Adds a list of values into the target collection. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="target"></param>
+        /// <param name="list"></param>
         public static void AddRange<T>(this ICollection<T> target, IEnumerable<T> list)
         {
             if (target == null)
@@ -25,6 +45,9 @@ namespace Tortuga.Anchor
             if (list == null)
                 throw new ArgumentNullException("list", "list is null.");
 
+            var typedList = list as List<T>;
+            if (typedList != null)
+                AddRange(target, typedList); //switch to fast path
 
             foreach (var item in list)
                 target.Add(item);

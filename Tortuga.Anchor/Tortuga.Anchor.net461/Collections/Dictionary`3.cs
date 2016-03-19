@@ -49,6 +49,23 @@ namespace Tortuga.Anchor.Collections
         /// <summary>
         /// Initializes a new instance of the <see cref="Dictionary{TKey1, TKey2, TValue}" /> class.
         /// </summary>
+        /// <param name="dictionary">The dictionary to copy.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]
+        public Dictionary(Dictionary<Pair<TKey1, TKey2>, TValue> dictionary)
+            : this()
+        {
+            if (dictionary == null)
+                throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null or empty.");
+
+            foreach (var item in dictionary)
+                m_Interface.Add(item);
+        }
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Dictionary{TKey1, TKey2, TValue}" /> class.
+        /// </summary>
         /// <param name="comparer">The comparer.</param>
         /// <exception cref="ArgumentNullException"></exception>
         [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures")]

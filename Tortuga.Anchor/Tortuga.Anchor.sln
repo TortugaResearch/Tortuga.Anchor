@@ -31,15 +31,20 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug-Unchecked|Any CPU = Debug-Unchecked|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D85A7865-E499-4352-9F57-F824234815DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D85A7865-E499-4352-9F57-F824234815DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D85A7865-E499-4352-9F57-F824234815DA}.Debug-Unchecked|Any CPU.ActiveCfg = Debug-Unchecked|Any CPU
+		{D85A7865-E499-4352-9F57-F824234815DA}.Debug-Unchecked|Any CPU.Build.0 = Debug-Unchecked|Any CPU
 		{D85A7865-E499-4352-9F57-F824234815DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D85A7865-E499-4352-9F57-F824234815DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ABD360C7-14A6-4880-B794-7E40E896F0C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ABD360C7-14A6-4880-B794-7E40E896F0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABD360C7-14A6-4880-B794-7E40E896F0C4}.Debug-Unchecked|Any CPU.ActiveCfg = Debug-Unchecked|Any CPU
+		{ABD360C7-14A6-4880-B794-7E40E896F0C4}.Debug-Unchecked|Any CPU.Build.0 = Debug-Unchecked|Any CPU
 		{ABD360C7-14A6-4880-B794-7E40E896F0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABD360C7-14A6-4880-B794-7E40E896F0C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
