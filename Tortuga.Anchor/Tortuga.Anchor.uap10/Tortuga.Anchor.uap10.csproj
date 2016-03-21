@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{78063865-2271-4829-BBC6-8DCF9F10A3FF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tortuga.Anchor</RootNamespace>
+    <AssemblyName>Tortuga.Anchor</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Debug\Tortuga.Anchor.XML</DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\Tortuga.Anchor.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\Tortuga.Anchor.XML</DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\Tortuga.Anchor.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="..\Tortuga.Anchor.net461\Tortuga.Anchor.snk">
+      <Link>Tortuga.Anchor.snk</Link>
+    </None>
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Tortuga.Anchor.net461\Collections\CommonProperties.cs">
+      <Link>Collections\CommonProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Collections\Dictionary`3.cs">
+      <Link>Collections\Dictionary`3.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Collections\ObservableCollectionExtended`1.cs">
+      <Link>Collections\ObservableCollectionExtended`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Collections\Pair.cs">
+      <Link>Collections\Pair.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Collections\Pair`2.cs">
+      <Link>Collections\Pair`2.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Collections\ReadOnlyObservableCollectionExtended`1.cs">
+      <Link>Collections\ReadOnlyObservableCollectionExtended`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Collections\WeakReferenceCollection.cs">
+      <Link>Collections\WeakReferenceCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\CollectionUtilities.cs">
+      <Link>CollectionUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\ComponentModel\IDetailedPropertyChangeTracking.cs">
+      <Link>ComponentModel\IDetailedPropertyChangeTracking.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\ComponentModel\INotifyCollectionChanged`1.cs">
+      <Link>ComponentModel\INotifyCollectionChanged`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\ComponentModel\IPropertyChangeTracking.cs">
+      <Link>ComponentModel\IPropertyChangeTracking.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\ComponentModel\ItemEventArgs`1.cs">
+      <Link>ComponentModel\ItemEventArgs`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\DataAnnotations\ValidationResultCollection.cs">
+      <Link>DataAnnotations\ValidationResultCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\CollectionChangedEventManager.cs">
+      <Link>Eventing\CollectionChangedEventManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\EventManager.cs">
+      <Link>Eventing\EventManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\IListener.cs">
+      <Link>Eventing\IListener.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\INotifyCollectionChangedWeak.cs">
+      <Link>Eventing\INotifyCollectionChangedWeak.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\INotifyItemPropertyChanged.cs">
+      <Link>Eventing\INotifyItemPropertyChanged.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\INotifyItemPropertyChangedWeak.cs">
+      <Link>Eventing\INotifyItemPropertyChangedWeak.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\INotifyPropertyChangedWeak.cs">
+      <Link>Eventing\INotifyPropertyChangedWeak.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\ItemPropertyChangedEventManager.cs">
+      <Link>Eventing\ItemPropertyChangedEventManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\Listener.cs">
+      <Link>Eventing\Listener.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\PropertyChangedEventManager.cs">
+      <Link>Eventing\PropertyChangedEventManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\RelayedEventArgs.cs">
+      <Link>Eventing\RelayedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\RelayedEventArgs`1.cs">
+      <Link>Eventing\RelayedEventArgs`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Eventing\RelayedEventHandler`1.cs">
+      <Link>Eventing\RelayedEventHandler`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\GlobalSuppressions.cs">
+      <Link>GlobalSuppressions.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Metadata\ClassMetadata.cs">
+      <Link>Metadata\ClassMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Metadata\MetadataCache.cs">
+      <Link>Metadata\MetadataCache.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Metadata\PropertyMetadata.cs">
+      <Link>Metadata\PropertyMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Metadata\PropertyMetadataCollection.cs">
+      <Link>Metadata\PropertyMetadataCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\AbstractModelBase.cs">
+      <Link>Modeling.Internals\AbstractModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\AbstractModelBase`1.cs">
+      <Link>Modeling.Internals\AbstractModelBase`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\AbstractModelCollection`2.cs">
+      <Link>Modeling.Internals\AbstractModelCollection`2.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\ChangeTrackingPropertyBag.cs">
+      <Link>Modeling.Internals\ChangeTrackingPropertyBag.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\CommonProperties.cs">
+      <Link>Modeling.Internals\CommonProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\EditableObjectPropertyBag.cs">
+      <Link>Modeling.Internals\EditableObjectPropertyBag.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\ErrorsDictionary.cs">
+      <Link>Modeling.Internals\ErrorsDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\ErrorsDictionaryUpdateType.cs">
+      <Link>Modeling.Internals\ErrorsDictionaryUpdateType.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\IsChangedPropertyChangedEventArgs.cs">
+      <Link>Modeling.Internals\IsChangedPropertyChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\PropertyBag.cs">
+      <Link>Modeling.Internals\PropertyBag.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\PropertyBagBase.cs">
+      <Link>Modeling.Internals\PropertyBagBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\PropertySetModes.cs">
+      <Link>Modeling.Internals\PropertySetModes.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling.Internals\ValidationResultEqualityComparer.cs">
+      <Link>Modeling.Internals\ValidationResultEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\CalculatedFieldAttribute.cs">
+      <Link>Modeling\CalculatedFieldAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\ChangeTrackingModelBase.cs">
+      <Link>Modeling\ChangeTrackingModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\ChangeTrackingModelCollection`1.cs">
+      <Link>Modeling\ChangeTrackingModelCollection`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\DecomposeAttribute.cs">
+      <Link>Modeling\DecomposeAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\EditableObjectModelBase.cs">
+      <Link>Modeling\EditableObjectModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\EditableObjectModelCollection`1.cs">
+      <Link>Modeling\EditableObjectModelCollection`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\IgnoreOnInsertAttribute.cs">
+      <Link>Modeling\IgnoreOnInsertAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\IgnoreOnUpdateAttribute.cs">
+      <Link>Modeling\IgnoreOnUpdateAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\ModelBase.cs">
+      <Link>Modeling\ModelBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\ModelCollection`1.cs">
+      <Link>Modeling\ModelCollection`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\UpdateMode.cs">
+      <Link>Modeling\UpdateMode.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\ValidationContextHelper.cs">
+      <Link>Modeling\ValidationContextHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Modeling\ValueChanged`1.cs">
+      <Link>Modeling\ValueChanged`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\Properties\LibrarySharedAssemblyInfo.cs">
+      <Link>Properties\LibrarySharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\RandomExtended.cs">
+      <Link>RandomExtended.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.net461\TaskUtilities.cs">
+      <Link>TaskUtilities.cs</Link>
+    </Compile>
+    <Compile Include="Missing\BrowsableAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Tortuga.Anchor.uap10.rd.xml" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Unchecked|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug-Unchecked\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Unchecked|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug-Unchecked\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Unchecked|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug-Unchecked\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Unchecked|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug-Unchecked\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\Tortuga.Anchor.net461\Tortuga.Anchor.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

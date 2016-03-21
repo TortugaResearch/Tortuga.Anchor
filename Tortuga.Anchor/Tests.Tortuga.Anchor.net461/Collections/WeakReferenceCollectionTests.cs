@@ -1,11 +1,15 @@
-﻿
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Tests.Mocks;
 using Tortuga.Anchor.Collections;
 using Tortuga.Dragnet;
+
+#if MSTest
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+#elif WINDOWS_UWP 
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#endif
+
 
 namespace Tests.Collections
 {

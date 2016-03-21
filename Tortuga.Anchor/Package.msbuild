@@ -18,10 +18,12 @@
 		<ResultXml>Tortuga.Anchor.xml</ResultXml>
 		
 		<Net461Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.net461</Net461Path>
+    <Uap10Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.uap10</Uap10Path>
 
 		<VersionSource>$(Net461Path)\bin\Release\$(ResultDll)</VersionSource>
 		<NuspecName>Tortuga.Anchor.nuspec</NuspecName>
-	</PropertyGroup>
+	
+</PropertyGroup>
 
 	<Import Project=".build\MSBuild.Community.Tasks.Targets" />
 
@@ -31,7 +33,7 @@
 		<CallTarget Targets="Clean" />
 		<CallTarget Targets="Compile" />
 		<CallTarget Targets="PackageBinaries" />
-		<CallTarget Targets="PackageHelp" />
+		<!--<CallTarget Targets="PackageHelp" />-->
 		<CallTarget Targets="BuildNugetFile" />
 	</Target>
 
@@ -39,6 +41,7 @@
 		<Message Text="Cleaning..." />
 		<Deletetree Directories="$(BuildOutputPath)" />
 		<MSBuild Projects="$(MainSolution)" Properties="Configuration=Debug" Targets="Clean" StopOnFirstFailure="true" />
+		<MSBuild Projects="$(MainSolution)" Properties="Configuration=Debug-Unchecked" Targets="Clean" StopOnFirstFailure="true" />
 		<MSBuild Projects="$(MainSolution)" Properties="Configuration=Release" Targets="Clean" StopOnFirstFailure="true"/>
 	</Target>
 
@@ -53,12 +56,17 @@
 			<Net461Output Include="$(Net461Path)\bin\Release\$(ResultDll)" />
 			<Net461Output Include="$(Net461Path)\bin\Release\$(ResultPdb)" />
 			<Net461Output Include="$(Net461Path)\bin\Release\$(ResultXml)" />
-		</ItemGroup>
+
+      <Uap10Output Include="$(Uap10Path)\bin\Release\$(ResultDll)" />
+      <Uap10Output Include="$(Uap10Path)\bin\Release\$(ResultPdb)" />
+      <Uap10Output Include="$(Uap10Path)\bin\Release\$(ResultXml)" />
+    </ItemGroup>
 
 		<Copy SourceFiles="@(Net461Output)" DestinationFolder="$(BuildOutputPath)\lib\net461" />
+		<Copy SourceFiles="@(Uap10Output)" DestinationFolder="$(BuildOutputPath)\lib\uap10" />
 	</Target>
 	
-	<Target Name="PackageHelp">
+	<!--<Target Name="PackageHelp">
 
 		<Message Text="Compressing help files..." />
 		<ItemGroup>
@@ -68,7 +76,7 @@
 
 		<Copy SourceFiles="$(ReadmePath)" DestinationFolder="$(BuildOutputPath)\docs" />
 
-	</Target>
+	</Target>-->
 	
 	<Target Name="BuildNugetFile">
 		<Copy SourceFiles="$(MSBuildProjectDirectory)\$(NuspecName)" DestinationFolder="$(BuildOutputPath)" />

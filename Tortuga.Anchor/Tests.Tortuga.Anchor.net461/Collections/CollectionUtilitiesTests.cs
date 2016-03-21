@@ -1,9 +1,15 @@
 ﻿
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Tortuga.Anchor;
 using Tortuga.Dragnet;
+
+#if MSTest
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+#elif WINDOWS_UWP 
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#endif
 
 namespace Tests.Collections
 {
@@ -132,6 +138,30 @@ namespace Tests.Collections
             }
         }
 
+        [TestMethod()]
+        public void CollectionUtilities_AddRange_Test10()
+        {
+            using (var verify = new Verify())
+            {
+                IEnumerable<int> list = new List<int> { 1, 2, 3 };
+                ICollection<int> target = new ReadOnlyCollection<int>(new List<int>());
+                verify.ArgumentException("target", () => CollectionUtilities.AddRange(target, list), "read-only list");
+                verify.ArgumentException("target", () => CollectionUtilities.AddRange(target, 1, 2, 3), "read-only list");
+            }
+        }
+
+
+        [TestMethod()]
+        public void CollectionUtilities_AddRange_Test11()
+        {
+            using (var verify = new Verify())
+            {
+                var list = (new List<int> { 1, 2, 3 }).Where(x => true);
+                ICollection<int> target = new ReadOnlyCollection<int>(new List<int>());
+                verify.ArgumentException("target", () => CollectionUtilities.AddRange(target, list), "read-only list");
+                verify.ArgumentException("target", () => CollectionUtilities.AddRange(target, 1, 2, 3), "read-only list");
+            }
+        }
 
         [TestMethod()]
         public void CollectionUtilities_InsertRange_Test1()

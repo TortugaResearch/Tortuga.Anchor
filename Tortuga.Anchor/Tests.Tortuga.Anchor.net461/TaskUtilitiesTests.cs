@@ -1,4 +1,3 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Tortuga.Anchor;
 using Tortuga.Dragnet;
+
+#if MSTest
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+#elif WINDOWS_UWP 
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#endif
 
 namespace Tests
 {
@@ -38,6 +43,7 @@ namespace Tests
             }
         }
 
+#if !WINDOWS_UWP
         [TestMethod]
         public async Task TaskUtilitiesTests_ForEachAsync_ListAction_2()
         {
@@ -53,6 +59,7 @@ namespace Tests
                 await actions.ForEachAsync();
             }
         }
+#endif
 
         [TestMethod]
         public async Task TaskUtilitiesTests_ForEachAsync_ListT_1()
@@ -64,6 +71,7 @@ namespace Tests
             }
         }
 
+#if !WINDOWS_UWP
         [TestMethod]
         public async Task TaskUtilitiesTests_ForEachAsync_ListT_2()
         {
@@ -73,6 +81,7 @@ namespace Tests
                 await items.ForEachAsync(i => NumericSleeperManualStart(verify, i));
             }
         }
+#endif
 
         static async Task Sleeper(Verify verify)
         {
@@ -99,7 +108,7 @@ namespace Tests
             verify.WriteLine("After " + i);
         }
 
-
+#if !WINDOWS_UWP
         static Task SleeperManualStart(Verify verify)
         {
             return new Task(() =>
@@ -129,6 +138,7 @@ namespace Tests
                 task.RunConcurrently();
             }
         }
+#endif
 
         [TestMethod]
         public void TaskUtilitiesTests_WaitForCancelTest1()
@@ -182,22 +192,29 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(OperationCanceledException))]
         public async Task TaskUtilitiesTests_WhenAnyCancelTest2()
         {
             using (var verify = new Verify())
             {
-                var tcs1 = new TaskCompletionSource<object>();
-                var tcs2 = new TaskCompletionSource<object>();
-                var task1 = tcs1.Task;
-                var task2 = tcs2.Task;
-                var list = new List<Task>() { task1, task2 };
-                using (var cs = new CancellationTokenSource(100))
+                try
                 {
-                    var ct = cs.Token;
+                    var tcs1 = new TaskCompletionSource<object>();
+                    var tcs2 = new TaskCompletionSource<object>();
+                    var task1 = tcs1.Task;
+                    var task2 = tcs2.Task;
+                    var list = new List<Task>() { task1, task2 };
+                    using (var cs = new CancellationTokenSource(100))
+                    {
+                        var ct = cs.Token;
 
-                    await list.WhenAny(ct);
+                        await list.WhenAny(ct);
+                    }
                 }
+                catch (OperationCanceledException)
+                {
+                    //Sucess
+                }
+
             }
         }
 
@@ -221,21 +238,29 @@ namespace Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(OperationCanceledException))]
         public async Task TaskUtilitiesTests_WhenAllCancelTest2()
         {
+
             using (var verify = new Verify())
             {
-                var tcs1 = new TaskCompletionSource<object>();
-                var tcs2 = new TaskCompletionSource<object>();
-                var task1 = tcs1.Task;
-                var task2 = tcs2.Task;
-                var list = new List<Task>() { task1, task2 };
-                using (var cs = new CancellationTokenSource(100))
+                try
                 {
-                    var ct = cs.Token;
+                    var tcs1 = new TaskCompletionSource<object>();
+                    var tcs2 = new TaskCompletionSource<object>();
+                    var task1 = tcs1.Task;
+                    var task2 = tcs2.Task;
+                    var list = new List<Task>() { task1, task2 };
+                    using (var cs = new CancellationTokenSource(100))
+                    {
+                        var ct = cs.Token;
 
-                    await list.WhenAll(ct);
+                        await list.WhenAll(ct);
+                    }
+                    verify.Fail("Error expected");
+                }
+                catch (OperationCanceledException)
+                {
+                    //Sucess
                 }
             }
         }

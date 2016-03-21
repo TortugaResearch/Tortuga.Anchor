@@ -20,14 +20,14 @@ namespace Tortuga.Anchor.Metadata
 
         internal ClassMetadata(Type type)
         {
+            var typeInfo = type.GetTypeInfo();
 
-            var table = (TableAttribute)type.GetCustomAttributes(typeof(TableAttribute), true).SingleOrDefault();
+            var table = (TableAttribute)typeInfo.GetCustomAttributes(typeof(TableAttribute), true).SingleOrDefault();
             if (table != null)
             {
                 m_MappedTableName = table.Name;
                 m_MappedSchemaName = table.Schema;
             }
-
 
             var shadowingProperties = (from p in type.GetProperties() where IsHidingMember(p) select p).ToList();
             var propertyList = type.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -52,8 +52,8 @@ namespace Tortuga.Anchor.Metadata
 
                         Properties[field].AddCalculatedField(property);
                     }
-
         }
+
 
         /// <summary>
         /// Schema referred to by TableAttribute.

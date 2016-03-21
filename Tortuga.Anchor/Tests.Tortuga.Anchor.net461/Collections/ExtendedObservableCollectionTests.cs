@@ -1,6 +1,5 @@
 ﻿
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -13,6 +12,12 @@ using Tortuga.Anchor.Collections;
 using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Eventing;
 using Tortuga.Dragnet;
+
+#if MSTest
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+#elif WINDOWS_UWP 
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#endif
 
 namespace Tests.Collections
 {
@@ -162,7 +167,8 @@ namespace Tests.Collections
         {
             using (var verify = new Verify())
             {
-                Func<WeakReference> builder = () => {
+                Func<WeakReference> builder = () =>
+                {
 
                     var result = new ObservableCollectionExtended<object>();
                     var weakNotifier = new WeakNotifier();

@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 #if MSTest
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#elif WINDOWS_UWP 
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #endif
 
 
@@ -117,7 +119,7 @@ namespace Tortuga.Dragnet
             }
         }
 
-        public void ItemsAreSame<T>(IEnumerable<T> expectedEnumerable, IEnumerable<T> actualEnumerable, string message) where T :class
+        public void ItemsAreSame<T>(IEnumerable<T> expectedEnumerable, IEnumerable<T> actualEnumerable, string message) where T : class
         {
             IsNotNull(expectedEnumerable, "expectedValue enumerable");
             IsNotNull(actualEnumerable, "actualValue enumerable");

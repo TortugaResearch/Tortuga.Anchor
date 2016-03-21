@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -9,6 +8,12 @@ using System.Runtime.Serialization;
 using Tests.Mocks;
 using Tortuga.Anchor.Eventing;
 using Tortuga.Dragnet;
+
+#if MSTest
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+#elif WINDOWS_UWP 
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#endif
 
 namespace Tests.Modeling
 {
@@ -265,10 +270,11 @@ namespace Tests.Modeling
             Assert.AreEqual("FirstName", errors[0].MemberNames.First());
             Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
 
+#if !WINDOWS_UWP 
             var interfacePerson = (IDataErrorInfo)person;
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-
+#endif
             person.FirstName = "Tom";
             Assert.IsFalse(person.HasErrors);
             errors = person.GetErrors();
@@ -277,9 +283,10 @@ namespace Tests.Modeling
             errors = person.GetErrors("FirstName");
             Assert.AreEqual(0, errors.Count);
 
+#if !WINDOWS_UWP 
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-
+#endif
         }
 
         [TestMethod]
@@ -305,11 +312,12 @@ namespace Tests.Modeling
             Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
             Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
 
+#if !WINDOWS_UWP 
             var interfacePerson = (IDataErrorInfo)person;
             Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
             Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["LastName"]));
-
+#endif
         }
 
         [TestMethod]
@@ -538,5 +546,17 @@ namespace Tests.Modeling
 
         }
 
+        [TestMethod]
+        public void ModelBaseCollection_ChildPropertyChangedTest()
+
+        {
+            var person = new SimplePersonCollection();
+            Assert.AreEqual(0, person.SecretaryChangeCounter);
+            person.Secretary = new SimplePerson();
+            Assert.AreEqual(0, person.SecretaryChangeCounter);
+            person.Secretary.FirstName = "Tom";
+            Assert.AreEqual(2, person.SecretaryChangeCounter, "FirstName and FullName");
+
+        }
     }
 }

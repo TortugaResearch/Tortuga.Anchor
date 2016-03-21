@@ -6,11 +6,14 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Tortuga.Anchor.Collections;
 using Tortuga.Anchor.DataAnnotations;
+
+#if !WINDOWS_UWP
+using System.Linq;
+#endif
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
@@ -21,7 +24,7 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// <typeparam name="T">The type of object being stored</typeparam>
     /// <typeparam name="TPropertyTracking">The type of property tracking desired.</typeparam>
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public abstract partial class AbstractModelCollection<T, TPropertyTracking> : ObservableCollectionExtended<T>, INotifyDataErrorInfo, IDataErrorInfo
+    public abstract partial class AbstractModelCollection<T, TPropertyTracking> : ObservableCollectionExtended<T>, INotifyDataErrorInfo
         where TPropertyTracking : PropertyBagBase
     {
         readonly ErrorsDictionary m_Errors = new ErrorsDictionary();
@@ -463,7 +466,11 @@ namespace Tortuga.Anchor.Modeling.Internals
                 Validator.TryValidateProperty(property.InvokeGet(this), context, results);
             }
         }
+    }
 
+#if !WINDOWS_UWP
+    partial class AbstractModelCollection<T, TPropertyTracking> : IDataErrorInfo
+    {
         /// <summary>
         /// Gets an error message indicating what is wrong with this object.
         /// </summary>
@@ -491,5 +498,6 @@ namespace Tortuga.Anchor.Modeling.Internals
             }
         }
     }
+#endif
 }
 

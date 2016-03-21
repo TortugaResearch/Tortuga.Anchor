@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Tortuga.Anchor.DataAnnotations;
+using Tortuga.Anchor.Modeling;
 
 namespace Tests.Mocks
 {
-    using Tortuga.Anchor.DataAnnotations;
-    using Tortuga.Anchor.Modeling;
-    
+
     public class EditablePersonCollectionRoot : EditableObjectModelBase
     {
         public EditablePersonCollection EditablePersonCollection { get { return GetNew<EditablePersonCollection>("EditablePersonCollection"); } }

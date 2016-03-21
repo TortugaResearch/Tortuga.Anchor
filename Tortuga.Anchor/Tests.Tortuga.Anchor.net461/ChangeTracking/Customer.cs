@@ -1,7 +1,8 @@
 
+using Tortuga.Anchor.Modeling;
+
 namespace Tests.ChangeTracking
 {
-    using Tortuga.Anchor.Modeling;
     public class Customer : ChangeTrackingModelBase
     {
         public string FirstName

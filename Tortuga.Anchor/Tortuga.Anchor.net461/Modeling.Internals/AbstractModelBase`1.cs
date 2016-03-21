@@ -6,10 +6,13 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Tortuga.Anchor.DataAnnotations;
+
+#if !WINDOWS_UWP
+using System.Linq;
+#endif
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
@@ -19,7 +22,7 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// </summary>
     /// <typeparam name="TPropertyTracking">The type of property tracking desired.</typeparam>
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractModelBase, INotifyDataErrorInfo, IDataErrorInfo
+    public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractModelBase, INotifyDataErrorInfo
         where TPropertyTracking : PropertyBagBase
     {
         /// <summary>
@@ -412,6 +415,13 @@ namespace Tortuga.Anchor.Modeling.Internals
         }
 
 
+
+    }
+
+#if !WINDOWS_UWP
+    partial class AbstractModelBase<TPropertyTracking> : IDataErrorInfo
+    {
+
         /// <summary>
         /// Returns the errors associated with the object. Does not include property level errors.
         /// </summary>
@@ -438,6 +448,8 @@ namespace Tortuga.Anchor.Modeling.Internals
                 return string.Join("\n", errors.ToArray());
             }
         }
+
     }
+#endif
 }
 
