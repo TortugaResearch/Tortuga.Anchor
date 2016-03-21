@@ -12,7 +12,7 @@
 	</PropertyGroup>
 	
 	<PropertyGroup>
-		<MainSolution>Tortuga.Anchor.sln</MainSolution>
+		<MainSolution>Tortuga.Anchor-Nuget.sln</MainSolution>
 		<ResultDll>Tortuga.Anchor.dll</ResultDll>
 		<ResultPdb>Tortuga.Anchor.pdb</ResultPdb>
 		<ResultXml>Tortuga.Anchor.xml</ResultXml>
