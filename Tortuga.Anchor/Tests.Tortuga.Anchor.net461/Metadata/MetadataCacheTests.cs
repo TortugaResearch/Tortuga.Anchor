@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Tortuga.Dragnet;
 using Tortuga.Anchor.Metadata;
+using Tortuga.Anchor.Modeling;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #if NETFX_CORE
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -481,5 +483,51 @@ namespace Tests.Metadata
             }
         }
 
+        [TestMethod]
+        public void MetadataCache_Test32()
+        {
+            using (var verify = new Verify())
+            {
+                var result = MetadataCache.GetMetadata(typeof(Base)).ColumnsFor;
+                verify.AreEqual(5, result.Count, "");
+                verify.AreEqual("Property0", result[0], "");
+                verify.AreEqual("PropertyA1", result[1], "");
+                verify.AreEqual("PropertyA2", result[2], "");
+                verify.AreEqual("BbbPropertyB1", result[3], "");
+                verify.AreEqual("BbbPropertyB2", result[4], "");
+            }
+        }
     }
+
+    public class Base
+    {
+        public int Property0 { get; set; }
+
+        [Decompose]
+        public ChildA ChildA { get; set; }
+        [Decompose("Bbb")]
+        public ChildB ChildB { get; set; }
+    }
+
+    public class ChildA
+    {
+        public int PropertyA1 { get; set; }
+        [Column("PropertyA2")]
+        public int Property { get; set; }
+        [NotMapped]
+        public int PropertyAX { get; set; }
+
+    }
+
+    public class ChildB
+    {
+        public int PropertyB1 { get; set; }
+        [Column("PropertyB2")]
+        public int Property { get; set; }
+        [NotMapped]
+        public int PropertyBX { get; set; }
+
+    }
+
+
 }

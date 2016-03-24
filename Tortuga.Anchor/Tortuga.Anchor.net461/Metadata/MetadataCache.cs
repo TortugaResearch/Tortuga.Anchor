@@ -39,9 +39,9 @@ namespace Tortuga.Anchor.Metadata
                 if (property.Decompose)
                 {
                     foreach (var item in GetColumnsFor(property.PropertyType, decompositionPrefix + property.DecompositionPrefix))
-                        yield return decompositionPrefix + item;
+                        yield return item;
                 }
-                else if (property.CanWrite)
+                else if (property.CanWrite && property.MappedColumnName != null)
                 {
                     yield return decompositionPrefix + property.MappedColumnName;
                 }
