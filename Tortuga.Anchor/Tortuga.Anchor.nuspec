@@ -6,22 +6,31 @@
     <authors>David Tomcik, Jonathan Allen</authors>
     <copyright>Copyright David Tomcik, Jonathan Allen 2016</copyright>
     <description>Commons and data modeling library for the Toruga project.</description>
-    <tags>.net461</tags>
+    <tags>MVVM</tags>
     <language>en-US</language>
     <projectUrl>https://github.com/docevaad/Anchor</projectUrl>
     <references>
       <reference file="Tortuga.Anchor.dll" />
     </references>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="net461" />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="net46" />
+      <frameworkAssembly assemblyName="System.ComponentModel.DataAnnotations" targetFramework="net45" />
+      <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net45" />
+      <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="net46" />
     </frameworkAssemblies>
 
     <dependencies>
 
-      <group targetFramework="net461">
+      <group targetFramework="net46">
         <dependency id="System.Collections.Immutable" version="1.1.37" />
       </group>
-
+      <group targetFramework="net45">
+        <dependency id="System.Collections.Immutable" version="1.1.37" />
+      </group>
+      <group targetFramework="portable-net45+win8+wp8">
+        <dependency id="System.Collections.Immutable" version="1.1.37" />
+      </group>
+      
     </dependencies>
   </metadata>
 </package>
