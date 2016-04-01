@@ -63,12 +63,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\tortuga.anchor.source\collections\CommonProperties.cs">
@@ -244,6 +239,9 @@
     </Compile>
     <Compile Include="..\tortuga.anchor.source\modeling\ValueChanged`1.cs">
       <Link>Modeling\ValueChanged`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.source\Properties\LibrarySharedAssemblyInfo.cs">
+      <Link>Properties\LibrarySharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="..\Tortuga.Anchor.source\RandomExtended.cs">
       <Link>RandomExtended.cs</Link>

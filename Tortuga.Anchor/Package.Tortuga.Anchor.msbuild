@@ -17,10 +17,12 @@
 		<ResultPdb>Tortuga.Anchor.pdb</ResultPdb>
 		<ResultXml>Tortuga.Anchor.xml</ResultXml>
 		
-		<Net461Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.net461</Net461Path>
+		<Net46Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.net46</Net46Path>
+		<Net45Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.net45</Net45Path>
     <Uap10Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.uap10</Uap10Path>
+    <Profile78Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.portable-net45+win8+wp8</Profile78Path>
 
-		<VersionSource>$(Net461Path)\bin\Release\$(ResultDll)</VersionSource>
+		<VersionSource>$(Net46Path)\bin\Release\$(ResultDll)</VersionSource>
 		<NuspecName>Tortuga.Anchor.nuspec</NuspecName>
 	
 </PropertyGroup>
@@ -53,17 +55,27 @@
 	<Target Name="PackageBinaries">
 		<Message Text="Copying binaries..." />
 		<ItemGroup>
-			<Net461Output Include="$(Net461Path)\bin\Release\$(ResultDll)" />
-			<Net461Output Include="$(Net461Path)\bin\Release\$(ResultPdb)" />
-			<Net461Output Include="$(Net461Path)\bin\Release\$(ResultXml)" />
+			<Net46Output Include="$(Net46Path)\bin\Release\$(ResultDll)" />
+			<Net46Output Include="$(Net46Path)\bin\Release\$(ResultPdb)" />
+			<Net46Output Include="$(Net46Path)\bin\Release\$(ResultXml)" />
 
+      <Net45Output Include="$(Net45Path)\bin\Release\$(ResultDll)" />
+      <Net45Output Include="$(Net45Path)\bin\Release\$(ResultPdb)" />
+      <Net45Output Include="$(Net45Path)\bin\Release\$(ResultXml)" />
+      
       <Uap10Output Include="$(Uap10Path)\bin\Release\$(ResultDll)" />
       <Uap10Output Include="$(Uap10Path)\bin\Release\$(ResultPdb)" />
       <Uap10Output Include="$(Uap10Path)\bin\Release\$(ResultXml)" />
+
+      <Profile78Output Include="$(Profile78Path)\bin\Release\$(ResultDll)" />
+      <Profile78Output Include="$(Profile78Path)\bin\Release\$(ResultPdb)" />
+      <Profile78Output Include="$(Profile78Path)\bin\Release\$(ResultXml)" />
     </ItemGroup>
 
-		<Copy SourceFiles="@(Net461Output)" DestinationFolder="$(BuildOutputPath)\lib\net461" />
+    <Copy SourceFiles="@(Net46Output)" DestinationFolder="$(BuildOutputPath)\lib\net46" />
+    <Copy SourceFiles="@(Net45Output)" DestinationFolder="$(BuildOutputPath)\lib\net45" />
 		<Copy SourceFiles="@(Uap10Output)" DestinationFolder="$(BuildOutputPath)\lib\uap10" />
+		<Copy SourceFiles="@(Profile78Output)" DestinationFolder="$(BuildOutputPath)\lib\portable-net45+win8+wp8" />
 	</Target>
 	
 	<!--<Target Name="PackageHelp">
