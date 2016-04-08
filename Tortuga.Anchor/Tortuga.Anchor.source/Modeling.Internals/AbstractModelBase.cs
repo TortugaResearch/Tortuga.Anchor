@@ -5,6 +5,10 @@ using System.Runtime.Serialization;
 using Tortuga.Anchor.DataAnnotations;
 using Tortuga.Anchor.Eventing;
 
+#if !DataAnnotations_Missing
+using System.ComponentModel.DataAnnotations.Schema;
+#endif
+
 namespace Tortuga.Anchor.Modeling.Internals
 {
 
@@ -108,6 +112,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected virtual void OnValidateProperty(string propertyName, ValidationResultCollection results) { }
 
 
+        [NotMapped]
         internal ErrorsDictionary ErrorsDictionary
         {
             get { return m_Errors; }

@@ -5,6 +5,10 @@ using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Eventing;
 using Tortuga.Anchor.Modeling.Internals;
 
+#if !DataAnnotations_Missing
+using System.ComponentModel.DataAnnotations.Schema;
+#endif
+
 namespace Tortuga.Anchor.Modeling
 {
 
@@ -84,6 +88,7 @@ namespace Tortuga.Anchor.Modeling
         /// Returns True if any fields were modified since the last call to Checkpoint. This also checks items that implement IChangeTracking.
         /// </summary>
         /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
+        [NotMapped]
         public bool IsChangedLocal
         {
             get { return Properties.IsChangedLocal; }
@@ -94,6 +99,7 @@ namespace Tortuga.Anchor.Modeling
         /// Walk the object graph, looking for changed items in properties and the collection.
         /// </summary>
         /// <returns></returns>
+        [NotMapped]
         public bool IsChanged
         {
             get

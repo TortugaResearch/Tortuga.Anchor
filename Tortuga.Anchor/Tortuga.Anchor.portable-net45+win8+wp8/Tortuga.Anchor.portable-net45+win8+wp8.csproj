@@ -250,6 +250,7 @@
       <Link>TaskUtilities.cs</Link>
     </Compile>
     <Compile Include="Missing\BrowsableAttribute.cs" />
+    <Compile Include="Missing\NotMappedAttribute.cs" />
     <Compile Include="Missing\ValidationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

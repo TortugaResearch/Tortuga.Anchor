@@ -12,6 +12,7 @@ using Tortuga.Anchor.DataAnnotations;
 
 #if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 #endif
 
 #if !IDataErrorInfo_Missing
@@ -107,6 +108,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <remarks>
         /// Call Validate() to refresh this property
         /// </remarks>
+        [NotMapped]
         public bool HasErrors
         {
             get { return ErrorsDictionary.HasErrors(); }
@@ -118,6 +120,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <value>
         /// The property bag.
         /// </value>
+        [NotMapped]
         protected TPropertyTracking Properties
         {
             get { return m_Properties; }

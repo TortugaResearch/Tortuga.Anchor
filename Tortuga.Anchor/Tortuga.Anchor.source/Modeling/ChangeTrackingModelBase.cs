@@ -1,7 +1,12 @@
+
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Modeling.Internals;
+
+#if !DataAnnotations_Missing
+using System.ComponentModel.DataAnnotations.Schema;
+#endif
 
 namespace Tortuga.Anchor.Modeling
 {
@@ -22,6 +27,7 @@ namespace Tortuga.Anchor.Modeling
         /// Returns True if any fields were modified since the last call to AcceptChanges. This does not walk the object graph.
         /// </summary>
         /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
+        [NotMapped]
         public bool IsChangedLocal
         {
             get { return Properties.IsChangedLocal; }
@@ -32,6 +38,7 @@ namespace Tortuga.Anchor.Modeling
         /// </summary>
         /// <returns></returns>
 
+        [NotMapped]
         public bool IsChanged
         {
             get
