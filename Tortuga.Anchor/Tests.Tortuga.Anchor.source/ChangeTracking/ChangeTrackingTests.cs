@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using Tortuga.Dragnet;
+using Tortuga.Anchor.ComponentModel;
+using System.Linq;
 
 #if MSTest
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -65,6 +67,11 @@ namespace Tests.ChangeTracking
                 //more setup 
                 customer.FirstName = "Tom";
                 customer.LastName = "Doe";
+                verify.AreEqual(2, customer.ChangedProperties().Count, "There should be two changed properties");
+                verify.IsTrue(customer.ChangedProperties().Contains("FirstName"), "FirstName should be marked as changed");
+                verify.IsTrue(customer.ChangedProperties().Contains("LastName"), "FirstName should be marked as changed");
+
+
                 customer.AcceptChanges();
                 if (customer.IsChanged)
                     verify.Inconclusive("setup failed");

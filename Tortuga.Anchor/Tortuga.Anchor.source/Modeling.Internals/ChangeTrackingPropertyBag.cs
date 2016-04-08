@@ -284,13 +284,21 @@ namespace Tortuga.Anchor.Modeling.Internals
         public IReadOnlyList<string> ChangedProperties()
         {
             var result = new List<string>();
-            //update remaining properties
-            foreach (var item in m_OriginalValues)
+
+            foreach (var item in m_Values)
             {
-                var currentValue = GetValue(item.Key);
-                if (!Equals(currentValue, item.Value))
+                object old;
+                if (m_OriginalValues.TryGetValue(item.Key, out old))
+                {
+                    if (!Equals(old, item.Value))
+                        result.Add(item.Key);
+                }
+                else
+                {
                     result.Add(item.Key);
+                }
             }
+
             return new ReadOnlyCollection<string>(result);
         }
     }
