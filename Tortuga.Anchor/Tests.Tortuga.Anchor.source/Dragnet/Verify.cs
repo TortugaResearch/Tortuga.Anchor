@@ -342,6 +342,12 @@ namespace Tortuga.Dragnet
             throw new Exception(); //this line can never be hit.
         }
 
+        public ArgumentException ArgumentException(string expectedParamName, Action body)
+        {
+            var ex = Exception<ArgumentException>(body);
+            AreEqual(expectedParamName, ex.ParamName, "ArgumentException.ParamName was incorrectly set");
+            return ex;
+        }
 
         public ArgumentNullException ArgumentNullException(string expectedParamName, Action body)
         {

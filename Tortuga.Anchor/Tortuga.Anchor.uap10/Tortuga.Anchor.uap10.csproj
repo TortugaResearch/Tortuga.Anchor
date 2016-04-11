@@ -23,7 +23,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing;TypeInfo_Is_Not_Type</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -36,7 +36,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing</DefineConstants>
+    <DefineConstants>TRACE;CODE_ANALYSIS;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing;TypeInfo_Is_Not_Type</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -49,7 +49,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing;TypeInfo_Is_Not_Type</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -59,7 +59,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing;TypeInfo_Is_Not_Type</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -71,7 +71,7 @@
     <PlatformTarget>ARM</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ARM\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing;TypeInfo_Is_Not_Type</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>ARM</PlatformTarget>
@@ -81,7 +81,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
     <PlatformTarget>ARM</PlatformTarget>
     <OutputPath>bin\ARM\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing;TypeInfo_Is_Not_Type</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -93,7 +93,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing;TypeInfo_Is_Not_Type</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -103,7 +103,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PlatformTarget>x64</PlatformTarget>
     <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing;TypeInfo_Is_Not_Type</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
@@ -154,6 +154,9 @@
     </Compile>
     <Compile Include="..\Tortuga.Anchor.source\ComponentModel\ItemEventArgs`1.cs">
       <Link>ComponentModel\ItemEventArgs`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.source\ComponentModel\IValidatable.cs">
+      <Link>ComponentModel\IValidatable.cs</Link>
     </Compile>
     <Compile Include="..\Tortuga.Anchor.source\DataAnnotations\ValidationResultCollection.cs">
       <Link>DataAnnotations\ValidationResultCollection.cs</Link>
@@ -236,9 +239,6 @@
     <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\ErrorsDictionaryUpdateType.cs">
       <Link>Modeling.Internals\ErrorsDictionaryUpdateType.cs</Link>
     </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\IsChangedPropertyChangedEventArgs.cs">
-      <Link>Modeling.Internals\IsChangedPropertyChangedEventArgs.cs</Link>
-    </Compile>
     <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\NotSet.cs">
       <Link>Modeling.Internals\NotSet.cs</Link>
     </Compile>
@@ -305,6 +305,11 @@
     <Compile Include="Missing\BrowsableAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Tortuga.Anchor.uap10.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -59,10 +59,8 @@ namespace Tortuga.Anchor.Modeling.Internals
 
         public override object GetValue([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             if (m_Values.ContainsKey(propertyName))
                 return m_Values[propertyName];
@@ -80,10 +78,8 @@ namespace Tortuga.Anchor.Modeling.Internals
 
         public override bool IsDefined([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return m_Values.ContainsKey(propertyName);
         }
@@ -175,10 +171,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </remarks>
         public override bool Set(object value, PropertySetModes mode, string propertyName, out object oldValue)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             var property = Metadata.Properties[propertyName];
 

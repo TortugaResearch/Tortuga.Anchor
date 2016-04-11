@@ -127,8 +127,7 @@ namespace Tortuga.Anchor.Collections
         public void AddHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
-
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
             if (m_CollectionChangeEventManager == null)
                 m_CollectionChangeEventManager = new CollectionChangedEventManager(this);
@@ -143,8 +142,7 @@ namespace Tortuga.Anchor.Collections
         public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
-
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
             if (m_PropertyChangedEventManager == null)
                 m_PropertyChangedEventManager = new PropertyChangedEventManager(this);
@@ -159,8 +157,7 @@ namespace Tortuga.Anchor.Collections
         public void AddHandler(IListener<RelayedEventArgs<PropertyChangedEventArgs>> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
-
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
             if (m_ItemPropertyChangedEventManager == null)
             {
@@ -191,8 +188,7 @@ namespace Tortuga.Anchor.Collections
         public void RemoveHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
-
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
             if (m_CollectionChangeEventManager == null)
                 return;
@@ -207,11 +203,9 @@ namespace Tortuga.Anchor.Collections
         public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
-
-            if (m_PropertyChangedEventManager != null)
-                m_PropertyChangedEventManager.RemoveHandler(eventHandler);
+            m_PropertyChangedEventManager?.RemoveHandler(eventHandler);
         }
 
         /// <summary>
@@ -221,11 +215,9 @@ namespace Tortuga.Anchor.Collections
         public void RemoveHandler(IListener<RelayedEventArgs<PropertyChangedEventArgs>> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
-
-            if (m_ItemPropertyChangedEventManager != null)
-                m_ItemPropertyChangedEventManager.RemoveHandler(eventHandler);
+            m_ItemPropertyChangedEventManager?.RemoveHandler(eventHandler);
         }
 
         /// <summary>
@@ -258,8 +250,7 @@ namespace Tortuga.Anchor.Collections
         /// <remarks>Triggered by SetItem, RemoveItem, and ClearItems.</remarks>
         protected virtual void OnItemAdded(T item)
         {
-            if (ItemAdded != null)
-                ItemAdded(this, new ItemEventArgs<T>(item));
+            ItemAdded?.Invoke(this, new ItemEventArgs<T>(item));
 
             if (m_ListeningToItemEvents)
             {
@@ -277,8 +268,7 @@ namespace Tortuga.Anchor.Collections
         /// <remarks>Triggered by SetItem, RemoveItem, and ClearItems.</remarks>
         protected virtual void OnItemRemoved(T item)
         {
-            if (ItemRemoved != null)
-                ItemRemoved(this, new ItemEventArgs<T>(item));
+            ItemRemoved?.Invoke(this, new ItemEventArgs<T>(item));
 
             if (m_ListeningToItemEvents)
             {
@@ -314,9 +304,9 @@ namespace Tortuga.Anchor.Collections
         protected override void RemoveItem(int index)
         {
             if (index < 0)
-                throw new ArgumentOutOfRangeException(nameof(index), index, "index must be >= 0");
+                throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be >= 0");
             if (index >= Count)
-                throw new ArgumentOutOfRangeException(nameof(index), index, "index must be < Count");
+                throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be < Count");
 
 
             T temp = base[index];
@@ -333,9 +323,9 @@ namespace Tortuga.Anchor.Collections
         protected override void SetItem(int index, T item)
         {
             if (index < 0)
-                throw new ArgumentOutOfRangeException(nameof(index), index, "index must be >= 0");
+                throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be >= 0");
             if (index >= Count)
-                throw new ArgumentOutOfRangeException(nameof(index), index, "index must be < Count");
+                throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be < Count");
 
 
             T temp = base[index];
@@ -366,8 +356,7 @@ namespace Tortuga.Anchor.Collections
 
         void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (m_ItemPropertyChangedEvent != null)
-                m_ItemPropertyChangedEvent(this, RelayedEventArgs.Create(sender, e));
+            m_ItemPropertyChangedEvent?.Invoke(this, RelayedEventArgs.Create(sender, e));
         }
     }
 

@@ -19,8 +19,7 @@ namespace Tortuga.Anchor.Eventing
         public void AddHandler(IListener<T> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException("eventHandler", "eventHandler is null.");
-
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
             m_Targets.Add(eventHandler);
             if (!m_Listening)
@@ -37,7 +36,7 @@ namespace Tortuga.Anchor.Eventing
         public void RemoveHandler(IListener<T> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException("eventHandler", "eventHandler is null.");
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
 
             m_Targets.Remove(eventHandler);

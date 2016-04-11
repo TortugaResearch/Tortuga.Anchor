@@ -24,11 +24,8 @@ namespace Tortuga.Anchor.Modeling
 
         public CalculatedFieldAttribute(string sources)
         {
-            if (sources == null)
-                throw new ArgumentNullException("sources", "sources is null");
             if (string.IsNullOrEmpty(sources))
-                throw new ArgumentException("sources is null or empty.", "sources");
-
+                throw new ArgumentException($"{nameof(sources)} is null or empty.", nameof(sources));
 
             m_Sources = sources;
             m_SourceProperties = new ReadOnlyCollection<string>((from s in sources.Split(',') select s.Trim()).ToArray());

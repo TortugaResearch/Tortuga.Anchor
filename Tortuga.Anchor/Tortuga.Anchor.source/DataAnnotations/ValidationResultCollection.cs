@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -41,6 +42,9 @@ namespace Tortuga.Anchor.DataAnnotations
         /// <returns></returns>
         public ValidationResult Add(string errorMessage, params string[] memberNames)
         {
+            if (string.IsNullOrEmpty(errorMessage))
+                throw new ArgumentException($"{nameof(errorMessage)} is null or empty.", nameof(errorMessage));
+
             var result = new ValidationResult(errorMessage, memberNames);
             Add(result);
             return result;

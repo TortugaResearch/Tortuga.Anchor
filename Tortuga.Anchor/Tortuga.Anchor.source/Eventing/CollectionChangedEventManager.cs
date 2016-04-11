@@ -22,7 +22,7 @@ namespace Tortuga.Anchor.Eventing
         public CollectionChangedEventManager(INotifyCollectionChanged source)
         {
             if (source == null)
-                throw new ArgumentNullException("source", "source is null.");
+                throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
 
             m_Source = source;
         }

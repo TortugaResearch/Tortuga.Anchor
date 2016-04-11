@@ -35,7 +35,7 @@ namespace Tortuga.Anchor
         public static Task AutoCancelingTask<T>(TimeSpan delay)
         {
             if (delay.TotalMilliseconds < 0)
-                throw new ArgumentOutOfRangeException("delay", delay, "delay cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
 
             var tcs = new TaskCompletionSource<object>();
             Timer t = null; //What prevents this timer from being prematurely garbage collected?
@@ -68,7 +68,7 @@ namespace Tortuga.Anchor
         public static Task AutoCancelingTask<T>(int delay)
         {
             if (delay < 0)
-                throw new ArgumentOutOfRangeException("delay", delay, "delay cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
 
             var tcs = new TaskCompletionSource<object>();
             Timer t = null; //What prevents this timer from being prematurely garbage collected?
@@ -101,7 +101,7 @@ namespace Tortuga.Anchor
         public static Task<T> AutoCompletingTask<T>(T result, TimeSpan delay)
         {
             if (delay.TotalMilliseconds < 0)
-                throw new ArgumentOutOfRangeException("delay", delay, "delay cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
 
             var tcs = new TaskCompletionSource<T>();
             Timer t = null; //What prevents this timer from being prematurely garbage collected?
@@ -125,7 +125,7 @@ namespace Tortuga.Anchor
         public static Task<T> AutoCompletingTask<T>(T result, int delay)
         {
             if (delay < 0)
-                throw new ArgumentOutOfRangeException("delay", delay, "delay cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
 
             var tcs = new TaskCompletionSource<T>();
             Timer t = null; //What prevents this timer from being prematurely garbage collected?
@@ -147,7 +147,7 @@ namespace Tortuga.Anchor
         public static Task ForEachAsync(this IReadOnlyCollection<Func<Task>> actions)
         {
             if (actions == null)
-                throw new ArgumentNullException("actions", "actions is null.");
+                throw new ArgumentNullException(nameof(actions), $"{nameof(actions)} is null.");
 
 
             var tasks = new Task[actions.Count];
@@ -155,7 +155,7 @@ namespace Tortuga.Anchor
             foreach (var action in actions)
             {
                 if (action == null)
-                    throw new ArgumentException("actions cannot contain null items", "actions");
+                    throw new ArgumentException($"{nameof(actions)} cannot contain null items", nameof(actions));
                 tasks[i] = action();
                 if (tasks[i].Status == TaskStatus.Created)
                     tasks[i].Start();
@@ -187,9 +187,9 @@ namespace Tortuga.Anchor
         public static Task ForEachAsync<T>(this IReadOnlyCollection<T> list, Func<T, Task> action)
         {
             if (list == null)
-                throw new ArgumentNullException("list", "list is null.");
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
             if (action == null)
-                throw new ArgumentNullException("action", "action is null.");
+                throw new ArgumentNullException(nameof(action), $"{nameof(action)} is null.");
 
             var tcs = new TaskCompletionSource<object>();
 
@@ -219,7 +219,7 @@ namespace Tortuga.Anchor
         public static void RunConcurrently(this Task task)
         {
             if (task == null)
-                throw new ArgumentNullException("task", "task is null.");
+                throw new ArgumentNullException(nameof(task), $"{nameof(task)} is null.");
 
             if (task.Status == TaskStatus.Created)
                 task.Start();
@@ -233,7 +233,7 @@ namespace Tortuga.Anchor
         public static bool WaitForCompleteOrCancel(this Task task)
         {
             if (task == null)
-                throw new ArgumentNullException("task", "task is null.");
+                throw new ArgumentNullException(nameof(task), $"{nameof(task)} is null.");
 
             try
             {
@@ -256,6 +256,9 @@ namespace Tortuga.Anchor
         /// <param name="cancellationToken">The cancellation token.</param>
         public static async Task WhenAll(this IEnumerable<Task> tasks, CancellationToken cancellationToken)
         {
+            if (tasks == null)
+                throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
+
             await Task.WhenAny(Task.WhenAll(tasks), cancellationToken.AsTask());
             cancellationToken.ThrowIfCancellationRequested();
         }
@@ -266,6 +269,9 @@ namespace Tortuga.Anchor
         /// <param name="tasks">The tasks to wait for.</param>
         public static Task WhenAll(this IEnumerable<Task> tasks)
         {
+            if (tasks == null)
+                throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
+
             return Task.WhenAll(tasks);
         }
 
@@ -276,6 +282,9 @@ namespace Tortuga.Anchor
         /// <param name="cancellationToken">The cancellation token.</param>
         public static async Task WhenAny(this IEnumerable<Task> tasks, CancellationToken cancellationToken)
         {
+            if (tasks == null)
+                throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
+
             await Task.WhenAny(tasks.Concat(cancellationToken.AsTask()));
             cancellationToken.ThrowIfCancellationRequested();
         }
@@ -286,6 +295,9 @@ namespace Tortuga.Anchor
         /// <param name="tasks">The tasks to wait for.</param>
         public static Task WhenAny(this IEnumerable<Task> tasks)
         {
+            if (tasks == null)
+                throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
+
             return Task.WhenAny(tasks);
         }
     }

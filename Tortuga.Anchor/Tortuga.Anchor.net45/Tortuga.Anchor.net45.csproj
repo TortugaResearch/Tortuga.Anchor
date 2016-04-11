@@ -102,6 +102,9 @@
     <Compile Include="..\tortuga.anchor.source\componentmodel\ItemEventArgs`1.cs">
       <Link>ComponentModel\ItemEventArgs`1.cs</Link>
     </Compile>
+    <Compile Include="..\Tortuga.Anchor.source\ComponentModel\IValidatable.cs">
+      <Link>ComponentModel\IValidatable.cs</Link>
+    </Compile>
     <Compile Include="..\tortuga.anchor.source\dataannotations\ValidationResultCollection.cs">
       <Link>DataAnnotations\ValidationResultCollection.cs</Link>
     </Compile>
@@ -183,9 +186,6 @@
     <Compile Include="..\tortuga.anchor.source\modeling.internals\ErrorsDictionaryUpdateType.cs">
       <Link>Modeling.Internals\ErrorsDictionaryUpdateType.cs</Link>
     </Compile>
-    <Compile Include="..\tortuga.anchor.source\modeling.internals\IsChangedPropertyChangedEventArgs.cs">
-      <Link>Modeling.Internals\IsChangedPropertyChangedEventArgs.cs</Link>
-    </Compile>
     <Compile Include="..\tortuga.anchor.source\modeling.internals\NotSet.cs">
       <Link>Modeling.Internals\NotSet.cs</Link>
     </Compile>
@@ -256,6 +256,11 @@
       <Link>Tortuga.Anchor.snk</Link>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -15,9 +14,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 #endif
 
 
-#if !IDataErrorInfo_Missing
-using System.Linq;
-#endif
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
@@ -87,10 +83,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         protected T GetNew<T>([CallerMemberName] string propertyName = null) where T : new()
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.GetNew<T>(propertyName);
         }
@@ -108,10 +102,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         protected string GetNew([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.GetDefault(string.Empty, propertyName);
         }
@@ -136,11 +128,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected T GetNew<T>(Func<T> creationFunction, [CallerMemberName] string propertyName = null)
         {
             if (creationFunction == null)
-                throw new ArgumentNullException("creationFunction", "creationFunction is null.");
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
+                throw new ArgumentNullException(nameof(creationFunction), $"{nameof(creationFunction)} is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.GetNew(creationFunction, propertyName);
         }
@@ -159,10 +149,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </remarks>
         protected T GetDefault<T>(T defaultValue, [CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.GetDefault(defaultValue, propertyName);
         }
@@ -180,10 +168,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </remarks>
         protected T Get<T>([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.Get<T>(propertyName);
         }
@@ -203,11 +189,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected bool Set<T>(T value, ValueChanged<T> valueChanged, [CallerMemberName] string propertyName = null)
         {
             if (valueChanged == null)
-                throw new ArgumentNullException("valueChanged", "valueChanged is null.");
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
+                throw new ArgumentNullException(nameof(valueChanged), $"{nameof(valueChanged)} is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is null or empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.Set(value, valueChanged, propertyName);
         }
@@ -226,10 +210,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <exception cref="ArgumentException">propertyName is null or empty.;propertyName</exception>
         protected bool Set(object value, [CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is null or empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.Set(value, propertyName);
         }
@@ -252,12 +234,10 @@ namespace Tortuga.Anchor.Modeling.Internals
         public bool Set<T>(T value, PropertyChangedEventHandler propertyChanged, [CallerMemberName] string propertyName = null)
             where T : INotifyPropertyChanged
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
             if (propertyChanged == null)
-                throw new ArgumentNullException("propertyChanged", "propertyChanged is null.");
+                throw new ArgumentNullException(nameof(propertyChanged), $"{nameof(propertyChanged)} is null.");
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.Set(value, propertyChanged, propertyName);
         }
@@ -279,12 +259,10 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected bool Set<T>(T value, NotifyCollectionChangedEventHandler collectionChanged, [CallerMemberName] string propertyName = null)
     where T : INotifyCollectionChanged
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
             if (collectionChanged == null)
-                throw new ArgumentNullException("collectionChanged", "collectionChanged is null.");
+                throw new ArgumentNullException(nameof(collectionChanged), $"{nameof(collectionChanged)} is null.");
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.Set(value, collectionChanged, propertyName);
         }
@@ -296,19 +274,12 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <returns>
         /// True if the object has no errors
         /// </returns>
-        public bool Validate()
+        public override sealed bool Validate()
         {
             Properties.RevalidateAll();
             return !HasErrors;
         }
 
-        /// <summary>
-        /// Clears the error collections and the HasErrors property
-        /// </summary>
-        public void ClearErrors()
-        {
-            OnErrorsChanged("", ErrorsDictionary.Clear());
-        }
 
         void Properties_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -351,52 +322,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         partial void AttributeBasedValidation(string propertyName, ValidationResultCollection results);
 
         /// <summary>
-        /// Returns True if there are any errors.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if there are errors; otherwise, <c>false</c>.
-        /// </value>
-        /// <remarks>
-        /// Call Validate() to refresh this property
-        /// </remarks>
-        [NotMapped]
-        public bool HasErrors
-        {
-            get { return ErrorsDictionary.HasErrors(); }
-        }
-
-
-        /// <summary>
-        /// Returns an array of object-level errors.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>
-        /// Call Validate() to refresh this property.
-        /// </remarks>
-
-        public ReadOnlyCollection<ValidationResult> GetErrors()
-        {
-            return GetErrors("");
-        }
-
-
-        /// <summary>
-        /// Returns an array of property-level errors.
-        /// </summary>
-        /// <param name="propertyName">Null or String.Empty will return the object-level errors</param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Call Validate() to refresh this property.
-        /// </remarks>
-
-        public ReadOnlyCollection<ValidationResult> GetErrors(string propertyName)
-        {
-            return ErrorsDictionary.GetErrors(propertyName);
-        }
-
-
-
-        /// <summary>
         /// Gets the validation errors for a specified property or for the entire entity.
         /// </summary>
         /// <param name="propertyName">The name of the property to retrieve validation errors for; or null or <see cref="F:System.String.Empty" />, to retrieve entity-level errors.</param>
@@ -408,11 +333,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         {
             return GetErrors(propertyName);
         }
-
-
-
-
-
     }
 
 
@@ -434,38 +354,6 @@ namespace Tortuga.Anchor.Modeling.Internals
 #endif
 
 
-#if !IDataErrorInfo_Missing
-    partial class AbstractModelBase<TPropertyTracking> : IDataErrorInfo
-    {
 
-        /// <summary>
-        /// Returns the errors associated with the object. Does not include property level errors.
-        /// </summary>
-        /// <returns>An error message indicating what is wrong with this object. The default is an empty string ("").</returns>
-        string IDataErrorInfo.Error
-        {
-            get
-            {
-                var errors = from e in GetErrors("") select e.ToString();
-                return string.Join("\n", errors.ToArray());
-            }
-        }
-
-        /// <summary>
-        /// Returns the errors associated with a specific property
-        /// </summary>
-        /// <param name="columnName">Name of the column.</param>
-        /// <returns></returns>
-        string IDataErrorInfo.this[string columnName]
-        {
-            get
-            {
-                var errors = from e in GetErrors(columnName) select e.ToString();
-                return string.Join("\n", errors.ToArray());
-            }
-        }
-
-    }
-#endif
 }
 

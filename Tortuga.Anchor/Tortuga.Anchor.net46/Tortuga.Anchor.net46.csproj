@@ -56,7 +56,7 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Tortuga.Anchor.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -107,6 +107,9 @@
     </Compile>
     <Compile Include="..\Tortuga.Anchor.source\ComponentModel\ItemEventArgs`1.cs">
       <Link>ComponentModel\ItemEventArgs`1.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.source\ComponentModel\IValidatable.cs">
+      <Link>ComponentModel\IValidatable.cs</Link>
     </Compile>
     <Compile Include="..\Tortuga.Anchor.source\DataAnnotations\ValidationResultCollection.cs">
       <Link>DataAnnotations\ValidationResultCollection.cs</Link>
@@ -189,9 +192,6 @@
     <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\ErrorsDictionaryUpdateType.cs">
       <Link>Modeling.Internals\ErrorsDictionaryUpdateType.cs</Link>
     </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\IsChangedPropertyChangedEventArgs.cs">
-      <Link>Modeling.Internals\IsChangedPropertyChangedEventArgs.cs</Link>
-    </Compile>
     <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\NotSet.cs">
       <Link>Modeling.Internals\NotSet.cs</Link>
     </Compile>
@@ -263,7 +263,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

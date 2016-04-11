@@ -243,7 +243,7 @@ namespace Tests.Modeling
                 person.BadGetWithDefault();
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -275,7 +275,7 @@ namespace Tests.Modeling
                 person.BadGet();
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -307,7 +307,7 @@ namespace Tests.Modeling
                 person.BadGetNew1();
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -355,7 +355,7 @@ namespace Tests.Modeling
                 person.BadGetNew4();
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -387,7 +387,7 @@ namespace Tests.Modeling
                 person.BadSet1();
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }

@@ -34,7 +34,7 @@ namespace Tests.DataAnnotations
         {
             using (var verify = new Verify())
             {
-                verify.ArgumentNullException("sources", () => new CalculatedFieldAttribute(null));
+                verify.ArgumentException("sources", () => new CalculatedFieldAttribute(null));
 
             }
         }

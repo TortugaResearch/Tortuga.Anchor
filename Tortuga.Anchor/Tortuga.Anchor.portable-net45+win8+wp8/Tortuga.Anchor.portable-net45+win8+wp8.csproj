@@ -102,6 +102,9 @@
     <Compile Include="..\tortuga.anchor.source\componentmodel\ItemEventArgs`1.cs">
       <Link>ComponentModel\ItemEventArgs`1.cs</Link>
     </Compile>
+    <Compile Include="..\Tortuga.Anchor.source\ComponentModel\IValidatable.cs">
+      <Link>ComponentModel\IValidatable.cs</Link>
+    </Compile>
     <Compile Include="..\tortuga.anchor.source\dataannotations\ValidationResultCollection.cs">
       <Link>DataAnnotations\ValidationResultCollection.cs</Link>
     </Compile>
@@ -183,9 +186,6 @@
     <Compile Include="..\tortuga.anchor.source\modeling.internals\ErrorsDictionaryUpdateType.cs">
       <Link>Modeling.Internals\ErrorsDictionaryUpdateType.cs</Link>
     </Compile>
-    <Compile Include="..\tortuga.anchor.source\modeling.internals\IsChangedPropertyChangedEventArgs.cs">
-      <Link>Modeling.Internals\IsChangedPropertyChangedEventArgs.cs</Link>
-    </Compile>
     <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\NotSet.cs">
       <Link>Modeling.Internals\NotSet.cs</Link>
     </Compile>
@@ -259,6 +259,11 @@
       <HintPath>..\packages\System.Collections.Immutable.1.1.37\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

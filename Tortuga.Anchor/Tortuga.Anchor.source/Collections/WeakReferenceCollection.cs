@@ -103,18 +103,17 @@ namespace Tortuga.Anchor.Collections
             if (array == null)
                 throw new ArgumentNullException(nameof(array), "array is null");
             if (arrayIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, "arrayIndex cannot be less than zero");
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, $"{nameof(arrayIndex)} cannot be less than zero");
             if (arrayIndex > array.Length)
-                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, "arrayIndex is greater than the array's length");
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, $"{nameof(arrayIndex)} is greater than the array's length");
             if (Count + arrayIndex > array.Length)
-                throw new ArgumentException("Count + arrayIndex is greater than the array's length", "array");
+                throw new ArgumentException($"{nameof(Count)} + {nameof(arrayIndex)} is greater than the array's length", nameof(array));
 
 
             var temp = m_Collection.Select(x => (T)x.Target).Where(x => x != null).ToList();
+
             for (var i = 0; i < temp.Count; i++)
-            {
                 array[arrayIndex + i] = temp[i];
-            }
         }
         /// <summary>
         /// Returns an enumerator containing references that were live at the time this is called.
@@ -140,8 +139,7 @@ namespace Tortuga.Anchor.Collections
         public bool Remove(T item)
         {
             if (item == null)
-                throw new ArgumentNullException("item", "item is null.");
-
+                throw new ArgumentNullException(nameof(item), $"{nameof(item)} is null.");
 
             var result = Contains(item);
             if (result)

@@ -1,8 +1,9 @@
-
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Modeling.Internals;
+using System.Collections.Generic;
 
 #if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations.Schema;
@@ -88,6 +89,8 @@ namespace Tortuga.Anchor.Modeling
         /// </param>
         public object GetPreviousValue(string propertyName)
         {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             var result = Properties.GetPreviousValue(propertyName);
 
@@ -100,7 +103,7 @@ namespace Tortuga.Anchor.Modeling
         /// <summary>
         /// List of changed properties.
         /// </summary>
-        public System.Collections.Generic.IReadOnlyList<string> ChangedProperties()
+        public IReadOnlyList<string> ChangedProperties()
         {
             return Properties.ChangedProperties();
         }

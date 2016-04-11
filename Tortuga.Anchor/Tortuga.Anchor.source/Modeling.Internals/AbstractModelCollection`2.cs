@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Tortuga.Anchor.Collections;
 using Tortuga.Anchor.DataAnnotations;
+using Tortuga.Anchor.ComponentModel;
 
 #if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
@@ -28,7 +29,7 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// <typeparam name="T">The type of object being stored</typeparam>
     /// <typeparam name="TPropertyTracking">The type of property tracking desired.</typeparam>
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public abstract partial class AbstractModelCollection<T, TPropertyTracking> : ObservableCollectionExtended<T>, INotifyDataErrorInfo
+    public abstract partial class AbstractModelCollection<T, TPropertyTracking> : ObservableCollectionExtended<T>, INotifyDataErrorInfo, IValidatable
         where TPropertyTracking : PropertyBagBase
     {
         readonly ErrorsDictionary m_Errors = new ErrorsDictionary();
@@ -177,8 +178,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <param name="propertyName">Name of the property.</param>
         protected void OnErrorsChanged(string propertyName)
         {
-            if (ErrorsChanged != null)
-                ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
 
         /// <summary>
@@ -231,10 +231,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         protected TValue GetNew<TValue>([CallerMemberName] string propertyName = null) where TValue : new()
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.GetNew<TValue>(propertyName);
         }
@@ -259,11 +257,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected TValue GetNew<TValue>(Func<TValue> creationFunction, [CallerMemberName] string propertyName = null)
         {
             if (creationFunction == null)
-                throw new ArgumentNullException("creationFunction", "creationFunction is null.");
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
+                throw new ArgumentNullException(nameof(creationFunction), $"{nameof(creationFunction)} is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.GetNew(creationFunction, propertyName);
         }
@@ -281,10 +277,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         protected string GetNew([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.GetDefault(string.Empty, propertyName);
         }
@@ -303,10 +297,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </remarks>
         protected TValue GetDefault<TValue>(TValue defaultValue, [CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.GetDefault(defaultValue, propertyName);
         }
@@ -324,10 +316,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </remarks>
         protected TValue Get<TValue>([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.Get<TValue>(propertyName);
         }
@@ -342,10 +332,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <exception cref="ArgumentException">propertyName is null or empty.;propertyName</exception>
         protected bool Set(object value, [CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is null or empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.Set(value, propertyName);
         }
@@ -368,12 +356,10 @@ namespace Tortuga.Anchor.Modeling.Internals
         public bool Set<TValue>(TValue value, PropertyChangedEventHandler propertyChanged, [CallerMemberName] string propertyName = null)
             where TValue : INotifyPropertyChanged
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
             if (propertyChanged == null)
-                throw new ArgumentNullException("propertyChanged", "propertyChanged is null.");
+                throw new ArgumentNullException(nameof(propertyChanged), $"{nameof(propertyChanged)} is null.");
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.Set(value, propertyChanged, propertyName);
         }
@@ -395,12 +381,10 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected bool Set<TValue>(TValue value, NotifyCollectionChangedEventHandler collectionChanged, [CallerMemberName] string propertyName = null)
     where TValue : INotifyCollectionChanged
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
             if (collectionChanged == null)
-                throw new ArgumentNullException("collectionChanged", "collectionChanged is null.");
+                throw new ArgumentNullException(nameof(collectionChanged), $"{nameof(collectionChanged)} is null.");
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return Properties.Set(value, collectionChanged, propertyName);
         }

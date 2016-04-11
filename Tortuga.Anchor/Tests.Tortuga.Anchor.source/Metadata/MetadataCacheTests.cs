@@ -6,6 +6,8 @@ using Tortuga.Dragnet;
 using Tortuga.Anchor.Metadata;
 using Tortuga.Anchor.Modeling;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
+using System.Reflection;
 
 #if NETFX_CORE
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -153,10 +155,19 @@ namespace Tests.Metadata
         {
             using (var verify = new Verify())
             {
-                verify.ArgumentNullException("type", () => MetadataCache.GetMetadata(null));
+                verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((Type)null));
             }
         }
 
+
+        [TestMethod]
+        public void MetadataCache_Test2b()
+        {
+            using (var verify = new Verify())
+            {
+                verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((TypeInfo)null));
+            }
+        }
 
         [TestMethod]
         public void MetadataCache_Test4()
@@ -250,7 +261,7 @@ namespace Tests.Metadata
             using (var verify = new Verify())
             {
                 var result = MetadataCache.GetMetadata(typeof(Mock));
-                verify.ArgumentNullException("propertyName", () =>
+                verify.ArgumentException("propertyName", () =>
                     {
                         var x = result.Properties[null];
                     });
@@ -276,6 +287,12 @@ namespace Tests.Metadata
             using (var verify = new Verify())
             {
                 var result = MetadataCache.GetMetadata(typeof(List<int>));
+
+                foreach (var item in result.Properties)
+                {
+                    Debug.WriteLine(item.Name);
+                }
+
                 var x = result.Properties["Item [Int32]"];
                 verify.IsNotNull(x, "Item [Int32] property is missing");
 
@@ -346,7 +363,7 @@ namespace Tests.Metadata
             using (var verify = new Verify())
             {
                 var result = MetadataCache.GetMetadata(typeof(Mock));
-                verify.ArgumentNullException("propertyName", () => result.Properties.Contains((string)null));
+                verify.ArgumentException("propertyName", () => result.Properties.Contains((string)null));
             }
         }
 
@@ -456,7 +473,7 @@ namespace Tests.Metadata
             {
                 var result = MetadataCache.GetMetadata(typeof(Mock));
                 PropertyMetadata p;
-                verify.ArgumentNullException("propertyName", () => result.Properties.TryGetValue(null, out p));
+                verify.ArgumentException("propertyName", () => result.Properties.TryGetValue(null, out p));
             }
         }
 
@@ -495,6 +512,29 @@ namespace Tests.Metadata
                 verify.AreEqual("PropertyA2", result[2], "");
                 verify.AreEqual("BbbPropertyB1", result[3], "");
                 verify.AreEqual("BbbPropertyB2", result[4], "");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_ReflexiveTest1()
+        {
+            using (var verify = new Verify())
+            {
+                var fromType = MetadataCache.GetMetadata(typeof(Mock));
+                var fromTypeInfo = MetadataCache.GetMetadata(typeof(Mock).GetTypeInfo());
+
+                verify.AreSame(fromType, fromTypeInfo, "From Type was not cached");
+            }
+        }
+        [TestMethod]
+        public void MetadataCache_ReflexiveTest2()
+        {
+            using (var verify = new Verify())
+            {
+                var fromTypeInfo = MetadataCache.GetMetadata(typeof(Mock).GetTypeInfo());
+                var fromType = MetadataCache.GetMetadata(typeof(Mock));
+
+                verify.AreSame(fromType, fromTypeInfo, "From TypeInfo was not cached");
             }
         }
     }

@@ -7,7 +7,7 @@
     <ProjectGuid>{500B9FB8-546F-4F84-95A7-02F2ACAA2FFD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tortuga.Anchor.source</RootNamespace>
+    <RootNamespace>Tortuga.Anchor</RootNamespace>
     <AssemblyName>Tortuga.Anchor.source</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -62,6 +62,7 @@
     <Compile Include="ComponentModel\INotifyCollectionChanged`1.cs" />
     <Compile Include="ComponentModel\IPropertyChangeTracking.cs" />
     <Compile Include="ComponentModel\ItemEventArgs`1.cs" />
+    <Compile Include="ComponentModel\IValidatable.cs" />
     <Compile Include="DataAnnotations\ValidationResultCollection.cs" />
     <Compile Include="Eventing\CollectionChangedEventManager.cs" />
     <Compile Include="Eventing\EventManager.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Modeling.Internals\EditableObjectPropertyBag.cs" />
     <Compile Include="Modeling.Internals\ErrorsDictionary.cs" />
     <Compile Include="Modeling.Internals\ErrorsDictionaryUpdateType.cs" />
-    <Compile Include="Modeling.Internals\IsChangedPropertyChangedEventArgs.cs" />
     <Compile Include="Modeling.Internals\NotSet.cs" />
     <Compile Include="Modeling.Internals\PropertyBag.cs" />
     <Compile Include="Modeling.Internals\PropertyBagBase.cs" />
@@ -117,6 +117,11 @@
     <None Include="packages.config" />
     <None Include="readme.md" />
     <None Include="Tortuga.Anchor.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

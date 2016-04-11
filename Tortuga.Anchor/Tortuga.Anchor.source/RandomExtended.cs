@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace Tortuga.Anchor
 {
@@ -16,8 +16,8 @@ namespace Tortuga.Anchor
 
         public RandomExtended()
         {
-
         }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RandomExtended"/> class.
         /// </summary>
@@ -26,7 +26,6 @@ namespace Tortuga.Anchor
         public RandomExtended(int seed)
             : base(seed)
         {
-
         }
 
         /// <summary>
@@ -38,11 +37,8 @@ namespace Tortuga.Anchor
         /// <exception cref="ArgumentNullException">list;list is null.</exception>
         public T Choose<T>(IReadOnlyList<T> list)
         {
-            if (list == null)
-                throw new ArgumentNullException("list", "list is null.");
-            if (list.Count <= 0)
-                throw new ArgumentException("list.count must be greater than 0", "list");
-
+            if (list == null || list.Count == 0)
+                throw new ArgumentException($"{nameof(list)} is null or empty.", nameof(list));
 
             return list[Next(0, list.Count)];
         }
@@ -64,12 +60,13 @@ namespace Tortuga.Anchor
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public List<T> Choose<T>(IReadOnlyList<T> list, int count, bool allowDuplicates = true)
         {
-            if (list == null)
-                throw new ArgumentNullException("list", "list is null.");
+            if (list == null || list.Count == 0)
+                throw new ArgumentException($"{nameof(list)} is null or empty.", nameof(list));
+
             if (count < 0)
-                throw new ArgumentOutOfRangeException("count", count, "count must be greater than or equal to zero");
+                throw new ArgumentOutOfRangeException(nameof(count), count, $"{nameof(count)} must be greater than or equal to zero");
             if (list.Count < count && !allowDuplicates)
-                throw new ArgumentOutOfRangeException("count", count, "count must be less than or equal to list.Count if allowDuplicates is false");
+                throw new ArgumentOutOfRangeException(nameof(count), count, $"{nameof(count)} must be less than or equal to {nameof(list)}.Count if {nameof(allowDuplicates)} is false");
 
             var result = new List<T>();
 
@@ -101,7 +98,7 @@ namespace Tortuga.Anchor
         public DateTime NextDateTime(DateTime minValue, DateTime maxValue)
         {
             if (minValue > maxValue)
-                throw new ArgumentOutOfRangeException("maxValue", maxValue, "maxValue must be greater than or equal to minValue.");
+                throw new ArgumentOutOfRangeException(nameof(maxValue), maxValue, $"{nameof(maxValue)} must be greater than or equal to {nameof(minValue)}.");
 
             return NextDateTime(minValue, maxValue - minValue);
         }
@@ -115,7 +112,7 @@ namespace Tortuga.Anchor
         public DateTime NextDateTime(DateTime minValue, TimeSpan maxSpan)
         {
             if (maxSpan.Ticks < 0)
-                throw new ArgumentOutOfRangeException("maxSpan", maxSpan, "maxSpan must be greater than or equal to 0");
+                throw new ArgumentOutOfRangeException(nameof(maxSpan), maxSpan, $"{nameof(maxSpan)} must be greater than or equal to 0");
 
             return minValue.AddTicks((long)(NextDouble() * maxSpan.Ticks));
         }
@@ -129,7 +126,7 @@ namespace Tortuga.Anchor
         public DateTimeOffset NextDateTimeOffset(DateTimeOffset minValue, TimeSpan maxSpan)
         {
             if (maxSpan.Ticks < 0)
-                throw new ArgumentOutOfRangeException("maxSpan", maxSpan, "maxSpan must be greater than or equal to 0");
+                throw new ArgumentOutOfRangeException(nameof(maxSpan), maxSpan, $"{nameof(maxSpan)} must be greater than or equal to 0");
 
             return minValue.AddTicks(NextInt64(maxSpan.Ticks));
         }
@@ -144,7 +141,7 @@ namespace Tortuga.Anchor
         public DateTimeOffset NextDateTimeOffset(DateTimeOffset minValue, DateTimeOffset maxValue)
         {
             if (minValue > maxValue)
-                throw new ArgumentOutOfRangeException("maxValue", maxValue, "maxValue must be greater than or equal to minValue.");
+                throw new ArgumentOutOfRangeException(nameof(maxValue), maxValue, $"{nameof(maxValue)} must be greater than or equal to {nameof(minValue)}.");
 
             return NextDateTimeOffset(minValue, maxValue - minValue);
         }
@@ -158,7 +155,7 @@ namespace Tortuga.Anchor
         public decimal NextDecimal(decimal maxValue)
         {
             if (maxValue < 0)
-                throw new ArgumentOutOfRangeException("maxValue", maxValue, "maxValue must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(maxValue), maxValue, $"nameof(maxValue) must be greater than or equal to 0.");
 
             return NextDecimal(0m, maxValue);
         }
@@ -173,7 +170,7 @@ namespace Tortuga.Anchor
         public decimal NextDecimal(decimal minValue, decimal maxValue)
         {
             if (minValue > maxValue)
-                throw new ArgumentOutOfRangeException("maxValue", maxValue, "maxValue must be greater than or equal to minValue.");
+                throw new ArgumentOutOfRangeException(nameof(maxValue), maxValue, $"{nameof(maxValue)} must be greater than or equal to {nameof(minValue)}.");
 
             return ((decimal)NextDouble() * (maxValue - minValue)) + minValue;
         }
@@ -188,7 +185,7 @@ namespace Tortuga.Anchor
         public long NextInt64(long minValue, long maxValue)
         {
             if (minValue > maxValue)
-                throw new ArgumentOutOfRangeException("maxValue", maxValue, "maxValue must be greater than or equal to minValue.");
+                throw new ArgumentOutOfRangeException(nameof(maxValue), maxValue, $"{nameof(maxValue)} must be greater than or equal to {nameof(minValue)}.");
 
             return (long)(NextDouble() * (maxValue - minValue)) + minValue;
         }
@@ -202,7 +199,7 @@ namespace Tortuga.Anchor
         public long NextInt64(long maxValue)
         {
             if (maxValue < 0)
-                throw new ArgumentOutOfRangeException("maxValue", maxValue, "maxValue must be greater than or equal to 0.");
+                throw new ArgumentOutOfRangeException(nameof(maxValue), maxValue, $"{nameof(maxValue)} must be greater than or equal to 0.");
 
             return NextInt64(0L, maxValue);
         }
@@ -216,12 +213,10 @@ namespace Tortuga.Anchor
         /// <exception cref="ArgumentException">List cannot be read-only;list</exception>
         public T Pick<T>(IList<T> list)
         {
-            if (list == null)
-                throw new ArgumentNullException("list", "list is null.");
-            if (list.Count <= 0)
-                throw new ArgumentException("list.count must be greater than 0", "list");
+            if (list == null || list.Count == 0)
+                throw new ArgumentException($"{nameof(list)} is null or empty.", nameof(list));
             if (list.IsReadOnly)
-                throw new ArgumentException("List cannot be read-only", "list");
+                throw new ArgumentException($"{nameof(list)} cannot be read-only", nameof(list));
 
 
             var index = Next(0, list.Count);
@@ -247,14 +242,14 @@ namespace Tortuga.Anchor
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public List<T> Pick<T>(IList<T> list, int count)
         {
-            if (list == null)
-                throw new ArgumentNullException("list", "list is null.");
+            if (list == null || list.Count == 0)
+                throw new ArgumentException($"{nameof(list)} is null or empty.", nameof(list));
             if (list.IsReadOnly)
-                throw new ArgumentException("List cannot be read-only", "list");
+                throw new ArgumentException($"{nameof(list)} cannot be read-only", nameof(list));
             if (count < 0)
-                throw new ArgumentOutOfRangeException("count", count, "count must be greater than or equal to zero");
+                throw new ArgumentOutOfRangeException(nameof(count), count, $"{nameof(count)} must be greater than or equal to zero");
             if (list.Count < count)
-                throw new ArgumentOutOfRangeException("count", count, "count must be less than or equal to list.Count");
+                throw new ArgumentOutOfRangeException(nameof(count), count, $"{nameof(count)} must be less than or equal to {nameof(list)}.Count");
 
             var result = new List<T>();
 

@@ -4,10 +4,18 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using Tortuga.Anchor.DataAnnotations;
 using Tortuga.Anchor.Eventing;
+using System.Collections.ObjectModel;
+using Tortuga.Anchor.ComponentModel;
 
 #if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 #endif
+
+#if !IDataErrorInfo_Missing
+using System.Linq;
+#endif
+
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
@@ -18,7 +26,7 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// Abstract base class to deal with the limitations of generics. This is not meant to be used directly by client code.
     /// </summary>
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public abstract partial class AbstractModelBase : INotifyPropertyChanged, INotifyPropertyChangedWeak
+    public abstract partial class AbstractModelBase : INotifyPropertyChanged, INotifyPropertyChangedWeak, IValidatable
     {
         PropertyChangedEventManager m_PropertyChangedEventManager;
         ErrorsDictionary m_Errors = new ErrorsDictionary();
@@ -81,8 +89,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException("eventHandler", "eventHandler is null.");
-
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
             m_PropertyChangedEventManager.RemoveHandler(eventHandler);
         }
 
@@ -92,9 +99,16 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <param name="e">The <see cref="PropertyChangedEventArgs"/> instance containing the event data.</param>
         internal void InvokePropertyChanged(PropertyChangedEventArgs e)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, e);
+            PropertyChanged?.Invoke(this, e);
         }
+
+        /// <summary>
+        /// This forces the object to be completely revalidated.
+        /// </summary>
+        /// <returns>
+        /// True if the object has no errors
+        /// </returns>
+        public abstract bool Validate();
 
         /// <summary>
         /// Override this method to add imperative validation at the object level.
@@ -119,6 +133,57 @@ namespace Tortuga.Anchor.Modeling.Internals
         }
 
         /// <summary>
+        /// Clears the error collections and the HasErrors property
+        /// </summary>
+        public void ClearErrors()
+        {
+            OnErrorsChanged("", ErrorsDictionary.Clear());
+        }
+
+        /// <summary>
+        /// Returns True if there are any errors.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if there are errors; otherwise, <c>false</c>.
+        /// </value>
+        /// <remarks>
+        /// Call Validate() to refresh this property
+        /// </remarks>
+        [NotMapped]
+        public bool HasErrors
+        {
+            get { return ErrorsDictionary.HasErrors(); }
+        }
+
+
+        /// <summary>
+        /// Returns an array of object-level errors.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Call Validate() to refresh this property.
+        /// </remarks>
+
+        public ReadOnlyCollection<ValidationResult> GetErrors()
+        {
+            return GetErrors("");
+        }
+
+        /// <summary>
+        /// Returns an array of property-level errors.
+        /// </summary>
+        /// <param name="propertyName">Null or String.Empty will return the object-level errors</param>
+        /// <returns></returns>
+        /// <remarks>
+        /// Call Validate() to refresh this property.
+        /// </remarks>
+
+        public ReadOnlyCollection<ValidationResult> GetErrors(string propertyName)
+        {
+            return ErrorsDictionary.GetErrors(propertyName);
+        }
+
+        /// <summary>
         /// Invoke this method to signal the events associated with changing the errors dictionary. The parameter updateType is returned by the methods on ErrorsDictionary.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
@@ -140,8 +205,41 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <param name="propertyName">Name of the property.</param>
         protected void OnErrorsChanged(string propertyName)
         {
-            if (ErrorsChanged != null)
-                ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
     }
+
+#if !IDataErrorInfo_Missing
+    partial class AbstractModelBase : IDataErrorInfo
+    {
+
+        /// <summary>
+        /// Returns the errors associated with the object. Does not include property level errors.
+        /// </summary>
+        /// <returns>An error message indicating what is wrong with this object. The default is an empty string ("").</returns>
+        string IDataErrorInfo.Error
+        {
+            get
+            {
+                var errors = from e in GetErrors("") select e.ToString();
+                return string.Join("\n", errors.ToArray());
+            }
+        }
+
+        /// <summary>
+        /// Returns the errors associated with a specific property
+        /// </summary>
+        /// <param name="columnName">Name of the column.</param>
+        /// <returns></returns>
+        string IDataErrorInfo.this[string columnName]
+        {
+            get
+            {
+                var errors = from e in GetErrors(columnName) select e.ToString();
+                return string.Join("\n", errors.ToArray());
+            }
+        }
+
+    }
+#endif
 }

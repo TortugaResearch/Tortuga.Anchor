@@ -75,11 +75,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         public T GetNew<T>(Func<T> creationFunction, [CallerMemberName] string propertyName = null)
         {
             if (creationFunction == null)
-                throw new ArgumentNullException("creationFunction", "creationFunction is null.");
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
+                throw new ArgumentNullException(nameof(creationFunction), $"{nameof(creationFunction)} is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             var result = GetValue(propertyName);
             if (result == NotSet.Value)
@@ -114,10 +112,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         public T GetNew<T>([CallerMemberName] string propertyName = null)
                         where T : new()
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             var result = GetValue(propertyName);
             if (result == NotSet.Value)
@@ -150,10 +146,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </remarks>
         public T Get<T>([CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             var result = GetValue(propertyName);
             if (result == NotSet.Value)
@@ -187,10 +181,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </remarks>
         public T GetDefault<T>(T defaultValue, [CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             var result = GetValue(propertyName);
             if (result == NotSet.Value)
@@ -244,10 +236,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected void OnRevalidateProperty(PropertyMetadata property)
         {
             if (property == null)
-                throw new ArgumentNullException("property", "property is null.");
+                throw new ArgumentNullException(nameof(property), $"{nameof(property)} is null.");
 
-            if (RevalidateProperty != null)
-                RevalidateProperty(this, property.PropertyChangedEventArgs);
+            RevalidateProperty?.Invoke(this, property.PropertyChangedEventArgs);
         }
 
         /// <summary>
@@ -292,10 +283,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
         public bool Set(object value, PropertySetModes mode, [CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             object oldValue;
             return Set(value, mode, propertyName, out oldValue);
@@ -312,10 +301,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
         public bool Set(object value, [CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             object oldValue;
             return Set(value, PropertySetModes.RaiseChangedEvent | PropertySetModes.ValidateProperty | PropertySetModes.ValidateObject | PropertySetModes.UpdateIsChangedProperty, propertyName, out oldValue);
@@ -335,12 +322,10 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
         public bool Set<T>(T value, ValueChanged<T> valueChanged, [CallerMemberName] string propertyName = null)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
             if (valueChanged == null)
-                throw new ArgumentNullException("valueChanged", "valueChanged is null.");
+                throw new ArgumentNullException(nameof(valueChanged), $"{nameof(valueChanged)} is null.");
             if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             object oldValue;
 
@@ -374,12 +359,10 @@ namespace Tortuga.Anchor.Modeling.Internals
         public bool Set<T>(T value, PropertyChangedEventHandler propertyChanged, [CallerMemberName] string propertyName = null)
             where T : INotifyPropertyChanged
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
             if (propertyChanged == null)
-                throw new ArgumentNullException("propertyChanged", "propertyChanged is null.");
+                throw new ArgumentNullException(nameof(propertyChanged), $"{nameof(propertyChanged)} is null.");
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             object oldValue;
             var result = Set(value, PropertySetModes.RaiseChangedEvent | PropertySetModes.ValidateProperty | PropertySetModes.ValidateObject | PropertySetModes.UpdateIsChangedProperty, propertyName, out oldValue);
@@ -413,12 +396,10 @@ namespace Tortuga.Anchor.Modeling.Internals
         public bool Set<T>(T value, NotifyCollectionChangedEventHandler collectionChanged, [CallerMemberName] string propertyName = null)
             where T : INotifyCollectionChanged
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null");
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException("propertyName is empty.", "propertyName");
             if (collectionChanged == null)
-                throw new ArgumentNullException("collectionChanged", "collectionChanged is null.");
+                throw new ArgumentNullException(nameof(collectionChanged), $"{nameof(collectionChanged)} is null.");
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             object oldValue;
             var result = Set(value, PropertySetModes.RaiseChangedEvent | PropertySetModes.ValidateProperty | PropertySetModes.ValidateObject | PropertySetModes.UpdateIsChangedProperty, propertyName, out oldValue);
@@ -441,10 +422,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected internal void OnPropertyChanged(PropertyMetadata property)
         {
             if (property == null)
-                throw new ArgumentNullException("property", "property is null.");
+                throw new ArgumentNullException(nameof(property), $"{nameof(property)} is null.");
 
-            if (PropertyChanged != null)
-                PropertyChanged(this, property.PropertyChangedEventArgs);
+            PropertyChanged?.Invoke(this, property.PropertyChangedEventArgs);
 
             if (property.AffectsCalculatedFields)
                 foreach (var affectedProperty in property.CalculatedFields)
@@ -460,14 +440,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected internal void OnPropertyChanged(string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
-            {
-                if (PropertyChanged != null)
-                    PropertyChanged(this, CommonProperties.Empty);
-            }
+                PropertyChanged?.Invoke(this, CommonProperties.Empty);
             else
-            {
                 OnPropertyChanged(Metadata.Properties[propertyName]);
-            }
         }
 
     }

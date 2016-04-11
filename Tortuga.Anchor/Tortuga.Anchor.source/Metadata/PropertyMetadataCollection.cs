@@ -50,10 +50,8 @@ namespace Tortuga.Anchor.Metadata
         {
             get
             {
-                if (propertyName == null)
-                    throw new ArgumentNullException("propertyName", "propertyName is null or empty.");
-                if (string.IsNullOrWhiteSpace(propertyName))
-                    throw new ArgumentException("propertyName is null or empty.", "propertyName");
+                if (string.IsNullOrEmpty(propertyName))
+                    throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
                 PropertyMetadata result;
                 if (m_Base.TryGetValue(propertyName, out result))
@@ -81,7 +79,7 @@ namespace Tortuga.Anchor.Metadata
         public bool Contains(PropertyMetadata item)
         {
             if (item == null)
-                throw new ArgumentNullException("item", "item is null.");
+                throw new ArgumentNullException(nameof(item), $"{nameof(item)} is null.");
             if (Count == 0)
                 return false;
             return Contains(item.Name);
@@ -94,9 +92,8 @@ namespace Tortuga.Anchor.Metadata
         /// <returns></returns>
         public bool Contains(string propertyName)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null.");
-
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             return m_Base.ContainsKey(propertyName) || m_Int32IndexedProperties.ContainsKey(propertyName) || m_StringIndexedProperties.ContainsKey(propertyName);
         }
@@ -110,13 +107,13 @@ namespace Tortuga.Anchor.Metadata
         public void CopyTo(PropertyMetadata[] array, int arrayIndex)
         {
             if (array == null)
-                throw new ArgumentNullException("array", "array is null");
+                throw new ArgumentNullException(nameof(array), $"{nameof(array)} is null");
             if (arrayIndex < 0)
-                throw new ArgumentOutOfRangeException("arrayIndex", "arrayIndex cannot be less than zero");
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), $"{nameof(arrayIndex)} cannot be less than zero");
             if (arrayIndex > array.Length)
-                throw new ArgumentOutOfRangeException("arrayIndex", "arrayIndex is greater than the array's length");
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), $"{nameof(arrayIndex)} is greater than the array's length");
             if (Count + arrayIndex > array.Length)
-                throw new ArgumentOutOfRangeException("arrayIndex", "Count + arrayIndex is greater than the array's length");
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), $"{nameof(Count)} + {nameof(arrayIndex)} is greater than the array's length");
 
 
             m_Base.Values.CopyTo(array, arrayIndex);
@@ -156,11 +153,8 @@ namespace Tortuga.Anchor.Metadata
 
         public bool TryGetValue(string propertyName, out PropertyMetadata value)
         {
-            if (propertyName == null)
-                throw new ArgumentNullException("propertyName", "propertyName is null or empty.");
-            if (string.IsNullOrWhiteSpace(propertyName))
-                throw new ArgumentException("propertyName is null or empty.", "propertyName");
-
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
             if (m_Base.TryGetValue(propertyName, out value))
                 return true;

@@ -28,7 +28,7 @@ namespace Tests.Modeling.Internals
 
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -60,7 +60,7 @@ namespace Tests.Modeling.Internals
 
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -92,7 +92,7 @@ namespace Tests.Modeling.Internals
 
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -140,7 +140,7 @@ namespace Tests.Modeling.Internals
 
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -172,7 +172,7 @@ namespace Tests.Modeling.Internals
 
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -233,7 +233,7 @@ namespace Tests.Modeling.Internals
 
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -265,7 +265,7 @@ namespace Tests.Modeling.Internals
 
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }
@@ -314,7 +314,7 @@ namespace Tests.Modeling.Internals
 
                 Assert.Fail("Expected an exception");
             }
-            catch (ArgumentNullException ex)
+            catch (ArgumentException ex)
             {
                 Assert.AreEqual("propertyName", ex.ParamName);
             }

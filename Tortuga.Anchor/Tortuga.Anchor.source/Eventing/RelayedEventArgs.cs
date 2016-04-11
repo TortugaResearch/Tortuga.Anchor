@@ -16,9 +16,7 @@ namespace Tortuga.Anchor.Eventing
         public static RelayedEventArgs<T> Create<T>(object originalSender, T eventArgs) where T : EventArgs
         {
             if (eventArgs == null)
-                throw new ArgumentNullException("eventArgs", "eventArgs is null.");
-
-
+                throw new ArgumentNullException(nameof(eventArgs), $"{nameof(eventArgs)} is null.");
             return new RelayedEventArgs<T>(originalSender, eventArgs);
         }
     }

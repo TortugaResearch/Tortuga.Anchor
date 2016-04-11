@@ -16,9 +16,7 @@ namespace Tortuga.Anchor.Eventing
         public Listener(Action<object, T> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException("eventHandler", "eventHandler is null.");
-
-
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
             m_EventHandler = eventHandler;
         }
 

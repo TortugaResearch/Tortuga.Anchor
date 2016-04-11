@@ -18,10 +18,8 @@ namespace Tortuga.Anchor.Metadata
     public partial class ClassMetadata
     {
 
-        internal ClassMetadata(Type type)
+        internal ClassMetadata(TypeInfo typeInfo)
         {
-            var typeInfo = type.GetTypeInfo();
-
 #if !DataAnnotations_Missing
             var table = (TableAttribute)typeInfo.GetCustomAttributes(typeof(TableAttribute), true).SingleOrDefault();
             if (table != null)
@@ -34,10 +32,13 @@ namespace Tortuga.Anchor.Metadata
 #if Weird_Reflection
             var shadowingProperties = (from p in typeInfo.DeclaredProperties where IsHidingMember(p) select p).ToList();
             var propertyList = typeInfo.DeclaredProperties.ToList();
-#else
+#elif TypeInfo_Is_Not_Type
+            var type = typeInfo.AsType();
             var shadowingProperties = (from p in type.GetProperties() where IsHidingMember(p) select p).ToList();
             var propertyList = type.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
+#else
+            var shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
+            var propertyList = typeInfo.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 #endif 
             foreach (var propertyInfo in propertyList)
             {
@@ -55,7 +56,7 @@ namespace Tortuga.Anchor.Metadata
                     foreach (var field in fieldList.SourceProperties)
                     {
                         if (!Properties.Contains(field))
-                            throw new InvalidOperationException(string.Format("Cannot find property {0} on type {1}. This is needed for the calculated property {2}", field, type.FullName, property.Name));
+                            throw new InvalidOperationException(string.Format("Cannot find property {0} on type {1}. This is needed for the calculated property {2}", field, typeInfo.FullName, property.Name));
 
                         Properties[field].AddCalculatedField(property);
                     }
