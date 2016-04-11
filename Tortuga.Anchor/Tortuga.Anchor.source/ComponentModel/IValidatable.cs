@@ -42,7 +42,7 @@ namespace Tortuga.Anchor.ComponentModel
 
 
         /// <summary>
-        /// Returns an array of object-level errors.
+        /// Returns a collection of object-level errors.
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -52,7 +52,7 @@ namespace Tortuga.Anchor.ComponentModel
         ReadOnlyCollection<ValidationResult> GetErrors();
 
         /// <summary>
-        /// Returns an array of property-level errors.
+        /// Returns a collection of property-level errors.
         /// </summary>
         /// <param name="propertyName">Null or String.Empty will return the object-level errors</param>
         /// <returns></returns>
@@ -62,6 +62,17 @@ namespace Tortuga.Anchor.ComponentModel
 
         ReadOnlyCollection<ValidationResult> GetErrors(string propertyName);
 
+
+        /// <summary>
+        /// Returns a collection of all errors (object and property level).
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Call Validate() to refresh this property.
+        /// </remarks>
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        ReadOnlyCollection<ValidationResult> GetAllErrors();
 
         /// <summary>
         /// Raised when the errors collection has changed.

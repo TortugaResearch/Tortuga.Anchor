@@ -128,7 +128,20 @@ namespace Tortuga.Anchor.Modeling.Internals
         }
 
         /// <summary>
-        /// Returns an array of object-level errors.
+        /// Returns a collection of all errors (object and property level).
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Call Validate() to refresh this property.
+        /// </remarks>
+
+        public ReadOnlyCollection<ValidationResult> GetAllErrors()
+        {
+            return ErrorsDictionary.GetAllErrors();
+        }
+
+        /// <summary>
+        /// Returns a collection of object-level errors.
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -142,7 +155,7 @@ namespace Tortuga.Anchor.Modeling.Internals
 
 
         /// <summary>
-        /// Returns an array of property-level errors.
+        /// Returns a collection of property-level errors.
         /// </summary>
         /// <param name="propertyName">Null or String.Empty will return the object-level errors</param>
         /// <returns></returns>

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 #if !DataAnnotations_Missing
@@ -11,7 +10,7 @@ namespace Tortuga.Anchor.Modeling.Internals
 {
     internal class ErrorsDictionary
     {
-       private readonly Dictionary<string, IList<ValidationResult>> m_Errors = new Dictionary<string, IList<ValidationResult>>();
+        private readonly Dictionary<string, IList<ValidationResult>> m_Errors = new Dictionary<string, IList<ValidationResult>>();
 
 
         /// <summary>
@@ -161,8 +160,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <summary>
         /// Gets all of the errors.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ReadOnlyCollection<ValidationResult> GetErrors()
+        public ReadOnlyCollection<ValidationResult> GetAllErrors()
         {
             List<ValidationResult> errors = new List<ValidationResult>();
 
