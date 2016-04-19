@@ -79,6 +79,8 @@
     <Compile Include="Eventing\RelayedEventHandler`1.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Metadata\ClassMetadata.cs" />
+    <Compile Include="Metadata\ConstructorMetadata.cs" />
+    <Compile Include="Metadata\ConstructorMetadataCollection.cs" />
     <Compile Include="Metadata\MetadataCache.cs" />
     <Compile Include="Metadata\PropertyMetadata.cs" />
     <Compile Include="Metadata\PropertyMetadataCollection.cs" />

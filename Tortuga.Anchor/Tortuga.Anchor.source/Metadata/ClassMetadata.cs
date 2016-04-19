@@ -63,12 +63,20 @@ namespace Tortuga.Anchor.Metadata
 
             foreach (var property in Properties)
                 property.EndInit();
+
+            Constructors = new ConstructorMetadataCollection(typeInfo.DeclaredConstructors);
         }
 
         /// <summary>
         /// Properties on the indicated class
         /// </summary>
         public PropertyMetadataCollection Properties { get; } = new PropertyMetadataCollection();
+
+        /// <summary>
+        /// Properties on the indicated class
+        /// </summary>
+        public ConstructorMetadataCollection Constructors { get; }
+
 
         static bool IsHidingMember(PropertyInfo propertyInfo)
         {
@@ -125,4 +133,9 @@ namespace Tortuga.Anchor.Metadata
         public string MappedTableName { get; }
 #endif
     }
+
+
+
+
+
 }

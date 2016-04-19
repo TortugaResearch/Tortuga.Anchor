@@ -153,6 +153,12 @@
     <Compile Include="..\tortuga.anchor.source\metadata\ClassMetadata.cs">
       <Link>Metadata\ClassMetadata.cs</Link>
     </Compile>
+    <Compile Include="..\Tortuga.Anchor.source\Metadata\ConstructorMetadata.cs">
+      <Link>Metadata\ConstructorMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.source\Metadata\ConstructorMetadataCollection.cs">
+      <Link>Metadata\ConstructorMetadataCollection.cs</Link>
+    </Compile>
     <Compile Include="..\tortuga.anchor.source\metadata\MetadataCache.cs">
       <Link>Metadata\MetadataCache.cs</Link>
     </Compile>

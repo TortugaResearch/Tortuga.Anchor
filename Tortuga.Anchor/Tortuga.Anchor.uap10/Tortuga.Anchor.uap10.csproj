@@ -206,6 +206,12 @@
     <Compile Include="..\Tortuga.Anchor.source\Metadata\ClassMetadata.cs">
       <Link>Metadata\ClassMetadata.cs</Link>
     </Compile>
+    <Compile Include="..\Tortuga.Anchor.source\Metadata\ConstructorMetadata.cs">
+      <Link>Metadata\ConstructorMetadata.cs</Link>
+    </Compile>
+    <Compile Include="..\Tortuga.Anchor.source\Metadata\ConstructorMetadataCollection.cs">
+      <Link>Metadata\ConstructorMetadataCollection.cs</Link>
+    </Compile>
     <Compile Include="..\Tortuga.Anchor.source\Metadata\MetadataCache.cs">
       <Link>Metadata\MetadataCache.cs</Link>
     </Compile>
@@ -317,7 +323,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Unchecked|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug-Unchecked\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;IDataErrorInfo_Missing;TypeInfo_Is_Not_Type</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>

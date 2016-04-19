@@ -22,6 +22,71 @@ namespace Tests.Metadata
     public class MetadataCacheTests
     {
         [TestMethod]
+        public void MetadataCache_Constructors_Test()
+        {
+            using (var verify = new Verify())
+            {
+
+                var result  = MetadataCache.GetMetadata(typeof(MultiConstructor));
+
+                var a = result.Constructors.Find(typeof(int));
+                var b = result.Constructors.Find(typeof(string));
+                var c = result.Constructors.Find(typeof(int), typeof(string));
+                var d = result.Constructors.Find(typeof(long), typeof(string));
+
+                verify.IsNotNull(a, "int");
+                verify.IsNotNull(b, "string");
+                verify.IsNotNull(c, "int, string");
+                verify.IsNull(d, "long, string shouldn't exist");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_DefaultConstructor_Test()
+        {
+            using (var verify = new Verify())
+            {
+                var a = MetadataCache.GetMetadata(typeof(AutoConstructor));
+                verify.IsTrue(a.Constructors.HasDefaultConstructor, "AutoConstructor should have a automatically implemented default constructor");
+
+                var b = MetadataCache.GetMetadata(typeof(DefaultConstructor));
+                verify.IsTrue(b.Constructors.HasDefaultConstructor, "DefaultConstructor should have a automatically implemented default constructor");
+
+                var c = MetadataCache.GetMetadata(typeof(DefaultConstructorPrivateClass));
+                verify.IsTrue(c.Constructors.HasDefaultConstructor, "DefaultConstructorPrivateClass should have a automatically implemented default constructor");
+
+                var d = MetadataCache.GetMetadata(typeof(PrivateDefaultConstructor));
+                verify.IsFalse(d.Constructors.HasDefaultConstructor, "PrivateDefaultConstructor does not have a visible default constructor");
+
+                var e = MetadataCache.GetMetadata(typeof(NonDefaultConstructor));
+                verify.IsFalse(e.Constructors.HasDefaultConstructor, "NonDefaultConstructor does not have a default constructor");
+
+
+                var f = MetadataCache.GetMetadata(typeof(StaticConstructor));
+                verify.IsTrue(f.Constructors.HasDefaultConstructor, "NonDefaultConstructor does not have a default constructor");
+
+
+
+
+            }
+        }
+
+        public class AutoConstructor { }
+        public class DefaultConstructor { public DefaultConstructor() { } }
+        private class DefaultConstructorPrivateClass { public DefaultConstructorPrivateClass() { } }
+        public class PrivateDefaultConstructor { private PrivateDefaultConstructor() { } }
+        public class NonDefaultConstructor { public NonDefaultConstructor(int x) { } }
+        public class StaticConstructor { static StaticConstructor() { } }
+        public class MultiConstructor {
+            public MultiConstructor() { }
+            public MultiConstructor(int x) { }
+            public MultiConstructor(string x) { }
+            public MultiConstructor(int a, string b) { }
+        }
+
+
+
+        [TestMethod]
         public void MetadataCache_PublicProperty_Test()
         {
             using (var verify = new Verify())
@@ -40,6 +105,8 @@ namespace Tests.Metadata
                 verify.AreEqual(typeof(int), publicProperty.PropertyType, "PropertyType");
 
                 verify.AreEqual(0, publicProperty.Validators.Length, "not used in validation");
+
+                verify.IsTrue(result.Constructors.HasDefaultConstructor, "this should have a automatically implemented default constructor");
             }
         }
 

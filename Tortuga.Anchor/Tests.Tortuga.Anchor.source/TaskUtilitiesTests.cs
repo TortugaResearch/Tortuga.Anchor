@@ -344,7 +344,7 @@ namespace Tests
                 var result = await task;
                 timer.Stop();
                 verify.AreEqual(123, result, "Task result was wrong");
-                verify.AreEqual(1.0, timer.Elapsed.TotalSeconds, 0.05, "Delay was incorrect");
+                verify.AreEqual(1.0, timer.Elapsed.TotalSeconds, 0.06, "Delay was incorrect");
             }
         }
 

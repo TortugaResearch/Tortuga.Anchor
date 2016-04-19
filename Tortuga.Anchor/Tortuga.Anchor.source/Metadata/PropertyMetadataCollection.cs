@@ -129,6 +129,11 @@ namespace Tortuga.Anchor.Metadata
             return m_Base.Values.GetEnumerator();
         }
 
+        void ICollection<PropertyMetadata>.Add(PropertyMetadata item)
+        {
+            throw new NotSupportedException("This collection is read-only.");
+        }
+
         void ICollection<PropertyMetadata>.Clear()
         {
             throw new NotSupportedException("This collection is read-only.");
@@ -166,12 +171,6 @@ namespace Tortuga.Anchor.Metadata
             value = null;
             return false;
         }
-
-        void ICollection<PropertyMetadata>.Add(PropertyMetadata item)
-        {
-            throw new NotSupportedException("This collection is read-only.");
-        }
-
         /// <summary>
         /// Adds a property to the collection
         /// </summary>
