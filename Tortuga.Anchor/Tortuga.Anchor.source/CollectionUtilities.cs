@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
+#if !Concurrent_Missing
+using System.Collections.ObjectModel;
+using System.Collections.Concurrent;
+#endif
+
 namespace Tortuga.Anchor
 {
     /// <summary>
@@ -165,5 +170,37 @@ namespace Tortuga.Anchor
             for (int i = 0; i < count; i++)
                 list.RemoveAt(startingIndex);
         }
+#if !Concurrent_Missing
+        /// <summary>
+        /// Gets the keys as a readonly collection.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the key.</typeparam>
+        /// <typeparam name="TValue">The type of the value.</typeparam>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <returns></returns>
+        /// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
+        public static ReadOnlyCollection<TKey> GetKeys<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+        {
+            if (dictionary == null)
+                throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");
+            return (ReadOnlyCollection<TKey>)dictionary.Keys;
+        }
+
+        /// <summary>
+        /// Gets the values as a readonly collection.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the key.</typeparam>
+        /// <typeparam name="TValue">The type of the value.</typeparam>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <returns></returns>
+        /// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
+        public static ReadOnlyCollection<TValue> GetValues<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+        {
+            if (dictionary == null)
+                throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");
+            return (ReadOnlyCollection<TValue>)dictionary.Values;
+        }
+#endif
+
     }
 }
