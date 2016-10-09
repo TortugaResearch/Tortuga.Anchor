@@ -1,9 +1,9 @@
 ﻿{
-  "title": "Sample document",
+  "title": "Tortuga Anchor",
   "template-html": "template.html",
   "template-pdf": "template-pdf.html",
-  "output-html": "documentation.html",
-  "output-pdf": "documentation-pdf-input.html",
+  "output-html": "anchor.html",
+  "output-pdf": "anchor-pdf.html",
   "section-title-base": 1,
   "pages": [
     {

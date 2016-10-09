@@ -9,7 +9,8 @@
 		<BuildOutputPath>$(MSBuildProjectDirectory)\Build</BuildOutputPath>
 		<HelpPath>$(MSBuildProjectDirectory)\Help</HelpPath>
 		<ReadmePath>$(MSBuildProjectDirectory)\..\readme.md</ReadmePath>
-	</PropertyGroup>
+    <PdfPath>$(MSBuildProjectDirectory)\Documentation\bin\Release\anchor-pdf.pdf</PdfPath>
+  </PropertyGroup>
 	
 	<PropertyGroup>
 		<MainSolution>Tortuga.Anchor-Nuget.sln</MainSolution>
@@ -37,7 +38,7 @@
 		<CallTarget Targets="Clean" />
 		<CallTarget Targets="Compile" />
 		<CallTarget Targets="PackageBinaries" />
-		<!--<CallTarget Targets="PackageHelp" />-->
+		<CallTarget Targets="PackageHelp" />
 		<CallTarget Targets="BuildNugetFile" />
 	</Target>
 
@@ -86,18 +87,10 @@
     <Copy SourceFiles="@(Profile78Output)" DestinationFolder="$(BuildOutputPath)\lib\portable-net45+win8+wp8" />
     <Copy SourceFiles="@(NetStandard13Output)" DestinationFolder="$(BuildOutputPath)\lib\netstandard1.3" />
 	</Target>
-	
-	<!--<Target Name="PackageHelp">
 
-		<Message Text="Compressing help files..." />
-		<ItemGroup>
-			<HelpFiles Include="$(HelpPath)\**" />
-		</ItemGroup>
-		<Zip ZipFileName="$(BuildOutputPath)\docs\Help.zip" WorkingDirectory="$(MSBuildProjectDirectory)" Files="@(HelpFiles)" />
-
-		<Copy SourceFiles="$(ReadmePath)" DestinationFolder="$(BuildOutputPath)\docs" />
-
-	</Target>-->
+  <Target Name="PackageHelp">
+    <Copy SourceFiles="$(PdfPath)" DestinationFolder="$(BuildOutputPath)\docs" />
+  </Target>
 	
 	<Target Name="BuildNugetFile">
 		<Copy SourceFiles="$(MSBuildProjectDirectory)\$(NuspecName)" DestinationFolder="$(BuildOutputPath)" />
