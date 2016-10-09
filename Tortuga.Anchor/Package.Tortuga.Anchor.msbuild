@@ -15,14 +15,16 @@
 		<MainSolution>Tortuga.Anchor-Nuget.sln</MainSolution>
 		<ResultDll>Tortuga.Anchor.dll</ResultDll>
 		<ResultPdb>Tortuga.Anchor.pdb</ResultPdb>
-		<ResultXml>Tortuga.Anchor.xml</ResultXml>
+    <ResultXml>Tortuga.Anchor.xml</ResultXml>
+    <DepsJson>Tortuga.Anchor.deps.json</DepsJson>
 		
 		<Net46Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.net46</Net46Path>
 		<Net45Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.net45</Net45Path>
     <Uap10Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.uap10</Uap10Path>
     <Profile78Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.portable-net45+win8+wp8</Profile78Path>
+    <NetStandard13Path>$(MSBuildProjectDirectory)\Tortuga.Anchor.netstandard1.3</NetStandard13Path>
 
-		<VersionSource>$(Net46Path)\bin\Release\$(ResultDll)</VersionSource>
+    <VersionSource>$(Net46Path)\bin\Release\$(ResultDll)</VersionSource>
 		<NuspecName>Tortuga.Anchor.nuspec</NuspecName>
 	
 </PropertyGroup>
@@ -70,12 +72,19 @@
       <Profile78Output Include="$(Profile78Path)\bin\Release\$(ResultDll)" />
       <Profile78Output Include="$(Profile78Path)\bin\Release\$(ResultPdb)" />
       <Profile78Output Include="$(Profile78Path)\bin\Release\$(ResultXml)" />
+
+      <NetStandard13Output Include="$(NetStandard13Path)\bin\Release\netstandard1.3\$(ResultDll)" />
+      <NetStandard13Output Include="$(NetStandard13Path)\bin\Release\netstandard1.3\$(ResultPdb)" />
+      <NetStandard13Output Include="$(NetStandard13Path)\bin\Release\netstandard1.3\$(ResultXml)" />
+      <NetStandard13Output Include="$(NetStandard13Path)\bin\Release\netstandard1.3\$(DepsJson)" />
+      
     </ItemGroup>
 
     <Copy SourceFiles="@(Net46Output)" DestinationFolder="$(BuildOutputPath)\lib\net46" />
     <Copy SourceFiles="@(Net45Output)" DestinationFolder="$(BuildOutputPath)\lib\net45" />
 		<Copy SourceFiles="@(Uap10Output)" DestinationFolder="$(BuildOutputPath)\lib\uap10" />
-		<Copy SourceFiles="@(Profile78Output)" DestinationFolder="$(BuildOutputPath)\lib\portable-net45+win8+wp8" />
+    <Copy SourceFiles="@(Profile78Output)" DestinationFolder="$(BuildOutputPath)\lib\portable-net45+win8+wp8" />
+    <Copy SourceFiles="@(NetStandard13Output)" DestinationFolder="$(BuildOutputPath)\lib\netstandard1.3" />
 	</Target>
 	
 	<!--<Target Name="PackageHelp">

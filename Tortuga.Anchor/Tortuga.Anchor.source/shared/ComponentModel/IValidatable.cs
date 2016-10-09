@@ -11,7 +11,7 @@ namespace Tortuga.Anchor.ComponentModel
     /// <summary>
     /// This interface exposes strongly typed validation information.
     /// </summary>
-    /// <remarks>While this interface is easier to work with than IDataErrorInfo, classes should stll implement IDataErrorInfo so that they work with UI components.</remarks>
+    /// <remarks>While this interface is easier to work with than IDataErrorInfo, classes should still implement IDataErrorInfo so that they work with UI components.</remarks>
     public interface IValidatable
     {
 

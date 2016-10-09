@@ -1,11 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 using Tortuga.Anchor.DataAnnotations;
 using Tortuga.Anchor.Eventing;
 using System.Collections.ObjectModel;
 using Tortuga.Anchor.ComponentModel;
+
+#if !Serialization_Missing
+using System.Runtime.Serialization;
+#endif
 
 #if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,7 +28,9 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// <summary>
     /// Abstract base class to deal with the limitations of generics. This is not meant to be used directly by client code.
     /// </summary>
+#if !Serialization_Missing
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
+#endif
     public abstract partial class AbstractModelBase : INotifyPropertyChanged, INotifyPropertyChangedWeak, IValidatable
     {
         PropertyChangedEventManager m_PropertyChangedEventManager;
@@ -46,6 +51,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             m_Errors = new ErrorsDictionary();
         }
 
+#if !Serialization_Missing
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -54,6 +60,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         {
             Initialize();
         }
+#endif
 
         /// <summary>
         /// Raised when the errors collection has changed.

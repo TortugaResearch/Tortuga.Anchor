@@ -1,9 +1,12 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Modeling.Internals;
 using System.Collections.Generic;
+
+#if !Serialization_Missing
+using System.Runtime.Serialization;
+#endif
 
 #if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,7 +17,9 @@ namespace Tortuga.Anchor.Modeling
     /// <summary>
     /// This ModelBase tracks which fields have changed since the last time AcceptChanges or RejectChanges was called. The purpose of this ModelBase is to easy to determine which objects have unsaved changes.
     /// </summary>
+#if !Serialization_Missing
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
+#endif
     public class ChangeTrackingModelBase : AbstractModelBase<ChangeTrackingPropertyBag>, IDetailedPropertyChangeTracking
     {
 
@@ -72,14 +77,14 @@ namespace Tortuga.Anchor.Modeling
             Properties.RejectChanges(true);
         }
 
-
+#if !Serialization_Missing
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context"), SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         [OnDeserialized]
         void OnDeserialized(StreamingContext context)
         {
             AcceptChanges();
         }
-
+#endif
 
         /// <summary>
         /// Gets the previous value for the indicated property.

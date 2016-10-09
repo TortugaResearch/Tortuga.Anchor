@@ -72,194 +72,11 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Tortuga.Anchor.source\Collections\CommonProperties.cs">
-      <Link>Collections\CommonProperties.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Collections\Dictionary`3.cs">
-      <Link>Collections\Dictionary`3.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Collections\ObservableCollectionExtended`1.cs">
-      <Link>Collections\ObservableCollectionExtended`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Collections\Pair.cs">
-      <Link>Collections\Pair.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Collections\Pair`2.cs">
-      <Link>Collections\Pair`2.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Collections\ReadOnlyObservableCollectionExtended`1.cs">
-      <Link>Collections\ReadOnlyObservableCollectionExtended`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Collections\WeakReferenceCollection.cs">
-      <Link>Collections\WeakReferenceCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\CollectionUtilities.cs">
-      <Link>CollectionUtilities.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\ComponentModel\IDetailedPropertyChangeTracking.cs">
-      <Link>ComponentModel\IDetailedPropertyChangeTracking.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\ComponentModel\INotifyCollectionChanged`1.cs">
-      <Link>ComponentModel\INotifyCollectionChanged`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\ComponentModel\IPropertyChangeTracking.cs">
-      <Link>ComponentModel\IPropertyChangeTracking.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\ComponentModel\ItemEventArgs`1.cs">
-      <Link>ComponentModel\ItemEventArgs`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\ComponentModel\IValidatable.cs">
-      <Link>ComponentModel\IValidatable.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\DataAnnotations\ValidationResultCollection.cs">
-      <Link>DataAnnotations\ValidationResultCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\CollectionChangedEventManager.cs">
-      <Link>Eventing\CollectionChangedEventManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\EventManager.cs">
-      <Link>Eventing\EventManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\IListener.cs">
-      <Link>Eventing\IListener.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\INotifyCollectionChangedWeak.cs">
-      <Link>Eventing\INotifyCollectionChangedWeak.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\INotifyItemPropertyChanged.cs">
-      <Link>Eventing\INotifyItemPropertyChanged.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\INotifyItemPropertyChangedWeak.cs">
-      <Link>Eventing\INotifyItemPropertyChangedWeak.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\INotifyPropertyChangedWeak.cs">
-      <Link>Eventing\INotifyPropertyChangedWeak.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\ItemPropertyChangedEventManager.cs">
-      <Link>Eventing\ItemPropertyChangedEventManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\Listener.cs">
-      <Link>Eventing\Listener.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\PropertyChangedEventManager.cs">
-      <Link>Eventing\PropertyChangedEventManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\RelayedEventArgs.cs">
-      <Link>Eventing\RelayedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\RelayedEventArgs`1.cs">
-      <Link>Eventing\RelayedEventArgs`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Eventing\RelayedEventHandler`1.cs">
-      <Link>Eventing\RelayedEventHandler`1.cs</Link>
-    </Compile>
     <Compile Include="..\Tortuga.Anchor.source\GlobalSuppressions.cs">
       <Link>GlobalSuppressions.cs</Link>
     </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Metadata\ClassMetadata.cs">
-      <Link>Metadata\ClassMetadata.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Metadata\ConstructorMetadata.cs">
-      <Link>Metadata\ConstructorMetadata.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Metadata\ConstructorMetadataCollection.cs">
-      <Link>Metadata\ConstructorMetadataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Metadata\MetadataCache.cs">
-      <Link>Metadata\MetadataCache.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Metadata\PropertyMetadata.cs">
-      <Link>Metadata\PropertyMetadata.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Metadata\PropertyMetadataCollection.cs">
-      <Link>Metadata\PropertyMetadataCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\AbstractModelBase.cs">
-      <Link>Modeling.Internals\AbstractModelBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\AbstractModelBase`1.cs">
-      <Link>Modeling.Internals\AbstractModelBase`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\AbstractModelCollection`2.cs">
-      <Link>Modeling.Internals\AbstractModelCollection`2.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\ChangeTrackingPropertyBag.cs">
-      <Link>Modeling.Internals\ChangeTrackingPropertyBag.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\CommonProperties.cs">
-      <Link>Modeling.Internals\CommonProperties.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\EditableObjectPropertyBag.cs">
-      <Link>Modeling.Internals\EditableObjectPropertyBag.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\ErrorsDictionary.cs">
-      <Link>Modeling.Internals\ErrorsDictionary.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\ErrorsDictionaryUpdateType.cs">
-      <Link>Modeling.Internals\ErrorsDictionaryUpdateType.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\NotSet.cs">
-      <Link>Modeling.Internals\NotSet.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\PropertyBag.cs">
-      <Link>Modeling.Internals\PropertyBag.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\PropertyBagBase.cs">
-      <Link>Modeling.Internals\PropertyBagBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\PropertySetModes.cs">
-      <Link>Modeling.Internals\PropertySetModes.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling.Internals\ValidationResultEqualityComparer.cs">
-      <Link>Modeling.Internals\ValidationResultEqualityComparer.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\CalculatedFieldAttribute.cs">
-      <Link>Modeling\CalculatedFieldAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\ChangeTrackingModelBase.cs">
-      <Link>Modeling\ChangeTrackingModelBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\ChangeTrackingModelCollection`1.cs">
-      <Link>Modeling\ChangeTrackingModelCollection`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\DecomposeAttribute.cs">
-      <Link>Modeling\DecomposeAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\EditableObjectModelBase.cs">
-      <Link>Modeling\EditableObjectModelBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\EditableObjectModelCollection`1.cs">
-      <Link>Modeling\EditableObjectModelCollection`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\IgnoreOnInsertAttribute.cs">
-      <Link>Modeling\IgnoreOnInsertAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\IgnoreOnUpdateAttribute.cs">
-      <Link>Modeling\IgnoreOnUpdateAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\ModelBase.cs">
-      <Link>Modeling\ModelBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\ModelCollection`1.cs">
-      <Link>Modeling\ModelCollection`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\UpdateMode.cs">
-      <Link>Modeling\UpdateMode.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\ValidationContextHelper.cs">
-      <Link>Modeling\ValidationContextHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\Modeling\ValueChanged`1.cs">
-      <Link>Modeling\ValueChanged`1.cs</Link>
-    </Compile>
     <Compile Include="..\Tortuga.Anchor.source\Properties\LibrarySharedAssemblyInfo.cs">
       <Link>Properties\LibrarySharedAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\RandomExtended.cs">
-      <Link>RandomExtended.cs</Link>
-    </Compile>
-    <Compile Include="..\Tortuga.Anchor.source\TaskUtilities.cs">
-      <Link>TaskUtilities.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -275,6 +92,11 @@
     </CodeAnalysisDictionary>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="..\Tortuga.Anchor.source\shared\**\*.cs">
+      <Link>shared\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
+  </ItemGroup>  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -6,10 +6,13 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 using Tortuga.Anchor.Collections;
 using Tortuga.Anchor.DataAnnotations;
 using Tortuga.Anchor.ComponentModel;
+
+#if !Serialization_Missing
+using System.Runtime.Serialization;
+#endif
 
 #if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
@@ -28,7 +31,9 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// </summary>
     /// <typeparam name="T">The type of object being stored</typeparam>
     /// <typeparam name="TPropertyTracking">The type of property tracking desired.</typeparam>
+#if !Serialization_Missing
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
+#endif
     public abstract partial class AbstractModelCollection<T, TPropertyTracking> : ObservableCollectionExtended<T>, INotifyDataErrorInfo, IValidatable
         where TPropertyTracking : PropertyBagBase
     {
@@ -55,6 +60,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             m_Properties.RevalidateObject += (s, e) => ValidateObject();
         }
 
+#if !Serialization_Missing
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -63,7 +69,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         {
             Initialize();
         }
-
+#endif
 
         /// <summary>
         /// Creates a model by auto-constructing the property bag defined by TPropertyTracking.

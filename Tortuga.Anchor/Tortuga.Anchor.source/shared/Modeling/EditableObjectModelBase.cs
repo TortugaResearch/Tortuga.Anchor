@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Serialization;
 using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Modeling.Internals;
+
+#if !Serialization_Missing
+using System.Runtime.Serialization;
+#endif
 
 #if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +16,9 @@ namespace Tortuga.Anchor.Modeling
     /// <summary>
     /// This ModelBase adds the IEditableObject interface to the ChangeTrackingModelBase. The IEditableObject methods are designed for dialogs with ok/cancel semantics. Use the IChangeTracking to track unsaved changes.
     /// </summary>
+#if !Serialization_Missing
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
+#endif
     public class EditableObjectModelBase : AbstractModelBase<EditableObjectPropertyBag>, IDetailedPropertyChangeTracking, IEditableObject
     {
         /// <summary>
@@ -104,6 +109,7 @@ namespace Tortuga.Anchor.Modeling
         }
 
 
+#if !Serialization_Missing
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")]
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         [OnDeserialized]
@@ -111,6 +117,7 @@ namespace Tortuga.Anchor.Modeling
         {
             AcceptChanges();
         }
+#endif
 
         /// <summary>
         /// Gets the previous value for the indicated property.

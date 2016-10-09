@@ -358,6 +358,28 @@ namespace Tortuga.Anchor.Collections
         {
             m_ItemPropertyChangedEvent?.Invoke(this, RelayedEventArgs.Create(sender, e));
         }
+
+        /// <summary>
+        /// Removes all the elements that match the conditions defined by the specified predicate.
+        /// </summary>
+        /// <param name="match"> The System.Predicate`1 delegate that defines the conditions of the elements to remove.</param>
+        /// <returns>The number of elements removed.</returns>
+        public int RemoveAll(Predicate<T> match)
+        {
+            if (match == null)
+                throw new ArgumentNullException(nameof(match), $"{nameof(match)} is null.");
+
+            var count = 0;
+            for (int i = Count - 1; i >= 0; i--)
+            {
+                if (match(this[i]))
+                {
+                    RemoveAt(i);
+                    count += 1;
+                }
+            }
+            return count;
+        }
     }
 
 

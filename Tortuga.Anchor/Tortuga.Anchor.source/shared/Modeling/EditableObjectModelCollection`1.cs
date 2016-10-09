@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.Serialization;
 using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Eventing;
 using Tortuga.Anchor.Modeling.Internals;
+
+#if !Serialization_Missing
+using System.Runtime.Serialization;
+#endif
 
 #if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,7 +20,9 @@ namespace Tortuga.Anchor.Modeling
     /// A collection suitable for use in dialogs that have a cancel button. This also supports revertible change tracking.
     /// </summary>
     /// <typeparam name="TModelType"></typeparam>
+#if !Serialization_Missing
 	[DataContract(Namespace = "http://github.com/docevaad/Anchor")]
+#endif
     public class EditableObjectModelCollection<TModelType> : AbstractModelCollection<TModelType, EditableObjectPropertyBag>, IRevertibleChangeTracking, IEditableObject
     {
         readonly List<TModelType> m_OriginalList = new List<TModelType>();

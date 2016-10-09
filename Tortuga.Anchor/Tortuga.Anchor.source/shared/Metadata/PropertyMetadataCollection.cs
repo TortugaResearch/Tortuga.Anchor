@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -9,11 +10,33 @@ namespace Tortuga.Anchor.Metadata
     /// <summary>
     /// Immutable collection of PropertyMetadata
     /// </summary>
-    sealed public class PropertyMetadataCollection : ICollection<PropertyMetadata>
+    sealed public class PropertyMetadataCollection : IList<PropertyMetadata>
     {
         private readonly Dictionary<string, PropertyMetadata> m_Base = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, PropertyMetadata> m_Int32IndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
         private readonly Dictionary<string, PropertyMetadata> m_StringIndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
+
+        /// <summary>
+        /// This is used when we need to iterate over all of the properties as quickly as possible.
+        /// </summary>
+        private readonly ImmutableArray<PropertyMetadata> m_QuickList;
+
+        internal PropertyMetadataCollection(IEnumerable<PropertyMetadata> properties)
+        {
+            foreach (var value in properties)
+            {
+                m_Base.Add(value.Name, value);
+
+                if (value.IsIndexed)
+                {
+                    if (value.Name.EndsWith(" [Int32]", StringComparison.Ordinal))
+                        m_Int32IndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName, value);
+                    else if (value.Name.EndsWith(" [System.String]", StringComparison.Ordinal))
+                        m_StringIndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName, value);
+                }
+            }
+            m_QuickList = ImmutableArray.CreateRange(m_Base.Values);
+        }
 
         /// <summary>
         /// Returns the number of known properties
@@ -35,6 +58,23 @@ namespace Tortuga.Anchor.Metadata
         public ReadOnlyCollection<string> PropertyNames
         {
             get { return new ReadOnlyCollection<string>(m_Base.Keys.ToList()); }
+        }
+
+        PropertyMetadata IList<PropertyMetadata>.this[int index]
+        {
+            get { return m_QuickList[index]; }
+
+            set { throw new NotSupportedException("This collection is read-only."); }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="PropertyMetadata"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <returns>PropertyMetadata.</returns>
+        public PropertyMetadata this[int index]
+        {
+            get { return m_QuickList[index]; }
         }
 
         /// <summary>
@@ -171,21 +211,21 @@ namespace Tortuga.Anchor.Metadata
             value = null;
             return false;
         }
-        /// <summary>
-        /// Adds a property to the collection
-        /// </summary>
-        /// <param name="value"></param>
-        internal void Add(PropertyMetadata value)
-        {
-            m_Base.Add(value.Name, value);
 
-            if (value.IsIndexed)
-            {
-                if (value.Name.EndsWith(" [Int32]", StringComparison.Ordinal))
-                    m_Int32IndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName, value);
-                else if (value.Name.EndsWith(" [System.String]", StringComparison.Ordinal))
-                    m_StringIndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName, value);
-            }
+        int IList<PropertyMetadata>.IndexOf(PropertyMetadata item)
+        {
+            return m_QuickList.IndexOf(item);
         }
+
+        void IList<PropertyMetadata>.Insert(int index, PropertyMetadata item)
+        {
+            throw new NotSupportedException("This collection is read-only.");
+        }
+
+        void IList<PropertyMetadata>.RemoveAt(int index)
+        {
+            throw new NotSupportedException("This collection is read-only.");
+        }
+
     }
 }

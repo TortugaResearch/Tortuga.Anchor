@@ -40,15 +40,11 @@ namespace Tortuga.Anchor.Metadata
             var shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
             var propertyList = typeInfo.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 #endif 
-            foreach (var propertyInfo in propertyList)
-            {
-                var isHidden = !shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => p.Name == propertyInfo.Name);
 
-                if (isHidden)
-                    continue;
+            Func<PropertyInfo, bool> IsHidden = propertyInfo => !shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => p.Name == propertyInfo.Name); 
 
-                Properties.Add(new PropertyMetadata(propertyInfo));
-            }
+            Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select(p => new PropertyMetadata(p)));
+
 
             //List the properties that are affected when the indicated property is modified.
             foreach (var property in Properties)
@@ -70,7 +66,7 @@ namespace Tortuga.Anchor.Metadata
         /// <summary>
         /// Properties on the indicated class
         /// </summary>
-        public PropertyMetadataCollection Properties { get; } = new PropertyMetadataCollection();
+        public PropertyMetadataCollection Properties { get; internal set; } 
 
         /// <summary>
         /// Properties on the indicated class
