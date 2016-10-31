@@ -28,7 +28,7 @@
     <IncludeScopes>
       <Public>true</Public>
       <Internal>false</Internal>
-      <Protected>false</Protected>
+      <Protected>true</Protected>
       <Private>false</Private>
       <Inherited>true</Inherited>
       <InheritedFromReferences>true</InheritedFromReferences>
@@ -46,7 +46,7 @@
     <HeaderText />
     <FooterText />
     <SelectedProjects>
-      <SelectedProject>Tortuga.Anchor.net461</SelectedProject>
+      <SelectedProject>Tortuga.Anchor.source</SelectedProject>
     </SelectedProjects>
   </HelpConfiguration>
 </HelpConfigurations>
