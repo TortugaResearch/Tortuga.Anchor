@@ -604,6 +604,77 @@ namespace Tests.Metadata
                 verify.AreSame(fromType, fromTypeInfo, "From TypeInfo was not cached");
             }
         }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_Normal()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Normal)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Normal", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_Nested()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Normal.Nested)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Normal.Nested", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_Generic()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<System.Int32>", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_NestedInGeneric()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>.NestedInGeneric)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<System.Int32>.NestedInGeneric", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_GenericNestedInGeneric()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>.GenericNestedInGeneric<long>)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<System.Int32>.GenericNestedInGeneric<System.Int64>", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_Generic_Of_Generic()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<Generic<int>>)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<Tests.Metadata.Generic<System.Int32>>", name, "C# type name was not correct");
+            }
+        }
+    }
+
+    public class Normal {
+        public class Nested { }
+    }
+
+    public class Generic <T>
+    {
+        public class NestedInGeneric { }
+
+        public class GenericNestedInGeneric<T2> { }
     }
 
     public class Base

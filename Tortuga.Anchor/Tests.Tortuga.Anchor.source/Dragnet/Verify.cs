@@ -155,13 +155,13 @@ namespace Tortuga.Dragnet
 
             if (expected == null)
             {
-                Fail($"Expected value was <null> but the actual value was {actual}. {message}");
+                Fail($"Expected value was <null> but the actual value was \"{actual}\". {message}");
                 return false;
             }
 
             if (actual == null)
             {
-                Fail($"Expected value was {expected} but the actual value was <null>. {message}");
+                Fail($"Expected value was \"{expected}\" but the actual value was <null>. {message}");
                 return false;
             }
 
@@ -174,7 +174,7 @@ namespace Tortuga.Dragnet
             if (object.Equals(expected, actual))
                 return true;
 
-            Fail($"Expected value was {expected} but the actual value was {actual}. {message}");
+            Fail($"Expected value was \"{expected}\" but the actual value was \"{actual}\". {message}");
 
             return false;
         }
