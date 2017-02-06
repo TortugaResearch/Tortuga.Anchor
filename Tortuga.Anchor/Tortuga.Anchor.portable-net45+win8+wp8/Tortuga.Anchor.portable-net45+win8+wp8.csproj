@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;IDataErrorInfo_Missing;DataAnnotations_Missing;Weird_Reflection;Concurrent_Missing;Timer_Missing</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;CODE_ANALYSIS;IDataErrorInfo_Missing;DataAnnotations_Missing;Weird_Reflection;Concurrent_Missing;Timer_Missing;INotifyPropertyChanging_Missing</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -33,7 +33,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;CODE_ANALYSIS;CODE_ANALYSIS;IDataErrorInfo_Missing;DataAnnotations_Missing;Weird_Reflection;Concurrent_Missing;Timer_Missing</DefineConstants>
+    <DefineConstants>TRACE;CODE_ANALYSIS;CODE_ANALYSIS;CODE_ANALYSIS;IDataErrorInfo_Missing;DataAnnotations_Missing;Weird_Reflection;Concurrent_Missing;Timer_Missing;INotifyPropertyChanging_Missing</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug-Unchecked|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug-Unchecked\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;IDataErrorInfo_Missing;DataAnnotations_Missing;Weird_Reflection;Concurrent_Missing;Timer_Missing</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS;IDataErrorInfo_Missing;DataAnnotations_Missing;Weird_Reflection;Concurrent_Missing;Timer_Missing;INotifyPropertyChanging_Missing</DefineConstants>
     <DocumentationFile>bin\Debug\Tortuga.Anchor.XML</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>

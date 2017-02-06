@@ -78,8 +78,9 @@ namespace Tortuga.Anchor.Modeling.Internals
             {
                 if (!m_CheckpointValues.ContainsKey(item.Key))
                 {
-                    Values.Remove(item.Key);
                     var property = Metadata.Properties[item.Key];
+                    OnPropertyChanging(property);
+                    Values.Remove(item.Key);
                     OnPropertyChanged(property);
                     OnRevalidateProperty(property);
                 }
@@ -91,8 +92,9 @@ namespace Tortuga.Anchor.Modeling.Internals
                 var oldValue = GetValue(item.Key);
                 if (!Equals(oldValue, item.Value))
                 {
-                    Values[item.Key] = item.Value;
                     var property = Metadata.Properties[item.Key];
+                    OnPropertyChanging(property);
+                    Values[item.Key] = item.Value;
                     OnPropertyChanged(property);
                     OnRevalidateProperty(property);
                 }

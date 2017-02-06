@@ -97,11 +97,13 @@ namespace Tortuga.Anchor.Modeling.Internals
             {
                 if (!m_OriginalValues.ContainsKey(item.Key))
                 {
+                    var property = Metadata.Properties[item.Key];
+                    OnPropertyChanging(property);
+
                     m_Values.Remove(item.Key);
 
                     UpdateChangeTrackingEventHandlers(item.Value, null);
 
-                    var property = Metadata.Properties[item.Key];
                     OnPropertyChanged(property);
                     OnRevalidateProperty(property);
                 }
@@ -113,11 +115,13 @@ namespace Tortuga.Anchor.Modeling.Internals
                 var currentValue = GetValue(item.Key);
                 if (!Equals(currentValue, item.Value))
                 {
+                    var property = Metadata.Properties[item.Key];
+                    OnPropertyChanging(property);
+
                     m_Values[item.Key] = item.Value;
 
                     UpdateChangeTrackingEventHandlers(currentValue, item.Value);
 
-                    var property = Metadata.Properties[item.Key];
                     OnPropertyChanged(property);
                     OnRevalidateProperty(property);
                 }
@@ -186,6 +190,9 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             if (mode.HasFlag(PropertySetModes.SetAsOriginal))
                 m_OriginalValues[propertyName] = value;
+
+            if (mode.HasFlag(PropertySetModes.RaiseChangedEvent))
+                OnPropertyChanging(property);
 
             m_Values[propertyName] = value;
 

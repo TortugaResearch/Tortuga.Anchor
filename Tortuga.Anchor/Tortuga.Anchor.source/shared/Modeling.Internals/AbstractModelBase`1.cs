@@ -302,6 +302,15 @@ namespace Tortuga.Anchor.Modeling.Internals
             Properties.OnPropertyChanged(propertyName);
         }
 
+        /// <summary>
+        /// Triggers the PropertyChanging event.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        protected void OnPropertyChanging(string propertyName)
+        {
+            Properties.OnPropertyChanging(propertyName);
+        }
+
         void ValidateObject()
         {
             var results = new ValidationResultCollection();

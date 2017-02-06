@@ -48,6 +48,13 @@ namespace Tortuga.Anchor.Metadata
             else
                 PropertyChangedEventArgs = new PropertyChangedEventArgs(info.Name);
 
+#if !INotifyPropertyChanging_Missing
+            if (IsIndexed)
+                PropertyChangingEventArgs = new PropertyChangingEventArgs(info.Name + "[]");
+            else
+                PropertyChangingEventArgs = new PropertyChangingEventArgs(info.Name);
+#endif
+
 #if !DataAnnotations_Missing
             IsKey = info.GetCustomAttributes(typeof(KeyAttribute), true).Any();
 
@@ -113,6 +120,15 @@ namespace Tortuga.Anchor.Metadata
         /// </summary>
         /// <remarks>For indexed properties such as "Item [Int32]" the property name will be reduced to "Item[]" to match ObservableCollection.</remarks>
         public PropertyChangedEventArgs PropertyChangedEventArgs { get; }
+
+
+#if !INotifyPropertyChanging_Missing
+        /// <summary>
+        /// Gets a cached instance of PropertyChangingEventArgs
+        /// </summary>
+        /// <remarks>For indexed properties such as "Item [Int32]" the property name will be reduced to "Item[]" to match ObservableCollection.</remarks>
+        public PropertyChangingEventArgs PropertyChangingEventArgs { get; }
+#endif
 
         /// <summary>
         /// Gets the type of this property.

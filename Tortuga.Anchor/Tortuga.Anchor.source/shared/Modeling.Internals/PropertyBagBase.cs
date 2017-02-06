@@ -7,10 +7,67 @@ using Tortuga.Anchor.Metadata;
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
+#if !INotifyPropertyChanging_Missing
+    partial class PropertyBagBase : INotifyPropertyChanging
+    {
+        /// <summary>
+        /// Occurs just before a property value is changed.
+        /// </summary>
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        /// <summary>
+        /// Triggers the PropertyChanging event.
+        /// </summary>
+        /// <param name="property">The property.</param>
+        /// <exception cref="ArgumentNullException">property;property is null.</exception>
+        protected internal void OnPropertyChanging(PropertyMetadata property)
+        {
+            if (property == null)
+                throw new ArgumentNullException(nameof(property), $"{nameof(property)} is null.");
+
+            if (PropertyChanging == null)
+                return;
+
+            PropertyChanging.Invoke(this, property.PropertyChangingEventArgs);
+
+            if (property.AffectsCalculatedFields)
+                foreach (var affectedProperty in property.CalculatedFields)
+                {
+                    OnPropertyChanging(affectedProperty);
+                }
+        }
+
+        /// <summary>
+        /// Triggers the PropertyChanged event.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        protected internal void OnPropertyChanging(string propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
+
+            OnPropertyChanging(Metadata.Properties[propertyName]);
+        }
+
+    }
+#else
+    partial class PropertyBagBase
+    {
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "property")]
+        internal void OnPropertyChanging(PropertyMetadata property) { }
+
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "propertyName")]
+        internal void OnPropertyChanging(string propertyName) { }
+
+    }
+#endif
+
     /// <summary>
     /// This is the template for a model's backing store.
     /// </summary>
-    public abstract class PropertyBagBase : INotifyPropertyChanged
+    public abstract partial class PropertyBagBase : INotifyPropertyChanged
     {
         private readonly ClassMetadata m_Metadata;
 
@@ -18,6 +75,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// This fires for each changed property.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+
 
         /// <summary>
         /// This fires after one or more properties have been changed and their corresponding RevalidateProperty events have been handled. 
@@ -424,7 +483,10 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (property == null)
                 throw new ArgumentNullException(nameof(property), $"{nameof(property)} is null.");
 
-            PropertyChanged?.Invoke(this, property.PropertyChangedEventArgs);
+            if (PropertyChanged == null)
+                return;
+
+            PropertyChanged.Invoke(this, property.PropertyChangedEventArgs);
 
             if (property.AffectsCalculatedFields)
                 foreach (var affectedProperty in property.CalculatedFields)
@@ -432,6 +494,9 @@ namespace Tortuga.Anchor.Modeling.Internals
                     OnPropertyChanged(affectedProperty);
                 }
         }
+
+
+
 
         /// <summary>
         /// Triggers the PropertyChanged event.
@@ -444,6 +509,8 @@ namespace Tortuga.Anchor.Modeling.Internals
             else
                 OnPropertyChanged(Metadata.Properties[propertyName]);
         }
+
+
 
     }
 }

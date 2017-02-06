@@ -88,6 +88,9 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (Equals(oldValue, value))
                 return false;
 
+            if (mode.HasFlag(PropertySetModes.RaiseChangedEvent))
+                OnPropertyChanging(property);
+
             m_Values[propertyName] = value;
 
             if (mode.HasFlag(PropertySetModes.RaiseChangedEvent))
