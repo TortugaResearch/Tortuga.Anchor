@@ -7,9 +7,7 @@
 	<PropertyGroup>
 		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\.build</MSBuildCommunityTasksPath>
 		<BuildOutputPath>$(MSBuildProjectDirectory)\Build</BuildOutputPath>
-		<HelpPath>$(MSBuildProjectDirectory)\Help</HelpPath>
 		<ReadmePath>$(MSBuildProjectDirectory)\..\readme.md</ReadmePath>
-    <PdfPath>$(MSBuildProjectDirectory)\Documentation\bin\Release\anchor-pdf.pdf</PdfPath>
   </PropertyGroup>
 	
 	<PropertyGroup>
@@ -38,7 +36,6 @@
 		<CallTarget Targets="Clean" />
 		<CallTarget Targets="Compile" />
 		<CallTarget Targets="PackageBinaries" />
-		<CallTarget Targets="PackageHelp" />
 		<CallTarget Targets="BuildNugetFile" />
 	</Target>
 
@@ -88,10 +85,7 @@
     <Copy SourceFiles="@(NetStandard13Output)" DestinationFolder="$(BuildOutputPath)\lib\netstandard1.3" />
 	</Target>
 
-  <Target Name="PackageHelp">
-    <Copy SourceFiles="$(PdfPath)" DestinationFolder="$(BuildOutputPath)\docs" />
-  </Target>
-	
+
 	<Target Name="BuildNugetFile">
 		<Copy SourceFiles="$(MSBuildProjectDirectory)\$(NuspecName)" DestinationFolder="$(BuildOutputPath)" />
 

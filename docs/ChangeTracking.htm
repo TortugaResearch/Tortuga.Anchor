@@ -44,6 +44,7 @@
 <li class="tocentry"><a href="#ichangetracking">IChangeTracking</a></li>
 <li class="tocentry"><a href="#irevertiblechangetracking">IRevertibleChangeTracking</a></li>
 <li class="tocentry"><a href="#ipropertychangetrackingidetailedpropertychangetracking">IPropertyChangeTracking/IDetailedPropertyChangeTracking</a></li>
+<li class="tocentry"><a href="#ieditableobject">IEditableObject</a></li>
 </ul>
 </ul>
 </li>
@@ -92,8 +93,8 @@
 <p>To fully take advantage of these capabilities, the following rules must be followed:</p>
 <ul>
 <li>All tracked properties are managed (i.e. they use the <code>Get</code>/<code>Set</code> helper methods).</li>
-<li>All tracked model properties are subclasses of <code>ChangeTrackingModelBase</code></li>
-<li>All tracked collection properties are subclasses of <code>ChangeTrackingModelCollection</code></li>
+<li>All tracked model properties are subclasses of <code>ChangeTrackingModelBase</code> or <code>EditableObjectModelBase</code></li>
+<li>All tracked collection properties are subclasses of <code>ChangeTrackingModelCollection</code> or <code>EditableObjectModelCollection</code></li>
 <li>There are no circular graphs among tracked properties. This means that if A is the child of B, then B can't also be the child of A. </li>
 </ul>
 <h2 id="ichangetracking">IChangeTracking<a class="headerlink" href="#ichangetracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
@@ -104,11 +105,17 @@
 <pre class="nocode">public EmployeeCollection Employees =&gt; GetNew&lt;EmployeeCollection&gt;();
 
 public Employee Manager {get; set; } //back-reference 
-</pre><h2 id="irevertiblechangetracking">IRevertibleChangeTracking<a class="headerlink" href="#irevertiblechangetracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+</pre><p>The typical use of this interface is to track records that have unsaved changes.</p>
+<h2 id="irevertiblechangetracking">IRevertibleChangeTracking<a class="headerlink" href="#irevertiblechangetracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
 <p>Like IChangeTracking, this works at the object graph level. Invoking <code>RejectChanges()</code> will call <code>RejectChanges()</code>.</p>
 <h2 id="ipropertychangetrackingidetailedpropertychangetracking">IPropertyChangeTracking/IDetailedPropertyChangeTracking<a class="headerlink" href="#ipropertychangetrackingidetailedpropertychangetracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
 <p>These interfaces are specific to Tortuga Anchor.</p>
 <p>The <code>ChangedProperties()</code> method will return a readonly list of modified property names. To get the previous value of any property, use the <code>GetPreviousValue(string propertyName)</code> method. Retrieving the current value can be done normally or via reflection.</p>
+<p>These interfaces are meant to be used for logging changes to an object. They are also used by Tortuga Chain when generating SQL.</p>
+<h2 id="ieditableobject">IEditableObject<a class="headerlink" href="#ieditableobject" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>The <code>IEditableObject</code> is used in .NET to deal with short-term, revertible changes. If you imagine a dialog window with Ok and Cancel buttons, that would normally be implemented using <code>IEditableObject</code>. Data grids in WinForms and WPF also use this interface.</p>
+<p>In Tortuga Anchor, this interface is exposed by the <code>EditableObjectModel</code> and <code>EditableObjectModelCollection</code> base classes. As with <code>ChangeTrackingModelBase</code>, the <code>BeginEdit()</code>, <code>EndEdit()</code>, and <code>CancelEdit()</code> methods are implemented at the object graph level. </p>
+<p>Since <code>EditableObjectModel</code> and <code>EditableObjectModelCollection</code> also implement <code>IRevertibleChangeTracking</code>, you effective have two levels of undo possible.</p>
 
                     </div>
                 </div>

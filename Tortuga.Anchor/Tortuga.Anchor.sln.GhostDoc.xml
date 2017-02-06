@@ -13,7 +13,7 @@
   </SpellChecker>
 <HelpConfigurations selected="HelpFile">
   <HelpConfiguration name="HelpFile">
-    <OutputPath>.\Help</OutputPath>
+    <OutputPath>..\docs\API</OutputPath>
     <CleanupOutputPath>true</CleanupOutputPath>
     <HelpFileName>Tortuga.Anchor</HelpFileName>
     <HelpFileNamingMethod>MemberName</HelpFileNamingMethod>
