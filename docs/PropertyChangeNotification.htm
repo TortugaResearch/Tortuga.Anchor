@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Property Change Notification - Tortuga Anchor</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="css/theme_colors.css" type="text/css" />
+    <link rel="stylesheet" href="css/styles/vs.css">
+    <link rel="stylesheet" href="css/font-awesome.4.5.0.min.css">
+</head>
+<body role="document">
+    <div class="grid-for-nav">
+        <nav data-toggle="nav-shift" class="nav-side stickynav">
+            <div class="side-nav-search">
+                <a href="index.htm"><i class="fa fa-home"></i> Tortuga Anchor</a>
+                <div role="search">
+                    <form id="search-form" class="form" action="Docnet_search.htm" method="get">
+                        <input type="text" name="q" placeholder="Search docs" />
+                    </form>
+                </div>
+            </div>
+            <div class="menu menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+<ul>
+<li class="tocentry"><a href="index.htm">Home</a>
+</li>
+
+<li class="tocentry">
+<ul>
+<li><span class="navigationgroup"><i class="fa fa-caret-down"></i> <a href="Modeling.htm">Modeling</a></span></li>
+
+<li class="tocentry current"><a class="current" href="PropertyChangeNotification.htm">Property Change Notification</a>
+<ul class="currentrelative">
+<li class="tocentry"><a href="#defaults">Defaults</a></li>
+<li class="tocentry"><a href="#calculated-properties">Calculated Properties</a></li>
+<li class="tocentry"><a href="#special-handling-of-changed-values">Special Handling of Changed Values</a></li>
+<li class="tocentry"><a href="#change-notifications-on-child-object">Change Notifications on Child Object</a></li>
+<li class="tocentry"><a href="#performance-notes">Performance Notes</a></li>
+<li class="tocentry"><a href="#memory-safety">Memory Safety</a></li>
+</ul>
+<li class="tocentry"><a href="Validation.htm">Validation</a>
+</li>
+<li class="tocentry"><a href="ChangeTracking.htm">Change Tracking</a>
+</li>
+</ul>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="Collections.htm">Collections</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="ComponentModel.htm">ComponentModel</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="DataAnnotations.htm">DataAnnotations</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="Eventing.htm">Eventing</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="Metadata.htm">Metadata</a></span>
+</li>
+</ul>
+				<div class="toc-footer">
+					<span class="text-small">
+						<hr/>
+						<a href="https://github.com/FransBouma/DocNet" target="_blank">Made with <i class="fa fa-github"></i> DocNet</a>
+					</span>
+				</div>	
+			</div>
+            &nbsp;
+        </nav>
+        <section data-toggle="nav-shift" class="nav-content-wrap">
+            <nav class="nav-top" role="navigation" aria-label="top navigation">
+                <i data-toggle="nav-top" class="fa fa-bars"></i>
+                <a href="index.htm">Tortuga Anchor</a>
+            </nav>
+            <div class="nav-content">
+                <div role="navigation" aria-label="breadcrumbs navigation">
+                    <div class="breadcrumbs">
+<ul><li><a href="index.htm">Home</a></li> / <li><a href="Modeling.htm">Modeling</a></li> / <li><a href="PropertyChangeNotification.htm">Property Change Notification</a></li></ul>
+					
+                    </div>
+                    <hr />
+                </div>
+                <div role="main">
+                    <div class="section">
+<h1 id="property-change-notification">Property Change Notification<a class="headerlink" href="#property-change-notification" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h1>
+<p>Simple property change notification is handled via a pair of helper methods.</p>
+<pre class="nocode">public string FirstName
+{
+    get { return Get&lt;string&gt;(); }
+    set { Set(value); }
+}
+</pre><p>Using this model, the actual values are stored in a dictionary that is used for validation, change tracking, and undo support. This is referred to as a &quot;<strong>managed property</strong>&quot; later in this document.</p>
+<h2 id="defaults">Defaults<a class="headerlink" href="#defaults" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>If you need to specify a non-standard default, use this syntax to avoid accidentally setting the IsChanged flag.</p>
+<pre class="nocode">public int HitPoints
+{
+    get { return GetDefault&lt;int&gt;(50); }
+    set { Set(value); }
+}
+</pre><p>If your default is an object, you’ll need to use <code>GetNew&lt;T&gt;</code> instead. This can call the default constructor or invoke a <code>Func&lt;T&gt;</code> to avoid unnecessarily allocating memory. This is most often used for collection properties.</p>
+<pre class="nocode">//C# 6
+public SimplePersonCollection Childern =&gt; GetNew&lt;SimplePersonCollection&gt;();
+
+//C# 5
+public SimplePersonCollection Childern
+{
+    get { return GetNew&lt;SimplePersonCollection&gt;(); }
+}
+</pre><p>When using <code>GetNew</code>, the value isn't actually created until the first time it is read. This does not trigger a proeprty change notification or alter the IsChanged flag.</p>
+<p>Note that there is a special case for strings.</p>
+<pre class="nocode">public string FirstName
+{
+    get { return GetNew(); }
+    set { Set(value); }
+}
+</pre><p>Using GetNew without a type will return an empty string. This is used to avoid nulls.</p>
+<h2 id="calculated-properties">Calculated Properties<a class="headerlink" href="#calculated-properties" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>Calculated properties are registered using an attribute that lists the properties that affect the calculated property.</p>
+<pre class="nocode">[CalculatedField(&quot;FirstName,LastName&quot;)] 
+public string FullName { 
+    get { return FirstName + &quot; &quot; + LastName; } 
+} 
+</pre><p>The properties that make up a calculated property must be managed. Otherwise the appropriate property change notification won't be fired.</p>
+<p>The calculated property itself is unmanaged and the value is not stored. However, you can cache the value manually if desired.</p>
+<h2 id="special-handling-of-changed-values">Special Handling of Changed Values<a class="headerlink" href="#special-handling-of-changed-values" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>If you need to perform additioanl actions when a property is changed, use this syntax:</p>
+<pre class="nocode">public DateTime DateOfBirth
+{
+    get { return Get&lt;DateTime&gt;(); }
+    set { 
+        if (Set(value))
+        {
+            VerifyAge();
+        }
+    }
+}
+</pre><p>The <code>Set</code> method will only return true if the value has actually been altered.</p>
+<h2 id="change-notifications-on-child-object">Change Notifications on Child Object<a class="headerlink" href="#change-notifications-on-child-object" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>There are times when you may want to listen to events on a child object. While you can manually add and remove the event handlers in the property setter, it is easy to make a mistake and leave a dangling event handler or fail to properly handle nulls. So this convinence method takes the guesswork our of the process.</p>
+<pre class="nocode">public SimplePerson Secretary
+{
+    get { return Get&lt;SimplePerson&gt;(); }
+    set { Set(value, Secretary_Changed); }
+}
+
+void Secretary_Changed(object sender, PropertyChangedEventArgs e)
+{
+    //event handler
+}
+</pre><p>This will also work with the CollectionChanged and ItemPropertyChanged events.</p>
+<h2 id="performance-notes">Performance Notes<a class="headerlink" href="#performance-notes" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>Normal properties will not fire property change notifications if the value hasn't actually changed. This is implemented using <code>System.Object.Equals</code>.</p>
+<p>To avoiding unnecessarily allocating memory when firing events, each <code>PropertyChangedEventArgs</code> object is cached at the class level and reused as necessary. Likewise, events are not fired unless something is actually listening to them.</p>
+<p>Because values are stored in a dictionary, structs used to represent property values are boxed. In high performance situations, this may cause more frequent GC cycles if the values are rapidly changing. </p>
+<h2 id="memory-safety">Memory Safety<a class="headerlink" href="#memory-safety" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>In addition to the normal interfaces, the Models and Collections in Tortuga Chain implement a set of weak event interfaces: <code>INotifyPropertyChangedWeak</code>, <code>INotifyCollectionChangedWeak</code>, and <code>INotifyItemPropertyChangedWeak</code>. When used instead of the normal interfaces, these will prevent event-based memory leaks.</p>
+
+                    </div>
+                </div>
+                <footer>
+                    <hr />
+                    <div role="contentinfo">
+Tortuga Anchor. <a href='https://github.com/docevaad/Anchor/' target='_blank'>Visit us at GitHub</a>.
+                    </div>
+                </footer>
+            </div>
+        </section>
+    </div>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/modernizr-2.8.3.min.js"></script>
+    <script src="js/highlight.pack.js"></script>
+    <script src="js/theme.js"></script>
+
+</body>
+</html>

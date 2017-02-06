@@ -1,0 +1,22 @@
+{
+  "docs": [
+    {
+      "location": "PropertyChangeNotification.htm",
+      "breadcrumbs": "Home / Modeling / Property Change Notification",
+      "keywords": "5 50 6 a accidentally actions actual actually add additioanl addition affect allocating also alter altered an and appropriate are as at attribute avoid avoiding based be Because been boxed C cache cached calculated Calculated CalculatedField call can case cause Chain change Change changed Changed changing child Child Childern class collection CollectionChanged Collections constructor convinence created cycles dangling DateOfBirth DateTime default Defaults desired dictionary document does e each easy empty Equals event events fail fire fired firing first FirstName flag for frequent FullName Func GC get Get GetDefault GetNew guesswork handle handled handler handlers Handling has hasn helper high HitPoints However if If implement implemented in In INotifyCollectionChangedWeak INotifyItemPropertyChangedWeak INotifyPropertyChangedWeak instead int interfaces invoke is IsChanged isn it ItemPropertyChanged itself LastName later leaks leave level Likewise listen listening lists ll make managed manually may memory Memory method methods mistake model Models more most must necessary need non normal Normal not Note Notes notification Notification notifications Notifications nulls object Object of often on only or Otherwise our pair perform performance Performance prevent process proeprty properly properties Properties property Property PropertyChangedEventArgs public rapidly read referred registered remove represent return reused Safety Secretary Secretary_Changed sender set Set setter setting Simple SimplePerson SimplePersonCollection situations So something special Special specify standard stored string strings structs support syntax System T takes that the The them there There these this This time times to To Tortuga tracking trigger true type undo unless unmanaged unnecessarily until up use used using Using validation value values Values VerifyAge via void want weak when When While will with without won work you your",
+      "title": "Property Change Notification"
+    },
+    {
+      "location": "Validation.htm",
+      "breadcrumbs": "Home / Modeling / Validation",
+      "keywords": "file Markdown",
+      "title": "Validation"
+    },
+    {
+      "location": "ChangeTracking.htm",
+      "breadcrumbs": "Home / Modeling / Change Tracking",
+      "keywords": "a A AcceptChanges advantage all All also among an Anchor and any are as at avoid B back base be call Calling can capabilies change Change changed ChangedProperties changes ChangeTrackingModelBase ChangeTrackingModelCollection child childern circular classes collection considering current done e Employee EmployeeCollection Employees enable entire features followed following fully get Get GetNew GetPreviousValue graph graphs has have helper i IChangeTracking IDetailedPropertyChangeTracking if If implements in interfaces Invoking IPropertyChangeTracking IRevertibleChangeTracking is IsChanged IsChangedLocal its know level Like list managed Manager mark means method methods model modified must names no normally object of One or parent previous problematic properties property propertyName public readonly recursively refer reference reflection RejectChanges Retriving return rules set Set specific string subclasses take that the The their then Theoritically There these These they this This to To Tortuga tracked tracking Tracking tree true unchanged unmanged use Using value via walking want way why will without works you",
+      "title": "Change Tracking"
+    }
+  ]
+}

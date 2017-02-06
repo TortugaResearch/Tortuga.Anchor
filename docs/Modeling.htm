@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Modeling - Tortuga Anchor</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="css/theme_colors.css" type="text/css" />
+    <link rel="stylesheet" href="css/styles/vs.css">
+    <link rel="stylesheet" href="css/font-awesome.4.5.0.min.css">
+</head>
+<body role="document">
+    <div class="grid-for-nav">
+        <nav data-toggle="nav-shift" class="nav-side stickynav">
+            <div class="side-nav-search">
+                <a href="index.htm"><i class="fa fa-home"></i> Tortuga Anchor</a>
+                <div role="search">
+                    <form id="search-form" class="form" action="Docnet_search.htm" method="get">
+                        <input type="text" name="q" placeholder="Search docs" />
+                    </form>
+                </div>
+            </div>
+            <div class="menu menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+<ul>
+<li class="tocentry"><a href="index.htm">Home</a>
+</li>
+
+<li class="tocentry">
+<ul class="current">
+<li><span class="navigationgroup"><i class="fa fa-caret-down"></i> <a href="Modeling.htm">Modeling</a></span></li>
+
+<li class="tocentry"><a href="PropertyChangeNotification.htm">Property Change Notification</a>
+</li>
+<li class="tocentry"><a href="Validation.htm">Validation</a>
+</li>
+<li class="tocentry"><a href="ChangeTracking.htm">Change Tracking</a>
+</li>
+</ul>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="Collections.htm">Collections</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="ComponentModel.htm">ComponentModel</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="DataAnnotations.htm">DataAnnotations</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="Eventing.htm">Eventing</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="Metadata.htm">Metadata</a></span>
+</li>
+</ul>
+				<div class="toc-footer">
+					<span class="text-small">
+						<hr/>
+						<a href="https://github.com/FransBouma/DocNet" target="_blank">Made with <i class="fa fa-github"></i> DocNet</a>
+					</span>
+				</div>	
+			</div>
+            &nbsp;
+        </nav>
+        <section data-toggle="nav-shift" class="nav-content-wrap">
+            <nav class="nav-top" role="navigation" aria-label="top navigation">
+                <i data-toggle="nav-top" class="fa fa-bars"></i>
+                <a href="index.htm">Tortuga Anchor</a>
+            </nav>
+            <div class="nav-content">
+                <div role="navigation" aria-label="breadcrumbs navigation">
+                    <div class="breadcrumbs">
+<ul><li><a href="index.htm">Home</a></li> / <li><a href="Modeling.htm">Modeling</a></li></ul>
+					
+                    </div>
+                    <hr />
+                </div>
+                <div role="main">
+                    <div class="section">
+<h1 id="modeling">Modeling<a class="headerlink" href="#modeling" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h1>
+<p>The base class for data models is <code>ModelBase</code>. This will provide you with the following capabilities:</p>
+<ul>
+<li><a href="PropertyChangeNotification.htm">Property Change Notification</a></li>
+<li><a href="Validation.htm">Programmatic Validation</a></li>
+<li><a href="Validation.htm">Attribute Based Validation</a></li>
+</ul>
+<p>If revertible change tracking is desired, use <code>ChangeTrackingModelBase</code> as your base class. This includes the following interfaces</p>
+<ul>
+<li><code>IChangeTracking</code>: Indicates whether an object has unsaved changes.</li>
+<li><code>IRevertibleChangeTracking</code>: Allows the unsaved changes to be reverted.</li>
+<li><code>IPropertyChangeTracking</code>: Provides a list of changed properties. Used for logging changes and by the Chain ORM for generating more efficient SQL.</li>
+<li><code>IDetailedPropertyChangeTracking</code>: Adds the ability to retrieve the previous value, which is useful when logging changes.</li>
+</ul>
+<p>The <code>EditableObjectModelBase</code> further extends this capability by added a second level of undo support via the <code>IEditableObject</code> interface. This is used in WinForms/WPF data grids and should be considered for any modal dialog.</p>
+<p>For colllections, create a subclass of <code>ModelCollection</code>, <code>ChangeTrackingModelCollection</code>, or <code>EditableObjectModelCollection</code> as appropriate.</p>
+<h2 id="property-change-notification">Property Change Notification<a class="headerlink" href="#property-change-notification" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>Simple property change notification is handled via a pair of helper methods.</p>
+<pre class="nocode">public string FirstName
+{
+    get { return Get&lt;string&gt;(); }
+    set { Set(value); }
+}
+</pre><p>Using this model, the actual values are stored in a dictionary that is used for validation, change tracking, and undo support. </p>
+<p>If you need to specify a non-standard default, use this syntax to avoid accidentally setting the IsChanged flag.</p>
+<pre class="nocode">public int HitPoints
+{
+    get { return GetDefault&lt;int&gt;(50); }
+    set { Set(value); }
+}
+</pre><p>If your default is an object, you’ll need to use <code>GetNew&lt;T&gt;</code> instead. This can call the default constructor or invoke a <code>Func&lt;T&gt;</code> to avoid unnecessarily allocating memory. This is most often used for collection properties.</p>
+<pre class="nocode">//C# 6
+public SimplePersonCollection Childern =&gt; GetNew&lt;SimplePersonCollection&gt;();
+
+//C# 5
+public SimplePersonCollection Childern
+{
+    get { return GetNew&lt;SimplePersonCollection&gt;(); }
+}
+</pre><p>For advanced scenarios, see <a href="PropertyChangeNotification.htm">Property Change Notification</a>.</p>
+
+                    </div>
+                </div>
+                <footer>
+                    <hr />
+                    <div role="contentinfo">
+Tortuga Anchor. <a href='https://github.com/docevaad/Anchor/' target='_blank'>Visit us at GitHub</a>.
+                    </div>
+                </footer>
+            </div>
+        </section>
+    </div>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/modernizr-2.8.3.min.js"></script>
+    <script src="js/highlight.pack.js"></script>
+    <script src="js/theme.js"></script>
+
+</body>
+</html>
