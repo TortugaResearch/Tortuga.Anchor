@@ -38,7 +38,11 @@
 <li class="tocentry"><a href="PropertyChangeNotification.htm">Property Change Notification</a>
 </li>
 <li class="tocentry current"><a class="current" href="Validation.htm">Validation</a>
-</li>
+<ul class="currentrelative">
+<li class="tocentry"><a href="#programmatic-validation">Programmatic Validation</a></li>
+<li class="tocentry"><a href="#attribute-based-validation">Attribute Based Validation</a></li>
+<li class="tocentry"><a href="#ivalidatable">IValidatable</a></li>
+</ul>
 <li class="tocentry"><a href="ChangeTracking.htm">Change Tracking</a>
 </li>
 </ul>
@@ -83,7 +87,47 @@
                 </div>
                 <div role="main">
                     <div class="section">
-<h1 id="markdown-file">Markdown file<a class="headerlink" href="#markdown-file" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h1>
+<h1 id="validation">Validation<a class="headerlink" href="#validation" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h1>
+<p>Validation for models and collections can be implemented either programatically or using attributes. Either way, the same interfaces can be used to check the validation status of the object.</p>
+<p>When an object is first created it is in the 'clear' state. This means that even if it wouldn't pass validation, it will appear to have no validation errors. This may seem odd, but it avoids the situation where the user sees a blank form full of errors.</p>
+<p>As each property is modified, validation will be triggered on the property. At the same time, object-level validation will occur. This is known as the 'partially validated' state.</p>
+<p>To force the object to be fully validated, use the <code>Validate()</code> method.</p>
+<p>To return to the clear state, invoke <code>ClearErrors()</code>. </p>
+<h2 id="programmatic-validation">Programmatic Validation<a class="headerlink" href="#programmatic-validation" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>Programatic validation can occur at the property or object level.</p>
+<p>At the property level this is usually expressed as a switch block in the <code>OnValidateProperty</code> method.</p>
+<pre class="nocode">protected override void OnValidateProperty(string propertyName, ValidationResultCollection results)
+{
+    switch (propertyName)
+    {
+        case nameof(Age):
+            if (Age &lt; 0)
+                results.Add(new ValidationResult($&quot;{nameof(Age)} cannot be a negative number&quot;, new[] { nameof(Age) }));
+            break;
+    }
+}
+</pre><p>Object level validation occurs every time any property changes, so it should be kept simple and fast.</p>
+<pre class="nocode">protected override void OnValidateObject(ValidationResultCollection results)
+{
+    if (FirstName == LastName &amp;&amp; FirstName != &quot;&quot;)
+        results.Add(new ValidationResult(&quot;First and last names cannot match&quot;, new[] { &quot;FirstName&quot;, &quot;LastName&quot; }));
+}
+</pre><h2 id="attribute-based-validation">Attribute Based Validation<a class="headerlink" href="#attribute-based-validation" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>Attribute based validation, where available, uses the subclasses of <code>ValidationAttribute</code> in the <code>System.ComponentModel.DataAnnotations</code> namespace.</p>
+<h2 id="ivalidatable">IValidatable<a class="headerlink" href="#ivalidatable" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>Normal code that users Anchor's validation framework will interact with it via the <code>IValidatable</code> interface. This interface is significantly easier to use than the validation interfaces that come standard with .NET. It exposes the following methods:</p>
+<ul>
+<li>bool Validate(); //forces all object and property level validators to run. This puts the object into the 'fully validated' state.</li>
+<li>void ClearErrors(); //resets the object to the 'clear' state</li>
+</ul>
+<p>The accuraccy of the following is depened on whether the object is in the 'clear', 'partially validated', or 'fully validated' state.</p>
+<ul>
+<li>bool HasErrors { get; }</li>
+<li>ReadOnlyCollection<ValidationResult> GetErrors(); //object level errors only</li>
+<li>ReadOnlyCollection<ValidationResult> GetErrors(string propertyName); //property level errors</li>
+<li>ReadOnlyCollection<ValidationResult> GetAllErrors(); //all object and property level errors</li>
+<li>event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged; //fired whenever validation occurs and something changes. This uses <code>System.ComponentModel.DataErrorsChangedEventArgs</code>.</li>
+</ul>
 
                     </div>
                 </div>

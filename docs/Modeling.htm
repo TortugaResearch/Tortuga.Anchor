@@ -98,7 +98,7 @@
 <li><code>IDetailedPropertyChangeTracking</code>: Adds the ability to retrieve the previous value, which is useful when logging changes.</li>
 </ul>
 <p>The <code>EditableObjectModelBase</code> further extends this capability by added a second level of undo support via the <code>IEditableObject</code> interface. This is used in WinForms/WPF data grids and should be considered for any modal dialog.</p>
-<p>For colllections, create a subclass of <code>ModelCollection</code>, <code>ChangeTrackingModelCollection</code>, or <code>EditableObjectModelCollection</code> as appropriate.</p>
+<p>For collections, create a subclass of <code>ModelCollection</code>, <code>ChangeTrackingModelCollection</code>, or <code>EditableObjectModelCollection</code> as appropriate.</p>
 <h2 id="property-change-notification">Property Change Notification<a class="headerlink" href="#property-change-notification" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
 <p>Simple property change notification is handled via a pair of helper methods.</p>
 <pre class="nocode">public string FirstName

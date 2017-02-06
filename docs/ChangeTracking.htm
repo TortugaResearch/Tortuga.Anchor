@@ -89,7 +89,7 @@
                     <div class="section">
 <h1 id="change-tracking">Change Tracking<a class="headerlink" href="#change-tracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h1>
 <p>Using the <code>ChangeTrackingModelBase</code> and <code>ChangeTrackingModelCollection</code> base classes enable the change tracking features in Tortuga Anchor.</p>
-<p>To fully take advantage of these capabilies, the following rules must be followed:</p>
+<p>To fully take advantage of these capabilities, the following rules must be followed:</p>
 <ul>
 <li>All tracked properties are managed (i.e. they use the <code>Get</code>/<code>Set</code> helper methods).</li>
 <li>All tracked model properties are subclasses of <code>ChangeTrackingModelBase</code></li>
@@ -97,10 +97,10 @@
 <li>There are no circular graphs among tracked properties. This means that if A is the child of B, then B can't also be the child of A. </li>
 </ul>
 <h2 id="ichangetracking">IChangeTracking<a class="headerlink" href="#ichangetracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
-<p>Tortuga Anchor implements IChangeTracking at the object graph level. This means that <code>IsChanged</code> will return true if the object has changes or if any of its managed childern have changes. </p>
-<p>If you want to know if the current object is changed, without considering its childern, use the <code>IsChangedLocal</code> property.</p>
-<p>Calling <code>AcceptChanges()</code> will mark the current object as unchanged and call <code>AcceptChanges()</code> and all of its managed childern. Theoritically the childern will then call their childern, recursively walking the entire tree. This is why circular graphs are problematic.</p>
-<p>One way to avoid a circular graph is to use an unmanged property to refer to a parent object.</p>
+<p>Tortuga Anchor implements IChangeTracking at the object graph level. This means that <code>IsChanged</code> will return true if the object has changes or if any of its managed children have changes. </p>
+<p>If you want to know if the current object is changed, without considering its children, use the <code>IsChangedLocal</code> property.</p>
+<p>Calling <code>AcceptChanges()</code> will mark the current object as unchanged and call <code>AcceptChanges()</code> and all of its managed children. Theoretically the children will then call their children, recursively walking the entire tree. This is why circular graphs are problematic.</p>
+<p>One way to avoid a circular graph is to use an unmanaged property to refer to a parent object.</p>
 <pre class="nocode">public EmployeeCollection Employees =&gt; GetNew&lt;EmployeeCollection&gt;();
 
 public Employee Manager {get; set; } //back-reference 
@@ -108,7 +108,7 @@ public Employee Manager {get; set; } //back-reference
 <p>Like IChangeTracking, this works at the object graph level. Invoking <code>RejectChanges()</code> will call <code>RejectChanges()</code>.</p>
 <h2 id="ipropertychangetrackingidetailedpropertychangetracking">IPropertyChangeTracking/IDetailedPropertyChangeTracking<a class="headerlink" href="#ipropertychangetrackingidetailedpropertychangetracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
 <p>These interfaces are specific to Tortuga Anchor.</p>
-<p>The <code>ChangedProperties()</code> method will return a readonly list of modified property names. To get the previous value of any property, use the <code>GetPreviousValue(string propertyName)</code> method. Retriving the current value can be done normally or via reflection.</p>
+<p>The <code>ChangedProperties()</code> method will return a readonly list of modified property names. To get the previous value of any property, use the <code>GetPreviousValue(string propertyName)</code> method. Retrieving the current value can be done normally or via reflection.</p>
 
                     </div>
                 </div>
