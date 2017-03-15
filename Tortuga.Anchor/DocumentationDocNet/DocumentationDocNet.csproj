@@ -47,47 +47,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Appenders.md" />
-    <None Include="AuditRules.md" />
-    <None Include="BatchInsert.md" />
-    <None Include="BulkInsert.md" />
-    <None Include="ByKey.md" />
-    <None Include="Caching.md" />
     <None Include="ChangeTracking.md" />
     <None Include="Collections.md" />
-    <None Include="CommandBuilders.md" />
-    <None Include="Compiled.md" />
     <None Include="ComponentModel.md" />
     <None Include="DataAnnotations.md" />
-    <None Include="DataSources.md" />
-    <None Include="DataTable.md" />
-    <None Include="Delete.md" />
-    <None Include="Dictionary.md" />
-    <None Include="EntityFramework.md" />
     <None Include="Eventing.md" />
-    <None Include="From.md" />
-    <None Include="Insert.md" />
-    <None Include="Introduction.md" />
-    <None Include="List.md" />
-    <None Include="Materializers.md" />
     <None Include="Metadata.md" />
     <None Include="Modeling.md" />
-    <None Include="NHibernate.md" />
-    <None Include="NonQuery.md" />
-    <None Include="Object.md" />
-    <None Include="Procedure.md" />
     <None Include="PropertyChangeNotification.md" />
-    <None Include="RestrictedColumns.md" />
-    <None Include="Scalar.md" />
-    <None Include="ScalarFunction.md" />
-    <None Include="SQL.md" />
-    <None Include="SqlDependency.md" />
-    <None Include="Table.md" />
-    <None Include="TableFunction.md" />
-    <None Include="Tracing.md" />
-    <None Include="Transactions.md" />
-    <None Include="Update.md" />
-    <None Include="Upsert.md" />
     <None Include="docnet.json" />
     <None Include="Validation.md" />
   </ItemGroup>

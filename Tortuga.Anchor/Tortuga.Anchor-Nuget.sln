@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8A3BA1CB-445F-459E-9F8C-B3936F0D045B}"
 	ProjectSection(SolutionItems) = preProject
@@ -37,6 +37,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Tortuga.Anchor.net46", "Tests.Tortuga.Anchor.net46\Tests.Tortuga.Anchor.net46.csproj", "{29E4F691-AD40-468C-9D94-DB1C8A87933A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Tortuga.Anchor.uap10", "Tests.Tortuga.Anchor.uap10\Tests.Tortuga.Anchor.uap10.csproj", "{88645E10-3434-430C-8638-E5C4A0831FD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortuga.Anchor.netstandard1.3", "Tortuga.Anchor.netstandard1.3\Tortuga.Anchor.netstandard1.3.csproj", "{C4529857-3D00-4BA4-BA2C-A1980F48D40A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -228,6 +230,30 @@ Global
 		{88645E10-3434-430C-8638-E5C4A0831FD2}.Release|x86.ActiveCfg = Release|x86
 		{88645E10-3434-430C-8638-E5C4A0831FD2}.Release|x86.Build.0 = Release|x86
 		{88645E10-3434-430C-8638-E5C4A0831FD2}.Release|x86.Deploy.0 = Release|x86
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug|x64.Build.0 = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug|x86.Build.0 = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug-Unchecked|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug-Unchecked|Any CPU.Build.0 = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug-Unchecked|ARM.ActiveCfg = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug-Unchecked|ARM.Build.0 = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug-Unchecked|x64.ActiveCfg = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug-Unchecked|x64.Build.0 = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug-Unchecked|x86.ActiveCfg = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Debug-Unchecked|x86.Build.0 = Debug|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Release|ARM.Build.0 = Release|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Release|x64.ActiveCfg = Release|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Release|x64.Build.0 = Release|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Release|x86.ActiveCfg = Release|Any CPU
+		{C4529857-3D00-4BA4-BA2C-A1980F48D40A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
