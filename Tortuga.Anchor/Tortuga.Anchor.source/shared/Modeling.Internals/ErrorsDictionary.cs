@@ -1,17 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-
-#if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
-#endif
+using System.Linq;
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
     internal class ErrorsDictionary
     {
-        private readonly Dictionary<string, IList<ValidationResult>> m_Errors = new Dictionary<string, IList<ValidationResult>>();
-
+        readonly Dictionary<string, IList<ValidationResult>> m_Errors = new Dictionary<string, IList<ValidationResult>>();
 
         /// <summary>
         /// Clears all errors
@@ -29,6 +25,23 @@ namespace Tortuga.Anchor.Modeling.Internals
                 return ErrorsDictionaryUpdateType.NoChange;
         }
 
+        /// <summary>
+        /// Gets all of the errors.
+        /// </summary>
+        public ReadOnlyCollection<ValidationResult> GetAllErrors()
+        {
+            List<ValidationResult> errors = new List<ValidationResult>();
+
+            foreach (var item in m_Errors)
+                errors.AddRange(item.Value);
+
+            return new ReadOnlyCollection<ValidationResult>(errors.Distinct().ToList());
+        }
+
+        public bool HasErrors()
+        {
+            return m_Errors.Values.Any(list => list.Count > 0);
+        }
 
         /// <summary>
         /// Sets the errors at the property level
@@ -48,7 +61,6 @@ namespace Tortuga.Anchor.Modeling.Internals
                     differences = true;
                 else
                     differences = !oldErrors.SequenceEqual(errors, ValidationResultEqualityComparer.Default);
-
             }
             else
                 differences = true;
@@ -116,18 +128,10 @@ namespace Tortuga.Anchor.Modeling.Internals
                 return ErrorsDictionaryUpdateType.NoChange;
         }
 
-
         /// <summary>
         /// Determines whether this instance has errors.
         /// </summary>
         /// <returns></returns>
-
-        public bool HasErrors()
-        {
-            return m_Errors.Values.Any(list => list.Count > 0);
-        }
-
-
         /// <summary>
         /// Gets the errors for a given property.
         /// </summary>
@@ -156,21 +160,5 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             return new ReadOnlyCollection<ValidationResult>(errors.ToList());
         }
-
-        /// <summary>
-        /// Gets all of the errors.
-        /// </summary>
-        public ReadOnlyCollection<ValidationResult> GetAllErrors()
-        {
-            List<ValidationResult> errors = new List<ValidationResult>();
-
-            foreach (var item in m_Errors)
-                errors.AddRange(item.Value);
-
-            return new ReadOnlyCollection<ValidationResult>(errors.Distinct().ToList());
-        }
-
     }
-
-
 }

@@ -1,24 +1,20 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Collections;
-using System.Collections.ObjectModel;
-
-#if !Concurrent_Missing
-using System.Collections.Concurrent;
-#endif
 
 namespace Tortuga.Anchor
 {
     /// <summary>
-    /// Utility methods for collection classes. 
+    /// Utility methods for collection classes.
     /// </summary>
     public static class CollectionUtilities
     {
-
         /// <summary>
-        /// Adds a list of values into the target collection. 
+        /// Adds a list of values into the target collection.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="target"></param>
@@ -32,13 +28,12 @@ namespace Tortuga.Anchor
             if (list == null)
                 throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
-
             foreach (var item in list)
                 target.Add(item);
         }
 
         /// <summary>
-        /// Adds a list of values into the target collection. 
+        /// Adds a list of values into the target collection.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="target"></param>
@@ -52,16 +47,16 @@ namespace Tortuga.Anchor
             if (list == null)
                 throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
-            var typedList = list as List<T>;
-            if (typedList != null)
-                AddRange(target, typedList); //switch to fast path
-
-            foreach (var item in list)
-                target.Add(item);
+            if (list is List<T> typedList)
+                foreach (var item in typedList) //switch to fast path
+                    target.Add(item);
+            else
+                foreach (var item in list) //Using IEnumerable<T> is slower that List<T>
+                    target.Add(item);
         }
 
         /// <summary>
-        /// Adds a list of values into the target collection. 
+        /// Adds a list of values into the target collection.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="target"></param>
@@ -80,7 +75,7 @@ namespace Tortuga.Anchor
         }
 
         /// <summary>
-        /// Returns the enumeration as an IList. If it isn't already an IList, it makes it into one so that you can safely enumeration the list multiple times. 
+        /// Returns the enumeration as an IList. If it isn't already an IList, it makes it into one so that you can safely enumeration the list multiple times.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source. If the source is null, the result will be null.</param>
@@ -93,6 +88,36 @@ namespace Tortuga.Anchor
             if (source is IList<T>)
                 return (IList<T>)source;
             return source.ToList();
+        }
+
+        /// <summary>
+        /// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in an adapter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <returns>IReadOnlyList&lt;T&gt;.</returns>
+        /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyCollection&lt;T&gt;.</remarks>
+        public static IReadOnlyCollection<T> AsReadOnlyCollection<T>(this ICollection<T> list)
+        {
+            if (list is IReadOnlyCollection<T> result)
+                return result;
+
+            return new SimpleReadOnlyCollection<T>(list);
+        }
+
+        /// <summary>
+        /// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in a ReadOnlyCollection&lt;T&gt;.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <returns>IReadOnlyList&lt;T&gt;.</returns>
+        /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
+        public static IReadOnlyList<T> AsReadOnlyList<T>(this IList<T> list)
+        {
+            if (list is IReadOnlyList<T> result)
+                return result;
+
+            return new ReadOnlyCollection<T>(list);
         }
 
         /// <summary>
@@ -115,123 +140,6 @@ namespace Tortuga.Anchor
             yield return item;
         }
 
-        /// <summary>
-        /// Inserts a list of values into the target collection. 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="target"></param>
-        /// <param name="startingIndex"></param>
-        /// <param name="list"></param>
-        /// <remarks>This isn't as fast as a real InsertRange, it just adds one item at a time.</remarks>
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "startingIndex")]
-        public static void InsertRange<T>(this IList<T> target, int startingIndex, IEnumerable<T> list)
-        {
-            if (target == null)
-                throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
-            if (target.IsReadOnly)
-                throw new ArgumentException($"{nameof(target)}.IsReadOnly must be false", nameof(target));
-            if (list == null)
-                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-
-            if (startingIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(startingIndex), startingIndex, $"{nameof(startingIndex)} must be >= 0");
-            if (startingIndex > target.Count)
-                throw new ArgumentOutOfRangeException(nameof(startingIndex), startingIndex, $"{nameof(startingIndex)} must be <= {nameof(target)}.Count");
-
-
-            var index = startingIndex;
-            foreach (var item in list)
-            {
-                target.Insert(index, item);
-                index = Math.Min(index + 1, target.Count); //this is needed in case the collection is filtering out duplicates
-            }
-        }
-
-        /// <summary>
-        /// Removes count items from the collection
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="startingIndex"></param>
-        /// <param name="count"></param>
-        /// <remarks>This isn't as fast as a real RemoveRange, it just removes one item at a time.</remarks>
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "startingIndex")]
-        public static void RemoveRange<T>(this IList<T> list, int startingIndex, int count)
-        {
-            if (list == null)
-                throw new ArgumentNullException("list", "list is null.");
-            if (list.IsReadOnly)
-                throw new ArgumentException("list.IsReadOnly must be false", "list");
-            if (startingIndex < 0)
-                throw new ArgumentOutOfRangeException("startingIndex", startingIndex, "startingIndex must be >= 0");
-            if (startingIndex >= list.Count)
-                throw new ArgumentOutOfRangeException("startingIndex", startingIndex, "startingIndex must be < list.Count");
-
-
-            for (int i = 0; i < count; i++)
-                list.RemoveAt(startingIndex);
-        }
-
-        /// <summary>
-        /// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in a ReadOnlyCollection&lt;T&gt;. 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list">The list.</param>
-        /// <returns>IReadOnlyList&lt;T&gt;.</returns>
-        /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
-        public static IReadOnlyList<T> AsReadOnlyList<T>(this IList<T> list)
-        {
-            var result = list as IReadOnlyList<T>;
-            if (result != null)
-                return result;
-
-            return new ReadOnlyCollection<T>(list);
-        }
-
-        /// <summary>
-        /// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in an adapter. 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list">The list.</param>
-        /// <returns>IReadOnlyList&lt;T&gt;.</returns>
-        /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyCollection&lt;T&gt;.</remarks>
-        public static IReadOnlyCollection<T> AsReadOnlyCollection<T>(this ICollection<T> list)
-        {
-            var result = list as IReadOnlyCollection<T>;
-            if (result != null)
-                return result;
-
-            return new SimpleReadOnlyCollection<T>(list);
-        }
-
-        private class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
-        {
-
-            ICollection<T> m_List;
-
-            public SimpleReadOnlyCollection(ICollection<T> list)
-            {
-                m_List = list;
-            }
-
-            public int Count
-            {
-                get { return m_List.Count(); }
-            }
-
-            public IEnumerator<T> GetEnumerator()
-            {
-                return m_List.GetEnumerator();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                return m_List.GetEnumerator();
-            }
-        }
-
-
-#if !Concurrent_Missing
         /// <summary>
         /// Gets the keys as a readonly collection.
         /// </summary>
@@ -261,7 +169,85 @@ namespace Tortuga.Anchor
                 throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");
             return (ReadOnlyCollection<TValue>)dictionary.Values;
         }
-#endif
 
+        /// <summary>
+        /// Inserts a list of values into the target collection.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="target"></param>
+        /// <param name="startingIndex"></param>
+        /// <param name="list"></param>
+        /// <remarks>This isn't as fast as a real InsertRange, it just adds one item at a time.</remarks>
+        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "startingIndex")]
+        public static void InsertRange<T>(this IList<T> target, int startingIndex, IEnumerable<T> list)
+        {
+            if (target == null)
+                throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
+            if (target.IsReadOnly)
+                throw new ArgumentException($"{nameof(target)}.IsReadOnly must be false", nameof(target));
+            if (list == null)
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
+
+            if (startingIndex < 0)
+                throw new ArgumentOutOfRangeException(nameof(startingIndex), startingIndex, $"{nameof(startingIndex)} must be >= 0");
+            if (startingIndex > target.Count)
+                throw new ArgumentOutOfRangeException(nameof(startingIndex), startingIndex, $"{nameof(startingIndex)} must be <= {nameof(target)}.Count");
+
+            var index = startingIndex;
+            foreach (var item in list)
+            {
+                target.Insert(index, item);
+                index = Math.Min(index + 1, target.Count); //this is needed in case the collection is filtering out duplicates
+            }
+        }
+
+        /// <summary>
+        /// Removes count items from the collection
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="startingIndex"></param>
+        /// <param name="count"></param>
+        /// <remarks>This isn't as fast as a real RemoveRange, it just removes one item at a time.</remarks>
+        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "startingIndex")]
+        public static void RemoveRange<T>(this IList<T> list, int startingIndex, int count)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list), "list is null.");
+            if (list.IsReadOnly)
+                throw new ArgumentException("list.IsReadOnly must be false", nameof(list));
+            if (startingIndex < 0)
+                throw new ArgumentOutOfRangeException(nameof(startingIndex), startingIndex, "startingIndex must be >= 0");
+            if (startingIndex >= list.Count)
+                throw new ArgumentOutOfRangeException(nameof(startingIndex), startingIndex, "startingIndex must be < list.Count");
+
+            for (int i = 0; i < count; i++)
+                list.RemoveAt(startingIndex);
+        }
+
+        class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
+        {
+            ICollection<T> m_List;
+
+            public SimpleReadOnlyCollection(ICollection<T> list)
+            {
+                m_List = list;
+            }
+
+            public int Count
+            {
+                get { return m_List.Count(); }
+            }
+
+            public IEnumerator<T> GetEnumerator()
+            {
+                return m_List.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return m_List.GetEnumerator();
+            }
+        }
     }
 }

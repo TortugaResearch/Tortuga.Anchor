@@ -3,7 +3,6 @@ using System.Collections.Specialized;
 
 namespace Tortuga.Anchor.Eventing
 {
-
     /// <summary>
     /// This is used to attach weak event handlers to the indicated source.
     /// </summary>
@@ -12,19 +11,15 @@ namespace Tortuga.Anchor.Eventing
     /// </remarks>
     public sealed class CollectionChangedEventManager : EventManager<NotifyCollectionChangedEventArgs>
     {
-        private readonly INotifyCollectionChanged m_Source;
+        readonly INotifyCollectionChanged m_Source;
 
         /// <summary>
         /// Creates a new CollectionChangedEventManager.
         /// </summary>
         /// <param name="source"></param>
-
         public CollectionChangedEventManager(INotifyCollectionChanged source)
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
-
-            m_Source = source;
+            m_Source = source ?? throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
         }
 
         /// <summary>
@@ -42,8 +37,5 @@ namespace Tortuga.Anchor.Eventing
         {
             m_Source.CollectionChanged -= EventFired;
         }
-
     }
-
 }
-

@@ -19,10 +19,7 @@ namespace Tortuga.Anchor.Eventing
         /// <param name="source"></param>
         public ItemPropertyChangedEventManager(INotifyItemPropertyChanged source)
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
-
-            m_Source = source;
+            m_Source = source ?? throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
         }
 
         /// <summary>
@@ -40,6 +37,5 @@ namespace Tortuga.Anchor.Eventing
         {
             m_Source.ItemPropertyChanged -= EventFired;
         }
-
     }
 }

@@ -3,13 +3,8 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 
-#if !DataAnnotations_Missing
-#endif
-
 namespace Tortuga.Anchor.Metadata
 {
-
-
     /// <summary>
     /// Class ConstructorMetadata.
     /// </summary>
@@ -28,10 +23,10 @@ namespace Tortuga.Anchor.Metadata
         }
 
         /// <summary>
-        /// Gets the signature.
+        /// Gets the constructor information.
         /// </summary>
-        /// <value>The signature.</value>
-        public ImmutableArray<Type> Signature { get; }
+        /// <value>The constructor information.</value>
+        public ConstructorInfo ConstructorInfo { get; }
 
         /// <summary>
         /// Gets the parameter names.
@@ -39,13 +34,10 @@ namespace Tortuga.Anchor.Metadata
         /// <value>The parameter names.</value>
         public ImmutableArray<string> ParameterNames { get; }
 
-
         /// <summary>
-        /// Gets the constructor information.
+        /// Gets the signature.
         /// </summary>
-        /// <value>The constructor information.</value>
-        public ConstructorInfo ConstructorInfo { get; }
+        /// <value>The signature.</value>
+        public ImmutableArray<Type> Signature { get; }
     }
-
-
 }

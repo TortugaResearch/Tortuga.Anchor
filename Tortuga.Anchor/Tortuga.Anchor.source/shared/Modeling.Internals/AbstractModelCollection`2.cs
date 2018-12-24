@@ -4,46 +4,28 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using Tortuga.Anchor.Collections;
-using Tortuga.Anchor.DataAnnotations;
-using Tortuga.Anchor.ComponentModel;
-
-#if !Serialization_Missing
-using System.Runtime.Serialization;
-#endif
-
-#if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-#endif
-
-#if !IDataErrorInfo_Missing
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-#endif
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using Tortuga.Anchor.Collections;
+using Tortuga.Anchor.ComponentModel;
+using Tortuga.Anchor.DataAnnotations;
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
-
-    /// <summary> 
+    /// <summary>
     /// A base class for collections of models and entities. This is not meant to be used directly by client code.
     /// </summary>
     /// <typeparam name="T">The type of object being stored</typeparam>
     /// <typeparam name="TPropertyTracking">The type of property tracking desired.</typeparam>
-#if !Serialization_Missing
+
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-#endif
-    public abstract partial class AbstractModelCollection<T, TPropertyTracking> : ObservableCollectionExtended<T>, INotifyDataErrorInfo, IValidatable
+    public abstract partial class AbstractModelCollection<T, TPropertyTracking> : ObservableCollectionExtended<T>, INotifyDataErrorInfo, IValidatable, IDataErrorInfo
         where TPropertyTracking : PropertyBagBase
     {
-        readonly ErrorsDictionary m_Errors = new ErrorsDictionary();
-
-        /// <summary>
-        /// Backing store for properties
-        /// </summary>
-        TPropertyTracking m_Properties;
-
         /// <summary>
         /// Raised when the the errors collection has changed.
         /// </summary>
@@ -54,13 +36,12 @@ namespace Tortuga.Anchor.Modeling.Internals
 
         void Initialize()
         {
-            m_Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this);
-            m_Properties.PropertyChanged += Properties_PropertyChanged;
-            m_Properties.RevalidateProperty += (s, e) => ValidateProperty(e.PropertyName);
-            m_Properties.RevalidateObject += (s, e) => ValidateObject();
+            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this);
+            Properties.PropertyChanged += Properties_PropertyChanged;
+            Properties.RevalidateProperty += (s, e) => ValidateProperty(e.PropertyName);
+            Properties.RevalidateObject += (s, e) => ValidateObject();
         }
 
-#if !Serialization_Missing
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -69,7 +50,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         {
             Initialize();
         }
-#endif
 
         /// <summary>
         /// Creates a model by auto-constructing the property bag defined by TPropertyTracking.
@@ -77,7 +57,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <remarks>
         /// Requires TPropertyTracking have a public constructor that accepts an Object
         /// </remarks>
-
         protected AbstractModelCollection()
         {
             Initialize();
@@ -87,19 +66,16 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// Creates a model by auto-constructing the property bag defined by TPropertyTracking and populates it using the supplied list
         /// </summary>
         /// <param name="list">The list from which the elements are copied.</param>
-
         protected AbstractModelCollection(List<T> list)
             : base(list)
         {
             Initialize();
         }
 
-
         /// <summary>
         /// Creates a model by auto-constructing the property bag defined by TPropertyTracking and populates it using the supplied collection
         /// </summary>
         /// <param name="collection">The collection from which the elements are copied.</param>
-
         protected AbstractModelCollection(IEnumerable<T> collection)
             : base(collection)
         {
@@ -128,10 +104,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// The property bag.
         /// </value>
         [NotMapped]
-        protected TPropertyTracking Properties
-        {
-            get { return m_Properties; }
-        }
+        protected TPropertyTracking Properties { get; private set; }
 
         /// <summary>
         /// Returns a collection of all errors (object and property level).
@@ -140,7 +113,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <remarks>
         /// Call Validate() to refresh this property.
         /// </remarks>
-
         public ReadOnlyCollection<ValidationResult> GetAllErrors()
         {
             return ErrorsDictionary.GetAllErrors();
@@ -159,7 +131,6 @@ namespace Tortuga.Anchor.Modeling.Internals
             return GetErrors("");
         }
 
-
         /// <summary>
         /// Returns a collection of property-level errors.
         /// </summary>
@@ -168,12 +139,10 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <remarks>
         /// Call Validate() to refresh this property.
         /// </remarks>
-
         public ReadOnlyCollection<ValidationResult> GetErrors(string propertyName)
         {
             return ErrorsDictionary.GetErrors(propertyName);
         }
-
 
         /// <summary>
         /// Invoke this method to signal the events associated with changing the errors dictionary. The parameter updateType is returned by the methods on ErrorsDictionary.
@@ -205,15 +174,18 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </summary>
         /// <param name="results">A collection of the declarative validation errors. You may add and remove errors from this collection.</param>
 
-        protected virtual void OnValidateObject(ValidationResultCollection results) { }
+        protected virtual void OnValidateObject(ValidationResultCollection results)
+        {
+        }
 
         /// <summary>
         /// Override this method to add imperative validation at the property level.
         /// </summary>
         /// <param name="propertyName">The name of the property being validated.</param>
         /// <param name="results">A collection of the declarative validation errors. You may add and remove errors from this collection.</param>
-
-        protected virtual void OnValidateProperty(string propertyName, ValidationResultCollection results) { }
+        protected virtual void OnValidateProperty(string propertyName, ValidationResultCollection results)
+        {
+        }
 
         /// <summary>
         /// This forces the object to be completely revalidated.
@@ -226,7 +198,6 @@ namespace Tortuga.Anchor.Modeling.Internals
             Properties.RevalidateAll();
             return !HasErrors;
         }
-
 
         /// <summary>
         /// Clears the error collections and the HasErrors property
@@ -383,7 +354,6 @@ namespace Tortuga.Anchor.Modeling.Internals
             return Properties.Set(value, propertyChanged, propertyName);
         }
 
-
         /// <summary>
         /// Set the indicated property to the value.
         /// If the value doesn't match the previous value, or if there is no previous value, raise a property changed notification.
@@ -408,7 +378,6 @@ namespace Tortuga.Anchor.Modeling.Internals
             return Properties.Set(value, collectionChanged, propertyName);
         }
 
-
         partial void AttributeBasedValidation(string propertyName, ValidationResultCollection results);
 
         void Properties_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -419,10 +388,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         void ValidateObject()
         {
             var results = new ValidationResultCollection();
-            HashSet<string> affectedProperties;
 
             OnValidateObject(results);
-            OnErrorsChanged("", ErrorsDictionary.SetErrors(results, out affectedProperties));
+            OnErrorsChanged("", ErrorsDictionary.SetErrors(results, out var affectedProperties));
 
             foreach (var p in affectedProperties)
                 OnErrorsChanged(p);
@@ -445,11 +413,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <value>
         /// The errors dictionary.
         /// </value>
-        internal ErrorsDictionary ErrorsDictionary
-        {
-            get { return m_Errors; }
-        }
-
+        internal ErrorsDictionary ErrorsDictionary { get; } = new ErrorsDictionary();
 
         /// <summary>
         /// Gets the validation errors for a specified property or for the entire entity.
@@ -458,17 +422,12 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <returns>
         /// The validation errors for the property or entity.
         /// </returns>
-
         IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
         {
             return GetErrors(propertyName);
         }
-
-
-
     }
 
-#if !DataAnnotations_Missing
     partial class AbstractModelCollection<T, TPropertyTracking>
     {
         partial void AttributeBasedValidation(string propertyName, ValidationResultCollection results)
@@ -482,19 +441,15 @@ namespace Tortuga.Anchor.Modeling.Internals
             }
         }
 
-    }
-#endif
-
-#if !IDataErrorInfo_Missing
-    partial class AbstractModelCollection<T, TPropertyTracking> : IDataErrorInfo
-    {
         /// <summary>
         /// Gets an error message indicating what is wrong with this object.
         /// </summary>
         /// <returns>An error message indicating what is wrong with this object. The default is an empty string ("").</returns>
         string IDataErrorInfo.Error
         {
+#pragma warning disable CA1033 // Interface methods should be callable by child types
             get
+#pragma warning restore CA1033 // Interface methods should be callable by child types
             {
                 var errors = from e in GetErrors("") select e.ToString();
                 return string.Join("\n", errors.ToArray());
@@ -515,6 +470,4 @@ namespace Tortuga.Anchor.Modeling.Internals
             }
         }
     }
-#endif
 }
-

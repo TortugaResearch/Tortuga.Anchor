@@ -2,15 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
-
-#if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using Tortuga.Anchor.Modeling;
-#endif
 
 namespace Tortuga.Anchor.Metadata
 {
@@ -19,19 +16,15 @@ namespace Tortuga.Anchor.Metadata
     /// </summary>
     public partial class PropertyMetadata
     {
-        private ImmutableArray<PropertyMetadata> m_CalculatedFields = new ImmutableArray<PropertyMetadata>();
-        private readonly List<PropertyMetadata> m_CalculatedFieldsBuilder = new List<PropertyMetadata>();
-        private readonly MethodInfo m_GetMethod;
-        private readonly MethodInfo m_SetMethod;
+        readonly List<PropertyMetadata> m_CalculatedFieldsBuilder = new List<PropertyMetadata>();
+        readonly MethodInfo m_GetMethod;
+        readonly MethodInfo m_SetMethod;
 
         internal PropertyMetadata(PropertyInfo info)
         {
             PropertyInfo = info;
 
-
-#if !DataAnnotations_Missing
             Validators = ImmutableArray.CreateRange(info.GetCustomAttributes(typeof(ValidationAttribute), true).OfType<ValidationAttribute>());
-#endif
 
             IsIndexed = info.GetIndexParameters().Length > 0;
 
@@ -48,14 +41,11 @@ namespace Tortuga.Anchor.Metadata
             else
                 PropertyChangedEventArgs = new PropertyChangedEventArgs(info.Name);
 
-#if !INotifyPropertyChanging_Missing
             if (IsIndexed)
                 PropertyChangingEventArgs = new PropertyChangingEventArgs(info.Name + "[]");
             else
                 PropertyChangingEventArgs = new PropertyChangingEventArgs(info.Name);
-#endif
 
-#if !DataAnnotations_Missing
             IsKey = info.GetCustomAttributes(typeof(KeyAttribute), true).Any();
 
             var doNotMap = info.GetCustomAttributes(typeof(NotMappedAttribute), true).Any();
@@ -72,8 +62,6 @@ namespace Tortuga.Anchor.Metadata
             }
             IgnoreOnInsert = info.GetCustomAttributes(typeof(IgnoreOnInsertAttribute), true).Any();
             IgnoreOnUpdate = info.GetCustomAttributes(typeof(IgnoreOnUpdateAttribute), true).Any();
-#endif
-
         }
 
         /// <summary>
@@ -87,7 +75,7 @@ namespace Tortuga.Anchor.Metadata
         /// <summary>
         /// This returns a list of calculated fields that need to be updated when this property is changed.
         /// </summary>
-        public ImmutableArray<PropertyMetadata> CalculatedFields { get { return m_CalculatedFields; } }
+        public ImmutableArray<PropertyMetadata> CalculatedFields { get; private set; }
 
         /// <summary>
         /// Returns true if there is a public getter
@@ -106,9 +94,40 @@ namespace Tortuga.Anchor.Metadata
         }
 
         /// <summary>
+        /// Gets a value indicating whether to map this object's columns to the child object's properties.
+        /// </summary>
+        public bool Decompose { get; }
+
+        /// <summary>
+        /// Gets the decomposition prefix.
+        /// </summary>
+        /// <value>The decomposition prefix.</value>
+        public string DecompositionPrefix { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether to ignore this property during insert operations.
+        /// </summary>
+        public bool IgnoreOnInsert { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether to ignore this property during update operations.
+        /// </summary>
+        public bool IgnoreOnUpdate { get; }
+
+        /// <summary>
         /// Returns true if this represents an indexed property
         /// </summary>
         public bool IsIndexed { get; }
+
+        /// <summary>
+        /// Property implements the Key attribute.
+        /// </summary>
+        public bool IsKey { get; }
+
+        /// <summary>
+        /// Column that this attribute is mapped to. Defaults to the property's name, but may be overridden by ColumnAttribute.
+        /// </summary>
+        public string MappedColumnName { get; }
 
         /// <summary>
         /// Public name of the property
@@ -121,19 +140,21 @@ namespace Tortuga.Anchor.Metadata
         /// <remarks>For indexed properties such as "Item [Int32]" the property name will be reduced to "Item[]" to match ObservableCollection.</remarks>
         public PropertyChangedEventArgs PropertyChangedEventArgs { get; }
 
-
-#if !INotifyPropertyChanging_Missing
         /// <summary>
         /// Gets a cached instance of PropertyChangingEventArgs
         /// </summary>
         /// <remarks>For indexed properties such as "Item [Int32]" the property name will be reduced to "Item[]" to match ObservableCollection.</remarks>
         public PropertyChangingEventArgs PropertyChangingEventArgs { get; }
-#endif
 
         /// <summary>
         /// Gets the type of this property.
         /// </summary>
         public Type PropertyType { get; }
+
+        /// <summary>
+        /// List of validators that apply to the property
+        /// </summary>
+        public ImmutableArray<ValidationAttribute> Validators { get; }
 
         /// <summary>
         /// Cached PropertyInfo for the property.
@@ -194,50 +215,7 @@ namespace Tortuga.Anchor.Metadata
 
         internal void EndInit()
         {
-            m_CalculatedFields = ImmutableArray.CreateRange(m_CalculatedFieldsBuilder);
+            CalculatedFields = ImmutableArray.CreateRange(m_CalculatedFieldsBuilder);
         }
     }
-
-#if !DataAnnotations_Missing
-    partial class PropertyMetadata
-    {
-
-        /// <summary>
-        /// Gets a value indicating whether to map this object's columns to the child object's properties.
-        /// </summary>
-        public bool Decompose { get; }
-
-        /// <summary>
-        /// Gets the decomposition prefix.
-        /// </summary>
-        /// <value>The decomposition prefix.</value>
-        public string DecompositionPrefix { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether to ignore this property during insert operations.
-        /// </summary>
-        public bool IgnoreOnInsert { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether to ignore this property during update operations.
-        /// </summary>
-        public bool IgnoreOnUpdate { get; }
-
-        /// <summary>
-        /// List of validators that apply to the property
-        /// </summary>
-        public ImmutableArray<ValidationAttribute> Validators { get; }
-
-        /// <summary>
-        /// Property implements the Key attribute.
-        /// </summary>
-        public bool IsKey { get; }
-
-        /// <summary>
-        /// Column that this attribute is mapped to. Defaults to the property's name, but may be overridden by ColumnAttribute.
-        /// </summary>
-        public string MappedColumnName { get; }
-    }
-
-#endif
 }

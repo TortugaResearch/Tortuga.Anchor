@@ -1,4 +1,3 @@
-#if !DataAnnotations_Missing
 using System;
 
 namespace Tortuga.Anchor.Modeling
@@ -10,7 +9,5 @@ namespace Tortuga.Anchor.Modeling
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class IgnoreOnUpdateAttribute : Attribute
     {
-
     }
 }
-#endif

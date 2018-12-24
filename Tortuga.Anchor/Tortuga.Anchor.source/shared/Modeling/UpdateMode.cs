@@ -21,4 +21,3 @@ namespace Tortuga.Anchor.Modeling
         AcceptLocalChanges,
     }
 }
-

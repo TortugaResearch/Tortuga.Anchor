@@ -4,13 +4,13 @@ using Tortuga.Anchor.Collections;
 namespace Tortuga.Anchor.Eventing
 {
     /// <summary>
-    /// This is used to attach weak event handlers to the indicated source. 
+    /// This is used to attach weak event handlers to the indicated source.
     /// </summary>
     /// <typeparam name="T">The type of event being listened to.</typeparam>
     public abstract class EventManager<T> where T : EventArgs
     {
-        private readonly WeakReferenceCollection<IListener<T>> m_Targets = new WeakReferenceCollection<IListener<T>>();
-        private bool m_Listening;
+        readonly WeakReferenceCollection<IListener<T>> m_Targets = new WeakReferenceCollection<IListener<T>>();
+        bool m_Listening;
 
         /// <summary>
         /// Adds a weak event handler.
@@ -38,7 +38,6 @@ namespace Tortuga.Anchor.Eventing
             if (eventHandler == null)
                 throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
-
             m_Targets.Remove(eventHandler);
             m_Targets.CleanUp();
 
@@ -54,12 +53,10 @@ namespace Tortuga.Anchor.Eventing
         /// </summary>
         protected abstract void AttachToEvent();
 
-
         /// <summary>
         /// The implementation of this event must detach the event source to the EventFired method.
         /// </summary>
         protected abstract void DetachFromEvent();
-
 
         /// <summary>
         /// This dispatches the event to all of the listeners
@@ -81,7 +78,6 @@ namespace Tortuga.Anchor.Eventing
                 foreach (var target in m_Targets)
                     target.Invoke(sender, e);
             }
-
         }
     }
 }

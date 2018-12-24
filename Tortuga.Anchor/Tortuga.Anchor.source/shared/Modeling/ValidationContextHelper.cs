@@ -1,4 +1,3 @@
-#if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
 
 namespace Tortuga.Anchor.Modeling
@@ -15,5 +14,3 @@ namespace Tortuga.Anchor.Modeling
         }
     }
 }
-
-#endif

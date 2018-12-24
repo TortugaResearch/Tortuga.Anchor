@@ -13,21 +13,45 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// </summary>
     public class ChangeTrackingPropertyBag : PropertyBagBase
     {
-        private IListener<PropertyChangedEventArgs> m_ChildIsChangedPropertyListener;
-        private readonly Dictionary<string, object> m_OriginalValues = new Dictionary<string, object>(StringComparer.Ordinal);
-        private readonly Dictionary<string, object> m_Values = new Dictionary<string, object>(StringComparer.Ordinal);
-        private bool m_IsChangedLocal;
+        readonly IListener<PropertyChangedEventArgs> m_ChildIsChangedPropertyListener;
+        readonly Dictionary<string, object> m_OriginalValues = new Dictionary<string, object>(StringComparer.Ordinal);
+        bool m_IsChangedLocal;
 
         /// <summary>
         /// Property bag with basic change tracking capabilities.
         /// </summary>
         /// <param name="owner">Owning model, used to fetch metadata</param>
-
         public ChangeTrackingPropertyBag(object owner)
-            : base(owner)
+    : base(owner)
         {
             m_ChildIsChangedPropertyListener = new Listener<PropertyChangedEventArgs>(OnChildIsChangedPropertyChanged);
         }
+
+        /// <summary>
+        /// Returns True if any fields were modified since the last call to AcceptChanges. This does not walk the object graph.
+        /// </summary>
+        /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
+        public bool IsChangedLocal
+        {
+            get { return m_IsChangedLocal; }
+            set
+            {
+                if (m_IsChangedLocal == value)
+                    return;
+                m_IsChangedLocal = value;
+
+                OnPropertyChanged(Metadata.Properties[nameof(IsChangedLocal)]);
+                OnPropertyChanged(Metadata.Properties["IsChanged"]);
+            }
+        }
+
+        /// <summary>
+        /// Access to the values dictionary for sub-classes. Extreme care must be taken when working this this dictionary directly, as events will not be automatically fired.
+        /// </summary>
+        /// <value>
+        /// The values.
+        /// </value>
+        protected Dictionary<string, object> Values { get; } = new Dictionary<string, object>(StringComparer.Ordinal);
 
         /// <summary>
         /// Marks all fields as unchanged by storing them in the original values collection.
@@ -37,7 +61,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         {
             m_OriginalValues.Clear();
 
-            foreach (var item in m_Values)
+            foreach (var item in Values)
             {
                 m_OriginalValues[item.Key] = item.Value;
                 if (recursive && item.Value is IChangeTracking)
@@ -47,25 +71,71 @@ namespace Tortuga.Anchor.Modeling.Internals
             IsChangedLocal = false;
         }
 
-        /// <summary>
-        /// Implementors need to override this to return the indicated value.
-        /// </summary>
-        /// <param name="propertyName">Name of the property to fetch.</param>
-        /// <returns>
-        /// The indicated value or System.Reflection.Missing if the value isn't defined.
-        /// </returns>
+        /// <summary>Implementors need to override this to return the indicated value.</summary>
+        /// <returns>The indicated value or System.Reflection.Missing if the value isn't defined.</returns>
         /// <exception cref="ArgumentNullException">propertyName;propertyName is null</exception>
         /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
+        public IReadOnlyList<string> ChangedProperties()
+        {
+            var result = new List<string>();
 
+            foreach (var item in Values)
+            {
+                if (m_OriginalValues.TryGetValue(item.Key, out var old))
+                {
+                    if (!Equals(old, item.Value))
+                        result.Add(item.Key);
+                }
+                else
+                {
+                    result.Add(item.Key);
+                }
+            }
+
+            return new ReadOnlyCollection<string>(result);
+        }
+
+        /// <summary>
+        /// Gets the previous value for the indicated property.
+        /// </summary>
+        /// <param name="propertyName">
+        /// Name of the property.
+        /// </param>
+        public object GetPreviousValue(string propertyName)
+        {
+            if (m_OriginalValues.TryGetValue(propertyName, out var result))
+                return result;
+
+            return NotSet.Value;
+        }
+
+        /// <summary>Implementors need to override this to return the indicated value.</summary>
+        /// <param name="propertyName">Name of the property to fetch.</param>
+        /// <returns>The indicated value or System.Reflection.Missing if the value isn't defined.</returns>
+        /// <exception cref="ArgumentException">propertyName</exception>
         public override object GetValue([CallerMemberName] string propertyName = null)
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
-            if (m_Values.ContainsKey(propertyName))
-                return m_Values[propertyName];
+            if (Values.ContainsKey(propertyName))
+                return Values[propertyName];
 
             return NotSet.Value;
+        }
+
+        /// <summary>
+        /// Determines whether any objects have unsaved changed in the graph.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsChangedGraph()
+        {
+            foreach (var item in Values.Values.OfType<IChangeTracking>())
+            {
+                if (item.IsChanged)
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -75,13 +145,12 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">propertyName;propertyName is null</exception>
         /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-
         public override bool IsDefined([CallerMemberName] string propertyName = null)
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
-            return m_Values.ContainsKey(propertyName);
+            return Values.ContainsKey(propertyName);
         }
 
         /// <summary>
@@ -93,14 +162,14 @@ namespace Tortuga.Anchor.Modeling.Internals
             var needsIsChangedEvent = IsChangedGraph() && !IsChangedLocal;
 
             //remove properties that no longer exist
-            foreach (var item in m_Values.ToList())
+            foreach (var item in Values.ToList())
             {
                 if (!m_OriginalValues.ContainsKey(item.Key))
                 {
                     var property = Metadata.Properties[item.Key];
                     OnPropertyChanging(property);
 
-                    m_Values.Remove(item.Key);
+                    Values.Remove(item.Key);
 
                     UpdateChangeTrackingEventHandlers(item.Value, null);
 
@@ -118,7 +187,7 @@ namespace Tortuga.Anchor.Modeling.Internals
                     var property = Metadata.Properties[item.Key];
                     OnPropertyChanging(property);
 
-                    m_Values[item.Key] = item.Value;
+                    Values[item.Key] = item.Value;
 
                     UpdateChangeTrackingEventHandlers(currentValue, item.Value);
 
@@ -129,7 +198,7 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             if (recursive)
             {
-                foreach (var item in m_Values)
+                foreach (var item in Values)
                 {
                     if (item.Value is IRevertibleChangeTracking)
                         ((IRevertibleChangeTracking)item.Value).RejectChanges();
@@ -141,21 +210,6 @@ namespace Tortuga.Anchor.Modeling.Internals
                 OnPropertyChanged(Metadata.Properties["IsChanged"]);
 
             OnRevalidateObject();
-        }
-
-        private void UpdateChangeTrackingEventHandlers(object oldValue, object newValue)
-        {
-            if (oldValue is IChangeTracking && oldValue is INotifyPropertyChanged)
-                if (oldValue is INotifyPropertyChangedWeak)
-                    ((INotifyPropertyChangedWeak)oldValue).RemoveHandler(m_ChildIsChangedPropertyListener);
-                else
-                    ((INotifyPropertyChanged)oldValue).PropertyChanged -= OnChildIsChangedPropertyChanged;
-
-            if (newValue is IChangeTracking && newValue is INotifyPropertyChanged)
-                if (newValue is INotifyPropertyChangedWeak)
-                    ((INotifyPropertyChangedWeak)newValue).AddHandler(m_ChildIsChangedPropertyListener);
-                else
-                    ((INotifyPropertyChanged)newValue).PropertyChanged += OnChildIsChangedPropertyChanged;
         }
 
         /// <summary>
@@ -194,7 +248,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (mode.HasFlag(PropertySetModes.RaiseChangedEvent))
                 OnPropertyChanging(property);
 
-            m_Values[propertyName] = value;
+            Values[propertyName] = value;
 
             UpdateChangeTrackingEventHandlers(oldValue, value);
 
@@ -213,97 +267,25 @@ namespace Tortuga.Anchor.Modeling.Internals
             return true;
         }
 
-        private void OnChildIsChangedPropertyChanged(object sender, PropertyChangedEventArgs e)
+        void OnChildIsChangedPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == "IsChanged")
                 OnPropertyChanged(Metadata.Properties["IsChanged"]);
         }
 
-        /// <summary>
-        /// Access to the values dictionary for sub-classes. Extreme care must be taken when working this this dictionary directly, as events will not be automatically fired.
-        /// </summary>
-        /// <value>
-        /// The values.
-        /// </value>
-        protected Dictionary<string, object> Values
+        void UpdateChangeTrackingEventHandlers(object oldValue, object newValue)
         {
-            get { return m_Values; }
-        }
-
-        /// <summary>
-        /// Determines whether any objects have unsaved changed in the graph.
-        /// </summary>
-        /// <returns></returns>
-
-        internal bool IsChangedGraph()
-        {
-            foreach (var item in m_Values.Values.OfType<IChangeTracking>())
-            {
-                if (item.IsChanged)
-                    return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Returns True if any fields were modified since the last call to AcceptChanges. This does not walk the object graph.
-        /// </summary>
-        /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
-        public bool IsChangedLocal
-        {
-            get { return m_IsChangedLocal; }
-            set
-            {
-                if (m_IsChangedLocal == value)
-                    return;
-                m_IsChangedLocal = value;
-
-                OnPropertyChanged(Metadata.Properties["IsChangedLocal"]);
-                OnPropertyChanged(Metadata.Properties["IsChanged"]);
-            }
-        }
-
-
-        /// <summary>
-        /// Gets the previous value for the indicated property.
-        /// </summary>
-        /// <param name="propertyName">
-        /// Name of the property.
-        /// </param>
-        public object GetPreviousValue(string propertyName)
-        {
-            object result;
-            if (m_OriginalValues.TryGetValue(propertyName, out result))
-                return result;
-
-            return NotSet.Value;
-        }
-
-        /// <summary>
-        /// List of changed properties.
-        /// </summary>
-        public IReadOnlyList<string> ChangedProperties()
-        {
-            var result = new List<string>();
-
-            foreach (var item in m_Values)
-            {
-                object old;
-                if (m_OriginalValues.TryGetValue(item.Key, out old))
-                {
-                    if (!Equals(old, item.Value))
-                        result.Add(item.Key);
-                }
+            if (oldValue is IChangeTracking && oldValue is INotifyPropertyChanged)
+                if (oldValue is INotifyPropertyChangedWeak)
+                    ((INotifyPropertyChangedWeak)oldValue).RemoveHandler(m_ChildIsChangedPropertyListener);
                 else
-                {
-                    result.Add(item.Key);
-                }
-            }
+                    ((INotifyPropertyChanged)oldValue).PropertyChanged -= OnChildIsChangedPropertyChanged;
 
-            return new ReadOnlyCollection<string>(result);
+            if (newValue is IChangeTracking && newValue is INotifyPropertyChanged)
+                if (newValue is INotifyPropertyChangedWeak)
+                    ((INotifyPropertyChangedWeak)newValue).AddHandler(m_ChildIsChangedPropertyListener);
+                else
+                    ((INotifyPropertyChanged)newValue).PropertyChanged += OnChildIsChangedPropertyChanged;
         }
     }
-
-
 }
-

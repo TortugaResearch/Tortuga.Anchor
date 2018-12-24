@@ -5,31 +5,21 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Reflection;
 
-#if !DataAnnotations_Missing
-#endif
-
 namespace Tortuga.Anchor.Metadata
 {
-
     /// <summary>
     /// Class ConstructorMetadataCollection.
     /// </summary>
     /// <seealso cref="ICollection{PropertyMetadata}" />
     public sealed class ConstructorMetadataCollection : ICollection<ConstructorMetadata>
     {
-        private readonly ImmutableArray<ConstructorMetadata> m_Constructors;
+        readonly ImmutableArray<ConstructorMetadata> m_Constructors;
 
         internal ConstructorMetadataCollection(IEnumerable<ConstructorInfo> constructors)
         {
             m_Constructors = ImmutableArray.CreateRange(constructors.Where(c => c.IsPublic).Select(c => new ConstructorMetadata(c)));
             HasDefaultConstructor = m_Constructors.Any(c => c.Signature.Length == 0);
         }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance has a default constructor.
-        /// </summary>
-        /// <value><c>true</c> if this instance has a default constructor; otherwise, <c>false</c>.</value>
-        public bool HasDefaultConstructor { get; }
 
         /// <summary>
         /// Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
@@ -39,6 +29,12 @@ namespace Tortuga.Anchor.Metadata
         {
             get { return m_Constructors.Length; }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has a default constructor.
+        /// </summary>
+        /// <value><c>true</c> if this instance has a default constructor; otherwise, <c>false</c>.</value>
+        public bool HasDefaultConstructor { get; }
 
         /// <summary>
         /// Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
@@ -87,6 +83,19 @@ namespace Tortuga.Anchor.Metadata
         public bool Contains(params Type[] signature)
         {
             return Find(signature) != null;
+        }
+
+        /// <summary>
+        /// Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1" /> to an <see cref="T:System.Array" />, starting at a particular <see cref="T:System.Array" /> index.
+        /// </summary>
+        /// <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.ICollection`1" />. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
+        /// <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
+        public void CopyTo(ConstructorMetadata[] array, int arrayIndex)
+        {
+            if (array == null)
+                throw new ArgumentNullException(nameof(array), $"{nameof(array)} is null");
+
+            m_Constructors.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
@@ -150,19 +159,6 @@ namespace Tortuga.Anchor.Metadata
         }
 
         /// <summary>
-        /// Copies the elements of the <see cref="T:System.Collections.Generic.ICollection`1" /> to an <see cref="T:System.Array" />, starting at a particular <see cref="T:System.Array" /> index.
-        /// </summary>
-        /// <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see cref="T:System.Collections.Generic.ICollection`1" />. The <see cref="T:System.Array" /> must have zero-based indexing.</param>
-        /// <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
-        public void CopyTo(ConstructorMetadata[] array, int arrayIndex)
-        {
-            if (array == null)
-                throw new ArgumentNullException(nameof(array), $"{nameof(array)} is null");
-
-            m_Constructors.CopyTo(array, arrayIndex);
-        }
-
-        /// <summary>
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.</returns>
@@ -171,14 +167,14 @@ namespace Tortuga.Anchor.Metadata
             return ((ICollection<ConstructorMetadata>)m_Constructors).GetEnumerator();
         }
 
-        bool ICollection<ConstructorMetadata>.Remove(ConstructorMetadata item)
-        {
-            throw new NotSupportedException();
-        }
-
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((ICollection<ConstructorMetadata>)m_Constructors).GetEnumerator();
+        }
+
+        bool ICollection<ConstructorMetadata>.Remove(ConstructorMetadata item)
+        {
+            throw new NotSupportedException();
         }
     }
 }

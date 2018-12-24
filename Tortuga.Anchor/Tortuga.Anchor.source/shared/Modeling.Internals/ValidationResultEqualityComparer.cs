@@ -1,10 +1,7 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-
-#if !DataAnnotations_Missing
-using System.ComponentModel.DataAnnotations;
-#endif
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
@@ -12,12 +9,20 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// Used to compare ValidationResults
     /// </summary>
     /// <remarks>
-    /// This does not properly support subclasses 
+    /// This does not properly support subclasses
     /// </remarks>
 
     public class ValidationResultEqualityComparer : IEqualityComparer<ValidationResult>
     {
-        ValidationResultEqualityComparer() { }
+        /// <summary>
+        /// Returns the default instance of the comparer.
+        /// </summary>
+        [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+        public static readonly ValidationResultEqualityComparer Default = new ValidationResultEqualityComparer();
+
+        ValidationResultEqualityComparer()
+        {
+        }
 
         /// <summary>
         /// Performs a value comparison by looking at the error message and member names
@@ -32,7 +37,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </remarks>
         public bool Equals(ValidationResult x, ValidationResult y)
         {
-
             if (x == y)
                 return true;
 
@@ -53,7 +57,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         /// <remarks>
         /// WARNING: The result of GetHashCode can change! It is based on ValidationResult, which unfortunately isn't immutable.
@@ -65,11 +69,5 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             return obj.ErrorMessage.GetHashCode();
         }
-
-        /// <summary>
-        /// Returns the default instance of the comparer.
-        /// </summary>
-        [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly ValidationResultEqualityComparer Default = new ValidationResultEqualityComparer();
     }
 }

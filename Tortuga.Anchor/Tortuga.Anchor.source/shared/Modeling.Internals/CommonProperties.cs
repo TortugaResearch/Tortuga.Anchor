@@ -23,5 +23,4 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </summary>
         public readonly static PropertyChangedEventArgs IsChangedProperty = new PropertyChangedEventArgs("IsChanged");
     }
-
 }

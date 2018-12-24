@@ -12,14 +12,15 @@ namespace Tortuga.Anchor.Metadata
     /// </summary>
     sealed public class PropertyMetadataCollection : IList<PropertyMetadata>
     {
-        private readonly Dictionary<string, PropertyMetadata> m_Base = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
-        private readonly Dictionary<string, PropertyMetadata> m_Int32IndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
-        private readonly Dictionary<string, PropertyMetadata> m_StringIndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, PropertyMetadata> m_Base = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, PropertyMetadata> m_Int32IndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// This is used when we need to iterate over all of the properties as quickly as possible.
         /// </summary>
-        private readonly ImmutableArray<PropertyMetadata> m_QuickList;
+        readonly ImmutableArray<PropertyMetadata> m_QuickList;
+
+        readonly Dictionary<string, PropertyMetadata> m_StringIndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
 
         internal PropertyMetadataCollection(IEnumerable<PropertyMetadata> properties)
         {
@@ -93,29 +94,34 @@ namespace Tortuga.Anchor.Metadata
                 if (string.IsNullOrEmpty(propertyName))
                     throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
-                PropertyMetadata result;
-                if (m_Base.TryGetValue(propertyName, out result))
-                {
+                if (m_Base.TryGetValue(propertyName, out PropertyMetadata result))
                     return result;
-                }
-                if (m_Int32IndexedProperties.TryGetValue(propertyName, out result))
-                {
-                    return result;
-                }
-                if (m_StringIndexedProperties.TryGetValue(propertyName, out result))
-                {
-                    return result;
-                }
 
-                throw new ArgumentOutOfRangeException("propertyName", propertyName, "The property " + propertyName + " was not found");
+                if (m_Int32IndexedProperties.TryGetValue(propertyName, out result))
+                    return result;
+
+                if (m_StringIndexedProperties.TryGetValue(propertyName, out result))
+                    return result;
+
+                throw new ArgumentOutOfRangeException(nameof(propertyName), propertyName, $"The property {propertyName} was not found");
             }
+        }
+
+        void ICollection<PropertyMetadata>.Add(PropertyMetadata item)
+        {
+            throw new NotSupportedException("This collection is read-only.");
+        }
+
+        void ICollection<PropertyMetadata>.Clear()
+        {
+            throw new NotSupportedException("This collection is read-only.");
         }
 
         /// <summary>
         /// Returns true if the property is known
         /// </summary>
         ///<param name="item">item to look for</param>
-        /// <returns></returns>        
+        /// <returns></returns>
         public bool Contains(PropertyMetadata item)
         {
             if (item == null)
@@ -155,7 +161,6 @@ namespace Tortuga.Anchor.Metadata
             if (Count + arrayIndex > array.Length)
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex), $"{nameof(Count)} + {nameof(arrayIndex)} is greater than the array's length");
 
-
             m_Base.Values.CopyTo(array, arrayIndex);
         }
 
@@ -169,12 +174,17 @@ namespace Tortuga.Anchor.Metadata
             return m_Base.Values.GetEnumerator();
         }
 
-        void ICollection<PropertyMetadata>.Add(PropertyMetadata item)
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotSupportedException("This collection is read-only.");
+            return m_Base.Values.GetEnumerator();
         }
 
-        void ICollection<PropertyMetadata>.Clear()
+        int IList<PropertyMetadata>.IndexOf(PropertyMetadata item)
+        {
+            return m_QuickList.IndexOf(item);
+        }
+
+        void IList<PropertyMetadata>.Insert(int index, PropertyMetadata item)
         {
             throw new NotSupportedException("This collection is read-only.");
         }
@@ -184,9 +194,9 @@ namespace Tortuga.Anchor.Metadata
             throw new NotSupportedException("This collection is read-only.");
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        void IList<PropertyMetadata>.RemoveAt(int index)
         {
-            return m_Base.Values.GetEnumerator();
+            throw new NotSupportedException("This collection is read-only.");
         }
 
         /// <summary>
@@ -195,7 +205,6 @@ namespace Tortuga.Anchor.Metadata
         /// <param name="propertyName">case insensitive property name</param>
         /// <param name="value"></param>
         /// <returns></returns>
-
         public bool TryGetValue(string propertyName, out PropertyMetadata value)
         {
             if (string.IsNullOrEmpty(propertyName))
@@ -211,21 +220,5 @@ namespace Tortuga.Anchor.Metadata
             value = null;
             return false;
         }
-
-        int IList<PropertyMetadata>.IndexOf(PropertyMetadata item)
-        {
-            return m_QuickList.IndexOf(item);
-        }
-
-        void IList<PropertyMetadata>.Insert(int index, PropertyMetadata item)
-        {
-            throw new NotSupportedException("This collection is read-only.");
-        }
-
-        void IList<PropertyMetadata>.RemoveAt(int index)
-        {
-            throw new NotSupportedException("This collection is read-only.");
-        }
-
     }
 }

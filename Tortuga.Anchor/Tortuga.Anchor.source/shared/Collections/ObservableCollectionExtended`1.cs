@@ -10,7 +10,6 @@ using Tortuga.Anchor.Eventing;
 
 namespace Tortuga.Anchor.Collections
 {
-
     /// <summary>
     /// This is an ObservableCollection with a read-only wrapper and support for weak events.
     /// This will use weak events to listen to objects implementing INotifyPropertyChangedWeak.
@@ -20,37 +19,34 @@ namespace Tortuga.Anchor.Collections
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
     public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, INotifyCollectionChangedWeak, INotifyPropertyChangedWeak, INotifyItemPropertyChangedWeak, IReadOnlyList<T>
     {
-        private CollectionChangedEventManager m_CollectionChangeEventManager;
+        CollectionChangedEventManager m_CollectionChangeEventManager;
 
-        private IListener<PropertyChangedEventArgs> m_ItemPropertyChanged;
+        IListener<PropertyChangedEventArgs> m_ItemPropertyChanged;
 
-        private ItemPropertyChangedEventManager m_ItemPropertyChangedEventManager;
+        ItemPropertyChangedEventManager m_ItemPropertyChangedEventManager;
 
         /// <summary>
         /// When someone attaches to the ItemPropertyChanged event this is set to true and we start listening for change notifications.
         /// </summary>
-        private bool m_ListeningToItemEvents;
+        bool m_ListeningToItemEvents;
 
-        private PropertyChangedEventManager m_PropertyChangedEventManager;
+        PropertyChangedEventManager m_PropertyChangedEventManager;
 
         //These are created on demand.
-        private ReadOnlyObservableCollectionExtended<T> m_ReadOnlyWrapper;
-
+        ReadOnlyObservableCollectionExtended<T> m_ReadOnlyWrapper;
 
         /// <summary>
-        /// Initializes a new instance of the ImprovedObservableCollection class.
-        /// </summary>  
+        /// Initializes a new instance of the ObservableCollectionExtended class.
+        /// </summary>
         public ObservableCollectionExtended()
         {
         }
 
-
         /// <summary>
-        /// Initializes a new instance of the ImprovedObservableCollection class that contains elements copied from the specified list.
+        /// Initializes a new instance of the ObservableCollectionExtended class that contains elements copied from the specified list.
         /// </summary>
         /// <param name="list"></param>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
-
         public ObservableCollectionExtended(List<T> list)
         {
             if (list != null)
@@ -58,7 +54,7 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Initializes a new instance of the ImprovedObservableCollection class that contains elements copied from the specified collection.
+        /// Initializes a new instance of the ObservableCollectionExtended class that contains elements copied from the specified collection.
         /// </summary>
         /// <param name="collection"></param>
         public ObservableCollectionExtended(IEnumerable<T> collection)
@@ -101,13 +97,14 @@ namespace Tortuga.Anchor.Collections
             remove { base.PropertyChanged -= value; }
         }
 
-        private event RelayedEventHandler<PropertyChangedEventArgs> m_ItemPropertyChangedEvent;
+        event RelayedEventHandler<PropertyChangedEventArgs> m_ItemPropertyChangedEvent;
+
         /// <summary>
-        /// Returns a read-only wrapper around this collection. 
+        /// Returns a read-only wrapper around this collection.
         /// </summary>
         /// <remarks>
-        /// If sub classing this class then it may be useful to shadow ReadOnlyWrapper method 
-        /// with one that returns a subclass of ExtendedReadOnlyObservableCollection.
+        /// If sub classing this class then it may be useful to shadow ReadOnlyWrapper method
+        /// with one that returns a subclass of ReadOnlyObservableCollectionExtended.
         /// </remarks>
         public ReadOnlyObservableCollectionExtended<T> ReadOnlyWrapper
         {
@@ -179,6 +176,28 @@ namespace Tortuga.Anchor.Collections
 
             foreach (var item in list)
                 Add(item);
+        }
+
+        /// <summary>
+        /// Removes all the elements that match the conditions defined by the specified predicate.
+        /// </summary>
+        /// <param name="match"> The System.Predicate`1 delegate that defines the conditions of the elements to remove.</param>
+        /// <returns>The number of elements removed.</returns>
+        public int RemoveAll(Predicate<T> match)
+        {
+            if (match == null)
+                throw new ArgumentNullException(nameof(match), $"{nameof(match)} is null.");
+
+            var count = 0;
+            for (int i = Count - 1; i >= 0; i--)
+            {
+                if (match(this[i]))
+                {
+                    RemoveAt(i);
+                    count += 1;
+                }
+            }
+            return count;
         }
 
         /// <summary>
@@ -277,7 +296,6 @@ namespace Tortuga.Anchor.Collections
                 else if (item is INotifyPropertyChanged)
                     ((INotifyPropertyChanged)item).PropertyChanged -= OnItemPropertyChanged;
             }
-
         }
 
         /// <summary>
@@ -308,7 +326,6 @@ namespace Tortuga.Anchor.Collections
             if (index >= Count)
                 throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be < Count");
 
-
             T temp = base[index];
             base.RemoveItem(index);
             OnItemRemoved(temp);
@@ -327,16 +344,16 @@ namespace Tortuga.Anchor.Collections
             if (index >= Count)
                 throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} must be < Count");
 
-
             T temp = base[index];
             base.SetItem(index, item);
             OnItemRemoved(temp);
             OnItemAdded(item);
         }
+
         /// <summary>
-        /// This enables the ItemPropertyChanged events. 
+        /// This enables the ItemPropertyChanged events.
         /// </summary>
-        private void ListenToEvents()
+        void ListenToEvents()
         {
             if (m_ListeningToItemEvents)
                 return;
@@ -350,7 +367,6 @@ namespace Tortuga.Anchor.Collections
                     item.PropertyChanged += OnItemPropertyChanged;
             }
 
-
             m_ListeningToItemEvents = true;
         }
 
@@ -358,29 +374,5 @@ namespace Tortuga.Anchor.Collections
         {
             m_ItemPropertyChangedEvent?.Invoke(this, RelayedEventArgs.Create(sender, e));
         }
-
-        /// <summary>
-        /// Removes all the elements that match the conditions defined by the specified predicate.
-        /// </summary>
-        /// <param name="match"> The System.Predicate`1 delegate that defines the conditions of the elements to remove.</param>
-        /// <returns>The number of elements removed.</returns>
-        public int RemoveAll(Predicate<T> match)
-        {
-            if (match == null)
-                throw new ArgumentNullException(nameof(match), $"{nameof(match)} is null.");
-
-            var count = 0;
-            for (int i = Count - 1; i >= 0; i--)
-            {
-                if (match(this[i]))
-                {
-                    RemoveAt(i);
-                    count += 1;
-                }
-            }
-            return count;
-        }
     }
-
-
 }

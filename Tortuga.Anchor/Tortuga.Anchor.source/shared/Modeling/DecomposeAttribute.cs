@@ -1,4 +1,3 @@
-#if !DataAnnotations_Missing
 using System;
 
 namespace Tortuga.Anchor.Modeling
@@ -11,8 +10,6 @@ namespace Tortuga.Anchor.Modeling
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class DecomposeAttribute : Attribute
     {
-        private readonly string m_Prefix;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DecomposeAttribute"/> class.
         /// </summary>
@@ -22,15 +19,12 @@ namespace Tortuga.Anchor.Modeling
         /// Initializes a new instance of the <see cref="DecomposeAttribute"/> class.
         /// </summary>
         /// <param name="prefix">The prefix.</param>
-        public DecomposeAttribute(string prefix) { m_Prefix = prefix; }
+        public DecomposeAttribute(string prefix) { Prefix = prefix; }
+
         /// <summary>
         /// Gets the prefix used in the result set columns.
         /// </summary>
         /// <value>The prefix.</value>
-        public string Prefix
-        {
-            get { return m_Prefix; }
-        }
+        public string Prefix { get; private set; }
     }
 }
-#endif

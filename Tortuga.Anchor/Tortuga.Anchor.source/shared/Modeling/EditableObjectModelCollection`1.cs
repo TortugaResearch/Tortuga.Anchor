@@ -1,57 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Eventing;
 using Tortuga.Anchor.Modeling.Internals;
 
-#if !Serialization_Missing
-using System.Runtime.Serialization;
-#endif
-
-#if !DataAnnotations_Missing
-using System.ComponentModel.DataAnnotations.Schema;
-#endif
-
 namespace Tortuga.Anchor.Modeling
 {
-
     /// <summary>
     /// A collection suitable for use in dialogs that have a cancel button. This also supports revertible change tracking.
     /// </summary>
     /// <typeparam name="TModelType"></typeparam>
-#if !Serialization_Missing
 	[DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-#endif
     public class EditableObjectModelCollection<TModelType> : AbstractModelCollection<TModelType, EditableObjectPropertyBag>, IRevertibleChangeTracking, IEditableObject
     {
-        readonly List<TModelType> m_OriginalList = new List<TModelType>();
         readonly List<TModelType> m_CheckpointItems = new List<TModelType>();
+        readonly List<TModelType> m_OriginalList = new List<TModelType>();
         bool m_AllowIsChangedEvents;
-
-        void ConstructorProcessing()
-        {
-            m_OriginalList.AddRange(this);
-
-            ItemPropertyChanged += ChangeTrackingModelCollection_OnItemPropertyChanged;
-            ItemAdded += EditableObjectEntityCollection_ItemAdded;
-            ItemRemoved += EditableObjectEntityCollection_ItemRemoved;
-            m_AllowIsChangedEvents = true;
-        }
-
-
-        void EditableObjectEntityCollection_ItemRemoved(object sender, ItemEventArgs<TModelType> e)
-        {
-            if (m_AllowIsChangedEvents)
-                Properties.IsChangedLocal = true;
-        }
-
-
-        void EditableObjectEntityCollection_ItemAdded(object sender, ItemEventArgs<TModelType> e)
-        {
-            if (m_AllowIsChangedEvents)
-                Properties.IsChangedLocal = true;
-        }
 
         /// <summary>
         /// Creates a model by auto-constructing the property bag defined by TPropertyTracking.
@@ -59,7 +26,6 @@ namespace Tortuga.Anchor.Modeling
         /// <remarks>
         /// Requires TPropertyTracking have a public constructor that accepts an Object
         /// </remarks>
-
         protected EditableObjectModelCollection()
         {
             ConstructorProcessing();
@@ -72,7 +38,6 @@ namespace Tortuga.Anchor.Modeling
         /// <remarks>
         /// Requires TPropertyTracking have a public constructor that accepts an Object
         /// </remarks>
-
         protected EditableObjectModelCollection(List<TModelType> list)
             : base(list)
         {
@@ -86,21 +51,10 @@ namespace Tortuga.Anchor.Modeling
         /// <remarks>
         /// Requires TPropertyTracking have a public constructor that accepts an Object
         /// </remarks>
-
         protected EditableObjectModelCollection(IEnumerable<TModelType> collection)
             : base(collection)
         {
             ConstructorProcessing();
-        }
-
-        /// <summary>
-        /// Returns True if any fields were modified since the last call to AcceptChanges. This does not walk the object graph.
-        /// </summary>
-        /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
-        [NotMapped]
-        public bool IsChangedLocal
-        {
-            get { return Properties.IsChangedLocal; }
         }
 
         /// <summary>
@@ -129,6 +83,16 @@ namespace Tortuga.Anchor.Modeling
         }
 
         /// <summary>
+        /// Returns True if any fields were modified since the last call to AcceptChanges. This does not walk the object graph.
+        /// </summary>
+        /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
+        [NotMapped]
+        public bool IsChangedLocal
+        {
+            get { return Properties.IsChangedLocal; }
+        }
+
+        /// <summary>
         /// Marks all fields as unchanged and clears the IsChanged flag.
         /// </summary>
         /// <remarks>
@@ -146,36 +110,6 @@ namespace Tortuga.Anchor.Modeling
             m_OriginalList.Clear();
             m_OriginalList.AddRange(this);
             m_CheckpointItems.Clear();
-        }
-
-        /// <summary>
-        /// Discards all pending changes and reverts to the values used the last time AcceptChanges was called.
-        /// </summary>
-        /// <remarks>
-        /// This will call RejectChanges on properties and collection items from the original collection that implement IRevertibleChangeTracking
-        /// </remarks>
-        public void RejectChanges()
-        {
-            m_AllowIsChangedEvents = false;
-
-            Clear();
-            foreach (var item in m_OriginalList)
-                Add(item);
-
-            Properties.RejectChanges(true);
-            foreach (var item in this)
-            {
-                if (item is IRevertibleChangeTracking)
-                    ((IRevertibleChangeTracking)item).RejectChanges();
-            }
-
-            m_AllowIsChangedEvents = true;
-        }
-
-        void ChangeTrackingModelCollection_OnItemPropertyChanged(object sender, RelayedEventArgs<PropertyChangedEventArgs> e)
-        {
-            if (e.EventArgs.PropertyName == CommonProperties.IsChangedProperty.PropertyName)
-                OnPropertyChanged(CommonProperties.IsChangedProperty);
         }
 
         /// <summary>
@@ -219,6 +153,58 @@ namespace Tortuga.Anchor.Modeling
 
             foreach (var item in this.OfType<IEditableObject>())
                 item.EndEdit();
+        }
+
+        /// <summary>
+        /// Discards all pending changes and reverts to the values used the last time AcceptChanges was called.
+        /// </summary>
+        /// <remarks>
+        /// This will call RejectChanges on properties and collection items from the original collection that implement IRevertibleChangeTracking
+        /// </remarks>
+        public void RejectChanges()
+        {
+            m_AllowIsChangedEvents = false;
+
+            Clear();
+            foreach (var item in m_OriginalList)
+                Add(item);
+
+            Properties.RejectChanges(true);
+            foreach (var item in this)
+            {
+                if (item is IRevertibleChangeTracking)
+                    ((IRevertibleChangeTracking)item).RejectChanges();
+            }
+
+            m_AllowIsChangedEvents = true;
+        }
+
+        void ChangeTrackingModelCollection_OnItemPropertyChanged(object sender, RelayedEventArgs<PropertyChangedEventArgs> e)
+        {
+            if (e.EventArgs.PropertyName == CommonProperties.IsChangedProperty.PropertyName)
+                OnPropertyChanged(CommonProperties.IsChangedProperty);
+        }
+
+        void ConstructorProcessing()
+        {
+            m_OriginalList.AddRange(this);
+
+            ItemPropertyChanged += ChangeTrackingModelCollection_OnItemPropertyChanged;
+            ItemAdded += EditableObjectEntityCollection_ItemAdded;
+            ItemRemoved += EditableObjectEntityCollection_ItemRemoved;
+            m_AllowIsChangedEvents = true;
+        }
+
+        void EditableObjectEntityCollection_ItemAdded(object sender, ItemEventArgs<TModelType> e)
+        {
+            if (m_AllowIsChangedEvents)
+                Properties.IsChangedLocal = true;
+        }
+
+        void EditableObjectEntityCollection_ItemRemoved(object sender, ItemEventArgs<TModelType> e)
+        {
+            if (m_AllowIsChangedEvents)
+                Properties.IsChangedLocal = true;
         }
     }
 }

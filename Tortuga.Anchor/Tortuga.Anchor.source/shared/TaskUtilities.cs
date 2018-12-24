@@ -25,6 +25,7 @@ namespace Tortuga.Anchor
         }
 
 #if !Timer_Missing
+
         /// <summary>
         /// Creates a task that automatically completes after a given delay.
         /// </summary>
@@ -136,6 +137,7 @@ namespace Tortuga.Anchor
             }, null, delay, int.MaxValue);
             return tcs.Task;
         }
+
 #endif
 
         /// <summary>
@@ -148,7 +150,6 @@ namespace Tortuga.Anchor
         {
             if (actions == null)
                 throw new ArgumentNullException(nameof(actions), $"{nameof(actions)} is null.");
-
 
             var tasks = new Task[actions.Count];
             var i = 0;
@@ -224,6 +225,7 @@ namespace Tortuga.Anchor
             if (task.Status == TaskStatus.Created)
                 task.Start();
         }
+
         /// <summary>
         /// Wait for the indicated task to be completed or canceled.
         /// </summary>
@@ -249,6 +251,7 @@ namespace Tortuga.Anchor
                     throw;
             }
         }
+
         /// <summary>
         /// A version of Task.WhenAll that can be canceled.
         /// </summary>
@@ -259,7 +262,7 @@ namespace Tortuga.Anchor
             if (tasks == null)
                 throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
 
-            await Task.WhenAny(Task.WhenAll(tasks), cancellationToken.AsTask());
+            await Task.WhenAny(Task.WhenAll(tasks), cancellationToken.AsTask()).ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
         }
 
@@ -285,7 +288,7 @@ namespace Tortuga.Anchor
             if (tasks == null)
                 throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
 
-            await Task.WhenAny(tasks.Concat(cancellationToken.AsTask()));
+            await Task.WhenAny(tasks.Concat(cancellationToken.AsTask())).ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
         }
 
@@ -302,5 +305,3 @@ namespace Tortuga.Anchor
         }
     }
 }
-
-

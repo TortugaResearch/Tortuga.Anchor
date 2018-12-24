@@ -1,36 +1,21 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Runtime.Serialization;
+using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.DataAnnotations;
 using Tortuga.Anchor.Eventing;
-using System.Collections.ObjectModel;
-using Tortuga.Anchor.ComponentModel;
-
-#if !Serialization_Missing
-using System.Runtime.Serialization;
-#endif
-
-#if !DataAnnotations_Missing
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-#endif
-
-#if !IDataErrorInfo_Missing
-using System.Linq;
-#endif
-
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
-
-
-
     /// <summary>
     /// Abstract base class to deal with the limitations of generics. This is not meant to be used directly by client code.
     /// </summary>
-#if !Serialization_Missing
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-#endif
     public abstract partial class AbstractModelBase : INotifyPropertyChanged, INotifyPropertyChangedWeak, IValidatable
     {
         PropertyChangedEventManager m_PropertyChangedEventManager;
@@ -51,7 +36,6 @@ namespace Tortuga.Anchor.Modeling.Internals
             m_Errors = new ErrorsDictionary();
         }
 
-#if !Serialization_Missing
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode"), SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")]
         [Browsable(false)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -60,7 +44,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         {
             Initialize();
         }
-#endif
 
         /// <summary>
         /// Raised when the errors collection has changed.
@@ -83,7 +66,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException("eventHandler", "eventHandler is null.");
+                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
 
             m_PropertyChangedEventManager.AddHandler(eventHandler);
         }
@@ -122,7 +105,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </summary>
         /// <param name="results">A collection of the declarative validation errors. You may add and remove errors from this collection.</param>
 
-        protected virtual void OnValidateObject(ValidationResultCollection results) { }
+        protected virtual void OnValidateObject(ValidationResultCollection results)
+        {
+        }
 
         /// <summary>
         /// Override this method to add imperative validation at the property level.
@@ -130,8 +115,9 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <param name="propertyName">The name of the property being validated.</param>
         /// <param name="results">A collection of the declarative validation errors. You may add and remove errors from this collection.</param>
 
-        protected virtual void OnValidateProperty(string propertyName, ValidationResultCollection results) { }
-
+        protected virtual void OnValidateProperty(string propertyName, ValidationResultCollection results)
+        {
+        }
 
         [NotMapped]
         internal ErrorsDictionary ErrorsDictionary
@@ -161,7 +147,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         {
             get { return ErrorsDictionary.HasErrors(); }
         }
-
 
         /// <summary>
         /// Returns a collection of all errors (object and property level).
@@ -229,17 +214,17 @@ namespace Tortuga.Anchor.Modeling.Internals
         }
     }
 
-#if !IDataErrorInfo_Missing
     partial class AbstractModelBase : IDataErrorInfo
     {
-
         /// <summary>
         /// Returns the errors associated with the object. Does not include property level errors.
         /// </summary>
         /// <returns>An error message indicating what is wrong with this object. The default is an empty string ("").</returns>
         string IDataErrorInfo.Error
         {
+#pragma warning disable CA1033 // Interface methods should be callable by child types
             get
+#pragma warning restore CA1033 // Interface methods should be callable by child types
             {
                 var errors = from e in GetErrors("") select e.ToString();
                 return string.Join("\n", errors.ToArray());
@@ -253,13 +238,13 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <returns></returns>
         string IDataErrorInfo.this[string columnName]
         {
+#pragma warning disable CA1033 // Interface methods should be callable by child types
             get
+#pragma warning restore CA1033 // Interface methods should be callable by child types
             {
                 var errors = from e in GetErrors(columnName) select e.ToString();
                 return string.Join("\n", errors.ToArray());
             }
         }
-
     }
-#endif
 }

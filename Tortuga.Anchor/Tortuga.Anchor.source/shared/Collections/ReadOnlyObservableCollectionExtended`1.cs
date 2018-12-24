@@ -8,23 +8,22 @@ using Tortuga.Anchor.Eventing;
 namespace Tortuga.Anchor.Collections
 {
     /// <summary>
-    /// A ReadOnlyObservableCollection that includes the functionality from ExtendedObservableCollection. 
+    /// A ReadOnlyObservableCollection that includes the functionality from ExtendedObservableCollection.
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
     public class ReadOnlyObservableCollectionExtended<T> : ReadOnlyCollection<T>,
     INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionChangedWeak, INotifyPropertyChangedWeak, INotifyItemPropertyChanged
     {
-        private readonly ObservableCollectionExtended<T> m_List;
-        private readonly Listener<NotifyCollectionChangedEventArgs> m_SourceCollectionChanged;
-        private readonly Listener<RelayedEventArgs<PropertyChangedEventArgs>> m_SourceItemPropertyChanged;
-        private readonly IListener<PropertyChangedEventArgs> m_SourcePropertyChanged;
-        private CollectionChangedEventManager m_CollectionChangeEventManager;
-        private int m_PreviousCount;
-        private PropertyChangedEventManager m_PropertyChangedEventManager;
+        readonly Listener<NotifyCollectionChangedEventArgs> m_SourceCollectionChanged;
+        readonly Listener<RelayedEventArgs<PropertyChangedEventArgs>> m_SourceItemPropertyChanged;
+        readonly IListener<PropertyChangedEventArgs> m_SourcePropertyChanged;
+        CollectionChangedEventManager m_CollectionChangeEventManager;
+        int m_PreviousCount;
+        PropertyChangedEventManager m_PropertyChangedEventManager;
 
         /// <summary>
-        /// Initializes a new instance of the ExtendedReadOnlyObservableCollection
+        /// Initializes a new instance of the ReadOnlyObservableCollectionExtended
         /// class that serves as a wrapper around the specified System.Collections.ObjectModel.ObservableCollection.
         /// </summary>
         /// <param name="list">
@@ -33,11 +32,10 @@ namespace Tortuga.Anchor.Collections
         /// class.
         /// </param>
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0")]
-
         public ReadOnlyObservableCollectionExtended(ObservableCollectionExtended<T> list)
             : base(list)
         {
-            m_List = list;
+            SourceList = list;
 
             m_SourceCollectionChanged = new Listener<NotifyCollectionChangedEventArgs>(OnSourceCollectionChanged);
             m_SourcePropertyChanged = new Listener<PropertyChangedEventArgs>(OnSourcePropertyChanged);
@@ -47,10 +45,8 @@ namespace Tortuga.Anchor.Collections
             list.AddHandler(m_SourcePropertyChanged);
             list.AddHandler(m_SourceItemPropertyChanged);
 
-
             m_PreviousCount = Count;
         }
-
 
         /// <summary>
         /// Occurs when an item is added or removed.
@@ -70,10 +66,7 @@ namespace Tortuga.Anchor.Collections
         /// <summary>
         /// The list being wrapped.
         /// </summary>
-        protected ObservableCollectionExtended<T> SourceList
-        {
-            get { return m_List; }
-        }
+        protected ObservableCollectionExtended<T> SourceList { get; private set; }
 
         /// <summary>
         /// Adds a weak event handler
@@ -99,7 +92,6 @@ namespace Tortuga.Anchor.Collections
             if (eventHandler == null)
                 throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
-
             if (m_PropertyChangedEventManager == null)
                 m_PropertyChangedEventManager = new PropertyChangedEventManager(this);
 
@@ -114,7 +106,6 @@ namespace Tortuga.Anchor.Collections
         {
             if (eventHandler == null)
                 throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 
             m_CollectionChangeEventManager?.RemoveHandler(eventHandler);
         }
@@ -173,7 +164,7 @@ namespace Tortuga.Anchor.Collections
         /// This method is called when a property on the source collection changes. You may use this to forward property change notifications for properties on this class that wrap the source collection.
         /// </summary>
         /// <remarks>
-        /// This will not forward the properties "Count" and "Item[]". 
+        /// This will not forward the properties "Count" and "Item[]".
         /// </remarks>
         protected virtual void OnSourcePropertyChanged(string propertyName) { }
 
@@ -186,6 +177,7 @@ namespace Tortuga.Anchor.Collections
         {
             OnCollectionChanged(e);
         }
+
         void OnSourcePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.PropertyName))
