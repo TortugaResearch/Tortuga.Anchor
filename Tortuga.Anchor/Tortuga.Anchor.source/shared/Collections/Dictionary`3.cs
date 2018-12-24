@@ -17,8 +17,8 @@ namespace Tortuga.Anchor.Collections
         where TKey1 : IEquatable<TKey1>
         where TKey2 : IEquatable<TKey2>
     {
-        private readonly Dictionary<ValueTuple<TKey1, TKey2>, TValue> m_Base;
-        private readonly IDictionary<ValueTuple<TKey1, TKey2>, TValue> m_Interface;
+        readonly Dictionary<ValueTuple<TKey1, TKey2>, TValue> m_Base;
+        readonly IDictionary<ValueTuple<TKey1, TKey2>, TValue> m_Interface;
 
         /// <summary>
         /// Initializes a new instance of the Dictionary class.

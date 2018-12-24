@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Collections;
-using System.Collections.ObjectModel;
-using System.Collections.Concurrent;
 
 namespace Tortuga.Anchor
 {
@@ -99,8 +99,7 @@ namespace Tortuga.Anchor
         /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyCollection&lt;T&gt;.</remarks>
         public static IReadOnlyCollection<T> AsReadOnlyCollection<T>(this ICollection<T> list)
         {
-            var result = list as IReadOnlyCollection<T>;
-            if (result != null)
+            if (list is IReadOnlyCollection<T> result)
                 return result;
 
             return new SimpleReadOnlyCollection<T>(list);
@@ -115,8 +114,7 @@ namespace Tortuga.Anchor
         /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
         public static IReadOnlyList<T> AsReadOnlyList<T>(this IList<T> list)
         {
-            var result = list as IReadOnlyList<T>;
-            if (result != null)
+            if (list is IReadOnlyList<T> result)
                 return result;
 
             return new ReadOnlyCollection<T>(list);
@@ -227,7 +225,7 @@ namespace Tortuga.Anchor
                 list.RemoveAt(startingIndex);
         }
 
-        private class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
+        class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
         {
             ICollection<T> m_List;
 

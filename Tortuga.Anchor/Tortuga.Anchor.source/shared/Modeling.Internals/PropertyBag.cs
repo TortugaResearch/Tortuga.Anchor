@@ -4,13 +4,12 @@ using System.Runtime.CompilerServices;
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
-
     /// <summary>
     /// This is the simplest implementation of PropertyBagBase. It supports normal property-change notifications and validation events.
     /// </summary>
     public class PropertyBag : PropertyBagBase
     {
-        private readonly Dictionary<string, object> m_Values = new Dictionary<string, object>(StringComparer.Ordinal);
+        readonly Dictionary<string, object> m_Values = new Dictionary<string, object>(StringComparer.Ordinal);
 
         /// <summary>
         /// This is the simplest implementation of PropertyBagBase. It supports normal property-change notifications and validation events.
@@ -104,7 +103,5 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             return true;
         }
-
     }
-
 }

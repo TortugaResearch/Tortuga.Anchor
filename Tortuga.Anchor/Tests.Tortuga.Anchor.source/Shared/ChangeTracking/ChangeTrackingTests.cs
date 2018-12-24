@@ -9,9 +9,9 @@ namespace Tests.ChangeTracking
     [TestClass]
     public class ChangeTrackingTests
     {
-        private readonly DateTime OrderDate1 = new DateTime(2010, 1, 1);
+        readonly DateTime OrderDate1 = new DateTime(2010, 1, 1);
 
-        private readonly DateTime OrderDate2 = new DateTime(2010, 2, 1);
+        readonly DateTime OrderDate2 = new DateTime(2010, 2, 1);
 
         [TestMethod]
         public void ChildPropertyChangesWithCommit()

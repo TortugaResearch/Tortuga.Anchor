@@ -10,7 +10,7 @@ namespace Tortuga.Dragnet
 {
     public class Verify : IDisposable
     {
-        private ConcurrentQueue<VerificationStep> m_TestResults = new ConcurrentQueue<VerificationStep>();
+        ConcurrentQueue<VerificationStep> m_TestResults = new ConcurrentQueue<VerificationStep>();
 
         public bool AreEqual<T>(T expected, T actual, string message)
         {
@@ -366,12 +366,12 @@ namespace Tortuga.Dragnet
             Add(message, Severity.Message);
         }
 
-        private void Add(string message, Severity severity)
+        void Add(string message, Severity severity)
         {
             m_TestResults.Enqueue(new VerificationStep(null, message, severity));
         }
 
-        private void Add(string checkType, string message, Severity severity)
+        void Add(string checkType, string message, Severity severity)
         {
             m_TestResults.Enqueue(new VerificationStep(checkType, message, severity));
         }

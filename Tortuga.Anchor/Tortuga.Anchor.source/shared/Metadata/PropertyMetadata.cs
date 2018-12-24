@@ -16,9 +16,9 @@ namespace Tortuga.Anchor.Metadata
     /// </summary>
     public partial class PropertyMetadata
     {
-        private readonly List<PropertyMetadata> m_CalculatedFieldsBuilder = new List<PropertyMetadata>();
-        private readonly MethodInfo m_GetMethod;
-        private readonly MethodInfo m_SetMethod;
+        readonly List<PropertyMetadata> m_CalculatedFieldsBuilder = new List<PropertyMetadata>();
+        readonly MethodInfo m_GetMethod;
+        readonly MethodInfo m_SetMethod;
 
         internal PropertyMetadata(PropertyInfo info)
         {

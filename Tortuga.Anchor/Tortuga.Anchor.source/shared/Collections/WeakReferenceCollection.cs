@@ -11,7 +11,7 @@ namespace Tortuga.Anchor.Collections
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
     public sealed class WeakReferenceCollection<T> : ICollection<T>, IReadOnlyCollection<T> where T : class
     {
-        private List<WeakReference> m_Collection = new List<WeakReference>();
+        List<WeakReference> m_Collection = new List<WeakReference>();
 
         /// <summary>
         /// Returns the count of live objects.

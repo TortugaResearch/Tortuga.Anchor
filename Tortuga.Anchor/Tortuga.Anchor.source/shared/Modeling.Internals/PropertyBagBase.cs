@@ -12,7 +12,7 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// </summary>
     public abstract partial class PropertyBagBase : INotifyPropertyChanged
     {
-        private readonly ClassMetadata m_Metadata;
+        readonly ClassMetadata m_Metadata;
 
         /// <summary>
         /// This is the template for a model's backing store.

@@ -11,7 +11,7 @@ namespace Tortuga.Anchor.Eventing
     /// </remarks>
     public sealed class CollectionChangedEventManager : EventManager<NotifyCollectionChangedEventArgs>
     {
-        private readonly INotifyCollectionChanged m_Source;
+        readonly INotifyCollectionChanged m_Source;
 
         /// <summary>
         /// Creates a new CollectionChangedEventManager.

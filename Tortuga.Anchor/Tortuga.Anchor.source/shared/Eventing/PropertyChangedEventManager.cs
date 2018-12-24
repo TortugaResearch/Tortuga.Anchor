@@ -11,7 +11,7 @@ namespace Tortuga.Anchor.Eventing
     /// </remarks>
     public class PropertyChangedEventManager : EventManager<PropertyChangedEventArgs>
     {
-        private readonly INotifyPropertyChanged m_Source;
+        readonly INotifyPropertyChanged m_Source;
 
         /// <summary>
         /// Creates a new CollectionChangedEventManager.

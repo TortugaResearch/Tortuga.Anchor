@@ -15,12 +15,12 @@ namespace Tortuga.Anchor.Collections
     public class ReadOnlyObservableCollectionExtended<T> : ReadOnlyCollection<T>,
     INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionChangedWeak, INotifyPropertyChangedWeak, INotifyItemPropertyChanged
     {
-        private readonly Listener<NotifyCollectionChangedEventArgs> m_SourceCollectionChanged;
-        private readonly Listener<RelayedEventArgs<PropertyChangedEventArgs>> m_SourceItemPropertyChanged;
-        private readonly IListener<PropertyChangedEventArgs> m_SourcePropertyChanged;
-        private CollectionChangedEventManager m_CollectionChangeEventManager;
-        private int m_PreviousCount;
-        private PropertyChangedEventManager m_PropertyChangedEventManager;
+        readonly Listener<NotifyCollectionChangedEventArgs> m_SourceCollectionChanged;
+        readonly Listener<RelayedEventArgs<PropertyChangedEventArgs>> m_SourceItemPropertyChanged;
+        readonly IListener<PropertyChangedEventArgs> m_SourcePropertyChanged;
+        CollectionChangedEventManager m_CollectionChangeEventManager;
+        int m_PreviousCount;
+        PropertyChangedEventManager m_PropertyChangedEventManager;
 
         /// <summary>
         /// Initializes a new instance of the ReadOnlyObservableCollectionExtended

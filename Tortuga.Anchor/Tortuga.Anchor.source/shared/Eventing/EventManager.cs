@@ -9,8 +9,8 @@ namespace Tortuga.Anchor.Eventing
     /// <typeparam name="T">The type of event being listened to.</typeparam>
     public abstract class EventManager<T> where T : EventArgs
     {
-        private readonly WeakReferenceCollection<IListener<T>> m_Targets = new WeakReferenceCollection<IListener<T>>();
-        private bool m_Listening;
+        readonly WeakReferenceCollection<IListener<T>> m_Targets = new WeakReferenceCollection<IListener<T>>();
+        bool m_Listening;
 
         /// <summary>
         /// Adds a weak event handler.

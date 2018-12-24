@@ -13,7 +13,7 @@ namespace Tortuga.Anchor.Metadata
     /// <seealso cref="ICollection{PropertyMetadata}" />
     public sealed class ConstructorMetadataCollection : ICollection<ConstructorMetadata>
     {
-        private readonly ImmutableArray<ConstructorMetadata> m_Constructors;
+        readonly ImmutableArray<ConstructorMetadata> m_Constructors;
 
         internal ConstructorMetadataCollection(IEnumerable<ConstructorInfo> constructors)
         {

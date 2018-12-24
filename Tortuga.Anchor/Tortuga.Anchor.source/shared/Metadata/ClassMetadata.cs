@@ -18,7 +18,7 @@ namespace Tortuga.Anchor.Metadata
     {
         readonly TypeInfo m_TypeInfo;
 
-        private ImmutableArray<string> m_ColumnMap;
+        ImmutableArray<string> m_ColumnMap;
 
         string m_CSharpFullName;
 

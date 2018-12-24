@@ -411,7 +411,7 @@ namespace Tests.Collections
             }
         }
 
-        private static void ConstructorAssertions(Verify verify, ObservableCollectionExtended<object> result, WeakNotifier weakNotifier, Notifier notifier)
+        static void ConstructorAssertions(Verify verify, ObservableCollectionExtended<object> result, WeakNotifier weakNotifier, Notifier notifier)
         {
             var itemAssert = new ItemPropertyChangedEventTest(verify, result);
 

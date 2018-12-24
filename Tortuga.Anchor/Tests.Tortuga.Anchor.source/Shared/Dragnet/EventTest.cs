@@ -10,9 +10,9 @@ namespace Tortuga.Dragnet
     /// <typeparam name="TEventArgs"></typeparam>
     public abstract class EventTest<TEventArgs> where TEventArgs : EventArgs
     {
-        private readonly Verify m_Verify;
-        private readonly object m_Source;
-        private readonly Queue<EventPair<TEventArgs>> m_Queue = new Queue<EventPair<TEventArgs>>();
+        readonly Queue<EventPair<TEventArgs>> m_Queue = new Queue<EventPair<TEventArgs>>();
+        readonly object m_Source;
+        readonly Verify m_Verify;
 
         /// <summary>
         /// This us used for tracking the expected source of an event.
@@ -29,17 +29,6 @@ namespace Tortuga.Dragnet
             m_Source = source;
         }
 
-
-        /// <summary>
-        /// Attach this to the event in the subclass constructor
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void SourceEventFired(object sender, TEventArgs e)
-        {
-            m_Queue.Enqueue(new EventPair<TEventArgs>(sender, e));
-        }
-
         /// <summary>
         /// The number of events that have not yet been consumed.
         /// </summary>
@@ -48,6 +37,13 @@ namespace Tortuga.Dragnet
             get { return m_Queue.Count; }
         }
 
+        /// <summary>
+        /// Gets the verification object.
+        /// </summary>
+        protected Verify Verify
+        {
+            get { return m_Verify; }
+        }
 
         /// <summary>
         /// Asserts that the number of pending events equals a given amount without actually consuming those events.
@@ -126,13 +122,13 @@ namespace Tortuga.Dragnet
         }
 
         /// <summary>
-        /// Gets the verification object.
+        /// Attach this to the event in the subclass constructor
         /// </summary>
-        protected Verify Verify
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void SourceEventFired(object sender, TEventArgs e)
         {
-            get { return m_Verify; }
+            m_Queue.Enqueue(new EventPair<TEventArgs>(sender, e));
         }
-
-
     }
 }

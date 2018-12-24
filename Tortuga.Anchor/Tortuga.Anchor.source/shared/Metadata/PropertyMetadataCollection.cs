@@ -12,15 +12,15 @@ namespace Tortuga.Anchor.Metadata
     /// </summary>
     sealed public class PropertyMetadataCollection : IList<PropertyMetadata>
     {
-        private readonly Dictionary<string, PropertyMetadata> m_Base = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
-        private readonly Dictionary<string, PropertyMetadata> m_Int32IndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, PropertyMetadata> m_Base = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, PropertyMetadata> m_Int32IndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// This is used when we need to iterate over all of the properties as quickly as possible.
         /// </summary>
-        private readonly ImmutableArray<PropertyMetadata> m_QuickList;
+        readonly ImmutableArray<PropertyMetadata> m_QuickList;
 
-        private readonly Dictionary<string, PropertyMetadata> m_StringIndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
+        readonly Dictionary<string, PropertyMetadata> m_StringIndexedProperties = new Dictionary<string, PropertyMetadata>(StringComparer.OrdinalIgnoreCase);
 
         internal PropertyMetadataCollection(IEnumerable<PropertyMetadata> properties)
         {

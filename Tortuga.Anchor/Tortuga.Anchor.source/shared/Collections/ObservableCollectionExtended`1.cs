@@ -19,21 +19,21 @@ namespace Tortuga.Anchor.Collections
     [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
     public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, INotifyCollectionChangedWeak, INotifyPropertyChangedWeak, INotifyItemPropertyChangedWeak, IReadOnlyList<T>
     {
-        private CollectionChangedEventManager m_CollectionChangeEventManager;
+        CollectionChangedEventManager m_CollectionChangeEventManager;
 
-        private IListener<PropertyChangedEventArgs> m_ItemPropertyChanged;
+        IListener<PropertyChangedEventArgs> m_ItemPropertyChanged;
 
-        private ItemPropertyChangedEventManager m_ItemPropertyChangedEventManager;
+        ItemPropertyChangedEventManager m_ItemPropertyChangedEventManager;
 
         /// <summary>
         /// When someone attaches to the ItemPropertyChanged event this is set to true and we start listening for change notifications.
         /// </summary>
-        private bool m_ListeningToItemEvents;
+        bool m_ListeningToItemEvents;
 
-        private PropertyChangedEventManager m_PropertyChangedEventManager;
+        PropertyChangedEventManager m_PropertyChangedEventManager;
 
         //These are created on demand.
-        private ReadOnlyObservableCollectionExtended<T> m_ReadOnlyWrapper;
+        ReadOnlyObservableCollectionExtended<T> m_ReadOnlyWrapper;
 
         /// <summary>
         /// Initializes a new instance of the ObservableCollectionExtended class.
@@ -97,7 +97,7 @@ namespace Tortuga.Anchor.Collections
             remove { base.PropertyChanged -= value; }
         }
 
-        private event RelayedEventHandler<PropertyChangedEventArgs> m_ItemPropertyChangedEvent;
+        event RelayedEventHandler<PropertyChangedEventArgs> m_ItemPropertyChangedEvent;
 
         /// <summary>
         /// Returns a read-only wrapper around this collection.
@@ -353,7 +353,7 @@ namespace Tortuga.Anchor.Collections
         /// <summary>
         /// This enables the ItemPropertyChanged events.
         /// </summary>
-        private void ListenToEvents()
+        void ListenToEvents()
         {
             if (m_ListeningToItemEvents)
                 return;

@@ -5,9 +5,9 @@ namespace Tests.Mocks
 {
     public class FooCollection : ObservableCollectionExtended<Foo>
     {
-        private int m_AddCount;
-        private int m_Boom;
-        private int m_RemoveCount;
+        int m_AddCount;
+        int m_Boom;
+        int m_RemoveCount;
 
         /// <summary>
         /// Initializes a new instance of the ObservableCollectionExtended class.

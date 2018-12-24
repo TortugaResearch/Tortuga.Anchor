@@ -7,7 +7,7 @@ namespace Tortuga.Anchor.Modeling.Internals
 {
     internal class ErrorsDictionary
     {
-        private readonly Dictionary<string, IList<ValidationResult>> m_Errors = new Dictionary<string, IList<ValidationResult>>();
+        readonly Dictionary<string, IList<ValidationResult>> m_Errors = new Dictionary<string, IList<ValidationResult>>();
 
         /// <summary>
         /// Clears all errors

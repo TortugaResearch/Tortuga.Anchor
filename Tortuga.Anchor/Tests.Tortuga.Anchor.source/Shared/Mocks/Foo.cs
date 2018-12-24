@@ -5,8 +5,10 @@ namespace Tests.Mocks
 {
     public class Foo : INotifyPropertyChanged
     {
+        readonly Collection<Bar> m_Bars = new Collection<Bar>();
         private string m_FooBar;
-        private readonly Collection<Bar> m_Bars = new Collection<Bar>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Collection<Bar> Bars
         {
@@ -27,8 +29,5 @@ namespace Tests.Mocks
                     PropertyChanged(this, new PropertyChangedEventArgs("FooBar"));
             }
         }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

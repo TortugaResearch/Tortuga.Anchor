@@ -11,8 +11,8 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// </summary>
     public class EditableObjectPropertyBag : ChangeTrackingPropertyBag
     {
-        private readonly Dictionary<string, object> m_CheckpointValues = new Dictionary<string, object>(StringComparer.Ordinal);
-        private bool m_OldIsChangedLocal;
+        readonly Dictionary<string, object> m_CheckpointValues = new Dictionary<string, object>(StringComparer.Ordinal);
+        bool m_OldIsChangedLocal;
 
         /// <summary>
         /// Property bag with two-level change tracking capabilities.
@@ -22,6 +22,32 @@ namespace Tortuga.Anchor.Modeling.Internals
         public EditableObjectPropertyBag(object owner)
             : base(owner)
         { }
+
+        /// <summary>
+        /// Currently editing
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if the object is in editing mode; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsEditing { get; private set; }
+
+        /// <summary>
+        /// Used to prevent reentrant calls to Begin/End/Cancel Edit
+        /// </summary>
+        bool BlockReentrant { get; set; }
+
+        /// <summary>
+        /// Marks all fields as unchanged by storing them in the original values collection.
+        /// </summary>
+        /// <param name="recursive">if set to <c>true</c> [recursive].</param>
+        /// <remarks>
+        /// Calling this ends all pending edits.
+        /// </remarks>
+        public override void AcceptChanges(bool recursive)
+        {
+            EndEdit();
+            base.AcceptChanges(recursive);
+        }
 
         /// <summary>
         /// This creates a checkpoint using the current values. The checkpoint remains available until EndEdit or CancelEdit is called.
@@ -100,7 +126,7 @@ namespace Tortuga.Anchor.Modeling.Internals
                 }
             }
 
-            //recursively call CancelEdit			
+            //recursively call CancelEdit
             foreach (var item in m_CheckpointValues)
             {
                 if (item.Value is IEditableObject)
@@ -109,7 +135,6 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             OnRevalidateObject();
             m_CheckpointValues.Clear();
-
 
             BlockReentrant = false;
         }
@@ -145,19 +170,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         }
 
         /// <summary>
-        /// Marks all fields as unchanged by storing them in the original values collection.
-        /// </summary>
-        /// <param name="recursive">if set to <c>true</c> [recursive].</param>
-        /// <remarks>
-        /// Calling this ends all pending edits.
-        /// </remarks>
-        public override void AcceptChanges(bool recursive)
-        {
-            EndEdit();
-            base.AcceptChanges(recursive);
-        }
-
-        /// <summary>
         /// Replaces the current values collection with the original values collection.
         /// </summary>
         /// <param name="recursive">if set to <c>true</c> [recursive].</param>
@@ -169,20 +181,5 @@ namespace Tortuga.Anchor.Modeling.Internals
             CancelEdit();
             base.RejectChanges(recursive);
         }
-
-        /// <summary>
-        /// Currently editing
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if the object is in editing mode; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsEditing { get; private set; }
-
-
-        /// <summary>
-        /// Used to prevent reentrant calls to Begin/End/Cancel Edit
-        /// </summary>
-        private bool BlockReentrant { get; set; }
-
     }
 }

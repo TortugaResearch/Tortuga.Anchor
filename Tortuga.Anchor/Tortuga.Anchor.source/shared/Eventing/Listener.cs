@@ -7,7 +7,7 @@ namespace Tortuga.Anchor.Eventing
     /// </summary>
     public class Listener<T> : IListener<T> where T : EventArgs
     {
-        private readonly Action<object, T> m_EventHandler;
+        readonly Action<object, T> m_EventHandler;
 
         /// <summary>
         /// The object that is referenced by the eventHandler must keep a reference to this class.
