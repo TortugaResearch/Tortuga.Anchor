@@ -1,53 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Eventing;
 using Tortuga.Anchor.Modeling.Internals;
 
-#if !Serialization_Missing
-using System.Runtime.Serialization;
-#endif
-
-#if !DataAnnotations_Missing
-using System.ComponentModel.DataAnnotations.Schema;
-#endif
-
 namespace Tortuga.Anchor.Modeling
 {
-
     /// <summary>
     /// A collection that supports revertible change tracking.
     /// </summary>
     /// <typeparam name="TModelType"></typeparam>
-#if !Serialization_Missing
 	[DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-#endif
     public class ChangeTrackingModelCollection<TModelType> : AbstractModelCollection<TModelType, ChangeTrackingPropertyBag>, IRevertibleChangeTracking
     {
         readonly List<TModelType> m_OriginalList = new List<TModelType>();
         bool m_AllowIsChangedEvents;
-
-        void ConstructorProcessing()
-        {
-            m_OriginalList.AddRange(this);
-
-            ItemPropertyChanged += ChangeTrackingModelCollection_OnItemPropertyChanged;
-            ItemAdded += ChangeTrackingModelCollection_ItemAdded;
-            ItemRemoved += ChangeTrackingModelCollection_ItemRemoved;
-            m_AllowIsChangedEvents = true;
-        }
-
-        void ChangeTrackingModelCollection_ItemRemoved(object sender, ItemEventArgs<TModelType> e)
-        {
-            if (m_AllowIsChangedEvents)
-                Properties.IsChangedLocal = true;
-        }
-
-        void ChangeTrackingModelCollection_ItemAdded(object sender, ItemEventArgs<TModelType> e)
-        {
-            if (m_AllowIsChangedEvents)
-                Properties.IsChangedLocal = true;
-        }
 
         /// <summary>
         /// Creates a model by auto-constructing the property bag defined by TPropertyTracking.
@@ -55,7 +24,6 @@ namespace Tortuga.Anchor.Modeling
         /// <remarks>
         /// Requires TPropertyTracking have a public constructor that accepts an Object
         /// </remarks>
-
         protected ChangeTrackingModelCollection()
         {
             ConstructorProcessing();
@@ -68,7 +36,6 @@ namespace Tortuga.Anchor.Modeling
         /// <remarks>
         /// Requires TPropertyTracking have a public constructor that accepts an Object
         /// </remarks>
-
         protected ChangeTrackingModelCollection(List<TModelType> list)
             : base(list)
         {
@@ -82,22 +49,10 @@ namespace Tortuga.Anchor.Modeling
         /// <remarks>
         /// Requires TPropertyTracking have a public constructor that accepts an Object
         /// </remarks>
-
         protected ChangeTrackingModelCollection(IEnumerable<TModelType> collection)
             : base(collection)
         {
             ConstructorProcessing();
-        }
-
-        /// <summary>
-        /// Returns True if any fields were modified since the last call to Checkpoint. This also checks items that implement IChangeTracking.
-        /// </summary>
-        /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
-        [NotMapped]
-        public bool IsChangedLocal
-        {
-            get { return Properties.IsChangedLocal; }
-
         }
 
         /// <summary>
@@ -123,6 +78,16 @@ namespace Tortuga.Anchor.Modeling
 
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Returns True if any fields were modified since the last call to Checkpoint. This also checks items that implement IChangeTracking.
+        /// </summary>
+        /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
+        [NotMapped]
+        public bool IsChangedLocal
+        {
+            get { return Properties.IsChangedLocal; }
         }
 
         /// <summary>
@@ -170,11 +135,32 @@ namespace Tortuga.Anchor.Modeling
             Properties.RejectChanges(true);
         }
 
+        void ChangeTrackingModelCollection_ItemAdded(object sender, ItemEventArgs<TModelType> e)
+        {
+            if (m_AllowIsChangedEvents)
+                Properties.IsChangedLocal = true;
+        }
+
+        void ChangeTrackingModelCollection_ItemRemoved(object sender, ItemEventArgs<TModelType> e)
+        {
+            if (m_AllowIsChangedEvents)
+                Properties.IsChangedLocal = true;
+        }
+
         void ChangeTrackingModelCollection_OnItemPropertyChanged(object sender, RelayedEventArgs<PropertyChangedEventArgs> e)
         {
             if (string.IsNullOrEmpty(e.EventArgs.PropertyName) || e.EventArgs.PropertyName == CommonProperties.IsChangedProperty.PropertyName)
                 OnPropertyChanged(CommonProperties.IsChangedProperty);
         }
 
+        void ConstructorProcessing()
+        {
+            m_OriginalList.AddRange(this);
+
+            ItemPropertyChanged += ChangeTrackingModelCollection_OnItemPropertyChanged;
+            ItemAdded += ChangeTrackingModelCollection_ItemAdded;
+            ItemRemoved += ChangeTrackingModelCollection_ItemRemoved;
+            m_AllowIsChangedEvents = true;
+        }
     }
 }

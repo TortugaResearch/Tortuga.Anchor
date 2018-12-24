@@ -5,11 +5,8 @@ using System.Linq;
 
 namespace Tortuga.Anchor.Collections
 {
-
-
-
     /// <summary>
-    /// This represents a collection of weak references. 
+    /// This represents a collection of weak references.
     /// </summary>
     /// <typeparam name="T">The type of elements in the collection.</typeparam>
     public sealed class WeakReferenceCollection<T> : ICollection<T>, IReadOnlyCollection<T> where T : class
@@ -42,7 +39,6 @@ namespace Tortuga.Anchor.Collections
             if (item == null)
                 throw new ArgumentNullException(nameof(item), $"{nameof(item)} is null.");
 
-
             m_Collection.Add(new WeakReference(item));
         }
 
@@ -56,7 +52,6 @@ namespace Tortuga.Anchor.Collections
                 throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
             if (list.Any(i => i == null))
                 throw new ArgumentException($"{nameof(list)} is not allowed to contain null items", nameof(list));
-
 
             foreach (var item in list)
                 Add(item);
@@ -93,7 +88,7 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Copies a snapshot of the collection to an array. 
+        /// Copies a snapshot of the collection to an array.
         /// </summary>
         /// <param name="array"></param>
         /// <param name="arrayIndex"></param>
@@ -109,12 +104,12 @@ namespace Tortuga.Anchor.Collections
             if (Count + arrayIndex > array.Length)
                 throw new ArgumentException($"{nameof(Count)} + {nameof(arrayIndex)} is greater than the array's length", nameof(array));
 
-
             var temp = m_Collection.Select(x => (T)x.Target).Where(x => x != null).ToList();
 
             for (var i = 0; i < temp.Count; i++)
                 array[arrayIndex + i] = temp[i];
         }
+
         /// <summary>
         /// Returns an enumerator containing references that were live at the time this is called.
         /// </summary>
@@ -123,7 +118,6 @@ namespace Tortuga.Anchor.Collections
         {
             return m_Collection.Select(x => (T)x.Target).Where(x => x != null).ToList().GetEnumerator();
         }
-
 
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -162,5 +156,4 @@ namespace Tortuga.Anchor.Collections
             return result;
         }
     }
-
 }

@@ -5,6 +5,8 @@
     <RootNamespace>Tests.Tortuga.Anchor.netstandard2._0</RootNamespace>
 
     <IsPackable>false</IsPackable>
+
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

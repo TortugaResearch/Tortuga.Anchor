@@ -20,11 +20,8 @@ namespace Tortuga.Anchor.Eventing
 
         public PropertyChangedEventManager(INotifyPropertyChanged source)
         {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
-            m_Source = source;
+            m_Source = source ?? throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
         }
-
 
         /// <summary>
         /// The implementation of this event must attach the event source to the EventFired method.
@@ -42,7 +39,4 @@ namespace Tortuga.Anchor.Eventing
             m_Source.PropertyChanged -= EventFired;
         }
     }
-
-
-
 }

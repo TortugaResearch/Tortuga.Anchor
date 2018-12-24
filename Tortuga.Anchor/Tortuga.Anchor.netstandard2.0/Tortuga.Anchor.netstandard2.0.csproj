@@ -11,22 +11,25 @@
     <Company />
     <Authors></Authors>
     <Version>2.0.0.0</Version>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;Serialization_Missing;TypeInfo_Is_Not_Type;NETSTANDARD2_0</DefineConstants>
+    <DefineConstants>TRACE;NETSTANDARD2_0</DefineConstants>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <TreatSpecificWarningsAsErrors />
     <DocumentationFile>bin\Release\netstandard2.0\Tortuga.Anchor.xml</DocumentationFile>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <CodeAnalysisRuleSet>Tortuga.Anchor.netstandard2.0.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;Serialization_Missing;TypeInfo_Is_Not_Type;NETSTANDARD2_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0</DefineConstants>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <TreatSpecificWarningsAsErrors />
     <DocumentationFile>bin\Debug\netstandard2.0\Tortuga.Anchor.xml</DocumentationFile>
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <CodeAnalysisRuleSet>Tortuga.Anchor.netstandard2.0.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -59,6 +62,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.1" />

@@ -2,7 +2,7 @@
 
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-#if !NETSTANDARD1_3 && !NETSTANDARD2_0
+#if !NETSTANDARD2_0
 [assembly: AssemblyVersion("2.0.*")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Tortuga Anchor")]

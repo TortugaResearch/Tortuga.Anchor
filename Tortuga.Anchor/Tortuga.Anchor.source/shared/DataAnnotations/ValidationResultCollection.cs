@@ -1,11 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
-#if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
-#endif
 
 namespace Tortuga.Anchor.DataAnnotations
 {
@@ -17,21 +13,17 @@ namespace Tortuga.Anchor.DataAnnotations
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationResultCollection"/> class.
         /// </summary>
-
         public ValidationResultCollection()
         {
-
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ValidationResultCollection"/> class.
         /// </summary>
         /// <param name="list">The list.</param>
-
         public ValidationResultCollection(IList<ValidationResult> list)
             : base(list)
         {
-
         }
 
         /// <summary>

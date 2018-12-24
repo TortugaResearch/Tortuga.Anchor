@@ -3,78 +3,126 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using Tortuga.Anchor.DataAnnotations;
-
-
-#if !Serialization_Missing
-using System.Runtime.Serialization;
-#endif
-
-#if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-#endif
-
-
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using Tortuga.Anchor.DataAnnotations;
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
-
     /// <summary>
     /// A base class for models and entities. This is not meant to be used directly by client code.
     /// </summary>
     /// <typeparam name="TPropertyTracking">The type of property tracking desired.</typeparam>
-#if !Serialization_Missing
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-#endif
     public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractModelBase, INotifyDataErrorInfo
         where TPropertyTracking : PropertyBagBase
     {
         /// <summary>
-        /// Backing store for properties
-        /// </summary>
-        TPropertyTracking m_Properties;
-
-        /// <summary>
         /// Creates a model by auto-constructing the property bag defined by TPropertyTracking.
         /// </summary>
         /// <remarks>Requires TPropertyTracking have a public constructor that accepts an Object</remarks>
-
         protected AbstractModelBase()
         {
             Initialize();
         }
 
-        void Initialize()
-        {
-            m_Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this);
-            m_Properties.PropertyChanged += Properties_PropertyChanged;
-            m_Properties.RevalidateProperty += (s, e) => ValidateProperty(e.PropertyName);
-            m_Properties.RevalidateObject += (s, e) => ValidateObject();
-        }
-
-#if !Serialization_Missing
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")]
-        [Browsable(false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [OnDeserializing]
-        void _ModelBase1_OnDeserializing(StreamingContext context)
-        {
-            Initialize();
-        }
-#endif
-
         /// <summary>
         /// Returns the underlying property bag
         /// </summary>
         [NotMapped]
-        protected TPropertyTracking Properties
+        protected TPropertyTracking Properties { get; private set; }
+
+        /// <summary>
+        /// Gets the validation errors for a specified property or for the entire entity.
+        /// </summary>
+        /// <param name="propertyName">The name of the property to retrieve validation errors for; or null or <see cref="F:System.String.Empty" />, to retrieve entity-level errors.</param>
+        /// <returns>
+        /// The validation errors for the property or entity.
+        /// </returns>
+        IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
         {
-            get { return m_Properties; }
+            return GetErrors(propertyName);
         }
 
+        /// <summary>
+        /// Set the indicated property to the value.
+        /// If the value doesn't match the previous value, or if there is no previous value, raise a property changed notification.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">Value to be saved.</param>
+        /// <param name="propertyChanged">A property changed event handler to be attached to the new value. If an old value exists, the event handler will be removed from it.</param>
+        /// <param name="propertyName">Name of property to be created/updated</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">
+        /// propertyName;propertyName is null
+        /// or
+        /// propertyChanged;propertyChanged is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
+        public bool Set<T>(T value, PropertyChangedEventHandler propertyChanged, [CallerMemberName] string propertyName = null)
+            where T : INotifyPropertyChanged
+        {
+            if (propertyChanged == null)
+                throw new ArgumentNullException(nameof(propertyChanged), $"{nameof(propertyChanged)} is null.");
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
+
+            return Properties.Set(value, propertyChanged, propertyName);
+        }
+
+        /// <summary>
+        /// This forces the object to be completely revalidated.
+        /// </summary>
+        /// <returns>
+        /// True if the object has no errors
+        /// </returns>
+        public override sealed bool Validate()
+        {
+            Properties.RevalidateAll();
+            return !HasErrors;
+        }
+
+        /// <summary>
+        /// Fetches a value, returning Default(T) if it doesn't exist.
+        /// </summary>
+        /// <typeparam name="T">Expected type</typeparam>
+        /// <param name="propertyName">Case-sensitive property name</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">propertyName;propertyName is null.</exception>
+        /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
+        /// <remarks>
+        /// Storing the default value will trigger validation but not a property-changed event.
+        /// </remarks>
+        protected T Get<T>([CallerMemberName] string propertyName = null)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
+
+            return Properties.Get<T>(propertyName);
+        }
+
+        /// <summary>
+        /// Fetches a value, using the default value it if it doesn't exist.
+        /// </summary>
+        /// <typeparam name="T">Expected type</typeparam>
+        /// <param name="defaultValue">Default value to use</param>
+        /// <param name="propertyName">Case-sensitive property name</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">propertyName;propertyName is null.</exception>
+        /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
+        /// <remarks>
+        /// Storing the default value will trigger validation but not a property-changed event.
+        /// </remarks>
+        protected T GetDefault<T>(T defaultValue, [CallerMemberName] string propertyName = null)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
+
+            return Properties.GetDefault(defaultValue, propertyName);
+        }
 
         /// <summary>
         /// Fetches a value, creating it if it doesn't exist.
@@ -143,42 +191,21 @@ namespace Tortuga.Anchor.Modeling.Internals
         }
 
         /// <summary>
-        /// Fetches a value, using the default value it if it doesn't exist.
+        /// Triggers the PropertyChanged event.
         /// </summary>
-        /// <typeparam name="T">Expected type</typeparam>
-        /// <param name="defaultValue">Default value to use</param>
-        /// <param name="propertyName">Case-sensitive property name</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">propertyName;propertyName is null.</exception>
-        /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-        /// <remarks>
-        /// Storing the default value will trigger validation but not a property-changed event.
-        /// </remarks>
-        protected T GetDefault<T>(T defaultValue, [CallerMemberName] string propertyName = null)
+        /// <param name="propertyName">Name of the property.</param>
+        protected void OnPropertyChanged(string propertyName)
         {
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
-
-            return Properties.GetDefault(defaultValue, propertyName);
+            Properties.OnPropertyChanged(propertyName);
         }
 
         /// <summary>
-        /// Fetches a value, returning Default(T) if it doesn't exist.
+        /// Triggers the PropertyChanging event.
         /// </summary>
-        /// <typeparam name="T">Expected type</typeparam>
-        /// <param name="propertyName">Case-sensitive property name</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">propertyName;propertyName is null.</exception>
-        /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-        /// <remarks>
-        /// Storing the default value will trigger validation but not a property-changed event.
-        /// </remarks>
-        protected T Get<T>([CallerMemberName] string propertyName = null)
+        /// <param name="propertyName">Name of the property.</param>
+        protected void OnPropertyChanging(string propertyName)
         {
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
-
-            return Properties.Get<T>(propertyName);
+            Properties.OnPropertyChanging(propertyName);
         }
 
         /// <summary>
@@ -202,7 +229,6 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             return Properties.Set(value, valueChanged, propertyName);
         }
-
 
         /// <summary>
         /// Set the indicated property to the value.
@@ -229,33 +255,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="value">Value to be saved.</param>
-        /// <param name="propertyChanged">A property changed event handler to be attached to the new value. If an old value exists, the event handler will be removed from it.</param>
-        /// <param name="propertyName">Name of property to be created/updated</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException">
-        /// propertyName;propertyName is null
-        /// or
-        /// propertyChanged;propertyChanged is null.
-        /// </exception>
-        /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-        public bool Set<T>(T value, PropertyChangedEventHandler propertyChanged, [CallerMemberName] string propertyName = null)
-            where T : INotifyPropertyChanged
-        {
-            if (propertyChanged == null)
-                throw new ArgumentNullException(nameof(propertyChanged), $"{nameof(propertyChanged)} is null.");
-            if (string.IsNullOrEmpty(propertyName))
-                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
-
-            return Properties.Set(value, propertyChanged, propertyName);
-        }
-
-
-        /// <summary>
-        /// Set the indicated property to the value.
-        /// If the value doesn't match the previous value, or if there is no previous value, raise a property changed notification.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">Value to be saved.</param>
         /// <param name="collectionChanged">A collection changed event handler to be attached to the new value. If an old value exists, the event handler will be removed from it.</param>
         /// <param name="propertyName">Name of property to be created/updated</param>
         /// <returns></returns>
@@ -274,54 +273,51 @@ namespace Tortuga.Anchor.Modeling.Internals
             return Properties.Set(value, collectionChanged, propertyName);
         }
 
-
-        /// <summary>
-        /// This forces the object to be completely revalidated.
-        /// </summary>
-        /// <returns>
-        /// True if the object has no errors
-        /// </returns>
-        public override sealed bool Validate()
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context")]
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [OnDeserializing]
+        void _ModelBase1_OnDeserializing(StreamingContext context)
         {
-            Properties.RevalidateAll();
-            return !HasErrors;
+            Initialize();
         }
 
+        partial void AttributeBasedValidation(string propertyName, ValidationResultCollection results);
+
+        partial void AttributeBasedValidation(string propertyName, ValidationResultCollection results)
+        {
+            var property = Properties.Metadata.Properties[propertyName];
+
+            if (property.CanRead)
+            {
+                var context = ValidationContextHelper.Create(this);
+                context.MemberName = property.Name;
+                Validator.TryValidateProperty(property.InvokeGet(this), context, results);
+            }
+        }
+
+        void Initialize()
+        {
+            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this);
+            Properties.PropertyChanged += Properties_PropertyChanged;
+            Properties.RevalidateProperty += (s, e) => ValidateProperty(e.PropertyName);
+            Properties.RevalidateObject += (s, e) => ValidateObject();
+        }
 
         void Properties_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             InvokePropertyChanged(e);
         }
 
-        /// <summary>
-        /// Triggers the PropertyChanged event.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        protected void OnPropertyChanged(string propertyName)
-        {
-            Properties.OnPropertyChanged(propertyName);
-        }
-
-        /// <summary>
-        /// Triggers the PropertyChanging event.
-        /// </summary>
-        /// <param name="propertyName">Name of the property.</param>
-        protected void OnPropertyChanging(string propertyName)
-        {
-            Properties.OnPropertyChanging(propertyName);
-        }
-
         void ValidateObject()
         {
             var results = new ValidationResultCollection();
-            HashSet<string> affectedProperties;
 
             OnValidateObject(results);
-            OnErrorsChanged("", ErrorsDictionary.SetErrors(results, out affectedProperties));
+            OnErrorsChanged("", ErrorsDictionary.SetErrors(results, out var affectedProperties));
 
             foreach (var p in affectedProperties)
                 OnErrorsChanged(p);
-
         }
 
         void ValidateProperty(string propertyName)
@@ -334,42 +330,5 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             OnErrorsChanged(propertyName, ErrorsDictionary.SetErrors(propertyName, results));
         }
-
-        partial void AttributeBasedValidation(string propertyName, ValidationResultCollection results);
-
-        /// <summary>
-        /// Gets the validation errors for a specified property or for the entire entity.
-        /// </summary>
-        /// <param name="propertyName">The name of the property to retrieve validation errors for; or null or <see cref="F:System.String.Empty" />, to retrieve entity-level errors.</param>
-        /// <returns>
-        /// The validation errors for the property or entity.
-        /// </returns>
-
-        IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
-        {
-            return GetErrors(propertyName);
-        }
     }
-
-
-#if !DataAnnotations_Missing
-    partial class AbstractModelBase<TPropertyTracking>
-    {
-        partial void AttributeBasedValidation(string propertyName, ValidationResultCollection results)
-        {
-            var property = Properties.Metadata.Properties[propertyName];
-
-            if (property.CanRead)
-            {
-                var context = ValidationContextHelper.Create(this);
-                context.MemberName = property.Name;
-                Validator.TryValidateProperty(property.InvokeGet(this), context, results);
-            }
-        }
-    }
-#endif
-
-
-
 }
-

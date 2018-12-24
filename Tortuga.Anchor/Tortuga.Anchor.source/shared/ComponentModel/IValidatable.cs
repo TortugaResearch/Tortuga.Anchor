@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-
-#if !DataAnnotations_Missing
 using System.ComponentModel.DataAnnotations;
-#endif
 
 namespace Tortuga.Anchor.ComponentModel
 {
@@ -14,20 +11,13 @@ namespace Tortuga.Anchor.ComponentModel
     /// <remarks>While this interface is easier to work with than IDataErrorInfo, classes should still implement IDataErrorInfo so that they work with UI components.</remarks>
     public interface IValidatable
     {
-
         /// <summary>
-        /// This forces the object to be completely revalidated.
+        /// Raised when the errors collection has changed.
         /// </summary>
-        /// <returns>
-        /// True if the object has no errors
-        /// </returns>
-        bool Validate();
-
-
-        /// <summary>
-        /// Clears the error collections and the HasErrors property
-        /// </summary>
-        void ClearErrors();
+        /// <remarks>
+        /// This may be fired even when no actual change has occurred.
+        /// </remarks>
+        event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         /// <summary>
         /// Returns True if there are any errors.
@@ -40,6 +30,20 @@ namespace Tortuga.Anchor.ComponentModel
         /// </remarks>
         bool HasErrors { get; }
 
+        /// <summary>
+        /// Clears the error collections and the HasErrors property
+        /// </summary>
+        void ClearErrors();
+
+        /// <summary>
+        /// Returns a collection of all errors (object and property level).
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// Call Validate() to refresh this property.
+        /// </remarks>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        ReadOnlyCollection<ValidationResult> GetAllErrors();
 
         /// <summary>
         /// Returns a collection of object-level errors.
@@ -48,7 +52,6 @@ namespace Tortuga.Anchor.ComponentModel
         /// <remarks>
         /// Call Validate() to refresh this property.
         /// </remarks>
-
         ReadOnlyCollection<ValidationResult> GetErrors();
 
         /// <summary>
@@ -59,29 +62,14 @@ namespace Tortuga.Anchor.ComponentModel
         /// <remarks>
         /// Call Validate() to refresh this property.
         /// </remarks>
-
         ReadOnlyCollection<ValidationResult> GetErrors(string propertyName);
 
-
         /// <summary>
-        /// Returns a collection of all errors (object and property level).
+        /// This forces the object to be completely revalidated.
         /// </summary>
-        /// <returns></returns>
-        /// <remarks>
-        /// Call Validate() to refresh this property.
-        /// </remarks>
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-        ReadOnlyCollection<ValidationResult> GetAllErrors();
-
-        /// <summary>
-        /// Raised when the errors collection has changed.
-        /// </summary>
-        /// <remarks>
-        /// This may be fired even when no actual change has occurred.
-        /// </remarks>
-        event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
+        /// <returns>
+        /// True if the object has no errors
+        /// </returns>
+        bool Validate();
     }
-
 }

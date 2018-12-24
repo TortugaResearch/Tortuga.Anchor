@@ -5,34 +5,39 @@ namespace Tests.Mocks
 {
     public class FooCollection : ObservableCollectionExtended<Foo>
     {
+        private int m_AddCount;
         private int m_Boom;
         private int m_RemoveCount;
-        private int m_AddCount;
+
         /// <summary>
-        /// Initializes a new instance of the ImprovedObservableCollection class.
+        /// Initializes a new instance of the ObservableCollectionExtended class.
         /// </summary>
         public FooCollection()
         {
-
         }
+
         /// <summary>
-        /// Initializes a new instance of the ImprovedObservableCollection class that contains elements copied from the specified list.
+        /// Initializes a new instance of the ObservableCollectionExtended class that contains elements copied from the specified list.
         /// </summary>
         /// <param name="list"></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         public FooCollection(List<Foo> list)
             : base(list)
         {
-
         }
+
         /// <summary>
-        /// Initializes a new instance of the ImprovedObservableCollection class that contains elements copied from the specified collection.
+        /// Initializes a new instance of the ObservableCollectionExtended class that contains elements copied from the specified collection.
         /// </summary>
         /// <param name="collection"></param>
         public FooCollection(IEnumerable<Foo> collection)
             : base(collection)
         {
+        }
 
+        public int AddCount
+        {
+            get { return m_AddCount; }
         }
 
         public int Boom
@@ -45,14 +50,19 @@ namespace Tests.Mocks
             }
         }
 
-        public void InvokeSetItem(int index, Foo item)
+        public int M_RemoveCount
         {
-            base.SetItem(index, item);
+            get { return m_RemoveCount; }
         }
 
         public void InvokeRemoveItem(int index)
         {
             base.RemoveItem(index);
+        }
+
+        public void InvokeSetItem(int index, Foo item)
+        {
+            base.SetItem(index, item);
         }
 
         protected override void OnItemAdded(Foo item)
@@ -65,14 +75,6 @@ namespace Tests.Mocks
         {
             base.OnItemRemoved(item);
             m_RemoveCount += 1;
-        }
-        public int AddCount
-        {
-            get { return m_AddCount; }
-        }
-        public int M_RemoveCount
-        {
-            get { return m_RemoveCount; }
         }
     }
 }

@@ -156,7 +156,9 @@ namespace Tortuga.Anchor.Collections
 
         bool ICollection<KeyValuePair<ValueTuple<TKey1, TKey2>, TValue>>.IsReadOnly
         {
+#pragma warning disable CA1033 // Interface methods should be callable by child types
             get { return false; }
+#pragma warning restore CA1033 // Interface methods should be callable by child types
         }
 
         IEnumerable<ValueTuple<TKey1, TKey2>> IReadOnlyDictionary<ValueTuple<TKey1, TKey2>, TValue>.Keys
@@ -191,12 +193,15 @@ namespace Tortuga.Anchor.Collections
             get { return m_Base.Values; }
         }
 
+#pragma warning disable CA1043 // Use Integral Or String Argument For Indexers
+
         /// <summary>
         /// Gets or sets the element with the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns></returns>
         public TValue this[ValueTuple<TKey1, TKey2> key]
+#pragma warning restore CA1043 // Use Integral Or String Argument For Indexers
         {
             get { return m_Base[key]; }
             set { m_Base[key] = value; }

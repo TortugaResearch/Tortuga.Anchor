@@ -3,21 +3,19 @@ using System;
 namespace Tortuga.Anchor.Eventing
 {
     /// <summary>
-    /// The object that is referenced by the eventHandler must keep a reference to this class. 
+    /// The object that is referenced by the eventHandler must keep a reference to this class.
     /// </summary>
     public class Listener<T> : IListener<T> where T : EventArgs
     {
         private readonly Action<object, T> m_EventHandler;
 
         /// <summary>
-        /// The object that is referenced by the eventHandler must keep a reference to this class. 
+        /// The object that is referenced by the eventHandler must keep a reference to this class.
         /// </summary>
 
         public Listener(Action<object, T> eventHandler)
         {
-            if (eventHandler == null)
-                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-            m_EventHandler = eventHandler;
+            m_EventHandler = eventHandler ?? throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
         }
 
         /// <summary>
@@ -29,6 +27,5 @@ namespace Tortuga.Anchor.Eventing
         {
             m_EventHandler(sender, e);
         }
-
     }
 }

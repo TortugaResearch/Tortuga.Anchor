@@ -1,26 +1,22 @@
 ﻿using System.Collections.Generic;
-using Tortuga.Anchor.Modeling.Internals;
-
-#if !Serialization_Missing
 using System.Runtime.Serialization;
-#endif
+using Tortuga.Anchor.Modeling.Internals;
 
 namespace Tortuga.Anchor.Modeling
 {
-
     /// <summary>
     /// ModelCollection using the default property bag implementation.
     /// </summary>
-#if !Serialization_Missing
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-#endif
     public class ModelCollection<T> : AbstractModelCollection<T, PropertyBag>
     {
         /// <summary>
         /// Creates a model collection using the default property bag implementation..
         /// </summary>
 
-        protected ModelCollection() { }
+        protected ModelCollection()
+        {
+        }
 
         /// <summary>
         /// Creates a model collection using the default property bag implementation..
@@ -39,7 +35,5 @@ namespace Tortuga.Anchor.Modeling
         protected ModelCollection(IEnumerable<T> collection)
             : base(collection)
         { }
-
     }
-
 }

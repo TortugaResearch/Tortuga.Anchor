@@ -16,22 +16,6 @@ namespace Tests.Modeling
     public class ModelBaseCollectionTests
     {
         [TestMethod]
-        public void ModelBaseCollection_AddRemoveHandlerTest()
-        {
-            var fired = false;
-            var person = new SimplePersonCollection();
-            var listener = new Listener<PropertyChangedEventArgs>((sender, e) => { fired = true; });
-            person.ErrorsChanged += (sender, e) => { };
-            person.AddHandler(listener);
-            person.FirstName = "Tom";
-            Assert.IsTrue(fired);
-            fired = false;
-            person.RemoveHandler(listener);
-            person.FirstName = "Sam";
-            Assert.IsFalse(fired);
-        }
-
-        [TestMethod]
         public void ModelBaseCollection_AddHandlerNullTest()
         {
             var person = new SimplePersonCollection();
@@ -77,48 +61,19 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ModelBaseCollection_RemoveHandlerNullTest()
+        public void ModelBaseCollection_AddRemoveHandlerTest()
         {
+            var fired = false;
             var person = new SimplePersonCollection();
-            try
-            {
-                person.RemoveHandler((IListener<PropertyChangedEventArgs>)null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void ModelBaseCollection_RemoveHandlerNullTest2()
-        {
-            var person = new SimplePersonCollection();
-            try
-            {
-                person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void ModelBaseCollection_RemoveHandlerNullTest3()
-        {
-            var person = new SimplePersonCollection();
-            try
-            {
-                person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
+            var listener = new Listener<PropertyChangedEventArgs>((sender, e) => { fired = true; });
+            person.ErrorsChanged += (sender, e) => { };
+            person.AddHandler(listener);
+            person.FirstName = "Tom";
+            Assert.IsTrue(fired);
+            fired = false;
+            person.RemoveHandler(listener);
+            person.FirstName = "Sam";
+            Assert.IsFalse(fired);
         }
 
         [TestMethod]
@@ -145,93 +100,6 @@ namespace Tests.Modeling
             }
         }
 
-        //[TestMethod]
-        //public void ModelBaseCollection_PropertyChangedTest()
-        //{
-        //	var person = new SimplePersonCollection();
-        //	try
-        //	{
-        //		person.InvokeBadPropertyMessage();
-        //		Assert.Fail("Expected an exception");
-        //	}
-        //	catch (ArgumentOutOfRangeException ex)
-        //	{
-        //		Assert.AreEqual("propertyName", ex.ParamName);
-        //		Assert.AreEqual("Boom", ex.ActualValue);
-        //	}
-        //}
-
-        [TestMethod]
-        public void ModelBaseCollection_ValidationTest()
-        {
-            using (var verify = new Verify())
-            {
-                var person = new SimplePersonCollection();
-                var eventAssert = new PropertyChangedEventTest(verify, person);
-
-                person.Validate();
-                Assert.IsTrue(person.HasErrors);
-                eventAssert.ExpectEvent("HasErrors");
-                var errors = person.GetErrors("FirstName");
-                Assert.AreEqual(1, errors.Count);
-
-                person.FirstName = "John";
-                Assert.IsFalse(person.HasErrors);
-                eventAssert.ExpectEvent("FirstName");
-                eventAssert.ExpectEvent("FullName");
-                eventAssert.ExpectEvent("HasErrors");
-
-                var errors2 = person.GetErrors("FirstName");
-                Assert.AreEqual(0, errors2.Count);
-            }
-        }
-
-        [TestMethod]
-        public void ModelBaseCollection_ValidationTest2()
-        {
-            using (var verify = new Verify())
-            {
-                var person = new SimplePersonCollection();
-                var eventAssert = new PropertyChangedEventTest(verify, person);
-
-                person.Validate();
-                Assert.IsTrue(person.HasErrors);
-                eventAssert.ExpectEvent("HasErrors");
-                var errors = person.GetErrors("FirstName");
-                Assert.AreEqual(1, errors.Count);
-
-                person.ClearErrors();
-                Assert.IsFalse(person.HasErrors);
-                eventAssert.ExpectEvent("HasErrors");
-                var errors2 = person.GetErrors("FirstName");
-                Assert.AreEqual(0, errors2.Count);
-
-                person.ClearErrors();
-                Assert.IsFalse(person.HasErrors);
-                eventAssert.ExpectNothing();
-            }
-        }
-
-        [TestMethod]
-        public void ModelBaseCollection_GetNewTest()
-        {
-            var person = new SimplePersonCollection();
-
-            var a = person.Boss;
-            Assert.AreEqual("Da", a.FirstName);
-            Assert.AreEqual("Boss", a.LastName);
-            Assert.AreSame(a, person.Boss);
-
-            var b = person.Partner;
-            Assert.AreSame(b, person.Partner);
-        }
-
-        [TestMethod]
-        public void ModelBaseCollection_CtrTest()
-        {
-            var employee = new SimplePersonCollection();
-        }
-
         [TestMethod]
         public void ModelBaseCollection_BasicValidation()
         {
@@ -255,11 +123,9 @@ namespace Tests.Modeling
             Assert.AreEqual("FirstName", errors[0].MemberNames.First());
             Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
 
-#if !WINDOWS_UWP
             var interfacePerson = (IDataErrorInfo)person;
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-#endif
             person.FirstName = "Tom";
             Assert.IsFalse(person.HasErrors);
             errors = person.GetErrors();
@@ -268,40 +134,46 @@ namespace Tests.Modeling
             errors = person.GetErrors("FirstName");
             Assert.AreEqual(0, errors.Count);
 
-#if !WINDOWS_UWP
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-#endif
         }
 
         [TestMethod]
-        public void ModelBaseCollection_MultiFieldValidation()
+        public void ModelBaseCollection_ChildPropertyChangedTest()
+
         {
             var person = new SimplePersonCollection();
-            person.FirstName = "Tom";
-            person.LastName = "Tom";
-            var errors = person.GetErrors("FirstName");
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+            Assert.AreEqual(0, person.SecretaryChangeCounter);
+            person.Secretary = new SimplePerson();
+            Assert.AreEqual(0, person.SecretaryChangeCounter);
+            person.Secretary.FirstName = "Tom";
+            Assert.AreEqual(2, person.SecretaryChangeCounter, "FirstName and FullName");
+        }
 
-            errors = person.GetErrors("LastName");
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+        [TestMethod]
+        public void ModelBaseCollection_CtrTest()
+        {
+            var employee = new SimplePersonCollection();
+        }
 
-            errors = person.GetErrors();
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
-            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+        [TestMethod]
+        public void ModelBaseCollection_CtrTest1()
+        {
+            var list = new List<SimplePerson>() { new SimplePerson(), new SimplePerson(), new SimplePerson() };
 
-#if !WINDOWS_UWP
-            var interfacePerson = (IDataErrorInfo)person;
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson.Error));
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["LastName"]));
-#endif
+            var people = new SimplePersonCollection(list);
+
+            CollectionAssert.AreEqual(list, people);
+        }
+
+        [TestMethod]
+        public void ModelBaseCollection_CtrTest2()
+        {
+            var list = new List<SimplePerson>() { new SimplePerson(), new SimplePerson(), new SimplePerson() };
+
+            var people = new SimplePersonCollection((IEnumerable<SimplePerson>)list);
+
+            CollectionAssert.AreEqual(list, people);
         }
 
         [TestMethod]
@@ -320,12 +192,12 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ModelBaseCollection_GetFailedTest3()
+        public void ModelBaseCollection_GetFailedTest2()
         {
             var person = new SimplePersonCollection();
             try
             {
-                person.BadGetWithDefault2();
+                person.BadGet();
                 Assert.Fail("Expected an exception");
             }
             catch (ArgumentException ex)
@@ -335,12 +207,12 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ModelBaseCollection_GetFailedTest2()
+        public void ModelBaseCollection_GetFailedTest3()
         {
             var person = new SimplePersonCollection();
             try
             {
-                person.BadGet();
+                person.BadGetWithDefault2();
                 Assert.Fail("Expected an exception");
             }
             catch (ArgumentException ex)
@@ -440,6 +312,133 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
+        public void ModelBaseCollection_GetNewTest()
+        {
+            var person = new SimplePersonCollection();
+
+            var a = person.Boss;
+            Assert.AreEqual("Da", a.FirstName);
+            Assert.AreEqual("Boss", a.LastName);
+            Assert.AreSame(a, person.Boss);
+
+            var b = person.Partner;
+            Assert.AreSame(b, person.Partner);
+        }
+
+        [TestMethod]
+        public void ModelBaseCollection_MultiFieldValidation()
+        {
+            var person = new SimplePersonCollection();
+            person.FirstName = "Tom";
+            person.LastName = "Tom";
+            var errors = person.GetErrors("FirstName");
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            errors = person.GetErrors("LastName");
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            errors = person.GetErrors();
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
+            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            var interfacePerson = (IDataErrorInfo)person;
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson.Error));
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["LastName"]));
+        }
+
+        [TestMethod]
+        public void ModelBaseCollection_RemoveHandlerNullTest()
+        {
+            var person = new SimplePersonCollection();
+            try
+            {
+                person.RemoveHandler((IListener<PropertyChangedEventArgs>)null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void ModelBaseCollection_RemoveHandlerNullTest2()
+        {
+            var person = new SimplePersonCollection();
+            try
+            {
+                person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void ModelBaseCollection_RemoveHandlerNullTest3()
+        {
+            var person = new SimplePersonCollection();
+            try
+            {
+                person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        //[TestMethod]
+        //public void ModelBaseCollection_PropertyChangedTest()
+        //{
+        //	var person = new SimplePersonCollection();
+        //	try
+        //	{
+        //		person.InvokeBadPropertyMessage();
+        //		Assert.Fail("Expected an exception");
+        //	}
+        //	catch (ArgumentOutOfRangeException ex)
+        //	{
+        //		Assert.AreEqual("propertyName", ex.ParamName);
+        //		Assert.AreEqual("Boom", ex.ActualValue);
+        //	}
+        //}
+
+        [TestMethod]
+        public void ModelBaseCollection_SerializationTest1()
+        {
+            var people = new SimplePersonCollection();
+            people.FirstName = "Tom";
+            people.LastName = "Jones";
+
+            people.Add(new SimplePerson());
+            people.Add(new SimplePerson());
+            people.Add(new SimplePerson());
+
+            var stream = new MemoryStream();
+            var serializer = new DataContractSerializer(typeof(SimplePersonCollection));
+            serializer.WriteObject(stream, people);
+            stream.Position = 0;
+            var newPeople = (SimplePersonCollection)serializer.ReadObject(stream);
+
+            //Property serialization isn't supported by the data contract serializer
+            //Assert.AreEqual(people.FirstName, newPeople.FirstName);
+            //Assert.AreEqual(people.LastName, newPeople.LastName);
+            //Assert.AreEqual(people.FullName, newPeople.FullName);
+            Assert.AreEqual(people.Count, newPeople.Count);
+        }
+
+        [TestMethod]
         public void ModelBaseCollection_SetFailedTest1()
         {
             var person = new SimplePersonCollection();
@@ -470,59 +469,54 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ModelBaseCollection_CtrTest1()
+        public void ModelBaseCollection_ValidationTest()
         {
-            var list = new List<SimplePerson>() { new SimplePerson(), new SimplePerson(), new SimplePerson() };
+            using (var verify = new Verify())
+            {
+                var person = new SimplePersonCollection();
+                var eventAssert = new PropertyChangedEventTest(verify, person);
 
-            var people = new SimplePersonCollection(list);
+                person.Validate();
+                Assert.IsTrue(person.HasErrors);
+                eventAssert.ExpectEvent("HasErrors");
+                var errors = person.GetErrors("FirstName");
+                Assert.AreEqual(1, errors.Count);
 
-            CollectionAssert.AreEqual(list, people);
+                person.FirstName = "John";
+                Assert.IsFalse(person.HasErrors);
+                eventAssert.ExpectEvent("FirstName");
+                eventAssert.ExpectEvent("FullName");
+                eventAssert.ExpectEvent("HasErrors");
+
+                var errors2 = person.GetErrors("FirstName");
+                Assert.AreEqual(0, errors2.Count);
+            }
         }
 
         [TestMethod]
-        public void ModelBaseCollection_CtrTest2()
+        public void ModelBaseCollection_ValidationTest2()
         {
-            var list = new List<SimplePerson>() { new SimplePerson(), new SimplePerson(), new SimplePerson() };
+            using (var verify = new Verify())
+            {
+                var person = new SimplePersonCollection();
+                var eventAssert = new PropertyChangedEventTest(verify, person);
 
-            var people = new SimplePersonCollection((IEnumerable<SimplePerson>)list);
+                person.Validate();
+                Assert.IsTrue(person.HasErrors);
+                eventAssert.ExpectEvent("HasErrors");
+                var errors = person.GetErrors("FirstName");
+                Assert.AreEqual(1, errors.Count);
 
-            CollectionAssert.AreEqual(list, people);
-        }
+                person.ClearErrors();
+                Assert.IsFalse(person.HasErrors);
+                eventAssert.ExpectEvent("HasErrors");
+                var errors2 = person.GetErrors("FirstName");
+                Assert.AreEqual(0, errors2.Count);
 
-        [TestMethod]
-        public void ModelBaseCollection_SerializationTest1()
-        {
-            var people = new SimplePersonCollection();
-            people.FirstName = "Tom";
-            people.LastName = "Jones";
-
-            people.Add(new SimplePerson());
-            people.Add(new SimplePerson());
-            people.Add(new SimplePerson());
-
-            var stream = new MemoryStream();
-            var serializer = new DataContractSerializer(typeof(SimplePersonCollection));
-            serializer.WriteObject(stream, people);
-            stream.Position = 0;
-            var newPeople = (SimplePersonCollection)serializer.ReadObject(stream);
-
-            //Property serialization isn't supported by the data contract serializer
-            //Assert.AreEqual(people.FirstName, newPeople.FirstName);
-            //Assert.AreEqual(people.LastName, newPeople.LastName);
-            //Assert.AreEqual(people.FullName, newPeople.FullName);
-            Assert.AreEqual(people.Count, newPeople.Count);
-        }
-
-        [TestMethod]
-        public void ModelBaseCollection_ChildPropertyChangedTest()
-
-        {
-            var person = new SimplePersonCollection();
-            Assert.AreEqual(0, person.SecretaryChangeCounter);
-            person.Secretary = new SimplePerson();
-            Assert.AreEqual(0, person.SecretaryChangeCounter);
-            person.Secretary.FirstName = "Tom";
-            Assert.AreEqual(2, person.SecretaryChangeCounter, "FirstName and FullName");
+                person.ClearErrors();
+                Assert.IsFalse(person.HasErrors);
+                eventAssert.ExpectNothing();
+            }
         }
     }
 }

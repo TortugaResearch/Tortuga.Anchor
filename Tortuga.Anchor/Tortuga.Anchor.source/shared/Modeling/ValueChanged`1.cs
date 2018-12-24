@@ -1,4 +1,3 @@
-
 namespace Tortuga.Anchor.Modeling
 {
     /// <summary>

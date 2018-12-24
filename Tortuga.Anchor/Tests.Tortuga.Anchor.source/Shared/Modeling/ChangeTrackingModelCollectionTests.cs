@@ -16,19 +16,90 @@ namespace Tests.Modeling
     public class ChangeTrackingModelCollectionTests
     {
         [TestMethod]
-        public void ChangeTrackingModelCollection_AddRemoveHandlerTest()
+        public void ChangeTrackingModelBase_ChangeTrackingTest()
         {
-            var fired = false;
-            var person = new ChangeTrackingPersonCollection();
-            var listener = new Listener<PropertyChangedEventArgs>((sender, e) => { fired = true; });
-            person.ErrorsChanged += (sender, e) => { };
-            person.AddHandler(listener);
-            person.FirstName = "Tom";
-            Assert.IsTrue(fired);
-            fired = false;
-            person.RemoveHandler(listener);
-            person.FirstName = "Sam";
-            Assert.IsFalse(fired);
+            var people = new ChangeTrackingPersonCollection();
+            people.RejectChanges();
+
+            Assert.IsNotNull(people.Boss);
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+
+            people.Age = 100;
+            Assert.IsTrue(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+            people.RejectChanges();
+
+            Assert.AreEqual(0, people.Age);
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+
+            people.FirstName = "Tom";
+            Assert.IsTrue(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+
+            people.AcceptChanges();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+            Assert.IsFalse(people.Boss.IsChanged);
+            Assert.IsFalse(people.Boss.IsChanged);
+
+            people.Boss.FirstName = "Frank";
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+            Assert.IsTrue(people.Boss.IsChanged);
+            Assert.IsTrue(people.Boss.IsChanged);
+            Assert.AreEqual("Tom", people.FirstName);
+            Assert.AreEqual("Frank", people.Boss.FirstName);
+
+            people.AcceptChanges();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+            Assert.IsFalse(people.Boss.IsChanged);
+            Assert.IsFalse(people.Boss.IsChanged);
+            Assert.AreEqual("Tom", people.FirstName);
+            Assert.AreEqual("Frank", people.Boss.FirstName);
+
+            people.FirstName = "Harry";
+            people.Boss.FirstName = "Sam";
+            Assert.IsTrue(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+            Assert.IsTrue(people.Boss.IsChanged);
+            Assert.IsTrue(people.Boss.IsChanged);
+            Assert.AreEqual("Harry", people.FirstName);
+            Assert.AreEqual("Sam", people.Boss.FirstName);
+
+            people.RejectChanges();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+            Assert.IsFalse(people.Boss.IsChanged);
+            Assert.IsFalse(people.Boss.IsChanged);
+            Assert.AreEqual("Tom", people.FirstName);
+            Assert.AreEqual("Frank", people.Boss.FirstName);
+
+            people.DummyObject.IsChanged = true;
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+
+            people.AcceptChanges();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+
+            people.DummyObject.IsChanged = true;
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+
+            people.RejectChanges();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+
+            people.DummyObject.IsChanged = true;
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+
+            people.AcceptChangesLocal();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
         }
 
         [TestMethod]
@@ -77,48 +148,19 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ChangeTrackingModelCollection_RemoveHandlerNullTest()
+        public void ChangeTrackingModelCollection_AddRemoveHandlerTest()
         {
+            var fired = false;
             var person = new ChangeTrackingPersonCollection();
-            try
-            {
-                person.RemoveHandler((IListener<PropertyChangedEventArgs>)null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void ChangeTrackingModelCollection_RemoveHandlerNullTest2()
-        {
-            var person = new ChangeTrackingPersonCollection();
-            try
-            {
-                person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void ChangeTrackingModelCollection_RemoveHandlerNullTest3()
-        {
-            var person = new ChangeTrackingPersonCollection();
-            try
-            {
-                person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
+            var listener = new Listener<PropertyChangedEventArgs>((sender, e) => { fired = true; });
+            person.ErrorsChanged += (sender, e) => { };
+            person.AddHandler(listener);
+            person.FirstName = "Tom";
+            Assert.IsTrue(fired);
+            fired = false;
+            person.RemoveHandler(listener);
+            person.FirstName = "Sam";
+            Assert.IsFalse(fired);
         }
 
         [TestMethod]
@@ -148,58 +190,6 @@ namespace Tests.Modeling
             }
         }
 
-        //[TestMethod]
-        //public void ChangeTrackingModelCollection_PropertyChangedTest()
-        //{
-        //	var person = new ChangeTrackingSimplePersonCollection();
-        //	try
-        //	{
-        //		person.InvokeBadPropertyMessage();
-        //		Assert.Fail("Expected an exception");
-        //	}
-        //	catch (ArgumentOutOfRangeException ex)
-        //	{
-        //		Assert.AreEqual("propertyName", ex.ParamName);
-        //		Assert.AreEqual("Boom", ex.ActualValue);
-        //	}
-        //}
-
-        [TestMethod]
-        public void ChangeTrackingModelCollection_ValidationTest()
-        {
-            var person = new ChangeTrackingPersonCollection();
-
-            person.Validate();
-            Assert.IsTrue(person.HasErrors);
-            var errors = person.GetErrors("FirstName");
-            Assert.AreEqual(1, errors.Count);
-
-            person.FirstName = "John";
-            Assert.IsFalse(person.HasErrors);
-            var errors2 = person.GetErrors("FirstName");
-            Assert.AreEqual(0, errors2.Count);
-        }
-
-        [TestMethod]
-        public void ChangeTrackingModelCollection_GetNewTest()
-        {
-            var person = new ChangeTrackingPersonCollection();
-
-            var a = person.Boss;
-            Assert.AreEqual("Da", a.FirstName);
-            Assert.AreEqual("Boss", a.LastName);
-            Assert.AreSame(a, person.Boss);
-
-            var b = person.Partner;
-            Assert.AreSame(b, person.Partner);
-        }
-
-        [TestMethod]
-        public void ChangeTrackingModelCollection_CtrTest()
-        {
-            var employee = new ChangeTrackingPersonCollection();
-        }
-
         [TestMethod]
         public void ChangeTrackingModelCollection_BasicValidation()
         {
@@ -223,11 +213,9 @@ namespace Tests.Modeling
             Assert.AreEqual("FirstName", errors[0].MemberNames.First());
             Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
 
-#if !WINDOWS_UWP
             var interfacePerson = (IDataErrorInfo)person;
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-#endif
             person.FirstName = "Tom";
             Assert.IsFalse(person.HasErrors);
             errors = person.GetErrors();
@@ -236,42 +224,114 @@ namespace Tests.Modeling
             errors = person.GetErrors("FirstName");
             Assert.AreEqual(0, errors.Count);
 
-#if !WINDOWS_UWP
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-#endif
         }
 
         [TestMethod]
-        public void ChangeTrackingModelCollection_MultiFieldValidation()
+        public void ChangeTrackingModelCollection_CollectionTest1()
         {
-            var person = new ChangeTrackingPersonCollection
-            {
-                FirstName = "Tom",
-                LastName = "Tom"
-            };
-            var errors = person.GetErrors("FirstName");
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+            var list = new List<ChangeTrackingPerson>() { new ChangeTrackingPerson(), new ChangeTrackingPerson(), new ChangeTrackingPerson() };
+            var people = new ChangeTrackingPersonCollection(list);
+            CollectionAssert.AreEqual(list, people);
 
-            errors = person.GetErrors("LastName");
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
 
-            errors = person.GetErrors();
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
-            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+            people[0].Age = 1;
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+            Assert.IsTrue(people[0].IsChanged);
+            Assert.AreEqual(1, people[0].Age);
 
-#if !WINDOWS_UWP
-            var interfacePerson = (IDataErrorInfo)person;
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson.Error));
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["LastName"]));
-#endif
+            people.AcceptChanges();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+            Assert.IsFalse(people[0].IsChanged);
+            Assert.AreEqual(1, people[0].Age);
+
+            people[0].Age = 2;
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+            Assert.IsTrue(people[0].IsChanged);
+            Assert.AreEqual(2, people[0].Age);
+
+            people.RejectChanges();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+            Assert.IsFalse(people[0].IsChanged);
+            Assert.AreEqual(1, people[0].Age);
+        }
+
+        [TestMethod]
+        public void ChangeTrackingModelCollection_CollectionTest2()
+        {
+            var people = new ChangeTrackingPersonCollection();
+            var list = new List<ChangeTrackingPerson>();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+
+            var person1 = new ChangeTrackingPerson();
+            var person2 = new ChangeTrackingPerson();
+            //var person3 = new ChangeTrackingSimplePerson();
+
+            people.Add(person1);
+            list.Add(person1);
+
+            CollectionAssert.AreEqual(list, people);
+            Assert.IsTrue(people.IsChangedLocal);
+
+            people.AcceptChanges();
+            CollectionAssert.AreEqual(list, people);
+            Assert.IsFalse(people.IsChangedLocal);
+
+            people.Add(person2);
+            list.Add(person2);
+
+            CollectionAssert.AreEqual(list, people);
+            Assert.IsTrue(people.IsChangedLocal);
+
+            people.RejectChanges();
+            list.Remove(person2);
+
+            CollectionAssert.AreEqual(list, people);
+            Assert.IsFalse(people.IsChangedLocal);
+
+            people.Remove(person1);
+            list.Remove(person1);
+
+            CollectionAssert.AreEqual(list, people);
+            Assert.IsTrue(people.IsChangedLocal);
+
+            people.AcceptChanges();
+            CollectionAssert.AreEqual(list, people);
+            Assert.IsFalse(people.IsChangedLocal);
+        }
+
+        [TestMethod]
+        public void ChangeTrackingModelCollection_CtrTest()
+        {
+            var employee = new ChangeTrackingPersonCollection();
+        }
+
+        [TestMethod]
+        public void ChangeTrackingModelCollection_CtrTest1()
+        {
+            var list = new List<ChangeTrackingPerson>() { new ChangeTrackingPerson(), new ChangeTrackingPerson(), new ChangeTrackingPerson() };
+
+            var people = new ChangeTrackingPersonCollection(list);
+
+            CollectionAssert.AreEqual(list, people);
+        }
+
+        [TestMethod]
+        public void ChangeTrackingModelCollection_CtrTest2()
+        {
+            var list = new List<ChangeTrackingPerson>() { new ChangeTrackingPerson(), new ChangeTrackingPerson(), new ChangeTrackingPerson() };
+
+            var people = new ChangeTrackingPersonCollection((IEnumerable<ChangeTrackingPerson>)list);
+
+            CollectionAssert.AreEqual(list, people);
         }
 
         [TestMethod]
@@ -290,12 +350,12 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ChangeTrackingModelCollection_GetFailedTest3()
+        public void ChangeTrackingModelCollection_GetFailedTest2()
         {
             var person = new ChangeTrackingPersonCollection();
             try
             {
-                person.BadGetWithDefault2();
+                person.BadGet();
                 Assert.Fail("Expected an exception");
             }
             catch (ArgumentException ex)
@@ -305,12 +365,12 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ChangeTrackingModelCollection_GetFailedTest2()
+        public void ChangeTrackingModelCollection_GetFailedTest3()
         {
             var person = new ChangeTrackingPersonCollection();
             try
             {
-                person.BadGet();
+                person.BadGetWithDefault2();
                 Assert.Fail("Expected an exception");
             }
             catch (ArgumentException ex)
@@ -410,6 +470,140 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
+        public void ChangeTrackingModelCollection_GetNewTest()
+        {
+            var person = new ChangeTrackingPersonCollection();
+
+            var a = person.Boss;
+            Assert.AreEqual("Da", a.FirstName);
+            Assert.AreEqual("Boss", a.LastName);
+            Assert.AreSame(a, person.Boss);
+
+            var b = person.Partner;
+            Assert.AreSame(b, person.Partner);
+        }
+
+        [TestMethod]
+        public void ChangeTrackingModelCollection_MultiFieldValidation()
+        {
+            var person = new ChangeTrackingPersonCollection
+            {
+                FirstName = "Tom",
+                LastName = "Tom"
+            };
+            var errors = person.GetErrors("FirstName");
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            errors = person.GetErrors("LastName");
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            errors = person.GetErrors();
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
+            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            var interfacePerson = (IDataErrorInfo)person;
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson.Error));
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["LastName"]));
+        }
+
+        [TestMethod]
+        public void ChangeTrackingModelCollection_RemoveHandlerNullTest()
+        {
+            var person = new ChangeTrackingPersonCollection();
+            try
+            {
+                person.RemoveHandler((IListener<PropertyChangedEventArgs>)null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void ChangeTrackingModelCollection_RemoveHandlerNullTest2()
+        {
+            var person = new ChangeTrackingPersonCollection();
+            try
+            {
+                person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void ChangeTrackingModelCollection_RemoveHandlerNullTest3()
+        {
+            var person = new ChangeTrackingPersonCollection();
+            try
+            {
+                person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        //[TestMethod]
+        //public void ChangeTrackingModelCollection_PropertyChangedTest()
+        //{
+        //	var person = new ChangeTrackingSimplePersonCollection();
+        //	try
+        //	{
+        //		person.InvokeBadPropertyMessage();
+        //		Assert.Fail("Expected an exception");
+        //	}
+        //	catch (ArgumentOutOfRangeException ex)
+        //	{
+        //		Assert.AreEqual("propertyName", ex.ParamName);
+        //		Assert.AreEqual("Boom", ex.ActualValue);
+        //	}
+        //}
+
+        [TestMethod]
+        public void ChangeTrackingModelCollection_SerializationTest1()
+        {
+            var root = new ChangeTrackingPersonCollectionRoot();
+            var people = root.ChangeTrackingPersonCollection;
+            people.FirstName = "Tom";
+            people.LastName = "Jones";
+
+            people.Add(new ChangeTrackingPerson());
+            people.Add(new ChangeTrackingPerson());
+            people.Add(new ChangeTrackingPerson());
+
+            people.AcceptChanges();
+
+            var stream = new MemoryStream();
+            var serializer = new DataContractSerializer(typeof(ChangeTrackingPersonCollectionRoot));
+            serializer.WriteObject(stream, root);
+            stream.Position = 0;
+            var newRoot = (ChangeTrackingPersonCollectionRoot)serializer.ReadObject(stream);
+            var newPeople = newRoot.ChangeTrackingPersonCollection;// (ChangeTrackingPersonCollection)serializer.ReadObject(stream);
+
+            //Property serialization isn't supported by the data contract serializer
+            //Assert.AreEqual(people.FirstName, newPeople.FirstName);
+            //Assert.AreEqual(people.LastName, newPeople.LastName);
+            //Assert.AreEqual(people.FullName, newPeople.FullName);
+            Assert.AreEqual(people.IsChangedLocal, newPeople.IsChangedLocal);
+            Assert.AreEqual(people.Count, newPeople.Count);
+        }
+
+        [TestMethod]
         public void ChangeTrackingModelCollection_SetFailedTest1()
         {
             var person = new ChangeTrackingPersonCollection();
@@ -440,219 +634,19 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ChangeTrackingModelCollection_CtrTest1()
+        public void ChangeTrackingModelCollection_ValidationTest()
         {
-            var list = new List<ChangeTrackingPerson>() { new ChangeTrackingPerson(), new ChangeTrackingPerson(), new ChangeTrackingPerson() };
+            var person = new ChangeTrackingPersonCollection();
 
-            var people = new ChangeTrackingPersonCollection(list);
+            person.Validate();
+            Assert.IsTrue(person.HasErrors);
+            var errors = person.GetErrors("FirstName");
+            Assert.AreEqual(1, errors.Count);
 
-            CollectionAssert.AreEqual(list, people);
-        }
-
-        [TestMethod]
-        public void ChangeTrackingModelCollection_CtrTest2()
-        {
-            var list = new List<ChangeTrackingPerson>() { new ChangeTrackingPerson(), new ChangeTrackingPerson(), new ChangeTrackingPerson() };
-
-            var people = new ChangeTrackingPersonCollection((IEnumerable<ChangeTrackingPerson>)list);
-
-            CollectionAssert.AreEqual(list, people);
-        }
-
-        [TestMethod]
-        public void ChangeTrackingModelBase_ChangeTrackingTest()
-        {
-            var people = new ChangeTrackingPersonCollection();
-            people.RejectChanges();
-
-            Assert.IsNotNull(people.Boss);
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-
-            people.Age = 100;
-            Assert.IsTrue(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-            people.RejectChanges();
-
-            Assert.AreEqual(0, people.Age);
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-
-            people.FirstName = "Tom";
-            Assert.IsTrue(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-
-            people.AcceptChanges();
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-            Assert.IsFalse(people.Boss.IsChanged);
-            Assert.IsFalse(people.Boss.IsChanged);
-
-            people.Boss.FirstName = "Frank";
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-            Assert.IsTrue(people.Boss.IsChanged);
-            Assert.IsTrue(people.Boss.IsChanged);
-            Assert.AreEqual("Tom", people.FirstName);
-            Assert.AreEqual("Frank", people.Boss.FirstName);
-
-            people.AcceptChanges();
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-            Assert.IsFalse(people.Boss.IsChanged);
-            Assert.IsFalse(people.Boss.IsChanged);
-            Assert.AreEqual("Tom", people.FirstName);
-            Assert.AreEqual("Frank", people.Boss.FirstName);
-
-            people.FirstName = "Harry";
-            people.Boss.FirstName = "Sam";
-            Assert.IsTrue(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-            Assert.IsTrue(people.Boss.IsChanged);
-            Assert.IsTrue(people.Boss.IsChanged);
-            Assert.AreEqual("Harry", people.FirstName);
-            Assert.AreEqual("Sam", people.Boss.FirstName);
-
-            people.RejectChanges();
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-            Assert.IsFalse(people.Boss.IsChanged);
-            Assert.IsFalse(people.Boss.IsChanged);
-            Assert.AreEqual("Tom", people.FirstName);
-            Assert.AreEqual("Frank", people.Boss.FirstName);
-
-            people.DummyObject.IsChanged = true;
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-
-            people.AcceptChanges();
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-
-            people.DummyObject.IsChanged = true;
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-
-            people.RejectChanges();
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-
-            people.DummyObject.IsChanged = true;
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-
-            people.AcceptChangesLocal();
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-        }
-
-        [TestMethod]
-        public void ChangeTrackingModelCollection_CollectionTest1()
-        {
-            var list = new List<ChangeTrackingPerson>() { new ChangeTrackingPerson(), new ChangeTrackingPerson(), new ChangeTrackingPerson() };
-            var people = new ChangeTrackingPersonCollection(list);
-            CollectionAssert.AreEqual(list, people);
-
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-
-            people[0].Age = 1;
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-            Assert.IsTrue(people[0].IsChanged);
-            Assert.AreEqual(1, people[0].Age);
-
-            people.AcceptChanges();
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-            Assert.IsFalse(people[0].IsChanged);
-            Assert.AreEqual(1, people[0].Age);
-
-            people[0].Age = 2;
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsTrue(people.IsChanged);
-            Assert.IsTrue(people[0].IsChanged);
-            Assert.AreEqual(2, people[0].Age);
-
-            people.RejectChanges();
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-            Assert.IsFalse(people[0].IsChanged);
-            Assert.AreEqual(1, people[0].Age);
-        }
-
-        [TestMethod]
-        public void ChangeTrackingModelCollection_CollectionTest2()
-        {
-            var people = new ChangeTrackingPersonCollection();
-            var list = new List<ChangeTrackingPerson>();
-            Assert.IsFalse(people.IsChangedLocal);
-            Assert.IsFalse(people.IsChanged);
-
-            var person1 = new ChangeTrackingPerson();
-            var person2 = new ChangeTrackingPerson();
-            //var person3 = new ChangeTrackingSimplePerson();
-
-            people.Add(person1);
-            list.Add(person1);
-
-            CollectionAssert.AreEqual(list, people);
-            Assert.IsTrue(people.IsChangedLocal);
-
-            people.AcceptChanges();
-            CollectionAssert.AreEqual(list, people);
-            Assert.IsFalse(people.IsChangedLocal);
-
-            people.Add(person2);
-            list.Add(person2);
-
-            CollectionAssert.AreEqual(list, people);
-            Assert.IsTrue(people.IsChangedLocal);
-
-            people.RejectChanges();
-            list.Remove(person2);
-
-            CollectionAssert.AreEqual(list, people);
-            Assert.IsFalse(people.IsChangedLocal);
-
-            people.Remove(person1);
-            list.Remove(person1);
-
-            CollectionAssert.AreEqual(list, people);
-            Assert.IsTrue(people.IsChangedLocal);
-
-            people.AcceptChanges();
-            CollectionAssert.AreEqual(list, people);
-            Assert.IsFalse(people.IsChangedLocal);
-        }
-
-        [TestMethod]
-        public void ChangeTrackingModelCollection_SerializationTest1()
-        {
-            var root = new ChangeTrackingPersonCollectionRoot();
-            var people = root.ChangeTrackingPersonCollection;
-            people.FirstName = "Tom";
-            people.LastName = "Jones";
-
-            people.Add(new ChangeTrackingPerson());
-            people.Add(new ChangeTrackingPerson());
-            people.Add(new ChangeTrackingPerson());
-
-            people.AcceptChanges();
-
-            var stream = new MemoryStream();
-            var serializer = new DataContractSerializer(typeof(ChangeTrackingPersonCollectionRoot));
-            serializer.WriteObject(stream, root);
-            stream.Position = 0;
-            var newRoot = (ChangeTrackingPersonCollectionRoot)serializer.ReadObject(stream);
-            var newPeople = newRoot.ChangeTrackingPersonCollection;// (ChangeTrackingPersonCollection)serializer.ReadObject(stream);
-
-            //Property serialization isn't supported by the data contract serializer
-            //Assert.AreEqual(people.FirstName, newPeople.FirstName);
-            //Assert.AreEqual(people.LastName, newPeople.LastName);
-            //Assert.AreEqual(people.FullName, newPeople.FullName);
-            Assert.AreEqual(people.IsChangedLocal, newPeople.IsChangedLocal);
-            Assert.AreEqual(people.Count, newPeople.Count);
+            person.FirstName = "John";
+            Assert.IsFalse(person.HasErrors);
+            var errors2 = person.GetErrors("FirstName");
+            Assert.AreEqual(0, errors2.Count);
         }
     }
 }

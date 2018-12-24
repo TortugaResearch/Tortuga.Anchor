@@ -1,18 +1,56 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Tortuga.Dragnet;
-using Tortuga.Anchor.Metadata;
-using Tortuga.Anchor.Modeling;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Tortuga.Anchor.Metadata;
+using Tortuga.Anchor.Modeling;
+using Tortuga.Dragnet;
 
 namespace Tests.Metadata
 {
+    public class Base
+    {
+        [Decompose]
+        public ChildA ChildA { get; set; }
+
+        [Decompose("Bbb")]
+        public ChildB ChildB { get; set; }
+
+        public int Property0 { get; set; }
+    }
+
+    public class ChildA
+    {
+        [Column("PropertyA2")]
+        public int Property { get; set; }
+
+        public int PropertyA1 { get; set; }
+
+        [NotMapped]
+        public int PropertyAX { get; set; }
+    }
+
+    public class ChildB
+    {
+        [Column("PropertyB2")]
+        public int Property { get; set; }
+
+        public int PropertyB1 { get; set; }
+
+        [NotMapped]
+        public int PropertyBX { get; set; }
+    }
+
+    public class Generic<T>
+    {
+        public class GenericNestedInGeneric<T2> { }
+
+        public class NestedInGeneric { }
+    }
 
     [TestClass]
     public class MetadataCacheTests
@@ -22,8 +60,7 @@ namespace Tests.Metadata
         {
             using (var verify = new Verify())
             {
-
-                var result  = MetadataCache.GetMetadata(typeof(MultiConstructor));
+                var result = MetadataCache.GetMetadata(typeof(MultiConstructor));
 
                 var a = result.Constructors.Find(typeof(int));
                 var b = result.Constructors.Find(typeof(string));
@@ -34,6 +71,66 @@ namespace Tests.Metadata
                 verify.IsNotNull(b, "string");
                 verify.IsNotNull(c, "int, string");
                 verify.IsNull(d, "long, string shouldn't exist");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_Generic()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<System.Int32>", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_Generic_Of_Generic()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<Generic<int>>)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<Tests.Metadata.Generic<System.Int32>>", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_GenericNestedInGeneric()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>.GenericNestedInGeneric<long>)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<System.Int32>.GenericNestedInGeneric<System.Int64>", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_Nested()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Normal.Nested)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Normal.Nested", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_NestedInGeneric()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>.NestedInGeneric)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<System.Int32>.NestedInGeneric", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_CSharp_Normal()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Normal)).CSharpFullName;
+                verify.AreEqual("Tests.Metadata.Normal", name, "C# type name was not correct");
             }
         }
 
@@ -57,115 +154,8 @@ namespace Tests.Metadata
                 var e = MetadataCache.GetMetadata(typeof(NonDefaultConstructor));
                 verify.IsFalse(e.Constructors.HasDefaultConstructor, "NonDefaultConstructor does not have a default constructor");
 
-
                 var f = MetadataCache.GetMetadata(typeof(StaticConstructor));
                 verify.IsTrue(f.Constructors.HasDefaultConstructor, "NonDefaultConstructor does not have a default constructor");
-
-
-
-
-            }
-        }
-
-        public class AutoConstructor { }
-        public class DefaultConstructor { public DefaultConstructor() { } }
-        private class DefaultConstructorPrivateClass { public DefaultConstructorPrivateClass() { } }
-        public class PrivateDefaultConstructor { private PrivateDefaultConstructor() { } }
-        public class NonDefaultConstructor { public NonDefaultConstructor(int x) { } }
-        public class StaticConstructor { static StaticConstructor() { } }
-        public class MultiConstructor {
-            public MultiConstructor() { }
-            public MultiConstructor(int x) { }
-            public MultiConstructor(string x) { }
-            public MultiConstructor(int a, string b) { }
-        }
-
-
-
-        [TestMethod]
-        public void MetadataCache_PublicProperty_Test()
-        {
-            using (var verify = new Verify())
-            {
-                var result = MetadataCache.GetMetadata(typeof(Mock));
-                verify.IsNotNull(result, "GetMetadata returned a null");
-
-                var publicProperty = result.Properties["PublicProperty"];
-                verify.IsNotNull(publicProperty, "property wasn't found");
-                verify.IsFalse(publicProperty.AffectsCalculatedFields, "not used in calculated fields");
-                verify.AreEqual(0, publicProperty.CalculatedFields.Length, "not used in calculated fields");
-                verify.IsTrue(publicProperty.CanRead, "CanRead");
-                verify.IsTrue(publicProperty.CanWrite, "CanWrite");
-                verify.AreEqual("PublicProperty", publicProperty.Name, "Name");
-                verify.AreEqual("PublicProperty", publicProperty.PropertyChangedEventArgs.PropertyName, "PropertyName");
-                verify.AreEqual(typeof(int), publicProperty.PropertyType, "PropertyType");
-
-                verify.AreEqual(0, publicProperty.Validators.Length, "not used in validation");
-
-                verify.IsTrue(result.Constructors.HasDefaultConstructor, "this should have a automatically implemented default constructor");
-            }
-        }
-
-        [TestMethod]
-        public void MetadataCache_PublicPrivateProperty_Test()
-        {
-            using (var verify = new Verify())
-            {
-                var result = MetadataCache.GetMetadata(typeof(Mock));
-                verify.IsNotNull(result, "GetMetadata returned a null");
-                var publicPrivateProperty = result.Properties["PublicPrivateProperty"];
-                verify.IsNotNull(publicPrivateProperty, "property wasn't found");
-                verify.IsFalse(publicPrivateProperty.AffectsCalculatedFields, "not used in calculated fields");
-                verify.AreEqual(0, publicPrivateProperty.CalculatedFields.Length, "not used in calculated fields");
-                verify.IsTrue(publicPrivateProperty.CanRead, "CanRead");
-                verify.IsFalse(publicPrivateProperty.CanWrite, "CanWrite");
-                verify.AreEqual("PublicPrivateProperty", publicPrivateProperty.Name, "Name");
-                verify.AreEqual("PublicPrivateProperty", publicPrivateProperty.PropertyChangedEventArgs.PropertyName, "PropertyName");
-                verify.AreEqual(typeof(int), publicPrivateProperty.PropertyType, "PropertyType");
-
-                verify.AreEqual(0, publicPrivateProperty.Validators.Length, "not used in validation");
-            }
-        }
-
-        [TestMethod]
-        public void MetadataCache_PublicProtectedProperty_Test()
-        {
-            using (var verify = new Verify())
-            {
-                var result = MetadataCache.GetMetadata(typeof(Mock));
-                verify.IsNotNull(result, "GetMetadata returned a null");
-                var publicProtectedProperty = result.Properties["PublicProtectedProperty"];
-                verify.IsNotNull(publicProtectedProperty, "property wasn't found");
-                verify.IsFalse(publicProtectedProperty.AffectsCalculatedFields, "not used in calculated fields");
-                verify.AreEqual(0, publicProtectedProperty.CalculatedFields.Length, "not used in calculated fields");
-                verify.IsTrue(publicProtectedProperty.CanRead, "CanRead");
-                verify.IsFalse(publicProtectedProperty.CanWrite, "CanWrite");
-                verify.AreEqual("PublicProtectedProperty", publicProtectedProperty.Name, "Name");
-                verify.AreEqual("PublicProtectedProperty", publicProtectedProperty.PropertyChangedEventArgs.PropertyName, "PropertyName");
-                verify.AreEqual(typeof(int), publicProtectedProperty.PropertyType, "PropertyType");
-
-                verify.AreEqual(0, publicProtectedProperty.Validators.Length, "not used in validation");
-            }
-        }
-
-        [TestMethod]
-        public void MetadataCache_ProtectedProperty_Test()
-        {
-            using (var verify = new Verify())
-            {
-                var result = MetadataCache.GetMetadata(typeof(Mock));
-                verify.IsNotNull(result, "GetMetadata returned a null");
-                var protectedProperty = result.Properties["ProtectedProperty"];
-                verify.IsNotNull(protectedProperty, "property wasn't found");
-                verify.IsFalse(protectedProperty.AffectsCalculatedFields, "not used in calculated fields");
-                verify.AreEqual(0, protectedProperty.CalculatedFields.Length, "not used in calculated fields");
-                verify.IsFalse(protectedProperty.CanRead, "CanRead");
-                verify.IsFalse(protectedProperty.CanWrite, "CanWrite");
-                verify.AreEqual("ProtectedProperty", protectedProperty.Name, "Name");
-                verify.AreEqual("ProtectedProperty", protectedProperty.PropertyChangedEventArgs.PropertyName, "PropertyName");
-                verify.AreEqual(typeof(int), protectedProperty.PropertyType, "PropertyType");
-
-                verify.AreEqual(0, protectedProperty.Validators.Length, "not used in validation");
             }
         }
 
@@ -192,6 +182,117 @@ namespace Tests.Metadata
         }
 
         [TestMethod]
+        public void MetadataCache_ProtectedProperty_Test()
+        {
+            using (var verify = new Verify())
+            {
+                var result = MetadataCache.GetMetadata(typeof(Mock));
+                verify.IsNotNull(result, "GetMetadata returned a null");
+                var protectedProperty = result.Properties["ProtectedProperty"];
+                verify.IsNotNull(protectedProperty, "property wasn't found");
+                verify.IsFalse(protectedProperty.AffectsCalculatedFields, "not used in calculated fields");
+                verify.AreEqual(0, protectedProperty.CalculatedFields.Length, "not used in calculated fields");
+                verify.IsFalse(protectedProperty.CanRead, "CanRead");
+                verify.IsFalse(protectedProperty.CanWrite, "CanWrite");
+                verify.AreEqual("ProtectedProperty", protectedProperty.Name, "Name");
+                verify.AreEqual("ProtectedProperty", protectedProperty.PropertyChangedEventArgs.PropertyName, "PropertyName");
+                verify.AreEqual(typeof(int), protectedProperty.PropertyType, "PropertyType");
+
+                verify.AreEqual(0, protectedProperty.Validators.Length, "not used in validation");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_PublicPrivateProperty_Test()
+        {
+            using (var verify = new Verify())
+            {
+                var result = MetadataCache.GetMetadata(typeof(Mock));
+                verify.IsNotNull(result, "GetMetadata returned a null");
+                var publicPrivateProperty = result.Properties["PublicPrivateProperty"];
+                verify.IsNotNull(publicPrivateProperty, "property wasn't found");
+                verify.IsFalse(publicPrivateProperty.AffectsCalculatedFields, "not used in calculated fields");
+                verify.AreEqual(0, publicPrivateProperty.CalculatedFields.Length, "not used in calculated fields");
+                verify.IsTrue(publicPrivateProperty.CanRead, "CanRead");
+                verify.IsFalse(publicPrivateProperty.CanWrite, "CanWrite");
+                verify.AreEqual("PublicPrivateProperty", publicPrivateProperty.Name, "Name");
+                verify.AreEqual("PublicPrivateProperty", publicPrivateProperty.PropertyChangedEventArgs.PropertyName, "PropertyName");
+                verify.AreEqual(typeof(int), publicPrivateProperty.PropertyType, "PropertyType");
+
+                verify.AreEqual(0, publicPrivateProperty.Validators.Length, "not used in validation");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_PublicProperty_Test()
+        {
+            using (var verify = new Verify())
+            {
+                var result = MetadataCache.GetMetadata(typeof(Mock));
+                verify.IsNotNull(result, "GetMetadata returned a null");
+
+                var publicProperty = result.Properties["PublicProperty"];
+                verify.IsNotNull(publicProperty, "property wasn't found");
+                verify.IsFalse(publicProperty.AffectsCalculatedFields, "not used in calculated fields");
+                verify.AreEqual(0, publicProperty.CalculatedFields.Length, "not used in calculated fields");
+                verify.IsTrue(publicProperty.CanRead, "CanRead");
+                verify.IsTrue(publicProperty.CanWrite, "CanWrite");
+                verify.AreEqual("PublicProperty", publicProperty.Name, "Name");
+                verify.AreEqual("PublicProperty", publicProperty.PropertyChangedEventArgs.PropertyName, "PropertyName");
+                verify.AreEqual(typeof(int), publicProperty.PropertyType, "PropertyType");
+
+                verify.AreEqual(0, publicProperty.Validators.Length, "not used in validation");
+
+                verify.IsTrue(result.Constructors.HasDefaultConstructor, "this should have a automatically implemented default constructor");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_PublicProtectedProperty_Test()
+        {
+            using (var verify = new Verify())
+            {
+                var result = MetadataCache.GetMetadata(typeof(Mock));
+                verify.IsNotNull(result, "GetMetadata returned a null");
+                var publicProtectedProperty = result.Properties["PublicProtectedProperty"];
+                verify.IsNotNull(publicProtectedProperty, "property wasn't found");
+                verify.IsFalse(publicProtectedProperty.AffectsCalculatedFields, "not used in calculated fields");
+                verify.AreEqual(0, publicProtectedProperty.CalculatedFields.Length, "not used in calculated fields");
+                verify.IsTrue(publicProtectedProperty.CanRead, "CanRead");
+                verify.IsFalse(publicProtectedProperty.CanWrite, "CanWrite");
+                verify.AreEqual("PublicProtectedProperty", publicProtectedProperty.Name, "Name");
+                verify.AreEqual("PublicProtectedProperty", publicProtectedProperty.PropertyChangedEventArgs.PropertyName, "PropertyName");
+                verify.AreEqual(typeof(int), publicProtectedProperty.PropertyType, "PropertyType");
+
+                verify.AreEqual(0, publicProtectedProperty.Validators.Length, "not used in validation");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_ReflexiveTest1()
+        {
+            using (var verify = new Verify())
+            {
+                var fromType = MetadataCache.GetMetadata(typeof(Mock));
+                var fromTypeInfo = MetadataCache.GetMetadata(typeof(Mock).GetTypeInfo());
+
+                verify.AreSame(fromType, fromTypeInfo, "From Type was not cached");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_ReflexiveTest2()
+        {
+            using (var verify = new Verify())
+            {
+                var fromTypeInfo = MetadataCache.GetMetadata(typeof(Mock).GetTypeInfo());
+                var fromType = MetadataCache.GetMetadata(typeof(Mock));
+
+                verify.AreSame(fromType, fromTypeInfo, "From TypeInfo was not cached");
+            }
+        }
+
+        [TestMethod]
         public void MetadataCache_SetOnlyProperty_Test()
         {
             using (var verify = new Verify())
@@ -210,97 +311,6 @@ namespace Tests.Metadata
                 verify.AreEqual(typeof(int), setOnlyProperty.PropertyType, "PropertyType");
 
                 verify.AreEqual(0, setOnlyProperty.Validators.Length, "not used in validation");
-            }
-        }
-
-        [TestMethod]
-        public void MetadataCache_Test2()
-        {
-            using (var verify = new Verify())
-            {
-                verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((Type)null));
-            }
-        }
-
-
-        [TestMethod]
-        public void MetadataCache_Test2b()
-        {
-            using (var verify = new Verify())
-            {
-                verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((TypeInfo)null));
-            }
-        }
-
-        [TestMethod]
-        public void MetadataCache_Test4()
-        {
-            using (var verify = new Verify())
-            {
-                var result = MetadataCache.GetMetadata(typeof(Mock));
-
-                var source1 = result.Properties["CalculatedSource1"];
-                var target = result.Properties["CalculatedTarget"];
-
-                verify.IsTrue(source1.AffectsCalculatedFields, "AffectsCalculatedFields");
-                CollectionAssert.Contains(source1.CalculatedFields, target);
-            }
-        }
-
-        [TestMethod]
-        public void MetadataCache_Test5()
-        {
-            using (var verify = new Verify())
-            {
-                try
-                {
-                    MetadataCache.GetMetadata(typeof(BadMock));
-                    verify.Fail("This should have thrown an exception because of the unmatched calculated field.");
-                }
-                catch (InvalidOperationException)
-                {
-
-                }
-            }
-        }
-
-        [TestMethod]
-        public void MetadataCache_Test7()
-        {
-            using (var verify = new Verify())
-            {
-                var result = MetadataCache.GetMetadata(typeof(Mock));
-                var mock = new Mock();
-                var prop = result.Properties["PrivateProperty"];
-
-                try
-                {
-                    prop.InvokeGet(mock);
-                }
-                catch (InvalidOperationException)
-                {
-
-                }
-            }
-        }
-
-        [TestMethod]
-        public void MetadataCache_Test8()
-        {
-            using (var verify = new Verify())
-            {
-                var result = MetadataCache.GetMetadata(typeof(Mock));
-                var mock = new Mock();
-                var prop = result.Properties["PrivateProperty"];
-
-                try
-                {
-                    prop.InvokeSet(mock, 5);
-                }
-                catch (InvalidOperationException)
-                {
-
-                }
             }
         }
 
@@ -380,16 +390,6 @@ namespace Tests.Metadata
             }
         }
 
-        class StringIndexedMock
-        {
-            public bool this[string index]
-            {
-                get { return true; }
-                set { }
-            }
-        }
-
-
         [TestMethod]
         public void MetadataCache_Test15()
         {
@@ -427,6 +427,15 @@ namespace Tests.Metadata
             {
                 var result = MetadataCache.GetMetadata(typeof(Mock));
                 verify.ArgumentException("propertyName", () => result.Properties.Contains((string)null));
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_Test2()
+        {
+            using (var verify = new Verify())
+            {
+                verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((Type)null));
             }
         }
 
@@ -471,17 +480,6 @@ namespace Tests.Metadata
         }
 
         [TestMethod]
-        public void MetadataCache_Test29()
-        {
-            using (var verify = new Verify())
-            {
-                var result = (IEnumerable)MetadataCache.GetMetadata(typeof(Mock)).Properties;
-                verify.IsNotNull(result.GetEnumerator(), "basic enumerator check");
-            }
-        }
-
-
-        [TestMethod]
         public void MetadataCache_Test24()
         {
             using (var verify = new Verify())
@@ -500,8 +498,7 @@ namespace Tests.Metadata
             using (var verify = new Verify())
             {
                 var result = MetadataCache.GetMetadata(typeof(Mock));
-                PropertyMetadata p;
-                verify.IsFalse(result.Properties.TryGetValue("DOES_NOT_EXIST", out p), "TryGet expected to fail here");
+                verify.IsFalse(result.Properties.TryGetValue("DOES_NOT_EXIST", out PropertyMetadata p), "TryGet expected to fail here");
                 verify.IsNull(p, "TryGet failed, so this should be null.");
             }
         }
@@ -512,8 +509,7 @@ namespace Tests.Metadata
             using (var verify = new Verify())
             {
                 var result = MetadataCache.GetMetadata(typeof(Mock));
-                PropertyMetadata p;
-                verify.IsTrue(result.Properties.TryGetValue("PublicProperty", out p), "TryGet should have succeeded");
+                verify.IsTrue(result.Properties.TryGetValue("PublicProperty", out PropertyMetadata p), "TryGet should have succeeded");
                 verify.IsNotNull(p, "TryGet should have succeeded");
             }
         }
@@ -524,8 +520,7 @@ namespace Tests.Metadata
             using (var verify = new Verify())
             {
                 var result = MetadataCache.GetMetadata(typeof(Mock));
-                PropertyMetadata p;
-                verify.ArgumentException("propertyName", () => result.Properties.TryGetValue("", out p), "can't use empty strings for property name");
+                verify.ArgumentException("propertyName", () => result.Properties.TryGetValue("", out PropertyMetadata p), "can't use empty strings for property name");
             }
         }
 
@@ -535,11 +530,28 @@ namespace Tests.Metadata
             using (var verify = new Verify())
             {
                 var result = MetadataCache.GetMetadata(typeof(Mock));
-                PropertyMetadata p;
-                verify.ArgumentException("propertyName", () => result.Properties.TryGetValue(null, out p));
+                verify.ArgumentException("propertyName", () => result.Properties.TryGetValue(null, out PropertyMetadata p));
             }
         }
 
+        [TestMethod]
+        public void MetadataCache_Test29()
+        {
+            using (var verify = new Verify())
+            {
+                var result = (IEnumerable)MetadataCache.GetMetadata(typeof(Mock)).Properties;
+                verify.IsNotNull(result.GetEnumerator(), "basic enumerator check");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_Test2b()
+        {
+            using (var verify = new Verify())
+            {
+                verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((TypeInfo)null));
+            }
+        }
 
         [TestMethod]
         public void MetadataCache_Test30()
@@ -568,140 +580,153 @@ namespace Tests.Metadata
         {
             using (var verify = new Verify())
             {
-                var result = MetadataCache.GetMetadata(typeof(Base)).ColumnsFor;
-                verify.AreEqual(5, result.Length, "");
-                verify.AreEqual("Property0", result[0], "");
-                verify.AreEqual("PropertyA1", result[1], "");
-                verify.AreEqual("PropertyA2", result[2], "");
-                verify.AreEqual("BbbPropertyB1", result[3], "");
-                verify.AreEqual("BbbPropertyB2", result[4], "");
+                var result = MetadataCache.GetMetadata(typeof(Base)).ColumnsFor.OrderBy(x => x).ToList();
+                verify.AreEqual(5, result.Count, "");
+                verify.AreEqual("BbbPropertyB1", result[0], "");
+                verify.AreEqual("BbbPropertyB2", result[1], "");
+                verify.AreEqual("Property0", result[2], "");
+                verify.AreEqual("PropertyA1", result[3], "");
+                verify.AreEqual("PropertyA2", result[4], "");
             }
         }
 
         [TestMethod]
-        public void MetadataCache_ReflexiveTest1()
+        public void MetadataCache_Test4()
         {
             using (var verify = new Verify())
             {
-                var fromType = MetadataCache.GetMetadata(typeof(Mock));
-                var fromTypeInfo = MetadataCache.GetMetadata(typeof(Mock).GetTypeInfo());
+                var result = MetadataCache.GetMetadata(typeof(Mock));
 
-                verify.AreSame(fromType, fromTypeInfo, "From Type was not cached");
-            }
-        }
-        [TestMethod]
-        public void MetadataCache_ReflexiveTest2()
-        {
-            using (var verify = new Verify())
-            {
-                var fromTypeInfo = MetadataCache.GetMetadata(typeof(Mock).GetTypeInfo());
-                var fromType = MetadataCache.GetMetadata(typeof(Mock));
+                var source1 = result.Properties["CalculatedSource1"];
+                var target = result.Properties["CalculatedTarget"];
 
-                verify.AreSame(fromType, fromTypeInfo, "From TypeInfo was not cached");
+                verify.IsTrue(source1.AffectsCalculatedFields, "AffectsCalculatedFields");
+                CollectionAssert.Contains(source1.CalculatedFields, target);
             }
         }
 
         [TestMethod]
-        public void MetadataCache_CSharp_Normal()
+        public void MetadataCache_Test5()
         {
             using (var verify = new Verify())
             {
-                var name = MetadataCache.GetMetadata(typeof(Normal)).CSharpFullName;
-                verify.AreEqual("Tests.Metadata.Normal", name, "C# type name was not correct");
+                try
+                {
+                    MetadataCache.GetMetadata(typeof(BadMock));
+                    verify.Fail("This should have thrown an exception because of the unmatched calculated field.");
+                }
+                catch (InvalidOperationException)
+                {
+                }
             }
         }
 
         [TestMethod]
-        public void MetadataCache_CSharp_Nested()
+        public void MetadataCache_Test7()
         {
             using (var verify = new Verify())
             {
-                var name = MetadataCache.GetMetadata(typeof(Normal.Nested)).CSharpFullName;
-                verify.AreEqual("Tests.Metadata.Normal.Nested", name, "C# type name was not correct");
+                var result = MetadataCache.GetMetadata(typeof(Mock));
+                var mock = new Mock();
+                var prop = result.Properties["PrivateProperty"];
+
+                try
+                {
+                    prop.InvokeGet(mock);
+                }
+                catch (InvalidOperationException)
+                {
+                }
             }
         }
 
         [TestMethod]
-        public void MetadataCache_CSharp_Generic()
+        public void MetadataCache_Test8()
         {
             using (var verify = new Verify())
             {
-                var name = MetadataCache.GetMetadata(typeof(Generic<int>)).CSharpFullName;
-                verify.AreEqual("Tests.Metadata.Generic<System.Int32>", name, "C# type name was not correct");
+                var result = MetadataCache.GetMetadata(typeof(Mock));
+                var mock = new Mock();
+                var prop = result.Properties["PrivateProperty"];
+
+                try
+                {
+                    prop.InvokeSet(mock, 5);
+                }
+                catch (InvalidOperationException)
+                {
+                }
             }
         }
 
-        [TestMethod]
-        public void MetadataCache_CSharp_NestedInGeneric()
+        public class AutoConstructor { }
+
+        public class DefaultConstructor
         {
-            using (var verify = new Verify())
+            public DefaultConstructor()
             {
-                var name = MetadataCache.GetMetadata(typeof(Generic<int>.NestedInGeneric)).CSharpFullName;
-                verify.AreEqual("Tests.Metadata.Generic<System.Int32>.NestedInGeneric", name, "C# type name was not correct");
             }
         }
 
-        [TestMethod]
-        public void MetadataCache_CSharp_GenericNestedInGeneric()
+        public class MultiConstructor
         {
-            using (var verify = new Verify())
+            public MultiConstructor()
             {
-                var name = MetadataCache.GetMetadata(typeof(Generic<int>.GenericNestedInGeneric<long>)).CSharpFullName;
-                verify.AreEqual("Tests.Metadata.Generic<System.Int32>.GenericNestedInGeneric<System.Int64>", name, "C# type name was not correct");
+            }
+
+            public MultiConstructor(int x)
+            {
+            }
+
+            public MultiConstructor(string x)
+            {
+            }
+
+            public MultiConstructor(int a, string b)
+            {
             }
         }
 
-        [TestMethod]
-        public void MetadataCache_CSharp_Generic_Of_Generic()
+        public class NonDefaultConstructor
         {
-            using (var verify = new Verify())
+            public NonDefaultConstructor(int x)
             {
-                var name = MetadataCache.GetMetadata(typeof(Generic<Generic<int>>)).CSharpFullName;
-                verify.AreEqual("Tests.Metadata.Generic<Tests.Metadata.Generic<System.Int32>>", name, "C# type name was not correct");
+            }
+        }
+
+        public class PrivateDefaultConstructor
+        {
+            private PrivateDefaultConstructor()
+            {
+            }
+        }
+
+        public class StaticConstructor
+        {
+            static StaticConstructor()
+            {
+            }
+        }
+
+        private class DefaultConstructorPrivateClass
+        {
+            public DefaultConstructorPrivateClass()
+            {
+            }
+        }
+
+        class StringIndexedMock
+        {
+            public bool this[string index]
+            {
+                get { return true; }
+                set { }
             }
         }
     }
 
-    public class Normal {
+    public class Normal
+    {
         public class Nested { }
     }
-
-    public class Generic <T>
-    {
-        public class NestedInGeneric { }
-
-        public class GenericNestedInGeneric<T2> { }
-    }
-
-    public class Base
-    {
-        public int Property0 { get; set; }
-
-        [Decompose]
-        public ChildA ChildA { get; set; }
-        [Decompose("Bbb")]
-        public ChildB ChildB { get; set; }
-    }
-
-    public class ChildA
-    {
-        public int PropertyA1 { get; set; }
-        [Column("PropertyA2")]
-        public int Property { get; set; }
-        [NotMapped]
-        public int PropertyAX { get; set; }
-
-    }
-
-    public class ChildB
-    {
-        public int PropertyB1 { get; set; }
-        [Column("PropertyB2")]
-        public int Property { get; set; }
-        [NotMapped]
-        public int PropertyBX { get; set; }
-
-    }
-
-
 }

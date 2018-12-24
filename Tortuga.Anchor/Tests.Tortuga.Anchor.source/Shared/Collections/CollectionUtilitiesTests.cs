@@ -68,6 +68,24 @@ namespace Tests.Collections
                 list.Add("CCC");
 
                 CollectionUtilities.AddRange(target, list);
+                verify.AreEqual(3, target.Count, "AddRange should have added 3 items");
+                verify.ItemsAreEqual(new[] { "AAA", "BBB", "CCC" }, target, "AddRange should have added 3 items");
+            }
+        }
+
+        [TestMethod()]
+        public void CollectionUtilities_AddRange_Test3b()
+        {
+            using (var verify = new Verify())
+            {
+                List<string> target = new List<string>();
+                List<string> list = new List<string>();
+                target.Add("AAA");
+                list.Add("BBB");
+                list.Add("CCC");
+
+                CollectionUtilities.AddRange((ICollection<string>)target, (IEnumerable<string>)list);
+                verify.AreEqual(3, target.Count, "AddRange should have added 3 items");
                 verify.ItemsAreEqual(new[] { "AAA", "BBB", "CCC" }, target, "AddRange should have added 3 items");
             }
         }

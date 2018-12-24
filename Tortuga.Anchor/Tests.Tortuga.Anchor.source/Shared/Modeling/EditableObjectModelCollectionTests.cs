@@ -16,22 +16,6 @@ namespace Tests.Modeling
     public class EditableObjectModelCollectionTests
     {
         [TestMethod]
-        public void EditableObjectModelCollection_AddRemoveHandlerTest()
-        {
-            var fired = false;
-            var person = new EditablePersonCollection();
-            var listener = new Listener<PropertyChangedEventArgs>((sender, e) => { fired = true; });
-            person.ErrorsChanged += (sender, e) => { };
-            person.AddHandler(listener);
-            person.FirstName = "Tom";
-            Assert.IsTrue(fired);
-            fired = false;
-            person.RemoveHandler(listener);
-            person.FirstName = "Sam";
-            Assert.IsFalse(fired);
-        }
-
-        [TestMethod]
         public void EditableObjectModelCollection_AddHandlerNullTest()
         {
             var person = new EditablePersonCollection();
@@ -77,48 +61,19 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void EditableObjectModelCollection_RemoveHandlerNullTest()
+        public void EditableObjectModelCollection_AddRemoveHandlerTest()
         {
+            var fired = false;
             var person = new EditablePersonCollection();
-            try
-            {
-                person.RemoveHandler((IListener<PropertyChangedEventArgs>)null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_RemoveHandlerNullTest2()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_RemoveHandlerNullTest3()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
+            var listener = new Listener<PropertyChangedEventArgs>((sender, e) => { fired = true; });
+            person.ErrorsChanged += (sender, e) => { };
+            person.AddHandler(listener);
+            person.FirstName = "Tom";
+            Assert.IsTrue(fired);
+            fired = false;
+            person.RemoveHandler(listener);
+            person.FirstName = "Sam";
+            Assert.IsFalse(fired);
         }
 
         [TestMethod]
@@ -141,58 +96,6 @@ namespace Tests.Modeling
                 person.InvokeGoodPropertyMessage();
                 eventAssert.ExpectEvent("FullName");
             }
-        }
-
-        //[TestMethod]
-        //public void EditableObjectModelCollection_PropertyChangedTest()
-        //{
-        //	var person = new EditableSimplePersonCollection();
-        //	try
-        //	{
-        //		person.InvokeBadPropertyMessage();
-        //		Assert.Fail("Expected an exception");
-        //	}
-        //	catch (ArgumentOutOfRangeException ex)
-        //	{
-        //		Assert.AreEqual("propertyName", ex.ParamName);
-        //		Assert.AreEqual("Boom", ex.ActualValue);
-        //	}
-        //}
-
-        [TestMethod]
-        public void EditableObjectModelCollection_ValidationTest()
-        {
-            var person = new EditablePersonCollection();
-
-            person.Validate();
-            Assert.IsTrue(person.HasErrors);
-            var errors = person.GetErrors("FirstName");
-            Assert.AreEqual(1, errors.Count);
-
-            person.FirstName = "John";
-            Assert.IsFalse(person.HasErrors);
-            var errors2 = person.GetErrors("FirstName");
-            Assert.AreEqual(0, errors2.Count);
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetNewTest()
-        {
-            var person = new EditablePersonCollection();
-
-            var a = person.Boss;
-            Assert.AreEqual("Da", a.FirstName);
-            Assert.AreEqual("Boss", a.LastName);
-            Assert.AreSame(a, person.Boss);
-
-            var b = person.Partner;
-            Assert.AreSame(b, person.Partner);
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_CtrTest()
-        {
-            var employee = new EditablePersonCollection();
         }
 
         [TestMethod]
@@ -218,11 +121,9 @@ namespace Tests.Modeling
             Assert.AreEqual("FirstName", errors[0].MemberNames.First());
             Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
 
-#if !WINDOWS_UWP
             var interfacePerson = (IDataErrorInfo)person;
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-#endif
             person.FirstName = "Tom";
             Assert.IsFalse(person.HasErrors);
             errors = person.GetErrors();
@@ -231,225 +132,8 @@ namespace Tests.Modeling
             errors = person.GetErrors("FirstName");
             Assert.AreEqual(0, errors.Count);
 
-#if !WINDOWS_UWP
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-#endif
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_MultiFieldValidation()
-        {
-            var person = new EditablePersonCollection();
-            person.FirstName = "Tom";
-            person.LastName = "Tom";
-            var errors = person.GetErrors("FirstName");
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
-
-            errors = person.GetErrors("LastName");
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
-
-            errors = person.GetErrors();
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
-            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
-
-#if !WINDOWS_UWP
-            var interfacePerson = (IDataErrorInfo)person;
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson.Error));
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["LastName"]));
-#endif
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetFailedTest()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadGetWithDefault();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetFailedTest3()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadGetWithDefault2();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetFailedTest2()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadGet();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetFailedTest4()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadGet2();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetNewFailedTest1()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadGetNew1();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetNewFailedTest2()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadGetNew2();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetNewFailedTest3()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadGetNew3();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("creationFunction", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetNewFailedTest4()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadGetNew4();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_GetNewFailedTest5()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadGetNew5();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_SetFailedTest1()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadSet1();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_SetFailedTest2()
-        {
-            var person = new EditablePersonCollection();
-            try
-            {
-                person.BadSet2();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-            }
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_CtrTest1()
-        {
-            var list = new List<EditablePerson>() { new EditablePerson(), new EditablePerson(), new EditablePerson() };
-
-            var people = new EditablePersonCollection(list);
-
-            CollectionAssert.AreEqual(list, people);
-        }
-
-        [TestMethod]
-        public void EditableObjectModelCollection_CtrTest2()
-        {
-            var list = new List<EditablePerson>() { new EditablePerson(), new EditablePerson(), new EditablePerson() };
-
-            var people = new EditablePersonCollection((IEnumerable<EditablePerson>)list);
-
-            CollectionAssert.AreEqual(list, people);
         }
 
         [TestMethod]
@@ -620,6 +304,32 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
+        public void EditableObjectModelCollection_CtrTest()
+        {
+            var employee = new EditablePersonCollection();
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_CtrTest1()
+        {
+            var list = new List<EditablePerson>() { new EditablePerson(), new EditablePerson(), new EditablePerson() };
+
+            var people = new EditablePersonCollection(list);
+
+            CollectionAssert.AreEqual(list, people);
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_CtrTest2()
+        {
+            var list = new List<EditablePerson>() { new EditablePerson(), new EditablePerson(), new EditablePerson() };
+
+            var people = new EditablePersonCollection((IEnumerable<EditablePerson>)list);
+
+            CollectionAssert.AreEqual(list, people);
+        }
+
+        [TestMethod]
         public void EditableObjectModelCollection_EditableObjectTest()
         {
             var people = new EditablePersonCollection();
@@ -694,6 +404,244 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
+        public void EditableObjectModelCollection_GetFailedTest()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadGetWithDefault();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_GetFailedTest2()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadGet();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_GetFailedTest3()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadGetWithDefault2();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_GetFailedTest4()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadGet2();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_GetNewFailedTest1()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadGetNew1();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_GetNewFailedTest2()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadGetNew2();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_GetNewFailedTest3()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadGetNew3();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("creationFunction", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_GetNewFailedTest4()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadGetNew4();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_GetNewFailedTest5()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadGetNew5();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_GetNewTest()
+        {
+            var person = new EditablePersonCollection();
+
+            var a = person.Boss;
+            Assert.AreEqual("Da", a.FirstName);
+            Assert.AreEqual("Boss", a.LastName);
+            Assert.AreSame(a, person.Boss);
+
+            var b = person.Partner;
+            Assert.AreSame(b, person.Partner);
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_MultiFieldValidation()
+        {
+            var person = new EditablePersonCollection();
+            person.FirstName = "Tom";
+            person.LastName = "Tom";
+            var errors = person.GetErrors("FirstName");
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            errors = person.GetErrors("LastName");
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            errors = person.GetErrors();
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
+            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            var interfacePerson = (IDataErrorInfo)person;
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson.Error));
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["LastName"]));
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_RemoveHandlerNullTest()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.RemoveHandler((IListener<PropertyChangedEventArgs>)null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_RemoveHandlerNullTest2()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_RemoveHandlerNullTest3()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        //[TestMethod]
+        //public void EditableObjectModelCollection_PropertyChangedTest()
+        //{
+        //	var person = new EditableSimplePersonCollection();
+        //	try
+        //	{
+        //		person.InvokeBadPropertyMessage();
+        //		Assert.Fail("Expected an exception");
+        //	}
+        //	catch (ArgumentOutOfRangeException ex)
+        //	{
+        //		Assert.AreEqual("propertyName", ex.ParamName);
+        //		Assert.AreEqual("Boom", ex.ActualValue);
+        //	}
+        //}
+
+        [TestMethod]
         public void EditableObjectModelCollection_SerializationTest1()
         {
             var root = new EditablePersonCollectionRoot();
@@ -720,6 +668,52 @@ namespace Tests.Modeling
             //Assert.AreEqual(people.FullName, newPeople.FullName);
             Assert.AreEqual(people.IsChangedLocal, newPeople.IsChangedLocal);
             Assert.AreEqual(people.Count, newPeople.Count);
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_SetFailedTest1()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadSet1();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_SetFailedTest2()
+        {
+            var person = new EditablePersonCollection();
+            try
+            {
+                person.BadSet2();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void EditableObjectModelCollection_ValidationTest()
+        {
+            var person = new EditablePersonCollection();
+
+            person.Validate();
+            Assert.IsTrue(person.HasErrors);
+            var errors = person.GetErrors("FirstName");
+            Assert.AreEqual(1, errors.Count);
+
+            person.FirstName = "John";
+            Assert.IsFalse(person.HasErrors);
+            var errors2 = person.GetErrors("FirstName");
+            Assert.AreEqual(0, errors2.Count);
         }
     }
 }

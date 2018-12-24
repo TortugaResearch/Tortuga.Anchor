@@ -16,22 +16,6 @@ namespace Tests.Modeling
     public class ModelBaseTests
     {
         [TestMethod]
-        public void ModelBase_AddRemoveHandlerTest()
-        {
-            var fired = false;
-            var person = new SimplePerson();
-            var listener = new Listener<PropertyChangedEventArgs>((sender, e) => { fired = true; });
-            person.ErrorsChanged += (sender, e) => { };
-            person.AddHandler(listener);
-            person.FirstName = "Tom";
-            Assert.IsTrue(fired);
-            fired = false;
-            person.RemoveHandler(listener);
-            person.FirstName = "Sam";
-            Assert.IsFalse(fired);
-        }
-
-        [TestMethod]
         public void ModelBase_AddHandlerNullTest()
         {
             var person = new SimplePerson();
@@ -47,18 +31,19 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ModelBase_RemoveHandlerNullTest()
+        public void ModelBase_AddRemoveHandlerTest()
         {
+            var fired = false;
             var person = new SimplePerson();
-            try
-            {
-                person.RemoveHandler(null);
-                Assert.Fail("Excepted an ArgumentNullException");
-            }
-            catch (ArgumentNullException ex)
-            {
-                Assert.AreEqual("eventHandler", ex.ParamName);
-            }
+            var listener = new Listener<PropertyChangedEventArgs>((sender, e) => { fired = true; });
+            person.ErrorsChanged += (sender, e) => { };
+            person.AddHandler(listener);
+            person.FirstName = "Tom";
+            Assert.IsTrue(fired);
+            fired = false;
+            person.RemoveHandler(listener);
+            person.FirstName = "Sam";
+            Assert.IsFalse(fired);
         }
 
         [TestMethod]
@@ -86,88 +71,6 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ModelBase_PropertyChangedTest()
-        {
-            var person = new SimplePerson();
-            try
-            {
-                person.InvokeBadPropertyMessage();
-                Assert.Fail("Expected an exception");
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Assert.AreEqual("propertyName", ex.ParamName);
-                Assert.AreEqual("Boom", ex.ActualValue);
-            }
-        }
-
-        [TestMethod]
-        public void ModelBase_ValidationTest()
-        {
-            using (var verify = new Verify())
-            {
-                var person = new SimplePerson();
-                var eventAssert = new PropertyChangedEventTest(verify, person);
-
-                person.Validate();
-                Assert.IsTrue(person.HasErrors);
-                eventAssert.ExpectEvent("HasErrors");
-                var errors = person.GetErrors("FirstName");
-                Assert.AreEqual(1, errors.Count);
-
-                person.FirstName = "John";
-                Assert.IsFalse(person.HasErrors);
-                eventAssert.ExpectEvent("FirstName");
-                eventAssert.ExpectEvent("FullName");
-                eventAssert.ExpectEvent("HasErrors");
-
-                var errors2 = person.GetErrors("FirstName");
-                Assert.AreEqual(0, errors2.Count);
-            }
-        }
-
-        [TestMethod]
-        public void ModelBase_ValidationTest2()
-        {
-            using (var verify = new Verify())
-            {
-                var person = new SimplePerson();
-                var eventAssert = new PropertyChangedEventTest(verify, person);
-
-                person.Validate();
-                Assert.IsTrue(person.HasErrors);
-                eventAssert.ExpectEvent("HasErrors");
-                var errors = person.GetErrors("FirstName");
-                Assert.AreEqual(1, errors.Count);
-
-                person.ClearErrors();
-                Assert.IsFalse(person.HasErrors);
-                var errors2 = person.GetErrors("FirstName");
-                Assert.AreEqual(0, errors2.Count);
-            }
-        }
-
-        [TestMethod]
-        public void ModelBase_GetNewTest()
-        {
-            var person = new SimplePerson();
-
-            var a = person.Boss;
-            Assert.AreEqual("Da", a.FirstName);
-            Assert.AreEqual("Boss", a.LastName);
-            Assert.AreSame(a, person.Boss);
-
-            var b = person.Partner;
-            Assert.AreSame(b, person.Partner);
-        }
-
-        [TestMethod]
-        public void ModelBase_CtrTest()
-        {
-            var employee = new SimplePerson();
-        }
-
-        [TestMethod]
         public void ModelBase_BasicValidation()
         {
             var person = new SimplePerson();
@@ -190,11 +93,9 @@ namespace Tests.Modeling
             Assert.AreEqual("FirstName", errors[0].MemberNames.First());
             Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
 
-#if !WINDOWS_UWP
             var interfacePerson = (IDataErrorInfo)person;
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-#endif
             person.FirstName = "Tom";
             Assert.IsFalse(person.HasErrors);
             errors = person.GetErrors();
@@ -203,45 +104,26 @@ namespace Tests.Modeling
             errors = person.GetErrors("FirstName");
             Assert.AreEqual(0, errors.Count);
 
-#if !WINDOWS_UWP
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson.Error));
             Assert.IsFalse(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-#endif
         }
 
         [TestMethod]
-        public void ModelBase_MultiFieldValidation()
+        public void ModelBase_ChildPropertyChangedTest()
+
         {
             var person = new SimplePerson();
-            person.FirstName = "Tom";
-            person.LastName = "Tom";
-            IList<ValidationResult> errors = person.GetErrors("FirstName");
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+            Assert.AreEqual(0, person.SecretaryChangeCounter);
+            person.Secretary = new SimplePerson();
+            Assert.AreEqual(0, person.SecretaryChangeCounter);
+            person.Secretary.FirstName = "Tom";
+            Assert.AreEqual(2, person.SecretaryChangeCounter, "FirstName and FullName");
+        }
 
-            errors = person.GetErrors("LastName");
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
-
-            errors = ((INotifyDataErrorInfo)person).GetErrors("LastName").Cast<ValidationResult>().ToList();
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
-
-            errors = person.GetErrors();
-            Assert.AreEqual(1, errors.Count);
-            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
-            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
-            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
-
-#if !WINDOWS_UWP
-            var interfacePerson = (IDataErrorInfo)person;
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson.Error));
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
-            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["LastName"]));
-#endif
+        [TestMethod]
+        public void ModelBase_CtrTest()
+        {
+            var employee = new SimplePerson();
         }
 
         [TestMethod]
@@ -260,12 +142,12 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ModelBase_GetFailedTest3()
+        public void ModelBase_GetFailedTest2()
         {
             var person = new SimplePerson();
             try
             {
-                person.BadGetWithDefault2();
+                person.BadGet();
                 Assert.Fail("Expected an exception");
             }
             catch (ArgumentException ex)
@@ -275,12 +157,12 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ModelBase_GetFailedTest2()
+        public void ModelBase_GetFailedTest3()
         {
             var person = new SimplePerson();
             try
             {
-                person.BadGet();
+                person.BadGetWithDefault2();
                 Assert.Fail("Expected an exception");
             }
             catch (ArgumentException ex)
@@ -410,6 +292,102 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
+        public void ModelBase_GetNewTest()
+        {
+            var person = new SimplePerson();
+
+            var a = person.Boss;
+            Assert.AreEqual("Da", a.FirstName);
+            Assert.AreEqual("Boss", a.LastName);
+            Assert.AreSame(a, person.Boss);
+
+            var b = person.Partner;
+            Assert.AreSame(b, person.Partner);
+        }
+
+        [TestMethod]
+        public void ModelBase_MultiFieldValidation()
+        {
+            var person = new SimplePerson();
+            person.FirstName = "Tom";
+            person.LastName = "Tom";
+            IList<ValidationResult> errors = person.GetErrors("FirstName");
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            errors = person.GetErrors("LastName");
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            errors = ((INotifyDataErrorInfo)person).GetErrors("LastName").Cast<ValidationResult>().ToList();
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            errors = person.GetErrors();
+            Assert.AreEqual(1, errors.Count);
+            Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
+            Assert.IsTrue(errors[0].MemberNames.Contains("LastName"));
+            Assert.IsFalse(string.IsNullOrEmpty(errors[0].ErrorMessage));
+
+            var interfacePerson = (IDataErrorInfo)person;
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson.Error));
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["FirstName"]));
+            Assert.IsTrue(!string.IsNullOrEmpty(interfacePerson["LastName"]));
+        }
+
+        [TestMethod]
+        public void ModelBase_PropertyChangedTest()
+        {
+            var person = new SimplePerson();
+            try
+            {
+                person.InvokeBadPropertyMessage();
+                Assert.Fail("Expected an exception");
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Assert.AreEqual("propertyName", ex.ParamName);
+                Assert.AreEqual("Boom", ex.ActualValue);
+            }
+        }
+
+        [TestMethod]
+        public void ModelBase_RemoveHandlerNullTest()
+        {
+            var person = new SimplePerson();
+            try
+            {
+                person.RemoveHandler(null);
+                Assert.Fail("Excepted an ArgumentNullException");
+            }
+            catch (ArgumentNullException ex)
+            {
+                Assert.AreEqual("eventHandler", ex.ParamName);
+            }
+        }
+
+        [TestMethod]
+        public void ModelBase_SerializationTest1()
+        {
+            var person = new SimplePerson();
+            person.FirstName = "Tom";
+            person.LastName = "Jones";
+
+            var stream = new MemoryStream();
+            var serializer = new DataContractSerializer(typeof(SimplePerson));
+            serializer.WriteObject(stream, person);
+            stream.Position = 0;
+            var newPerson = (SimplePerson)serializer.ReadObject(stream);
+
+            Assert.AreEqual(person.FirstName, newPerson.FirstName);
+            Assert.AreEqual(person.LastName, newPerson.LastName);
+            Assert.AreEqual(person.FullName, newPerson.FullName);
+        }
+
+        [TestMethod]
         public void ModelBase_SetFailedTest1()
         {
             var person = new SimplePerson();
@@ -440,21 +418,49 @@ namespace Tests.Modeling
         }
 
         [TestMethod]
-        public void ModelBase_SerializationTest1()
+        public void ModelBase_ValidationTest()
         {
-            var person = new SimplePerson();
-            person.FirstName = "Tom";
-            person.LastName = "Jones";
+            using (var verify = new Verify())
+            {
+                var person = new SimplePerson();
+                var eventAssert = new PropertyChangedEventTest(verify, person);
 
-            var stream = new MemoryStream();
-            var serializer = new DataContractSerializer(typeof(SimplePerson));
-            serializer.WriteObject(stream, person);
-            stream.Position = 0;
-            var newPerson = (SimplePerson)serializer.ReadObject(stream);
+                person.Validate();
+                Assert.IsTrue(person.HasErrors);
+                eventAssert.ExpectEvent("HasErrors");
+                var errors = person.GetErrors("FirstName");
+                Assert.AreEqual(1, errors.Count);
 
-            Assert.AreEqual(person.FirstName, newPerson.FirstName);
-            Assert.AreEqual(person.LastName, newPerson.LastName);
-            Assert.AreEqual(person.FullName, newPerson.FullName);
+                person.FirstName = "John";
+                Assert.IsFalse(person.HasErrors);
+                eventAssert.ExpectEvent("FirstName");
+                eventAssert.ExpectEvent("FullName");
+                eventAssert.ExpectEvent("HasErrors");
+
+                var errors2 = person.GetErrors("FirstName");
+                Assert.AreEqual(0, errors2.Count);
+            }
+        }
+
+        [TestMethod]
+        public void ModelBase_ValidationTest2()
+        {
+            using (var verify = new Verify())
+            {
+                var person = new SimplePerson();
+                var eventAssert = new PropertyChangedEventTest(verify, person);
+
+                person.Validate();
+                Assert.IsTrue(person.HasErrors);
+                eventAssert.ExpectEvent("HasErrors");
+                var errors = person.GetErrors("FirstName");
+                Assert.AreEqual(1, errors.Count);
+
+                person.ClearErrors();
+                Assert.IsFalse(person.HasErrors);
+                var errors2 = person.GetErrors("FirstName");
+                Assert.AreEqual(0, errors2.Count);
+            }
         }
 
         [TestMethod]
@@ -467,18 +473,6 @@ namespace Tests.Modeling
             person.DateOfBirth = firstDate;
             person.DateOfBirth = secondDate;
             Assert.AreEqual(firstDate, person.PreviousDateOfBirth);
-        }
-
-        [TestMethod]
-        public void ModelBase_ChildPropertyChangedTest()
-
-        {
-            var person = new SimplePerson();
-            Assert.AreEqual(0, person.SecretaryChangeCounter);
-            person.Secretary = new SimplePerson();
-            Assert.AreEqual(0, person.SecretaryChangeCounter);
-            person.Secretary.FirstName = "Tom";
-            Assert.AreEqual(2, person.SecretaryChangeCounter, "FirstName and FullName");
         }
     }
 }

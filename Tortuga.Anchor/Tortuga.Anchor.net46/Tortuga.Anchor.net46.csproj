@@ -29,6 +29,7 @@
     <CodeAnalysisRuleSet>..\Tortuga.Anchor.ruleset</CodeAnalysisRuleSet>
     <NoWarn>
     </NoWarn>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,6 +44,7 @@
     <CodeAnalysisRuleSet>..\Tortuga.Anchor.ruleset</CodeAnalysisRuleSet>
     <NoWarn>
     </NoWarn>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -61,6 +63,7 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>..\Tortuga.Anchor.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

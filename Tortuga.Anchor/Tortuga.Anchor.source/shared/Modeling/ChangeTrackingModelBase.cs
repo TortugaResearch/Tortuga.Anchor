@@ -1,49 +1,31 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
 using Tortuga.Anchor.ComponentModel;
 using Tortuga.Anchor.Modeling.Internals;
-using System.Collections.Generic;
-
-#if !Serialization_Missing
-using System.Runtime.Serialization;
-#endif
-
-#if !DataAnnotations_Missing
-using System.ComponentModel.DataAnnotations.Schema;
-#endif
 
 namespace Tortuga.Anchor.Modeling
 {
     /// <summary>
     /// This ModelBase tracks which fields have changed since the last time AcceptChanges or RejectChanges was called. The purpose of this ModelBase is to easy to determine which objects have unsaved changes.
     /// </summary>
-#if !Serialization_Missing
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-#endif
     public class ChangeTrackingModelBase : AbstractModelBase<ChangeTrackingPropertyBag>, IDetailedPropertyChangeTracking
     {
-
         /// <summary>
         /// This ModelBase tracks which fields have changed since the last time Checkpoint or Revert was called.
         /// </summary>
 
-        public ChangeTrackingModelBase() { }
-
-        /// <summary>
-        /// Returns True if any fields were modified since the last call to AcceptChanges. This does not walk the object graph.
-        /// </summary>
-        /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
-        [NotMapped]
-        public bool IsChangedLocal
+        public ChangeTrackingModelBase()
         {
-            get { return Properties.IsChangedLocal; }
         }
 
         /// <summary>
         /// Returns True if any fields were modified since the last call to AcceptChanges. This does walks the object graph for changes in child objects as well.
         /// </summary>
         /// <returns></returns>
-
         [NotMapped]
         public bool IsChanged
         {
@@ -53,6 +35,16 @@ namespace Tortuga.Anchor.Modeling
                     return true;
                 return Properties.IsChangedGraph();
             }
+        }
+
+        /// <summary>
+        /// Returns True if any fields were modified since the last call to AcceptChanges. This does not walk the object graph.
+        /// </summary>
+        /// <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
+        [NotMapped]
+        public bool IsChangedLocal
+        {
+            get { return Properties.IsChangedLocal; }
         }
 
         /// <summary>
@@ -67,24 +59,12 @@ namespace Tortuga.Anchor.Modeling
         }
 
         /// <summary>
-        /// Discards all pending changes and reverts to the values used the last time AcceptChanges was called.
+        /// List of changed properties.
         /// </summary>
-        /// <remarks>
-        /// This will call RejectChanges on properties that implement IRevertibleChangeTracking
-        /// </remarks>
-        public void RejectChanges()
+        public IReadOnlyList<string> ChangedProperties()
         {
-            Properties.RejectChanges(true);
+            return Properties.ChangedProperties();
         }
-
-#if !Serialization_Missing
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context"), SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        [OnDeserialized]
-        void OnDeserialized(StreamingContext context)
-        {
-            AcceptChanges();
-        }
-#endif
 
         /// <summary>
         /// Gets the previous value for the indicated property.
@@ -106,12 +86,21 @@ namespace Tortuga.Anchor.Modeling
         }
 
         /// <summary>
-        /// List of changed properties.
+        /// Discards all pending changes and reverts to the values used the last time AcceptChanges was called.
         /// </summary>
-        public IReadOnlyList<string> ChangedProperties()
+        /// <remarks>
+        /// This will call RejectChanges on properties that implement IRevertibleChangeTracking
+        /// </remarks>
+        public void RejectChanges()
         {
-            return Properties.ChangedProperties();
+            Properties.RejectChanges(true);
+        }
+
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "context"), SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        [OnDeserialized]
+        void OnDeserialized(StreamingContext context)
+        {
+            AcceptChanges();
         }
     }
-
 }

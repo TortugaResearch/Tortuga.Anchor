@@ -2,44 +2,29 @@
 
 namespace Tortuga.Anchor.Eventing
 {
-
     /// <summary>
     /// A relayed event wraps a sender/event args pair so that it can be forwarded by another class.
     /// </summary>
 
     public class RelayedEventArgs<T> : EventArgs where T : EventArgs
     {
-        private readonly T m_EventArgs;
-        private readonly object m_OriginalSender;
-
         /// <summary>
         /// Create a new relayed event from an existing event
         /// </summary>
         public RelayedEventArgs(object originalSender, T eventArgs)
         {
-            if (eventArgs == null)
-                throw new ArgumentNullException(nameof(eventArgs), $"{nameof(eventArgs)} is null.");
-
-            m_EventArgs = eventArgs;
-            m_OriginalSender = originalSender;
+            EventArgs = eventArgs ?? throw new ArgumentNullException(nameof(eventArgs), $"{nameof(eventArgs)} is null.");
+            OriginalSender = originalSender;
         }
 
         /// <summary>
         /// The wrapped event args
         /// </summary>
-        public T EventArgs
-        {
-            get { return m_EventArgs; }
-        }
+        public T EventArgs { get; private set; }
 
         /// <summary>
         /// The object that raised the original event
         /// </summary>
-        public object OriginalSender
-        {
-            get { return m_OriginalSender; }
-        }
-
+        public object OriginalSender { get; private set; }
     }
-
 }
