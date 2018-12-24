@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,13 +46,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard1.3\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
@@ -67,196 +70,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\ChangeTracking\ChangeTrackingTests.cs">
-      <Link>ChangeTracking\ChangeTrackingTests.cs</Link>
+    <Compile Include="..\Tests.Tortuga.Anchor.source\shared\**\*.cs">
+      <Link>shared\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\ChangeTracking\Customer.cs">
-      <Link>ChangeTracking\Customer.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\ChangeTracking\Order.cs">
-      <Link>ChangeTracking\Order.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\ChangeTracking\OrderLine.cs">
-      <Link>ChangeTracking\OrderLine.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\ChangeTracking\OrderLinesCollection.cs">
-      <Link>ChangeTracking\OrderLinesCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\ChangeTracking\OrdersCollection.cs">
-      <Link>ChangeTracking\OrdersCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Collections\CollectionUtilitiesTests.cs">
-      <Link>Collections\CollectionUtilitiesTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Collections\Dictionary3Tests.cs">
-      <Link>Collections\Dictionary3Tests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Collections\ExtendedObservableCollectionTests.cs">
-      <Link>Collections\ExtendedObservableCollectionTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Collections\ExtendedReadOnlyObservableCollectionTests.cs">
-      <Link>Collections\ExtendedReadOnlyObservableCollectionTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Collections\WeakReferenceCollectionTests.cs">
-      <Link>Collections\WeakReferenceCollectionTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\ComponentModel\ItemEventArgsTests.cs">
-      <Link>ComponentModel\ItemEventArgsTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\DataAnnotations\CalculatedFieldAttributeTests.cs">
-      <Link>DataAnnotations\CalculatedFieldAttributeTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\DataAnnotations\ValidationResultCollectionTests.cs">
-      <Link>DataAnnotations\ValidationResultCollectionTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Dragnet\CollectionChangedEventTest.cs">
-      <Link>Dragnet\CollectionChangedEventTest.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Dragnet\EventPair`1.cs">
-      <Link>Dragnet\EventPair`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Dragnet\EventTest.cs">
-      <Link>Dragnet\EventTest.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Dragnet\Memory.cs">
-      <Link>Dragnet\Memory.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Dragnet\PropertyChangedEventTest.cs">
-      <Link>Dragnet\PropertyChangedEventTest.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Dragnet\Severity.cs">
-      <Link>Dragnet\Severity.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Dragnet\VerificationStep.cs">
-      <Link>Dragnet\VerificationStep.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Dragnet\Verify.cs">
-      <Link>Dragnet\Verify.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Eventing\RelayedEventArgsTests.cs">
-      <Link>Eventing\RelayedEventArgsTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\HelperClasses\ItemAddedEventTest`1.cs">
-      <Link>HelperClasses\ItemAddedEventTest`1.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\HelperClasses\ItemPropertyChangedEventAssert.cs">
-      <Link>HelperClasses\ItemPropertyChangedEventAssert.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\HelperClasses\ItemRemovedEventAssert.cs">
-      <Link>HelperClasses\ItemRemovedEventAssert.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Metadata\BadMock.cs">
-      <Link>Metadata\BadMock.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Metadata\DataMapMock.cs">
-      <Link>Metadata\DataMapMock.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Metadata\MetadataCacheTests.cs">
-      <Link>Metadata\MetadataCacheTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Metadata\Mock.cs">
-      <Link>Metadata\Mock.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Metadata\PropertyMetadataCollectionTests.cs">
-      <Link>Metadata\PropertyMetadataCollectionTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Metadata\ShadowedMock.cs">
-      <Link>Metadata\ShadowedMock.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Metadata\ShadowedMockBase.cs">
-      <Link>Metadata\ShadowedMockBase.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\Bar.cs">
-      <Link>Mocks\Bar.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\ChangeTrackingPerson.cs">
-      <Link>Mocks\ChangeTrackingPerson.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\ChangeTrackingPersonCollection.cs">
-      <Link>Mocks\ChangeTrackingPersonCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\ChangeTrackingPersonCollectionRoot.cs">
-      <Link>Mocks\ChangeTrackingPersonCollectionRoot.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\CustomPropertyBag.cs">
-      <Link>Mocks\CustomPropertyBag.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\EditablePerson.cs">
-      <Link>Mocks\EditablePerson.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\EditablePersonCollection.cs">
-      <Link>Mocks\EditablePersonCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\Foo.cs">
-      <Link>Mocks\Foo.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\FooCollection.cs">
-      <Link>Mocks\FooCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\MockChangeTracking.cs">
-      <Link>Mocks\MockChangeTracking.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\Notifier.cs">
-      <Link>Mocks\Notifier.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\NotifierCollection.cs">
-      <Link>Mocks\NotifierCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\ReadOnlyFooCollection.cs">
-      <Link>Mocks\ReadOnlyFooCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\SimplePerson.cs">
-      <Link>Mocks\SimplePerson.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\SimplePersonCollection.cs">
-      <Link>Mocks\SimplePersonCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Mocks\WeakNotifier.cs">
-      <Link>Mocks\WeakNotifier.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling.Internals\ChangeTrackingPropertyBagTests.cs">
-      <Link>Modeling.Internals\ChangeTrackingPropertyBagTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling.Internals\EditableObjectPropertyBagTests.cs">
-      <Link>Modeling.Internals\EditableObjectPropertyBagTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling.Internals\PropertyBagBaseTests.cs">
-      <Link>Modeling.Internals\PropertyBagBaseTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling.Internals\PropertyBagTests.cs">
-      <Link>Modeling.Internals\PropertyBagTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling.Internals\ValidationResultEqualityComparerTests.cs">
-      <Link>Modeling.Internals\ValidationResultEqualityComparerTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling\ChangeTrackingModelBaseTests.cs">
-      <Link>Modeling\ChangeTrackingModelBaseTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling\ChangeTrackingModelCollectionTests.cs">
-      <Link>Modeling\ChangeTrackingModelCollectionTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling\DataErrorsChangedEventArgsTests.cs">
-      <Link>Modeling\DataErrorsChangedEventArgsTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling\EditableObjectModelBaseTests.cs">
-      <Link>Modeling\EditableObjectModelBaseTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling\EditableObjectModelCollectionTests.cs">
-      <Link>Modeling\EditableObjectModelCollectionTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling\ModelBaseCollectionTests.cs">
-      <Link>Modeling\ModelBaseCollectionTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\Modeling\ModelBaseTests.cs">
-      <Link>Modeling\ModelBaseTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\RandomExtendedTests.cs">
-      <Link>RandomExtendedTests.cs</Link>
-    </Compile>
-    <Compile Include="..\Tests.Tortuga.Anchor.source\TaskUtilitiesTests.cs">
-      <Link>TaskUtilitiesTests.cs</Link>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tortuga.Anchor.net46\Tortuga.Anchor.net46.csproj">

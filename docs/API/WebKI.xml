@@ -1,13 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpKI>
-  <HelpKINode Title="(Of T1, T2) to Pair(Of T1, T2) conversion">
-    <HelpKINode Title="Implicit Conversion (KeyValuePair to Pair)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit_2.htm" />
-    <HelpKINode Title="Implicit Conversion (Tuple to Pair)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit_1.htm" />
-  </HelpKINode>
-  <HelpKINode Title="&lt;T1, T2&gt; to Pair&lt;T1, T2&gt; conversion">
-    <HelpKINode Title="Implicit Conversion (KeyValuePair to Pair)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit_2.htm" />
-    <HelpKINode Title="Implicit Conversion (Tuple to Pair)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit_1.htm" />
-  </HelpKINode>
   <HelpKINode Title="AbstractModelBase class">
     <HelpKINode Title="AbstractModelBase Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm" />
     <HelpKINode Title="AbstractModelBase Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm" />
@@ -33,6 +25,7 @@
   <HelpKINode Title="AbstractModelBase(Of TPropertyTracking).GetDefault(Of T) method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetDefault--1.htm" />
   <HelpKINode Title="AbstractModelBase(Of TPropertyTracking).GetNew method" Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetNew-.htm" />
   <HelpKINode Title="AbstractModelBase(Of TPropertyTracking).OnPropertyChanged method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.OnPropertyChanged.htm" />
+  <HelpKINode Title="AbstractModelBase(Of TPropertyTracking).OnPropertyChanging method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.OnPropertyChanging.htm" />
   <HelpKINode Title="AbstractModelBase(Of TPropertyTracking).Properties property" Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Properties.htm" />
   <HelpKINode Title="AbstractModelBase(Of TPropertyTracking).Set method" Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Set-.htm" />
   <HelpKINode Title="AbstractModelBase(Of TPropertyTracking).Validate method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Validate.htm" />
@@ -63,6 +56,7 @@
   <HelpKINode Title="AbstractModelBase&lt;TPropertyTracking&gt;.GetDefault&lt;T&gt; method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetDefault--1.htm" />
   <HelpKINode Title="AbstractModelBase&lt;TPropertyTracking&gt;.GetNew method" Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetNew-.htm" />
   <HelpKINode Title="AbstractModelBase&lt;TPropertyTracking&gt;.OnPropertyChanged method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.OnPropertyChanged.htm" />
+  <HelpKINode Title="AbstractModelBase&lt;TPropertyTracking&gt;.OnPropertyChanging method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.OnPropertyChanging.htm" />
   <HelpKINode Title="AbstractModelBase&lt;TPropertyTracking&gt;.Properties property" Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Properties.htm" />
   <HelpKINode Title="AbstractModelBase&lt;TPropertyTracking&gt;.Set method" Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Set-.htm" />
   <HelpKINode Title="AbstractModelBase&lt;TPropertyTracking&gt;.Validate method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Validate.htm" />
@@ -117,33 +111,33 @@
   <HelpKINode Title="AcceptChanges enumeration member" Url="html/T-Tortuga.Anchor.Modeling.UpdateMode.htm" />
   <HelpKINode Title="AcceptChanges field" Url="html/F-Tortuga.Anchor.Modeling.UpdateMode.AcceptChanges.htm" />
   <HelpKINode Title="AcceptChanges method">
-    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.AcceptChanges.htm" />
-    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.AcceptChanges.htm" />
-    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.AcceptChanges.htm" />
-    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.AcceptChanges.htm" />
-    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.AcceptChanges.htm" />
     <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.AcceptChanges.htm" />
+    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.AcceptChanges.htm" />
+    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.AcceptChanges.htm" />
+    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.AcceptChanges.htm" />
+    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.AcceptChanges.htm" />
+    <HelpKINode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.AcceptChanges.htm" />
   </HelpKINode>
   <HelpKINode Title="AcceptLocalChanges enumeration member" Url="html/T-Tortuga.Anchor.Modeling.UpdateMode.htm" />
   <HelpKINode Title="AcceptLocalChanges field" Url="html/F-Tortuga.Anchor.Modeling.UpdateMode.AcceptLocalChanges.htm" />
   <HelpKINode Title="Add method">
-    <HelpKINode Title="Add Method " Url="html/Overload-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.Add.htm" />
-    <HelpKINode Title="Add Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.Add.htm" />
     <HelpKINode Title="Add Method " Url="html/M-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.Add.htm" />
+    <HelpKINode Title="Add Method " Url="html/Overload-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.Add.htm" />
     <HelpKINode Title="Add Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.Add.htm" />
+    <HelpKINode Title="Add Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.Add.htm" />
   </HelpKINode>
   <HelpKINode Title="AddHandler method">
-    <HelpKINode Title="AddHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.AddHandler.htm" />
     <HelpKINode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyPropertyChangedWeak.AddHandler.htm" />
+    <HelpKINode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.AddHandler.htm" />
+    <HelpKINode Title="AddHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.AddHandler.htm" />
+    <HelpKINode Title="AddHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.AddHandler.htm" />
     <HelpKINode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.AddHandler.htm" />
     <HelpKINode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.AddHandler.htm" />
     <HelpKINode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.AddHandler.htm" />
-    <HelpKINode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.AddHandler.htm" />
-    <HelpKINode Title="AddHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.AddHandler.htm" />
   </HelpKINode>
   <HelpKINode Title="AddRange method">
-    <HelpKINode Title="AddRange Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.AddRange.htm" />
     <HelpKINode Title="AddRange Method " Url="html/Overload-Tortuga.Anchor.CollectionUtilities.AddRange-.htm" />
+    <HelpKINode Title="AddRange Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.AddRange.htm" />
     <HelpKINode Title="AddRange Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.AddRange.htm" />
   </HelpKINode>
   <HelpKINode Title="AffectsCalculatedFields property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.AffectsCalculatedFields.htm" />
@@ -155,17 +149,17 @@
   <HelpKINode Title="AsReadOnlyList&lt;T&gt; method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AsReadOnlyList--1.htm" />
   <HelpKINode Title="AsTask method" Url="html/M-Tortuga.Anchor.TaskUtilities.AsTask.htm" />
   <HelpKINode Title="AttachToEvent method">
-    <HelpKINode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.CollectionChangedEventManager.AttachToEvent.htm" />
     <HelpKINode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.AttachToEvent.htm" />
-    <HelpKINode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.AttachToEvent.htm" />
+    <HelpKINode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.CollectionChangedEventManager.AttachToEvent.htm" />
     <HelpKINode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.AttachToEvent.htm" />
+    <HelpKINode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.AttachToEvent.htm" />
   </HelpKINode>
   <HelpKINode Title="AutoCancelingTask method" Url="html/Overload-Tortuga.Anchor.TaskUtilities.AutoCancelingTask-.htm" />
   <HelpKINode Title="AutoCompletingTask method" Url="html/Overload-Tortuga.Anchor.TaskUtilities.AutoCompletingTask-.htm" />
   <HelpKINode Title="BeginEdit method">
-    <HelpKINode Title="BeginEdit Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.BeginEdit.htm" />
-    <HelpKINode Title="BeginEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.BeginEdit.htm" />
     <HelpKINode Title="BeginEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.BeginEdit.htm" />
+    <HelpKINode Title="BeginEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.BeginEdit.htm" />
+    <HelpKINode Title="BeginEdit Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.BeginEdit.htm" />
   </HelpKINode>
   <HelpKINode Title="CalculatedFieldAttribute class">
     <HelpKINode Title="CalculatedFieldAttribute Class" Url="html/T-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.htm" />
@@ -181,9 +175,9 @@
   <HelpKINode Title="CalculatedFieldAttribute.Sources property" Url="html/P-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.Sources.htm" />
   <HelpKINode Title="CalculatedFields property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.CalculatedFields.htm" />
   <HelpKINode Title="CancelEdit method">
+    <HelpKINode Title="CancelEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.CancelEdit.htm" />
     <HelpKINode Title="CancelEdit Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.CancelEdit.htm" />
     <HelpKINode Title="CancelEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.CancelEdit.htm" />
-    <HelpKINode Title="CancelEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.CancelEdit.htm" />
   </HelpKINode>
   <HelpKINode Title="CanRead property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.CanRead.htm" />
   <HelpKINode Title="CanWrite property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.CanWrite.htm" />
@@ -259,8 +253,8 @@
   <HelpKINode Title="ChangeTrackingPropertyBag.IsDefined method" Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.IsDefined.htm" />
   <HelpKINode Title="ChangeTrackingPropertyBag.RejectChanges method" Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.RejectChanges.htm" />
   <HelpKINode Title="ChangeTrackingPropertyBag.Set method">
-    <HelpKINode Title="Set Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm" />
     <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm" />
+    <HelpKINode Title="Set Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm" />
   </HelpKINode>
   <HelpKINode Title="ChangeTrackingPropertyBag.Values property" Url="html/P-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Values.htm" />
   <HelpKINode Title="Choose method" Url="html/Overload-Tortuga.Anchor.RandomExtended.Choose-.htm" />
@@ -286,8 +280,8 @@
   </HelpKINode>
   <HelpKINode Title="ClearErrors method">
     <HelpKINode Title="ClearErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.ClearErrors.htm" />
-    <HelpKINode Title="ClearErrors Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.ClearErrors.htm" />
     <HelpKINode Title="ClearErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.ClearErrors.htm" />
+    <HelpKINode Title="ClearErrors Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.ClearErrors.htm" />
   </HelpKINode>
   <HelpKINode Title="ClearItems method" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ClearItems.htm" />
   <HelpKINode Title="CollectionChanged event" Url="html/E-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.CollectionChanged.htm" />
@@ -366,20 +360,18 @@
   </HelpKINode>
   <HelpKINode Title="ContainsKey method" Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.ContainsKey.htm" />
   <HelpKINode Title="CopyTo method">
-    <HelpKINode Title="CopyTo Method " Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadataCollection.CopyTo.htm" />
     <HelpKINode Title="CopyTo Method " Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.CopyTo.htm" />
-    <HelpKINode Title="CopyTo Method " Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.CopyTo.htm" />
+    <HelpKINode Title="CopyTo Method " Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadataCollection.CopyTo.htm" />
     <HelpKINode Title="CopyTo Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.CopyTo.htm" />
+    <HelpKINode Title="CopyTo Method " Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.CopyTo.htm" />
   </HelpKINode>
   <HelpKINode Title="Count property">
-    <HelpKINode Title="Count Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Count.htm" />
-    <HelpKINode Title="Count Property " Url="html/P-Tortuga.Anchor.Collections.WeakReferenceCollection-1.Count.htm" />
     <HelpKINode Title="Count Property " Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Count.htm" />
     <HelpKINode Title="Count Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Count.htm" />
+    <HelpKINode Title="Count Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Count.htm" />
+    <HelpKINode Title="Count Property " Url="html/P-Tortuga.Anchor.Collections.WeakReferenceCollection-1.Count.htm" />
   </HelpKINode>
   <HelpKINode Title="Create(Of T) method" Url="html/M-Tortuga.Anchor.Eventing.RelayedEventArgs.Create--1.htm" />
-  <HelpKINode Title="Create(Of T1, T2) method" Url="html/M-Tortuga.Anchor.Collections.Pair.Create--2.htm" />
-  <HelpKINode Title="Create&lt;T1, T2&gt; method" Url="html/M-Tortuga.Anchor.Collections.Pair.Create--2.htm" />
   <HelpKINode Title="Create&lt;T&gt; method" Url="html/M-Tortuga.Anchor.Eventing.RelayedEventArgs.Create--1.htm" />
   <HelpKINode Title="CSharpFullName property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.CSharpFullName.htm" />
   <HelpKINode Title="Decompose property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.Decompose.htm" />
@@ -398,9 +390,9 @@
   <HelpKINode Title="Default field" Url="html/F-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Default.htm" />
   <HelpKINode Title="DetachFromEvent method">
     <HelpKINode Title="DetachFromEvent Method " Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.DetachFromEvent.htm" />
+    <HelpKINode Title="DetachFromEvent Method " Url="html/M-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.DetachFromEvent.htm" />
     <HelpKINode Title="DetachFromEvent Method " Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.DetachFromEvent.htm" />
     <HelpKINode Title="DetachFromEvent Method " Url="html/M-Tortuga.Anchor.Eventing.CollectionChangedEventManager.DetachFromEvent.htm" />
-    <HelpKINode Title="DetachFromEvent Method " Url="html/M-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.DetachFromEvent.htm" />
   </HelpKINode>
   <HelpKINode Title="Dictionary(Of TKey1, TKey2, TValue) class">
     <HelpKINode Title="Dictionary(TKey1, TKey2, TValue) Class" Url="html/T-Tortuga.Anchor.Collections.Dictionary-3.htm" />
@@ -422,7 +414,7 @@
   <HelpKINode Title="Dictionary(Of TKey1, TKey2, TValue).GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.GetEnumerator.htm" />
   <HelpKINode Title="Dictionary(Of TKey1, TKey2, TValue).Item property">
     <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item--0,-1-.htm" />
-    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item-Pair--0, -1--.htm" />
+    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item-ValueTuple--0, -1--.htm" />
   </HelpKINode>
   <HelpKINode Title="Dictionary(Of TKey1, TKey2, TValue).Keys property" Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Keys.htm" />
   <HelpKINode Title="Dictionary(Of TKey1, TKey2, TValue).Remove method" Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.Remove.htm" />
@@ -448,7 +440,7 @@
   <HelpKINode Title="Dictionary&lt;TKey1, TKey2, TValue&gt;.GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.GetEnumerator.htm" />
   <HelpKINode Title="Dictionary&lt;TKey1, TKey2, TValue&gt;.Item property">
     <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item--0,-1-.htm" />
-    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item-Pair--0, -1--.htm" />
+    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item-ValueTuple--0, -1--.htm" />
   </HelpKINode>
   <HelpKINode Title="Dictionary&lt;TKey1, TKey2, TValue&gt;.Keys property" Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Keys.htm" />
   <HelpKINode Title="Dictionary&lt;TKey1, TKey2, TValue&gt;.Remove method" Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.Remove.htm" />
@@ -528,15 +520,13 @@
   <HelpKINode Title="EditableObjectPropertyBag.IsEditing property" Url="html/P-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.IsEditing.htm" />
   <HelpKINode Title="EditableObjectPropertyBag.RejectChanges method" Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.RejectChanges.htm" />
   <HelpKINode Title="EndEdit method">
-    <HelpKINode Title="EndEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.EndEdit.htm" />
-    <HelpKINode Title="EndEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.EndEdit.htm" />
     <HelpKINode Title="EndEdit Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.EndEdit.htm" />
+    <HelpKINode Title="EndEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.EndEdit.htm" />
+    <HelpKINode Title="EndEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.EndEdit.htm" />
   </HelpKINode>
-  <HelpKINode Title="Equality operator" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Equality.htm" />
   <HelpKINode Title="Equals method">
-    <HelpKINode Title="Equals Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Equals.htm" />
-    <HelpKINode Title="Equals Method " Url="html/Overload-Tortuga.Anchor.Collections.Pair-2.Equals.htm" />
     <HelpKINode Title="Equals Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Equals.htm" />
+    <HelpKINode Title="Equals Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Equals.htm" />
   </HelpKINode>
   <HelpKINode Title="ErrorsChanged event">
     <HelpKINode Title="ErrorsChanged Event" Url="html/E-Tortuga.Anchor.ComponentModel.IValidatable.ErrorsChanged.htm" />
@@ -572,13 +562,9 @@
   <HelpKINode Title="Find method" Url="html/Overload-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Find.htm" />
   <HelpKINode Title="FixCasing enumeration member" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertySetModes.htm" />
   <HelpKINode Title="FixCasing field" Url="html/F-Tortuga.Anchor.Modeling.Internals.PropertySetModes.FixCasing.htm" />
-  <HelpKINode Title="FromKeyValuePair(Of T1, T2) method" Url="html/M-Tortuga.Anchor.Collections.Pair.FromKeyValuePair--2.htm" />
-  <HelpKINode Title="FromKeyValuePair&lt;T1, T2&gt; method" Url="html/M-Tortuga.Anchor.Collections.Pair.FromKeyValuePair--2.htm" />
-  <HelpKINode Title="FromTuple(Of T1, T2) method" Url="html/M-Tortuga.Anchor.Collections.Pair.FromTuple--2.htm" />
-  <HelpKINode Title="FromTuple&lt;T1, T2&gt; method" Url="html/M-Tortuga.Anchor.Collections.Pair.FromTuple--2.htm" />
   <HelpKINode Title="Get(Of T) method">
-    <HelpKINode Title="Get(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Get--1.htm" />
     <HelpKINode Title="Get(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Get--1.htm" />
+    <HelpKINode Title="Get(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Get--1.htm" />
   </HelpKINode>
   <HelpKINode Title="Get(Of TValue) method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Get--1.htm" />
   <HelpKINode Title="Get&lt;T&gt; method">
@@ -587,13 +573,13 @@
   </HelpKINode>
   <HelpKINode Title="Get&lt;TValue&gt; method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Get--1.htm" />
   <HelpKINode Title="GetAllErrors method">
-    <HelpKINode Title="GetAllErrors Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.GetAllErrors.htm" />
     <HelpKINode Title="GetAllErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetAllErrors.htm" />
     <HelpKINode Title="GetAllErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.GetAllErrors.htm" />
+    <HelpKINode Title="GetAllErrors Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.GetAllErrors.htm" />
   </HelpKINode>
   <HelpKINode Title="GetDefault(Of T) method">
-    <HelpKINode Title="GetDefault(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetDefault--1.htm" />
     <HelpKINode Title="GetDefault(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetDefault--1.htm" />
+    <HelpKINode Title="GetDefault(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetDefault--1.htm" />
   </HelpKINode>
   <HelpKINode Title="GetDefault(Of TValue) method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetDefault--1.htm" />
   <HelpKINode Title="GetDefault&lt;T&gt; method">
@@ -602,10 +588,10 @@
   </HelpKINode>
   <HelpKINode Title="GetDefault&lt;TValue&gt; method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetDefault--1.htm" />
   <HelpKINode Title="GetEnumerator method">
-    <HelpKINode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.GetEnumerator.htm" />
-    <HelpKINode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.GetEnumerator.htm" />
-    <HelpKINode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.GetEnumerator.htm" />
     <HelpKINode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadataCollection.GetEnumerator.htm" />
+    <HelpKINode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.GetEnumerator.htm" />
+    <HelpKINode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.GetEnumerator.htm" />
+    <HelpKINode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.GetEnumerator.htm" />
   </HelpKINode>
   <HelpKINode Title="GetErrors method">
     <HelpKINode Title="GetErrors Method " Url="html/Overload-Tortuga.Anchor.ComponentModel.IValidatable.GetErrors.htm" />
@@ -614,7 +600,6 @@
   </HelpKINode>
   <HelpKINode Title="GetHashCode method">
     <HelpKINode Title="GetHashCode Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.GetHashCode.htm" />
-    <HelpKINode Title="GetHashCode Method " Url="html/M-Tortuga.Anchor.Collections.Pair-2.GetHashCode.htm" />
     <HelpKINode Title="GetHashCode Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.GetHashCode.htm" />
   </HelpKINode>
   <HelpKINode Title="GetKeys(Of TKey, TValue) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.GetKeys--2.htm" />
@@ -626,14 +611,14 @@
     <HelpKINode Title="GetNew Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetNew-.htm" />
   </HelpKINode>
   <HelpKINode Title="GetPreviousValue method">
-    <HelpKINode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.GetPreviousValue.htm" />
-    <HelpKINode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.GetPreviousValue.htm" />
     <HelpKINode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking.GetPreviousValue.htm" />
+    <HelpKINode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.GetPreviousValue.htm" />
     <HelpKINode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.GetPreviousValue.htm" />
+    <HelpKINode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.GetPreviousValue.htm" />
   </HelpKINode>
   <HelpKINode Title="GetValue method">
-    <HelpKINode Title="GetValue Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetValue.htm" />
     <HelpKINode Title="GetValue Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.GetValue.htm" />
+    <HelpKINode Title="GetValue Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetValue.htm" />
     <HelpKINode Title="GetValue Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.GetValue.htm" />
   </HelpKINode>
   <HelpKINode Title="GetValues(Of TKey, TValue) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.GetValues--2.htm" />
@@ -641,8 +626,8 @@
   <HelpKINode Title="HasDefaultConstructor property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.HasDefaultConstructor.htm" />
   <HelpKINode Title="HasErrors property">
     <HelpKINode Title="HasErrors Property " Url="html/P-Tortuga.Anchor.ComponentModel.IValidatable.HasErrors.htm" />
-    <HelpKINode Title="HasErrors Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.HasErrors.htm" />
     <HelpKINode Title="HasErrors Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.HasErrors.htm" />
+    <HelpKINode Title="HasErrors Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.HasErrors.htm" />
   </HelpKINode>
   <HelpKINode Title="IDetailedPropertyChangeTracking interface">
     <HelpKINode Title="IDetailedPropertyChangeTracking Interface" Url="html/T-Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking.htm" />
@@ -685,7 +670,6 @@
     <HelpKINode Title="about IListener&lt;T&gt; interface" Url="html/T-Tortuga.Anchor.Eventing.IListener-1.htm" />
   </HelpKINode>
   <HelpKINode Title="IListener&lt;T&gt;.Invoke method" Url="html/M-Tortuga.Anchor.Eventing.IListener-1.Invoke.htm" />
-  <HelpKINode Title="Inequality operator" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Inequality.htm" />
   <HelpKINode Title="INotifyCollectionChanged interface">
     <HelpKINode Title="INotifyCollectionChanged Members" Url="html/AllMembers.T-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.htm" />
     <HelpKINode Title="all members" Url="html/AllMembers.T-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.htm" />
@@ -765,14 +749,14 @@
   </HelpKINode>
   <HelpKINode Title="IsChangedLocal property">
     <HelpKINode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.IsChangedLocal.htm" />
+    <HelpKINode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.EditableObjectModelBase.IsChangedLocal.htm" />
+    <HelpKINode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.IsChangedLocal.htm" />
     <HelpKINode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.IsChangedLocal.htm" />
     <HelpKINode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.IsChangedLocal.htm" />
-    <HelpKINode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.IsChangedLocal.htm" />
-    <HelpKINode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.EditableObjectModelBase.IsChangedLocal.htm" />
   </HelpKINode>
   <HelpKINode Title="IsDefined method">
-    <HelpKINode Title="IsDefined Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.IsDefined.htm" />
     <HelpKINode Title="IsDefined Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.IsDefined.htm" />
+    <HelpKINode Title="IsDefined Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.IsDefined.htm" />
     <HelpKINode Title="IsDefined Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.IsDefined.htm" />
   </HelpKINode>
   <HelpKINode Title="IsEditing property" Url="html/P-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.IsEditing.htm" />
@@ -780,17 +764,15 @@
   <HelpKINode Title="IsKey property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.IsKey.htm" />
   <HelpKINode Title="IsReadOnly property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.IsReadOnly.htm" />
   <HelpKINode Title="Item property">
-    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Item-System.Int32-.htm" />
-    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item-Pair--0, -1--.htm" />
-    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item--0,-1-.htm" />
-    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.Item.htm" />
+    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item-ValueTuple--0, -1--.htm" />
     <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Item-System.String-.htm" />
+    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Item-System.Int32-.htm" />
+    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.Item.htm" />
+    <HelpKINode Title="Item Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item--0,-1-.htm" />
   </HelpKINode>
-  <HelpKINode Title="Item1 property" Url="html/P-Tortuga.Anchor.Collections.Pair-2.Item1.htm" />
-  <HelpKINode Title="Item2 property" Url="html/P-Tortuga.Anchor.Collections.Pair-2.Item2.htm" />
   <HelpKINode Title="ItemAdded event">
-    <HelpKINode Title="ItemAdded Event" Url="html/E-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.ItemAdded.htm" />
     <HelpKINode Title="ItemAdded Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ItemAdded.htm" />
+    <HelpKINode Title="ItemAdded Event" Url="html/E-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.ItemAdded.htm" />
   </HelpKINode>
   <HelpKINode Title="ItemEventArgs(Of T) class">
     <HelpKINode Title="ItemEventArgs(T) Class" Url="html/T-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.htm" />
@@ -815,9 +797,9 @@
   <HelpKINode Title="ItemEventArgs&lt;T&gt;.Item property" Url="html/P-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.Item.htm" />
   <HelpKINode Title="ItemEventArgs&lt;T&gt;.ItemEventArgs constructor" Url="html/M-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.-ctor.htm" />
   <HelpKINode Title="ItemPropertyChanged event">
-    <HelpKINode Title="ItemPropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ItemPropertyChanged.htm" />
-    <HelpKINode Title="ItemPropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.ItemPropertyChanged.htm" />
     <HelpKINode Title="ItemPropertyChanged Event" Url="html/E-Tortuga.Anchor.Eventing.INotifyItemPropertyChanged.ItemPropertyChanged.htm" />
+    <HelpKINode Title="ItemPropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.ItemPropertyChanged.htm" />
+    <HelpKINode Title="ItemPropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ItemPropertyChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="ItemPropertyChangedEventManager class">
     <HelpKINode Title="ItemPropertyChangedEventManager Class" Url="html/T-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.htm" />
@@ -831,8 +813,8 @@
   <HelpKINode Title="ItemPropertyChangedEventManager.DetachFromEvent method" Url="html/M-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.DetachFromEvent.htm" />
   <HelpKINode Title="ItemPropertyChangedEventManager.ItemPropertyChangedEventManager constructor" Url="html/M-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.-ctor.htm" />
   <HelpKINode Title="ItemRemoved event">
-    <HelpKINode Title="ItemRemoved Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ItemRemoved.htm" />
     <HelpKINode Title="ItemRemoved Event" Url="html/E-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.ItemRemoved.htm" />
+    <HelpKINode Title="ItemRemoved Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ItemRemoved.htm" />
   </HelpKINode>
   <HelpKINode Title="IValidatable interface">
     <HelpKINode Title="IValidatable Interface" Url="html/T-Tortuga.Anchor.ComponentModel.IValidatable.htm" />
@@ -925,8 +907,8 @@
     <HelpKINode Title="UpdateMode Enumeration" Url="html/T-Tortuga.Anchor.Modeling.UpdateMode.htm" />
   </HelpKINode>
   <HelpKINode Title="None field">
-    <HelpKINode Title="None Field" Url="html/F-Tortuga.Anchor.Modeling.Internals.PropertySetModes.None.htm" />
     <HelpKINode Title="None Field" Url="html/F-Tortuga.Anchor.Modeling.UpdateMode.None.htm" />
+    <HelpKINode Title="None Field" Url="html/F-Tortuga.Anchor.Modeling.Internals.PropertySetModes.None.htm" />
   </HelpKINode>
   <HelpKINode Title="NotSet class">
     <HelpKINode Title="NotSet Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.NotSet.htm" />
@@ -988,8 +970,8 @@
   <HelpKINode Title="ObservableCollectionExtended&lt;T&gt;.OnItemAdded method" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnItemAdded.htm" />
   <HelpKINode Title="ObservableCollectionExtended&lt;T&gt;.OnItemRemoved method" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnItemRemoved.htm" />
   <HelpKINode Title="ObservableCollectionExtended&lt;T&gt;.OnPropertyChanged method">
-    <HelpKINode Title="OnPropertyChanged Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnPropertyChanged.htm" />
     <HelpKINode Title="OnPropertyChanged Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnPropertyChanged.htm" />
+    <HelpKINode Title="OnPropertyChanged Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnPropertyChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="ObservableCollectionExtended&lt;T&gt;.PropertyChanged event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.PropertyChanged.htm" />
   <HelpKINode Title="ObservableCollectionExtended&lt;T&gt;.ReadOnlyWrapper property" Url="html/P-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ReadOnlyWrapper.htm" />
@@ -1001,88 +983,34 @@
   <HelpKINode Title="OnItemAdded method" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnItemAdded.htm" />
   <HelpKINode Title="OnItemRemoved method" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnItemRemoved.htm" />
   <HelpKINode Title="OnPropertyChanged method">
+    <HelpKINode Title="OnPropertyChanged Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanged.htm" />
     <HelpKINode Title="OnPropertyChanged Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnPropertyChanged.htm" />
     <HelpKINode Title="OnPropertyChanged Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnPropertyChanged.htm" />
     <HelpKINode Title="OnPropertyChanged Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.OnPropertyChanged.htm" />
     <HelpKINode Title="OnPropertyChanged Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.OnPropertyChanged.htm" />
   </HelpKINode>
+  <HelpKINode Title="OnPropertyChanging method">
+    <HelpKINode Title="OnPropertyChanging Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanging.htm" />
+    <HelpKINode Title="OnPropertyChanging Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.OnPropertyChanging.htm" />
+  </HelpKINode>
   <HelpKINode Title="OnRevalidateObject method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnRevalidateObject.htm" />
   <HelpKINode Title="OnRevalidateProperty method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnRevalidateProperty.htm" />
   <HelpKINode Title="OnValidateObject method">
-    <HelpKINode Title="OnValidateObject Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.OnValidateObject.htm" />
     <HelpKINode Title="OnValidateObject Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.OnValidateObject.htm" />
+    <HelpKINode Title="OnValidateObject Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.OnValidateObject.htm" />
   </HelpKINode>
   <HelpKINode Title="OnValidateProperty method">
     <HelpKINode Title="OnValidateProperty Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.OnValidateProperty.htm" />
     <HelpKINode Title="OnValidateProperty Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.OnValidateProperty.htm" />
   </HelpKINode>
   <HelpKINode Title="OriginalSender property" Url="html/P-Tortuga.Anchor.Eventing.RelayedEventArgs-1.OriginalSender.htm" />
-  <HelpKINode Title="Pair class">
-    <HelpKINode Title="Pair Class" Url="html/T-Tortuga.Anchor.Collections.Pair.htm" />
-    <HelpKINode Title="Pair Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair.htm" />
-    <HelpKINode Title="about Pair class" Url="html/T-Tortuga.Anchor.Collections.Pair.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-Tortuga.Anchor.Collections.Pair.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Pair(Of T1, T2) structure">
-    <HelpKINode Title="Pair(T1, T2) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="Pair(T1, T2) Structure" Url="html/T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="about Pair(Of T1, T2) structure" Url="html/T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="constructor" Url="html/M-Tortuga.Anchor.Collections.Pair-2.-ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="operators and type conversions" Url="html/Operators.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="properties" Url="html/Properties.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Pair(Of T1, T2) to (Of T1, T2) conversion">
-    <HelpKINode Title="Implicit Conversion (Pair to KeyValuePair)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit.htm" />
-    <HelpKINode Title="Implicit Conversion (Pair to Tuple)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit_3.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Pair(Of T1, T2).Equality operator" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Equality.htm" />
-  <HelpKINode Title="Pair(Of T1, T2).Equals method" Url="html/Overload-Tortuga.Anchor.Collections.Pair-2.Equals.htm" />
-  <HelpKINode Title="Pair(Of T1, T2).GetHashCode method" Url="html/M-Tortuga.Anchor.Collections.Pair-2.GetHashCode.htm" />
-  <HelpKINode Title="Pair(Of T1, T2).Inequality operator" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Inequality.htm" />
-  <HelpKINode Title="Pair(Of T1, T2).Item1 property" Url="html/P-Tortuga.Anchor.Collections.Pair-2.Item1.htm" />
-  <HelpKINode Title="Pair(Of T1, T2).Item2 property" Url="html/P-Tortuga.Anchor.Collections.Pair-2.Item2.htm" />
-  <HelpKINode Title="Pair(Of T1, T2).Pair constructor" Url="html/M-Tortuga.Anchor.Collections.Pair-2.-ctor.htm" />
-  <HelpKINode Title="Pair(Of T1, T2).ToKeyValuePair method" Url="html/M-Tortuga.Anchor.Collections.Pair-2.ToKeyValuePair.htm" />
-  <HelpKINode Title="Pair(Of T1, T2).ToTuple method" Url="html/M-Tortuga.Anchor.Collections.Pair-2.ToTuple.htm" />
-  <HelpKINode Title="Pair.Create(Of T1, T2) method" Url="html/M-Tortuga.Anchor.Collections.Pair.Create--2.htm" />
-  <HelpKINode Title="Pair.Create&lt;T1, T2&gt; method" Url="html/M-Tortuga.Anchor.Collections.Pair.Create--2.htm" />
-  <HelpKINode Title="Pair.FromKeyValuePair(Of T1, T2) method" Url="html/M-Tortuga.Anchor.Collections.Pair.FromKeyValuePair--2.htm" />
-  <HelpKINode Title="Pair.FromKeyValuePair&lt;T1, T2&gt; method" Url="html/M-Tortuga.Anchor.Collections.Pair.FromKeyValuePair--2.htm" />
-  <HelpKINode Title="Pair.FromTuple(Of T1, T2) method" Url="html/M-Tortuga.Anchor.Collections.Pair.FromTuple--2.htm" />
-  <HelpKINode Title="Pair.FromTuple&lt;T1, T2&gt; method" Url="html/M-Tortuga.Anchor.Collections.Pair.FromTuple--2.htm" />
-  <HelpKINode Title="Pair&lt;T1, T2&gt; structure">
-    <HelpKINode Title="Pair(T1, T2) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="Pair(T1, T2) Structure" Url="html/T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="about Pair&lt;T1, T2&gt; structure" Url="html/T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="constructor" Url="html/M-Tortuga.Anchor.Collections.Pair-2.-ctor.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="operators and type conversions" Url="html/Operators.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="properties" Url="html/Properties.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Pair&lt;T1, T2&gt; to &lt;T1, T2&gt; conversion">
-    <HelpKINode Title="Implicit Conversion (Pair to KeyValuePair)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit.htm" />
-    <HelpKINode Title="Implicit Conversion (Pair to Tuple)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit_3.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Pair&lt;T1, T2&gt;.Equality operator" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Equality.htm" />
-  <HelpKINode Title="Pair&lt;T1, T2&gt;.Equals method" Url="html/Overload-Tortuga.Anchor.Collections.Pair-2.Equals.htm" />
-  <HelpKINode Title="Pair&lt;T1, T2&gt;.GetHashCode method" Url="html/M-Tortuga.Anchor.Collections.Pair-2.GetHashCode.htm" />
-  <HelpKINode Title="Pair&lt;T1, T2&gt;.Inequality operator" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Inequality.htm" />
-  <HelpKINode Title="Pair&lt;T1, T2&gt;.Item1 property" Url="html/P-Tortuga.Anchor.Collections.Pair-2.Item1.htm" />
-  <HelpKINode Title="Pair&lt;T1, T2&gt;.Item2 property" Url="html/P-Tortuga.Anchor.Collections.Pair-2.Item2.htm" />
-  <HelpKINode Title="Pair&lt;T1, T2&gt;.Pair constructor" Url="html/M-Tortuga.Anchor.Collections.Pair-2.-ctor.htm" />
-  <HelpKINode Title="Pair&lt;T1, T2&gt;.ToKeyValuePair method" Url="html/M-Tortuga.Anchor.Collections.Pair-2.ToKeyValuePair.htm" />
-  <HelpKINode Title="Pair&lt;T1, T2&gt;.ToTuple method" Url="html/M-Tortuga.Anchor.Collections.Pair-2.ToTuple.htm" />
   <HelpKINode Title="ParameterNames property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadata.ParameterNames.htm" />
   <HelpKINode Title="Pick method" Url="html/Overload-Tortuga.Anchor.RandomExtended.Pick-.htm" />
   <HelpKINode Title="Prefix property" Url="html/P-Tortuga.Anchor.Modeling.DecomposeAttribute.Prefix.htm" />
   <HelpKINode Title="Properties property">
+    <HelpKINode Title="Properties Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Properties.htm" />
     <HelpKINode Title="Properties Property " Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.Properties.htm" />
     <HelpKINode Title="Properties Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Properties.htm" />
-    <HelpKINode Title="Properties Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Properties.htm" />
   </HelpKINode>
   <HelpKINode Title="PropertyBag class">
     <HelpKINode Title="PropertyBag Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertyBag.htm" />
@@ -1098,8 +1026,8 @@
   <HelpKINode Title="PropertyBag.IsDefined method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.IsDefined.htm" />
   <HelpKINode Title="PropertyBag.PropertyBag constructor" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.-ctor.htm" />
   <HelpKINode Title="PropertyBag.Set method">
-    <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm" />
     <HelpKINode Title="Set Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm" />
+    <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm" />
   </HelpKINode>
   <HelpKINode Title="PropertyBagBase class">
     <HelpKINode Title="PropertyBagBase Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm" />
@@ -1119,19 +1047,22 @@
   <HelpKINode Title="PropertyBagBase.GetValue method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetValue.htm" />
   <HelpKINode Title="PropertyBagBase.IsDefined method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.IsDefined.htm" />
   <HelpKINode Title="PropertyBagBase.Metadata property" Url="html/P-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Metadata.htm" />
+  <HelpKINode Title="PropertyBagBase.OnPropertyChanged method" Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanged.htm" />
+  <HelpKINode Title="PropertyBagBase.OnPropertyChanging method" Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanging.htm" />
   <HelpKINode Title="PropertyBagBase.OnRevalidateObject method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnRevalidateObject.htm" />
   <HelpKINode Title="PropertyBagBase.OnRevalidateProperty method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnRevalidateProperty.htm" />
   <HelpKINode Title="PropertyBagBase.PropertyBagBase constructor" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.-ctor.htm" />
   <HelpKINode Title="PropertyBagBase.PropertyChanged event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.PropertyChanged.htm" />
+  <HelpKINode Title="PropertyBagBase.PropertyChanging event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.PropertyChanging.htm" />
   <HelpKINode Title="PropertyBagBase.RevalidateAll method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateAll.htm" />
   <HelpKINode Title="PropertyBagBase.RevalidateObject event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateObject.htm" />
   <HelpKINode Title="PropertyBagBase.RevalidateProperty event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateProperty.htm" />
   <HelpKINode Title="PropertyBagBase.Set method" Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Set.htm" />
   <HelpKINode Title="PropertyChanged event">
-    <HelpKINode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.PropertyChanged.htm" />
     <HelpKINode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.PropertyChanged.htm" />
-    <HelpKINode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.PropertyChanged.htm" />
     <HelpKINode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.PropertyChanged.htm" />
+    <HelpKINode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.PropertyChanged.htm" />
+    <HelpKINode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.PropertyChanged.htm" />
   </HelpKINode>
   <HelpKINode Title="PropertyChangedEventArgs property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangedEventArgs.htm" />
   <HelpKINode Title="PropertyChangedEventManager class">
@@ -1145,6 +1076,8 @@
   <HelpKINode Title="PropertyChangedEventManager.AttachToEvent method" Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.AttachToEvent.htm" />
   <HelpKINode Title="PropertyChangedEventManager.DetachFromEvent method" Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.DetachFromEvent.htm" />
   <HelpKINode Title="PropertyChangedEventManager.PropertyChangedEventManager constructor" Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.-ctor.htm" />
+  <HelpKINode Title="PropertyChanging event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.PropertyChanging.htm" />
+  <HelpKINode Title="PropertyChangingEventArgs property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangingEventArgs.htm" />
   <HelpKINode Title="PropertyMetadata class">
     <HelpKINode Title="PropertyMetadata Class" Url="html/T-Tortuga.Anchor.Metadata.PropertyMetadata.htm" />
     <HelpKINode Title="PropertyMetadata Members" Url="html/AllMembers.T-Tortuga.Anchor.Metadata.PropertyMetadata.htm" />
@@ -1168,6 +1101,7 @@
   <HelpKINode Title="PropertyMetadata.MappedColumnName property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.MappedColumnName.htm" />
   <HelpKINode Title="PropertyMetadata.Name property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.Name.htm" />
   <HelpKINode Title="PropertyMetadata.PropertyChangedEventArgs property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangedEventArgs.htm" />
+  <HelpKINode Title="PropertyMetadata.PropertyChangingEventArgs property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangingEventArgs.htm" />
   <HelpKINode Title="PropertyMetadata.PropertyType property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyType.htm" />
   <HelpKINode Title="PropertyMetadata.Validators property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.Validators.htm" />
   <HelpKINode Title="PropertyMetadataCollection class">
@@ -1255,11 +1189,11 @@
   <HelpKINode Title="ReadOnlyObservableCollectionExtended&lt;T&gt;.SourceList property" Url="html/P-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.SourceList.htm" />
   <HelpKINode Title="ReadOnlyWrapper property" Url="html/P-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ReadOnlyWrapper.htm" />
   <HelpKINode Title="RejectChanges method">
-    <HelpKINode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.RejectChanges.htm" />
     <HelpKINode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.RejectChanges.htm" />
     <HelpKINode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.RejectChanges.htm" />
-    <HelpKINode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.RejectChanges.htm" />
+    <HelpKINode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.RejectChanges.htm" />
     <HelpKINode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.RejectChanges.htm" />
+    <HelpKINode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.RejectChanges.htm" />
     <HelpKINode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.RejectChanges.htm" />
   </HelpKINode>
   <HelpKINode Title="RelayedEventArgs class">
@@ -1303,13 +1237,13 @@
   </HelpKINode>
   <HelpKINode Title="RemoveAll method" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveAll.htm" />
   <HelpKINode Title="RemoveHandler method">
-    <HelpKINode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.RemoveHandler.htm" />
-    <HelpKINode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.RemoveHandler.htm" />
-    <HelpKINode Title="RemoveHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.RemoveHandler.htm" />
     <HelpKINode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyPropertyChangedWeak.RemoveHandler.htm" />
-    <HelpKINode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.RemoveHandler.htm" />
+    <HelpKINode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.RemoveHandler.htm" />
+    <HelpKINode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.RemoveHandler.htm" />
     <HelpKINode Title="RemoveHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveHandler.htm" />
     <HelpKINode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.RemoveHandler.htm" />
+    <HelpKINode Title="RemoveHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.RemoveHandler.htm" />
+    <HelpKINode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.RemoveHandler.htm" />
   </HelpKINode>
   <HelpKINode Title="RemoveItem method" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveItem.htm" />
   <HelpKINode Title="RemoveRange(Of T) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.RemoveRange--1.htm" />
@@ -1319,13 +1253,13 @@
   <HelpKINode Title="RevalidateProperty event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateProperty.htm" />
   <HelpKINode Title="RunConcurrently method" Url="html/M-Tortuga.Anchor.TaskUtilities.RunConcurrently.htm" />
   <HelpKINode Title="Set method">
-    <HelpKINode Title="Set Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm" />
     <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Set-.htm" />
-    <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm" />
-    <HelpKINode Title="Set Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm" />
     <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Set.htm" />
-    <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm" />
+    <HelpKINode Title="Set Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm" />
+    <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm" />
     <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Set.htm" />
+    <HelpKINode Title="Set Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm" />
+    <HelpKINode Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm" />
   </HelpKINode>
   <HelpKINode Title="SetAsOriginal enumeration member" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertySetModes.htm" />
   <HelpKINode Title="SetAsOriginal field" Url="html/F-Tortuga.Anchor.Modeling.Internals.PropertySetModes.SetAsOriginal.htm" />
@@ -1348,7 +1282,6 @@
   <HelpKINode Title="TaskUtilities.WaitForCompleteOrCancel method" Url="html/M-Tortuga.Anchor.TaskUtilities.WaitForCompleteOrCancel.htm" />
   <HelpKINode Title="TaskUtilities.WhenAll method" Url="html/Overload-Tortuga.Anchor.TaskUtilities.WhenAll.htm" />
   <HelpKINode Title="TaskUtilities.WhenAny method" Url="html/Overload-Tortuga.Anchor.TaskUtilities.WhenAny.htm" />
-  <HelpKINode Title="ToKeyValuePair method" Url="html/M-Tortuga.Anchor.Collections.Pair-2.ToKeyValuePair.htm" />
   <HelpKINode Title="Tortuga.Anchor namespace" Url="html/N-Tortuga.Anchor.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections namespace" Url="html/N-Tortuga.Anchor.Collections.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.Dictionary(Of TKey1, TKey2, TValue) class">
@@ -1366,18 +1299,6 @@
   <HelpKINode Title="Tortuga.Anchor.Collections.ObservableCollectionExtended&lt;T&gt; class">
     <HelpKINode Title="ObservableCollectionExtended(T) Class" Url="html/T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm" />
     <HelpKINode Title="ObservableCollectionExtended(T) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Tortuga.Anchor.Collections.Pair class">
-    <HelpKINode Title="Pair Class" Url="html/T-Tortuga.Anchor.Collections.Pair.htm" />
-    <HelpKINode Title="Pair Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Tortuga.Anchor.Collections.Pair(Of T1, T2) structure">
-    <HelpKINode Title="Pair(T1, T2) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="Pair(T1, T2) Structure" Url="html/T-Tortuga.Anchor.Collections.Pair-2.htm" />
-  </HelpKINode>
-  <HelpKINode Title="Tortuga.Anchor.Collections.Pair&lt;T1, T2&gt; structure">
-    <HelpKINode Title="Pair(T1, T2) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-    <HelpKINode Title="Pair(T1, T2) Structure" Url="html/T-Tortuga.Anchor.Collections.Pair-2.htm" />
   </HelpKINode>
   <HelpKINode Title="Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended(Of T) class">
     <HelpKINode Title="ReadOnlyObservableCollectionExtended(T) Class" Url="html/T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm" />
@@ -1626,7 +1547,6 @@
     <HelpKINode Title="TaskUtilities Members" Url="html/AllMembers.T-Tortuga.Anchor.TaskUtilities.htm" />
   </HelpKINode>
   <HelpKINode Title="ToString method" Url="html/M-Tortuga.Anchor.Metadata.ClassMetadata.ToString.htm" />
-  <HelpKINode Title="ToTuple method" Url="html/M-Tortuga.Anchor.Collections.Pair-2.ToTuple.htm" />
   <HelpKINode Title="TryGetValue method">
     <HelpKINode Title="TryGetValue Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.TryGetValue.htm" />
     <HelpKINode Title="TryGetValue Method " Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadataCollection.TryGetValue.htm" />
@@ -1638,9 +1558,9 @@
   <HelpKINode Title="UpdateMode.AcceptLocalChanges field" Url="html/F-Tortuga.Anchor.Modeling.UpdateMode.AcceptLocalChanges.htm" />
   <HelpKINode Title="UpdateMode.None field" Url="html/F-Tortuga.Anchor.Modeling.UpdateMode.None.htm" />
   <HelpKINode Title="Validate method">
+    <HelpKINode Title="Validate Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.Validate.htm" />
     <HelpKINode Title="Validate Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Validate.htm" />
     <HelpKINode Title="Validate Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.Validate.htm" />
-    <HelpKINode Title="Validate Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.Validate.htm" />
     <HelpKINode Title="Validate Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Validate.htm" />
   </HelpKINode>
   <HelpKINode Title="ValidateObject enumeration member" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertySetModes.htm" />
@@ -1675,8 +1595,8 @@
     <HelpKINode Title="Equals Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Equals.htm" />
   </HelpKINode>
   <HelpKINode Title="ValidationResultEqualityComparer.GetHashCode method">
-    <HelpKINode Title="GetHashCode Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.GetHashCode.htm" />
     <HelpKINode Title="GetHashCode Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.GetHashCode.htm" />
+    <HelpKINode Title="GetHashCode Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.GetHashCode.htm" />
   </HelpKINode>
   <HelpKINode Title="Validators property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.Validators.htm" />
   <HelpKINode Title="Value field" Url="html/F-Tortuga.Anchor.Modeling.Internals.NotSet.Value.htm" />

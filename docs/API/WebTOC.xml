@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpTOC>
 
-  <HelpTOCNode Id="ed030f32-d17e-4cc5-82bd-f583b3b0fe69" Title="Tortuga.Anchor Namespace" Url="html/N-Tortuga.Anchor.htm">
-    <HelpTOCNode Id="4679829b-c09b-4de6-9161-8add4d918856" Title="CollectionUtilities Class" Url="html/T-Tortuga.Anchor.CollectionUtilities.htm">
+  <HelpTOCNode Id="fe456d79-31ca-4c72-8ba4-049f06a7403b" Title="Tortuga.Anchor Namespace" Url="html/N-Tortuga.Anchor.htm">
+    <HelpTOCNode Id="1ae3736d-55ce-4933-ba0f-ba6596568f7b" Title="CollectionUtilities Class" Url="html/T-Tortuga.Anchor.CollectionUtilities.htm">
       <HelpTOCNode Title="CollectionUtilities Members" Url="html/AllMembers.T-Tortuga.Anchor.CollectionUtilities.htm" />
-      <HelpTOCNode Id="96306cc6-d70c-44bc-ad07-5ba44ff9c046" Title="CollectionUtilities Methods" Url="html/Methods.T-Tortuga.Anchor.CollectionUtilities.htm">
-        <HelpTOCNode Id="9283fb26-9961-4d49-858d-133f37ca4694" Title="AddRange Method " Url="html/Overload-Tortuga.Anchor.CollectionUtilities.AddRange-.htm">
+      <HelpTOCNode Id="7400c1a4-70ea-4416-ba5b-2612c7a4c53f" Title="CollectionUtilities Methods" Url="html/Methods.T-Tortuga.Anchor.CollectionUtilities.htm">
+        <HelpTOCNode Id="e613b852-d855-461e-b81f-cfb0f97a719a" Title="AddRange Method " Url="html/Overload-Tortuga.Anchor.CollectionUtilities.AddRange-.htm">
           <HelpTOCNode Title="AddRange(T) Method (ICollection(T), List(T))" Url="html/M-Tortuga.Anchor.CollectionUtilities.AddRange--1.htm" />
           <HelpTOCNode Title="AddRange(T) Method (ICollection(T), IEnumerable(T))" Url="html/M-Tortuga.Anchor.CollectionUtilities.AddRange--1_1.htm" />
           <HelpTOCNode Title="AddRange(T) Method (ICollection(T), T[])" Url="html/M-Tortuga.Anchor.CollectionUtilities.AddRange--1_2.htm" />
@@ -20,122 +20,122 @@
         <HelpTOCNode Title="RemoveRange(T) Method " Url="html/M-Tortuga.Anchor.CollectionUtilities.RemoveRange--1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="5517e7e0-f5a9-4897-a4c1-5746a23aa5fb" Title="RandomExtended Class" Url="html/T-Tortuga.Anchor.RandomExtended.htm">
+    <HelpTOCNode Id="aad0c69b-fec3-4811-a0ad-5185fb9de22f" Title="RandomExtended Class" Url="html/T-Tortuga.Anchor.RandomExtended.htm">
       <HelpTOCNode Title="RandomExtended Members" Url="html/AllMembers.T-Tortuga.Anchor.RandomExtended.htm" />
-      <HelpTOCNode Id="b4dfb442-358c-450a-8f36-938127cbd02b" Title="RandomExtended Constructor " Url="html/Overload-Tortuga.Anchor.RandomExtended.-ctor.htm">
+      <HelpTOCNode Id="42bcf428-0d5b-403b-a86c-bb1495d52536" Title="RandomExtended Constructor " Url="html/Overload-Tortuga.Anchor.RandomExtended.-ctor.htm">
         <HelpTOCNode Title="RandomExtended Constructor " Url="html/M-Tortuga.Anchor.RandomExtended.-ctor.htm" />
         <HelpTOCNode Title="RandomExtended Constructor (Int32)" Url="html/M-Tortuga.Anchor.RandomExtended.-ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="10758847-a6f2-4a29-bdb4-501d223e0e60" Title="RandomExtended Methods" Url="html/Methods.T-Tortuga.Anchor.RandomExtended.htm">
-        <HelpTOCNode Id="e70c53aa-6cde-4610-80a3-b061e83b3cbb" Title="Choose Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.Choose-.htm">
+      <HelpTOCNode Id="298dd331-b954-4b13-99e4-2b0806376921" Title="RandomExtended Methods" Url="html/Methods.T-Tortuga.Anchor.RandomExtended.htm">
+        <HelpTOCNode Id="f37c0dba-8b7c-433c-a34e-1eabded3aa7f" Title="Choose Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.Choose-.htm">
           <HelpTOCNode Title="Choose(T) Method (IReadOnlyList(T))" Url="html/M-Tortuga.Anchor.RandomExtended.Choose--1.htm" />
           <HelpTOCNode Title="Choose(T) Method (IReadOnlyList(T), Int32, Boolean)" Url="html/M-Tortuga.Anchor.RandomExtended.Choose--1_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="9392c305-9736-446f-8836-2a88c0f2f4a8" Title="NextDateTime Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.NextDateTime.htm">
+        <HelpTOCNode Id="20f604a3-8958-45dc-90c3-cdcc490b46d9" Title="NextDateTime Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.NextDateTime.htm">
           <HelpTOCNode Title="NextDateTime Method (DateTime, DateTime)" Url="html/M-Tortuga.Anchor.RandomExtended.NextDateTime.htm" />
           <HelpTOCNode Title="NextDateTime Method (DateTime, TimeSpan)" Url="html/M-Tortuga.Anchor.RandomExtended.NextDateTime_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="8b1119f5-25ce-4114-97c0-f335c24b76ae" Title="NextDateTimeOffset Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.NextDateTimeOffset.htm">
+        <HelpTOCNode Id="6f3ce849-dfcb-4d92-9af9-07f44240a348" Title="NextDateTimeOffset Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.NextDateTimeOffset.htm">
           <HelpTOCNode Title="NextDateTimeOffset Method (DateTimeOffset, TimeSpan)" Url="html/M-Tortuga.Anchor.RandomExtended.NextDateTimeOffset.htm" />
           <HelpTOCNode Title="NextDateTimeOffset Method (DateTimeOffset, DateTimeOffset)" Url="html/M-Tortuga.Anchor.RandomExtended.NextDateTimeOffset_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="c41882a3-5628-4ce3-89c5-c8d3f1fcd8ff" Title="NextDecimal Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.NextDecimal.htm">
+        <HelpTOCNode Id="8f2f6ce0-0400-473a-9f00-186499341fe1" Title="NextDecimal Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.NextDecimal.htm">
           <HelpTOCNode Title="NextDecimal Method (Decimal)" Url="html/M-Tortuga.Anchor.RandomExtended.NextDecimal.htm" />
           <HelpTOCNode Title="NextDecimal Method (Decimal, Decimal)" Url="html/M-Tortuga.Anchor.RandomExtended.NextDecimal_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="30f0bc56-d608-4e25-ac67-c124b7e86477" Title="NextInt64 Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.NextInt64.htm">
+        <HelpTOCNode Id="ad2a3968-e40b-4ee6-a458-0884ac89bca1" Title="NextInt64 Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.NextInt64.htm">
           <HelpTOCNode Title="NextInt64 Method (Int64, Int64)" Url="html/M-Tortuga.Anchor.RandomExtended.NextInt64.htm" />
           <HelpTOCNode Title="NextInt64 Method (Int64)" Url="html/M-Tortuga.Anchor.RandomExtended.NextInt64_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="246a6e5d-23ba-42a0-b8e9-ccb86adc3463" Title="Pick Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.Pick-.htm">
+        <HelpTOCNode Id="83500eee-cac7-48b6-8d2a-8d440c1a723c" Title="Pick Method " Url="html/Overload-Tortuga.Anchor.RandomExtended.Pick-.htm">
           <HelpTOCNode Title="Pick(T) Method (IList(T))" Url="html/M-Tortuga.Anchor.RandomExtended.Pick--1.htm" />
           <HelpTOCNode Title="Pick(T) Method (IList(T), Int32)" Url="html/M-Tortuga.Anchor.RandomExtended.Pick--1_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="da4c33be-c214-4b91-b15f-15bec306e75f" Title="TaskUtilities Class" Url="html/T-Tortuga.Anchor.TaskUtilities.htm">
+    <HelpTOCNode Id="e040ea15-d6e8-47e4-8471-83cfa49c7c7b" Title="TaskUtilities Class" Url="html/T-Tortuga.Anchor.TaskUtilities.htm">
       <HelpTOCNode Title="TaskUtilities Members" Url="html/AllMembers.T-Tortuga.Anchor.TaskUtilities.htm" />
-      <HelpTOCNode Id="213f8745-1c93-4a56-8c59-379f09aefc19" Title="TaskUtilities Methods" Url="html/Methods.T-Tortuga.Anchor.TaskUtilities.htm">
+      <HelpTOCNode Id="846455d4-71ba-4b03-b61b-93f5a8d480ca" Title="TaskUtilities Methods" Url="html/Methods.T-Tortuga.Anchor.TaskUtilities.htm">
         <HelpTOCNode Title="AsTask Method " Url="html/M-Tortuga.Anchor.TaskUtilities.AsTask.htm" />
-        <HelpTOCNode Id="31cf0bab-610c-45cc-b2a9-5ee223be84ad" Title="AutoCancelingTask Method " Url="html/Overload-Tortuga.Anchor.TaskUtilities.AutoCancelingTask-.htm">
+        <HelpTOCNode Id="4ee5fa69-5644-464d-8996-0806dc6ba510" Title="AutoCancelingTask Method " Url="html/Overload-Tortuga.Anchor.TaskUtilities.AutoCancelingTask-.htm">
           <HelpTOCNode Title="AutoCancelingTask(T) Method (TimeSpan)" Url="html/M-Tortuga.Anchor.TaskUtilities.AutoCancelingTask--1.htm" />
           <HelpTOCNode Title="AutoCancelingTask Method (TimeSpan)" Url="html/M-Tortuga.Anchor.TaskUtilities.AutoCancelingTask.htm" />
           <HelpTOCNode Title="AutoCancelingTask(T) Method (Int32)" Url="html/M-Tortuga.Anchor.TaskUtilities.AutoCancelingTask--1_1.htm" />
           <HelpTOCNode Title="AutoCancelingTask Method (Int32)" Url="html/M-Tortuga.Anchor.TaskUtilities.AutoCancelingTask_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="b3f8ea8a-316d-4140-9c8c-5ac2fa1f8d8e" Title="AutoCompletingTask Method " Url="html/Overload-Tortuga.Anchor.TaskUtilities.AutoCompletingTask-.htm">
+        <HelpTOCNode Id="42d95435-7467-4925-a4b3-8b5a59243f6d" Title="AutoCompletingTask Method " Url="html/Overload-Tortuga.Anchor.TaskUtilities.AutoCompletingTask-.htm">
           <HelpTOCNode Title="AutoCompletingTask(T) Method (T, TimeSpan)" Url="html/M-Tortuga.Anchor.TaskUtilities.AutoCompletingTask--1.htm" />
           <HelpTOCNode Title="AutoCompletingTask(T) Method (T, Int32)" Url="html/M-Tortuga.Anchor.TaskUtilities.AutoCompletingTask--1_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="75ed4cdd-bded-4582-b995-558d35c33ce0" Title="Overload:Tortuga.Anchor.TaskUtilities.ForEachAsync">
+        <HelpTOCNode Id="513a100f-593e-4f71-8c5e-3f2cac87f10a" Title="Overload:Tortuga.Anchor.TaskUtilities.ForEachAsync">
           <HelpTOCNode Title="ForEachAsync Method (IReadOnlyCollection(Func(Task)))" Url="html/M-Tortuga.Anchor.TaskUtilities.ForEachAsync.htm" />
           <HelpTOCNode Title="ForEachAsync(T) Method (IReadOnlyCollection(T), Func(T, Task))" Url="html/M-Tortuga.Anchor.TaskUtilities.ForEachAsync--1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="RunConcurrently Method " Url="html/M-Tortuga.Anchor.TaskUtilities.RunConcurrently.htm" />
         <HelpTOCNode Title="WaitForCompleteOrCancel Method " Url="html/M-Tortuga.Anchor.TaskUtilities.WaitForCompleteOrCancel.htm" />
-        <HelpTOCNode Id="c8a468f6-98c2-48a8-83d1-e59938619b48" Title="WhenAll Method " Url="html/Overload-Tortuga.Anchor.TaskUtilities.WhenAll.htm">
+        <HelpTOCNode Id="0b20a816-3279-42c6-a98f-d0467c2ca2b3" Title="WhenAll Method " Url="html/Overload-Tortuga.Anchor.TaskUtilities.WhenAll.htm">
           <HelpTOCNode Title="WhenAll Method (IEnumerable(Task), CancellationToken)" Url="html/M-Tortuga.Anchor.TaskUtilities.WhenAll.htm" />
           <HelpTOCNode Title="WhenAll Method (IEnumerable(Task))" Url="html/M-Tortuga.Anchor.TaskUtilities.WhenAll_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="77bef1db-c2bc-4ee7-8350-fb1e547a3cb0" Title="WhenAny Method " Url="html/Overload-Tortuga.Anchor.TaskUtilities.WhenAny.htm">
+        <HelpTOCNode Id="ddeb54bd-6664-48d8-94d1-13d03b8e7b20" Title="WhenAny Method " Url="html/Overload-Tortuga.Anchor.TaskUtilities.WhenAny.htm">
           <HelpTOCNode Title="WhenAny Method (IEnumerable(Task), CancellationToken)" Url="html/M-Tortuga.Anchor.TaskUtilities.WhenAny.htm" />
           <HelpTOCNode Title="WhenAny Method (IEnumerable(Task))" Url="html/M-Tortuga.Anchor.TaskUtilities.WhenAny_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="1e51a4fa-9d5f-4628-91a6-961533258432" Title="Tortuga.Anchor.Collections Namespace" Url="html/N-Tortuga.Anchor.Collections.htm">
-    <HelpTOCNode Id="0a5c51a4-9e8f-4bd4-8354-cf3b229ceb42" Title="Dictionary(TKey1, TKey2, TValue) Class" Url="html/T-Tortuga.Anchor.Collections.Dictionary-3.htm">
+  <HelpTOCNode Id="10b91f44-6517-4f5b-8b84-6ad4ba3a2116" Title="Tortuga.Anchor.Collections Namespace" Url="html/N-Tortuga.Anchor.Collections.htm">
+    <HelpTOCNode Id="24cd33a4-c6ac-4f56-a3c0-44a22484e5a0" Title="Dictionary(TKey1, TKey2, TValue) Class" Url="html/T-Tortuga.Anchor.Collections.Dictionary-3.htm">
       <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Dictionary-3.htm" />
-      <HelpTOCNode Id="6e800b47-0526-4fb8-92b9-fc9bac3ef6ec" Title="Dictionary(TKey1, TKey2, TValue) Constructor " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.-ctor.htm">
+      <HelpTOCNode Id="2c6cee15-9c36-462c-b287-66ae04b40367" Title="Dictionary(TKey1, TKey2, TValue) Constructor " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.-ctor.htm">
         <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor " Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor.htm" />
-        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (IDictionary(Pair(TKey1, TKey2), TValue))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_1.htm" />
-        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (Dictionary(Pair(TKey1, TKey2), TValue))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_2.htm" />
-        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (IEqualityComparer(Pair(TKey1, TKey2)))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_3.htm" />
+        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (IDictionary(ValueTuple(TKey1, TKey2), TValue))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_1.htm" />
+        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (Dictionary(ValueTuple(TKey1, TKey2), TValue))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_2.htm" />
+        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (IEqualityComparer(ValueTuple(TKey1, TKey2)))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_3.htm" />
         <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (Int32)" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_4.htm" />
-        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (IDictionary(Pair(TKey1, TKey2), TValue), IEqualityComparer(Pair(TKey1, TKey2)))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_5.htm" />
-        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (Int32, IEqualityComparer(Pair(TKey1, TKey2)))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_6.htm" />
+        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (IDictionary(ValueTuple(TKey1, TKey2), TValue), IEqualityComparer(ValueTuple(TKey1, TKey2)))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_5.htm" />
+        <HelpTOCNode Title="Dictionary(TKey1, TKey2, TValue) Constructor (Int32, IEqualityComparer(ValueTuple(TKey1, TKey2)))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.-ctor_6.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="d7634173-28c8-4cd1-aaad-e64939539f5b" Title="Dictionary(TKey1, TKey2, TValue) Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.Dictionary-3.htm">
-        <HelpTOCNode Id="8cc97f1d-9b40-4395-9820-7f26e50b6583" Title="Add Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.Add.htm">
-          <HelpTOCNode Title="Add Method (Pair(TKey1, TKey2), TValue)" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Add.htm" />
+      <HelpTOCNode Id="88beca6b-5e6d-481a-90dc-c46b7653b5a6" Title="Dictionary(TKey1, TKey2, TValue) Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.Dictionary-3.htm">
+        <HelpTOCNode Id="d6caccab-cffd-4604-8b09-919925622813" Title="Add Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.Add.htm">
+          <HelpTOCNode Title="Add Method (ValueTuple(TKey1, TKey2), TValue)" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Add.htm" />
           <HelpTOCNode Title="Add Method (TKey1, TKey2, TValue)" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Add_1.htm" />
-          <HelpTOCNode Title="Add Method (KeyValuePair(Pair(TKey1, TKey2), TValue))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Add_2.htm" />
+          <HelpTOCNode Title="Add Method (KeyValuePair(ValueTuple(TKey1, TKey2), TValue))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Add_2.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Clear Method " Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Clear.htm" />
         <HelpTOCNode Title="Contains Method " Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Contains.htm" />
-        <HelpTOCNode Id="ec945040-69a4-49e4-9086-34a88dc2c6ec" Title="ContainsKey Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.ContainsKey.htm">
-          <HelpTOCNode Title="ContainsKey Method (Pair(TKey1, TKey2))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.ContainsKey.htm" />
+        <HelpTOCNode Id="8c1cbaa5-f1a0-4f37-93a5-488d27fb4f29" Title="ContainsKey Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.ContainsKey.htm">
+          <HelpTOCNode Title="ContainsKey Method (ValueTuple(TKey1, TKey2))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.ContainsKey.htm" />
           <HelpTOCNode Title="ContainsKey Method (TKey1, TKey2)" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.ContainsKey_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="CopyTo Method " Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.CopyTo.htm" />
         <HelpTOCNode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.GetEnumerator.htm" />
-        <HelpTOCNode Id="a006044b-dfd0-459b-831c-227a33639823" Title="Remove Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.Remove.htm">
-          <HelpTOCNode Title="Remove Method (Pair(TKey1, TKey2))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Remove.htm" />
+        <HelpTOCNode Id="c00277c4-0f2b-4783-8d40-70b940607a51" Title="Remove Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.Remove.htm">
+          <HelpTOCNode Title="Remove Method (ValueTuple(TKey1, TKey2))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Remove.htm" />
           <HelpTOCNode Title="Remove Method (TKey1, TKey2)" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Remove_1.htm" />
-          <HelpTOCNode Title="Remove Method (KeyValuePair(Pair(TKey1, TKey2), TValue))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Remove_2.htm" />
+          <HelpTOCNode Title="Remove Method (KeyValuePair(ValueTuple(TKey1, TKey2), TValue))" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.Remove_2.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="0d4a4b83-db93-41a2-9516-b2424227c2c1" Title="TryGetValue Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.TryGetValue.htm">
-          <HelpTOCNode Title="TryGetValue Method (Pair(TKey1, TKey2), TValue)" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.TryGetValue.htm" />
+        <HelpTOCNode Id="bfb73962-ea40-4260-a47c-e4a6d7dd6f64" Title="TryGetValue Method " Url="html/Overload-Tortuga.Anchor.Collections.Dictionary-3.TryGetValue.htm">
+          <HelpTOCNode Title="TryGetValue Method (ValueTuple(TKey1, TKey2), TValue)" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.TryGetValue.htm" />
           <HelpTOCNode Title="TryGetValue Method (TKey1, TKey2, TValue)" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.TryGetValue_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="b59c6041-4dd2-4f04-af0a-28a9c12f35bf" Title="Dictionary(TKey1, TKey2, TValue) Properties" Url="html/Properties.T-Tortuga.Anchor.Collections.Dictionary-3.htm">
+      <HelpTOCNode Id="ea1af20f-5799-4f3b-9121-56391ffb23e5" Title="Dictionary(TKey1, TKey2, TValue) Properties" Url="html/Properties.T-Tortuga.Anchor.Collections.Dictionary-3.htm">
         <HelpTOCNode Title="Comparer Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Comparer.htm" />
         <HelpTOCNode Title="Count Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Count.htm" />
         <HelpTOCNode Title="Keys Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Keys.htm" />
         <HelpTOCNode Title="Values Property " Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Values.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="9591d751-ec2b-45b2-9788-8ec4a53f2068" Title="ObservableCollectionExtended(T) Class" Url="html/T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm">
+    <HelpTOCNode Id="62b7b6a1-3b0f-46df-96c5-f377dc3af385" Title="ObservableCollectionExtended(T) Class" Url="html/T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm">
       <HelpTOCNode Title="ObservableCollectionExtended(T) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm" />
-      <HelpTOCNode Id="b7f5cc3c-b771-440d-8a85-3a334d91bbf8" Title="ObservableCollectionExtended(T) Constructor " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.-ctor.htm">
+      <HelpTOCNode Id="c6d2afbf-a76e-4cf9-8ef5-2cef679ad2c5" Title="ObservableCollectionExtended(T) Constructor " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.-ctor.htm">
         <HelpTOCNode Title="ObservableCollectionExtended(T) Constructor " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.-ctor.htm" />
         <HelpTOCNode Title="ObservableCollectionExtended(T) Constructor (List(T))" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.-ctor_1.htm" />
         <HelpTOCNode Title="ObservableCollectionExtended(T) Constructor (IEnumerable(T))" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.-ctor_2.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="9d32b9db-620e-47a0-834a-320b1cdf09b7" Title="ObservableCollectionExtended(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm">
-        <HelpTOCNode Id="e1ece54c-9c32-4044-8965-c854c4824dd5" Title="AddHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.AddHandler.htm">
+      <HelpTOCNode Id="40c8d486-8554-4894-bc99-7991e626d415" Title="ObservableCollectionExtended(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm">
+        <HelpTOCNode Id="eff8f926-9616-4cd8-9fe4-8f15e7b874b5" Title="AddHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.AddHandler.htm">
           <HelpTOCNode Title="AddHandler Method (IListener(NotifyCollectionChangedEventArgs))" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.AddHandler.htm" />
           <HelpTOCNode Title="AddHandler Method (IListener(PropertyChangedEventArgs))" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.AddHandler_1.htm" />
           <HelpTOCNode Title="AddHandler Method (IListener(RelayedEventArgs(PropertyChangedEventArgs)))" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.AddHandler_2.htm" />
@@ -145,11 +145,11 @@
         <HelpTOCNode Title="InsertItem Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.InsertItem.htm" />
         <HelpTOCNode Title="OnItemAdded Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnItemAdded.htm" />
         <HelpTOCNode Title="OnItemRemoved Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnItemRemoved.htm" />
-        <HelpTOCNode Id="7e9e0103-b100-4f5d-9d0f-93b91f27c9bc" Title="OnPropertyChanged Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnPropertyChanged.htm">
+        <HelpTOCNode Id="64cc3df4-144d-4e01-9a0d-90d5218c2c91" Title="OnPropertyChanged Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnPropertyChanged.htm">
           <HelpTOCNode Title="OnPropertyChanged Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.OnPropertyChanged.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="RemoveAll Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveAll.htm" />
-        <HelpTOCNode Id="fc5745a5-90dd-449b-aa1a-c32001ed9d6f" Title="RemoveHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveHandler.htm">
+        <HelpTOCNode Id="a666c175-d427-4f9b-8864-ace0a95bae32" Title="RemoveHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveHandler.htm">
           <HelpTOCNode Title="RemoveHandler Method (IListener(NotifyCollectionChangedEventArgs))" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveHandler.htm" />
           <HelpTOCNode Title="RemoveHandler Method (IListener(PropertyChangedEventArgs))" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveHandler_1.htm" />
           <HelpTOCNode Title="RemoveHandler Method (IListener(RelayedEventArgs(PropertyChangedEventArgs)))" Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveHandler_2.htm" />
@@ -157,82 +157,47 @@
         <HelpTOCNode Title="RemoveItem Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.RemoveItem.htm" />
         <HelpTOCNode Title="SetItem Method " Url="html/M-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.SetItem.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="e03a5f1f-f035-44be-9904-59f574254038" Title="ObservableCollectionExtended(T) Properties" Url="html/Properties.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm">
+      <HelpTOCNode Id="24d32a38-ef94-485a-af32-65c6fef941fe" Title="ObservableCollectionExtended(T) Properties" Url="html/Properties.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm">
         <HelpTOCNode Title="ReadOnlyWrapper Property " Url="html/P-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ReadOnlyWrapper.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="9ea30a4a-ceaa-416e-a45a-a4b641b19ec2" Title="ObservableCollectionExtended(T) Events" Url="html/Events.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm">
+      <HelpTOCNode Id="59f7769f-689a-4912-89e1-0291e206f159" Title="ObservableCollectionExtended(T) Events" Url="html/Events.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm">
         <HelpTOCNode Title="ItemAdded Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ItemAdded.htm" />
         <HelpTOCNode Title="ItemPropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ItemPropertyChanged.htm" />
         <HelpTOCNode Title="ItemRemoved Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ItemRemoved.htm" />
         <HelpTOCNode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.PropertyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="69822329-0cc4-4e11-ae2b-0ba78028ee77" Title="Pair Class" Url="html/T-Tortuga.Anchor.Collections.Pair.htm">
-      <HelpTOCNode Title="Pair Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair.htm" />
-      <HelpTOCNode Id="4865b368-6d8c-4bef-a49a-ca9d6fe7ac31" Title="Pair Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.Pair.htm">
-        <HelpTOCNode Title="Create(T1, T2) Method " Url="html/M-Tortuga.Anchor.Collections.Pair.Create--2.htm" />
-        <HelpTOCNode Title="FromKeyValuePair(T1, T2) Method " Url="html/M-Tortuga.Anchor.Collections.Pair.FromKeyValuePair--2.htm" />
-        <HelpTOCNode Title="FromTuple(T1, T2) Method " Url="html/M-Tortuga.Anchor.Collections.Pair.FromTuple--2.htm" />
-      </HelpTOCNode>
-    </HelpTOCNode>
-    <HelpTOCNode Id="a8eab1d9-f136-4a10-b3c1-1353cf693e75" Title="Pair(T1, T2) Structure" Url="html/T-Tortuga.Anchor.Collections.Pair-2.htm">
-      <HelpTOCNode Title="Pair(T1, T2) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Pair-2.htm" />
-      <HelpTOCNode Title="Pair(T1, T2) Constructor " Url="html/M-Tortuga.Anchor.Collections.Pair-2.-ctor.htm" />
-      <HelpTOCNode Id="dc576fe9-2ea8-40b6-ab58-61aa83da620c" Title="Pair(T1, T2) Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.Pair-2.htm">
-        <HelpTOCNode Id="6177a1da-7d0b-49bd-89de-920dd0bfe91d" Title="Equals Method " Url="html/Overload-Tortuga.Anchor.Collections.Pair-2.Equals.htm">
-          <HelpTOCNode Title="Equals Method (Object)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.Equals.htm" />
-          <HelpTOCNode Title="Equals Method (Pair(T1, T2))" Url="html/M-Tortuga.Anchor.Collections.Pair-2.Equals_1.htm" />
-        </HelpTOCNode>
-        <HelpTOCNode Title="GetHashCode Method " Url="html/M-Tortuga.Anchor.Collections.Pair-2.GetHashCode.htm" />
-        <HelpTOCNode Title="ToKeyValuePair Method " Url="html/M-Tortuga.Anchor.Collections.Pair-2.ToKeyValuePair.htm" />
-        <HelpTOCNode Title="ToTuple Method " Url="html/M-Tortuga.Anchor.Collections.Pair-2.ToTuple.htm" />
-      </HelpTOCNode>
-      <HelpTOCNode Id="cf9a1bdc-5adc-4977-9662-c24872a73987" Title="Pair(T1, T2) Operators and Type Conversions" Url="html/Operators.T-Tortuga.Anchor.Collections.Pair-2.htm">
-        <HelpTOCNode Title="Equality Operator " Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Equality.htm" />
-        <HelpTOCNode Id="46318e6b-83d6-48f4-a039-c2e2f21061a6" Title="Implicit Conversion Operators" Url="html/Overload-Tortuga.Anchor.Collections.Pair-2.op_Implicit.htm">
-          <HelpTOCNode Title="Implicit Conversion (Pair to KeyValuePair)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit.htm" />
-          <HelpTOCNode Title="Implicit Conversion (Tuple to Pair)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit_1.htm" />
-          <HelpTOCNode Title="Implicit Conversion (KeyValuePair to Pair)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit_2.htm" />
-          <HelpTOCNode Title="Implicit Conversion (Pair to Tuple)" Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Implicit_3.htm" />
-        </HelpTOCNode>
-        <HelpTOCNode Title="Inequality Operator " Url="html/M-Tortuga.Anchor.Collections.Pair-2.op_Inequality.htm" />
-      </HelpTOCNode>
-      <HelpTOCNode Id="50afb5ad-2efe-4678-a770-7020d0b3b597" Title="Pair(T1, T2) Properties" Url="html/Properties.T-Tortuga.Anchor.Collections.Pair-2.htm">
-        <HelpTOCNode Title="Item1 Property " Url="html/P-Tortuga.Anchor.Collections.Pair-2.Item1.htm" />
-        <HelpTOCNode Title="Item2 Property " Url="html/P-Tortuga.Anchor.Collections.Pair-2.Item2.htm" />
-      </HelpTOCNode>
-    </HelpTOCNode>
-    <HelpTOCNode Id="53894096-e7e1-4fbf-8419-5cae9127aca9" Title="ReadOnlyObservableCollectionExtended(T) Class" Url="html/T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm">
+    <HelpTOCNode Id="111e8597-a50f-4b47-b99d-e56288cc9543" Title="ReadOnlyObservableCollectionExtended(T) Class" Url="html/T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm">
       <HelpTOCNode Title="ReadOnlyObservableCollectionExtended(T) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm" />
       <HelpTOCNode Title="ReadOnlyObservableCollectionExtended(T) Constructor " Url="html/M-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.-ctor.htm" />
-      <HelpTOCNode Id="4c4dd533-1fe2-4b46-9c25-a5876ab34b7a" Title="ReadOnlyObservableCollectionExtended(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm">
-        <HelpTOCNode Id="2f12e405-4f08-4e2a-8b9c-63374bd660f1" Title="AddHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.AddHandler.htm">
+      <HelpTOCNode Id="33466724-104c-4fed-8db5-a0f54a7111d5" Title="ReadOnlyObservableCollectionExtended(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm">
+        <HelpTOCNode Id="67cd1e2c-997c-4f6b-a330-1642212dda89" Title="AddHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.AddHandler.htm">
           <HelpTOCNode Title="AddHandler Method (IListener(NotifyCollectionChangedEventArgs))" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.AddHandler.htm" />
           <HelpTOCNode Title="AddHandler Method (IListener(PropertyChangedEventArgs))" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.AddHandler_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="OnCollectionChanged Method " Url="html/M-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.OnCollectionChanged.htm" />
-        <HelpTOCNode Id="143ec2f0-85db-4619-8885-6e009c49f526" Title="OnPropertyChanged Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.OnPropertyChanged.htm">
+        <HelpTOCNode Id="eaa92223-89fb-4779-b944-4d2a39fcc527" Title="OnPropertyChanged Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.OnPropertyChanged.htm">
           <HelpTOCNode Title="OnPropertyChanged Method (String)" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.OnPropertyChanged.htm" />
           <HelpTOCNode Title="OnPropertyChanged Method (PropertyChangedEventArgs)" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.OnPropertyChanged_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="OnSourcePropertyChanged Method (String)" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.OnSourcePropertyChanged.htm" />
-        <HelpTOCNode Id="9b859330-7d97-4544-a2e4-a0cddd71742b" Title="RemoveHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.RemoveHandler.htm">
+        <HelpTOCNode Id="d664ca93-caa0-4dbe-b9c2-5048fc298fee" Title="RemoveHandler Method " Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.RemoveHandler.htm">
           <HelpTOCNode Title="RemoveHandler Method (IListener(NotifyCollectionChangedEventArgs))" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.RemoveHandler.htm" />
           <HelpTOCNode Title="RemoveHandler Method (IListener(PropertyChangedEventArgs))" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.RemoveHandler_1.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="341d6bff-d4c9-46b5-a70c-9fa4501393b8" Title="ReadOnlyObservableCollectionExtended(T) Properties" Url="html/Properties.T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm">
+      <HelpTOCNode Id="67edb5a3-f369-49f0-b82d-f9a037e1c781" Title="ReadOnlyObservableCollectionExtended(T) Properties" Url="html/Properties.T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm">
         <HelpTOCNode Title="SourceList Property " Url="html/P-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.SourceList.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="00a80577-a0ac-45bb-a978-a5539d9f2ffd" Title="ReadOnlyObservableCollectionExtended(T) Events" Url="html/Events.T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm">
+      <HelpTOCNode Id="74a16e9f-f070-4204-86ea-e0ae7924077d" Title="ReadOnlyObservableCollectionExtended(T) Events" Url="html/Events.T-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.htm">
         <HelpTOCNode Title="CollectionChanged Event" Url="html/E-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.CollectionChanged.htm" />
         <HelpTOCNode Title="ItemPropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.ItemPropertyChanged.htm" />
         <HelpTOCNode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.PropertyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="ab64f999-6659-4784-b1b9-a3e633c2a34d" Title="WeakReferenceCollection(T) Class" Url="html/T-Tortuga.Anchor.Collections.WeakReferenceCollection-1.htm">
+    <HelpTOCNode Id="9ab25474-24ae-4c81-ab26-850fde13ef88" Title="WeakReferenceCollection(T) Class" Url="html/T-Tortuga.Anchor.Collections.WeakReferenceCollection-1.htm">
       <HelpTOCNode Title="WeakReferenceCollection(T) Members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.WeakReferenceCollection-1.htm" />
-      <HelpTOCNode Id="91e1be82-3b8f-474c-ba79-6ecd5beef9df" Title="WeakReferenceCollection(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.WeakReferenceCollection-1.htm">
+      <HelpTOCNode Id="d739f5e4-7348-4a5a-b740-513e18008851" Title="WeakReferenceCollection(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Collections.WeakReferenceCollection-1.htm">
         <HelpTOCNode Title="Add Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.Add.htm" />
         <HelpTOCNode Title="AddRange Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.AddRange.htm" />
         <HelpTOCNode Title="CleanUp Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.CleanUp.htm" />
@@ -242,86 +207,86 @@
         <HelpTOCNode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.GetEnumerator.htm" />
         <HelpTOCNode Title="Remove Method " Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.Remove.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="8bdbdd18-a335-4b81-8ba6-ee3bc62180d3" Title="WeakReferenceCollection(T) Properties" Url="html/Properties.T-Tortuga.Anchor.Collections.WeakReferenceCollection-1.htm">
+      <HelpTOCNode Id="f6d24a89-6d1c-4caf-9494-4fa8c45d0ef5" Title="WeakReferenceCollection(T) Properties" Url="html/Properties.T-Tortuga.Anchor.Collections.WeakReferenceCollection-1.htm">
         <HelpTOCNode Title="Count Property " Url="html/P-Tortuga.Anchor.Collections.WeakReferenceCollection-1.Count.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="e59e0749-f97b-4368-922a-ff93afa5786c" Title="Tortuga.Anchor.ComponentModel Namespace" Url="html/N-Tortuga.Anchor.ComponentModel.htm">
-    <HelpTOCNode Id="89523131-2be3-4b77-b846-022abc221735" Title="IDetailedPropertyChangeTracking Interface" Url="html/T-Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking.htm">
+  <HelpTOCNode Id="d8f49bca-9231-4335-a998-4c2d2bb0fbf7" Title="Tortuga.Anchor.ComponentModel Namespace" Url="html/N-Tortuga.Anchor.ComponentModel.htm">
+    <HelpTOCNode Id="81ed3d73-bef8-4449-a59b-8f8577fc2e6d" Title="IDetailedPropertyChangeTracking Interface" Url="html/T-Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking.htm">
       <HelpTOCNode Title="IDetailedPropertyChangeTracking Members" Url="html/AllMembers.T-Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking.htm" />
-      <HelpTOCNode Id="646eb0ae-bbe5-48bf-abb5-3a35fd872e11" Title="IDetailedPropertyChangeTracking Methods" Url="html/Methods.T-Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking.htm">
+      <HelpTOCNode Id="aed7a749-a40c-406c-ac6c-e6ef1a7e551a" Title="IDetailedPropertyChangeTracking Methods" Url="html/Methods.T-Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking.htm">
         <HelpTOCNode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking.GetPreviousValue.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="5c3ba154-eca0-4eed-ad23-f19ee47a0d55" Title="INotifyCollectionChanged(T) Interface" Url="html/T-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.htm">
+    <HelpTOCNode Id="87b598a8-b3ce-4767-96df-60d827ac8bd3" Title="INotifyCollectionChanged(T) Interface" Url="html/T-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.htm">
       <HelpTOCNode Title="INotifyCollectionChanged Members" Url="html/AllMembers.T-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.htm" />
       <HelpTOCNode Title="INotifyCollectionChanged Methods" Url="html/Methods.T-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.htm" />
-      <HelpTOCNode Id="2f0ebe13-5177-4d91-8c87-53a9a7fa0033" Title="INotifyCollectionChanged Events" Url="html/Events.T-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.htm">
+      <HelpTOCNode Id="b8f3aaab-4e10-4da2-b100-408ebdfda193" Title="INotifyCollectionChanged Events" Url="html/Events.T-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.htm">
         <HelpTOCNode Title="ItemAdded Event" Url="html/E-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.ItemAdded.htm" />
         <HelpTOCNode Title="ItemRemoved Event" Url="html/E-Tortuga.Anchor.ComponentModel.INotifyCollectionChanged-1.ItemRemoved.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="451b0a33-edc5-4dcc-9166-0672c0bd9ee3" Title="IPropertyChangeTracking Interface" Url="html/T-Tortuga.Anchor.ComponentModel.IPropertyChangeTracking.htm">
+    <HelpTOCNode Id="dddc818c-863e-47f9-bcbc-5dcb1761033a" Title="IPropertyChangeTracking Interface" Url="html/T-Tortuga.Anchor.ComponentModel.IPropertyChangeTracking.htm">
       <HelpTOCNode Title="IPropertyChangeTracking Members" Url="html/AllMembers.T-Tortuga.Anchor.ComponentModel.IPropertyChangeTracking.htm" />
-      <HelpTOCNode Id="48c6be19-643d-4477-a079-807d4c952eb2" Title="IPropertyChangeTracking Methods" Url="html/Methods.T-Tortuga.Anchor.ComponentModel.IPropertyChangeTracking.htm">
+      <HelpTOCNode Id="136116b0-3f41-444c-b825-8f357b0544aa" Title="IPropertyChangeTracking Methods" Url="html/Methods.T-Tortuga.Anchor.ComponentModel.IPropertyChangeTracking.htm">
         <HelpTOCNode Title="ChangedProperties Method " Url="html/M-Tortuga.Anchor.ComponentModel.IPropertyChangeTracking.ChangedProperties.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="9be4c514-63bc-4fd7-8ec1-dd4fa11d6277" Title="ItemEventArgs(T) Class" Url="html/T-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.htm">
+    <HelpTOCNode Id="e1212739-7df6-40a1-bb7d-5d326f04b46b" Title="ItemEventArgs(T) Class" Url="html/T-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.htm">
       <HelpTOCNode Title="ItemEventArgs(T) Members" Url="html/AllMembers.T-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.htm" />
       <HelpTOCNode Title="ItemEventArgs(T) Constructor " Url="html/M-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.-ctor.htm" />
       <HelpTOCNode Title="ItemEventArgs(T) Methods" Url="html/Methods.T-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.htm" />
-      <HelpTOCNode Id="bb25d9f4-35fa-4270-93d7-5badbf1be5f0" Title="ItemEventArgs(T) Properties" Url="html/Properties.T-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.htm">
+      <HelpTOCNode Id="d5b1ac18-3762-4f64-bfb8-76bde3a2188b" Title="ItemEventArgs(T) Properties" Url="html/Properties.T-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.htm">
         <HelpTOCNode Title="Item Property " Url="html/P-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.Item.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="dc790f31-d1f8-4c92-b1f7-791cb03b0661" Title="IValidatable Interface" Url="html/T-Tortuga.Anchor.ComponentModel.IValidatable.htm">
+    <HelpTOCNode Id="d216e3fd-fd85-48c6-a482-b449cdf37211" Title="IValidatable Interface" Url="html/T-Tortuga.Anchor.ComponentModel.IValidatable.htm">
       <HelpTOCNode Title="IValidatable Members" Url="html/AllMembers.T-Tortuga.Anchor.ComponentModel.IValidatable.htm" />
-      <HelpTOCNode Id="3cbf3bf4-1aab-4670-88b6-593f72fbe43b" Title="IValidatable Methods" Url="html/Methods.T-Tortuga.Anchor.ComponentModel.IValidatable.htm">
+      <HelpTOCNode Id="5e62199a-4576-4176-b3ce-bfa9a3051ef9" Title="IValidatable Methods" Url="html/Methods.T-Tortuga.Anchor.ComponentModel.IValidatable.htm">
         <HelpTOCNode Title="ClearErrors Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.ClearErrors.htm" />
         <HelpTOCNode Title="GetAllErrors Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.GetAllErrors.htm" />
-        <HelpTOCNode Id="08694d87-aae4-43c8-97e9-ffd3cd63eb09" Title="GetErrors Method " Url="html/Overload-Tortuga.Anchor.ComponentModel.IValidatable.GetErrors.htm">
+        <HelpTOCNode Id="fa147782-1d8f-4d14-ae0e-573f6e619093" Title="GetErrors Method " Url="html/Overload-Tortuga.Anchor.ComponentModel.IValidatable.GetErrors.htm">
           <HelpTOCNode Title="GetErrors Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.GetErrors.htm" />
           <HelpTOCNode Title="GetErrors Method (String)" Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.GetErrors_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Validate Method " Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.Validate.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="36a966e9-4e5c-4ca8-afd9-128aa4c8c0bd" Title="IValidatable Properties" Url="html/Properties.T-Tortuga.Anchor.ComponentModel.IValidatable.htm">
+      <HelpTOCNode Id="e837e7eb-6227-42dc-967d-988ffe5ce0c7" Title="IValidatable Properties" Url="html/Properties.T-Tortuga.Anchor.ComponentModel.IValidatable.htm">
         <HelpTOCNode Title="HasErrors Property " Url="html/P-Tortuga.Anchor.ComponentModel.IValidatable.HasErrors.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="f1130f41-3459-495b-9609-bdc751b0ac80" Title="IValidatable Events" Url="html/Events.T-Tortuga.Anchor.ComponentModel.IValidatable.htm">
+      <HelpTOCNode Id="0d9215f6-bc67-4762-b44c-1472006198d2" Title="IValidatable Events" Url="html/Events.T-Tortuga.Anchor.ComponentModel.IValidatable.htm">
         <HelpTOCNode Title="ErrorsChanged Event" Url="html/E-Tortuga.Anchor.ComponentModel.IValidatable.ErrorsChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="acad3437-d7d9-4b09-ae5f-948baee61cb1" Title="Tortuga.Anchor.DataAnnotations Namespace" Url="html/N-Tortuga.Anchor.DataAnnotations.htm">
-    <HelpTOCNode Id="82fd0f31-4aa1-49c8-865b-5ded5e3162cf" Title="ValidationResultCollection Class" Url="html/T-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.htm">
+  <HelpTOCNode Id="3cb09945-3db0-4ab8-9120-8fc387e93fd5" Title="Tortuga.Anchor.DataAnnotations Namespace" Url="html/N-Tortuga.Anchor.DataAnnotations.htm">
+    <HelpTOCNode Id="b316a905-71b4-4357-a5f4-d54958be6929" Title="ValidationResultCollection Class" Url="html/T-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.htm">
       <HelpTOCNode Title="ValidationResultCollection Members" Url="html/AllMembers.T-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.htm" />
-      <HelpTOCNode Id="c2b5114e-3abf-4f8c-add1-4e08b5bcaa0b" Title="ValidationResultCollection Constructor " Url="html/Overload-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.-ctor.htm">
+      <HelpTOCNode Id="d48e6d51-4856-4af5-87f2-da6277b15381" Title="ValidationResultCollection Constructor " Url="html/Overload-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.-ctor.htm">
         <HelpTOCNode Title="ValidationResultCollection Constructor " Url="html/M-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.-ctor.htm" />
         <HelpTOCNode Title="ValidationResultCollection Constructor (IList(ValidationResult))" Url="html/M-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.-ctor_1.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="9575d524-376d-4c84-a04f-9521b25332b6" Title="ValidationResultCollection Methods" Url="html/Methods.T-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.htm">
-        <HelpTOCNode Id="423f8b47-47ac-48df-8932-b80a348f05bd" Title="Add Method " Url="html/Overload-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.Add.htm">
+      <HelpTOCNode Id="a83a1476-2dd5-4b32-8ad6-60bfe98b6d1a" Title="ValidationResultCollection Methods" Url="html/Methods.T-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.htm">
+        <HelpTOCNode Id="d223a4c9-84e0-47c7-99e8-d63ad630cf86" Title="Add Method " Url="html/Overload-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.Add.htm">
           <HelpTOCNode Title="Add Method " Url="html/M-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.Add.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
       <HelpTOCNode Title="ValidationResultCollection Properties" Url="html/Properties.T-Tortuga.Anchor.DataAnnotations.ValidationResultCollection.htm" />
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="3f9cf060-535a-480c-82e5-8fcfaf58630f" Title="Tortuga.Anchor.Eventing Namespace" Url="html/N-Tortuga.Anchor.Eventing.htm">
-    <HelpTOCNode Id="6b543e49-a3ce-472b-837c-09be33c73a5f" Title="CollectionChangedEventManager Class" Url="html/T-Tortuga.Anchor.Eventing.CollectionChangedEventManager.htm">
+  <HelpTOCNode Id="fdfdfc2b-3fd0-4382-855b-bf467ee2c0ad" Title="Tortuga.Anchor.Eventing Namespace" Url="html/N-Tortuga.Anchor.Eventing.htm">
+    <HelpTOCNode Id="839d809f-733e-43aa-b5b0-d52e13b90862" Title="CollectionChangedEventManager Class" Url="html/T-Tortuga.Anchor.Eventing.CollectionChangedEventManager.htm">
       <HelpTOCNode Title="CollectionChangedEventManager Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.CollectionChangedEventManager.htm" />
       <HelpTOCNode Title="CollectionChangedEventManager Constructor " Url="html/M-Tortuga.Anchor.Eventing.CollectionChangedEventManager.-ctor.htm" />
-      <HelpTOCNode Id="cdc1832c-0eab-4645-91b4-b912f95a9ab5" Title="CollectionChangedEventManager Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.CollectionChangedEventManager.htm">
+      <HelpTOCNode Id="fcc88b24-8809-48ac-88b8-2eb63ede9d86" Title="CollectionChangedEventManager Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.CollectionChangedEventManager.htm">
         <HelpTOCNode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.CollectionChangedEventManager.AttachToEvent.htm" />
         <HelpTOCNode Title="DetachFromEvent Method " Url="html/M-Tortuga.Anchor.Eventing.CollectionChangedEventManager.DetachFromEvent.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="2c69b8b0-1ab1-476d-94df-1ff44fb6b65b" Title="EventManager(T) Class" Url="html/T-Tortuga.Anchor.Eventing.EventManager-1.htm">
+    <HelpTOCNode Id="9440ed7e-7d81-497a-9cf2-7a057f77645f" Title="EventManager(T) Class" Url="html/T-Tortuga.Anchor.Eventing.EventManager-1.htm">
       <HelpTOCNode Title="EventManager(T) Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.EventManager-1.htm" />
-      <HelpTOCNode Id="2b2ab3d7-0e8e-47c1-8cc0-aa3d22b7edc1" Title="EventManager(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.EventManager-1.htm">
+      <HelpTOCNode Id="79b1e3af-4188-42c6-8f7b-756a47eda768" Title="EventManager(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.EventManager-1.htm">
         <HelpTOCNode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.AddHandler.htm" />
         <HelpTOCNode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.AttachToEvent.htm" />
         <HelpTOCNode Title="DetachFromEvent Method " Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.DetachFromEvent.htm" />
@@ -329,87 +294,87 @@
         <HelpTOCNode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.RemoveHandler.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="d413b5e3-e120-4601-abea-698e317d1257" Title="IListener(T) Interface" Url="html/T-Tortuga.Anchor.Eventing.IListener-1.htm">
+    <HelpTOCNode Id="18b78d01-bda8-4175-9da8-08f4d1c147da" Title="IListener(T) Interface" Url="html/T-Tortuga.Anchor.Eventing.IListener-1.htm">
       <HelpTOCNode Title="IListener Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.IListener-1.htm" />
-      <HelpTOCNode Id="36174c75-020e-42b2-84f6-b5c1b9b0884c" Title="IListener Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.IListener-1.htm">
+      <HelpTOCNode Id="708b0800-5982-442c-9c48-3db96db3d19f" Title="IListener Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.IListener-1.htm">
         <HelpTOCNode Title="Invoke Method " Url="html/M-Tortuga.Anchor.Eventing.IListener-1.Invoke.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="f60b8709-e5d6-41a5-9547-b05dd0491413" Title="INotifyCollectionChangedWeak Interface" Url="html/T-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.htm">
+    <HelpTOCNode Id="e7b9b235-1179-4893-a768-60849e292c1a" Title="INotifyCollectionChangedWeak Interface" Url="html/T-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.htm">
       <HelpTOCNode Title="INotifyCollectionChangedWeak Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.htm" />
-      <HelpTOCNode Id="2505fda2-f246-4e70-89a7-8627e85b685a" Title="INotifyCollectionChangedWeak Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.htm">
+      <HelpTOCNode Id="38772cc4-6415-4a56-b01b-9781eee27800" Title="INotifyCollectionChangedWeak Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.htm">
         <HelpTOCNode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.AddHandler.htm" />
         <HelpTOCNode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyCollectionChangedWeak.RemoveHandler.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="f810c715-56c5-4b07-9a45-645d65008004" Title="INotifyItemPropertyChanged Interface" Url="html/T-Tortuga.Anchor.Eventing.INotifyItemPropertyChanged.htm">
+    <HelpTOCNode Id="6c230ecf-d14a-4ca1-af29-f41ad30c789f" Title="INotifyItemPropertyChanged Interface" Url="html/T-Tortuga.Anchor.Eventing.INotifyItemPropertyChanged.htm">
       <HelpTOCNode Title="INotifyItemPropertyChanged Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.INotifyItemPropertyChanged.htm" />
       <HelpTOCNode Title="INotifyItemPropertyChanged Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.INotifyItemPropertyChanged.htm" />
-      <HelpTOCNode Id="626dfbe8-f552-4d6d-9780-8e8cd47d5ef9" Title="INotifyItemPropertyChanged Events" Url="html/Events.T-Tortuga.Anchor.Eventing.INotifyItemPropertyChanged.htm">
+      <HelpTOCNode Id="9b916284-5064-4eac-92f0-4e766e0c5bb5" Title="INotifyItemPropertyChanged Events" Url="html/Events.T-Tortuga.Anchor.Eventing.INotifyItemPropertyChanged.htm">
         <HelpTOCNode Title="ItemPropertyChanged Event" Url="html/E-Tortuga.Anchor.Eventing.INotifyItemPropertyChanged.ItemPropertyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="2000a5fe-8290-4aa9-8650-b04854157c14" Title="INotifyItemPropertyChangedWeak Interface" Url="html/T-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.htm">
+    <HelpTOCNode Id="d6c66cc5-9cd4-4ea1-abbb-58181a02f0ea" Title="INotifyItemPropertyChangedWeak Interface" Url="html/T-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.htm">
       <HelpTOCNode Title="INotifyItemPropertyChangedWeak Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.htm" />
-      <HelpTOCNode Id="37a7e139-39ea-493c-9d11-cd6688e62dd5" Title="INotifyItemPropertyChangedWeak Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.htm">
+      <HelpTOCNode Id="b4e0c9d9-08b0-435d-ba6a-0a55ace25723" Title="INotifyItemPropertyChangedWeak Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.htm">
         <HelpTOCNode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.AddHandler.htm" />
         <HelpTOCNode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyItemPropertyChangedWeak.RemoveHandler.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="6c45c221-be06-41df-8cdb-7792c6855f2e" Title="INotifyPropertyChangedWeak Interface" Url="html/T-Tortuga.Anchor.Eventing.INotifyPropertyChangedWeak.htm">
+    <HelpTOCNode Id="74ea456d-62ac-404f-b6df-905d6858a7bf" Title="INotifyPropertyChangedWeak Interface" Url="html/T-Tortuga.Anchor.Eventing.INotifyPropertyChangedWeak.htm">
       <HelpTOCNode Title="INotifyPropertyChangedWeak Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.INotifyPropertyChangedWeak.htm" />
-      <HelpTOCNode Id="e4e1af00-821d-4c85-8f50-6915c43787b4" Title="INotifyPropertyChangedWeak Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.INotifyPropertyChangedWeak.htm">
+      <HelpTOCNode Id="4ae3ca3e-2c24-4a09-b0b6-57961a430fd8" Title="INotifyPropertyChangedWeak Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.INotifyPropertyChangedWeak.htm">
         <HelpTOCNode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyPropertyChangedWeak.AddHandler.htm" />
         <HelpTOCNode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Eventing.INotifyPropertyChangedWeak.RemoveHandler.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="fb5c1826-082b-4b93-8b51-0d9eb007b80c" Title="ItemPropertyChangedEventManager Class" Url="html/T-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.htm">
+    <HelpTOCNode Id="11588f70-3a1d-44dc-8ac5-a6b2b1117c65" Title="ItemPropertyChangedEventManager Class" Url="html/T-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.htm">
       <HelpTOCNode Title="ItemPropertyChangedEventManager Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.htm" />
       <HelpTOCNode Title="ItemPropertyChangedEventManager Constructor " Url="html/M-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.-ctor.htm" />
-      <HelpTOCNode Id="81d83093-75d5-44af-a28d-eeccec07cde6" Title="ItemPropertyChangedEventManager Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.htm">
+      <HelpTOCNode Id="11d66d96-ba86-4179-8706-35c414b93b6f" Title="ItemPropertyChangedEventManager Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.htm">
         <HelpTOCNode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.AttachToEvent.htm" />
         <HelpTOCNode Title="DetachFromEvent Method " Url="html/M-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.DetachFromEvent.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e0269135-7386-4065-82b3-131a065c15a2" Title="Listener(T) Class" Url="html/T-Tortuga.Anchor.Eventing.Listener-1.htm">
+    <HelpTOCNode Id="d4d57db6-6a11-4efa-89ac-75db17c626ac" Title="Listener(T) Class" Url="html/T-Tortuga.Anchor.Eventing.Listener-1.htm">
       <HelpTOCNode Title="Listener(T) Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.Listener-1.htm" />
       <HelpTOCNode Title="Listener(T) Constructor " Url="html/M-Tortuga.Anchor.Eventing.Listener-1.-ctor.htm" />
-      <HelpTOCNode Id="33a07a92-353c-4ec5-ac98-5d4f524889ac" Title="Listener(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.Listener-1.htm">
+      <HelpTOCNode Id="f694a6c9-cbe7-48ab-8446-2a50f4ca4901" Title="Listener(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.Listener-1.htm">
         <HelpTOCNode Title="Invoke Method " Url="html/M-Tortuga.Anchor.Eventing.Listener-1.Invoke.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="23e86c9c-34a2-46c2-b621-3aa9704141e3" Title="PropertyChangedEventManager Class" Url="html/T-Tortuga.Anchor.Eventing.PropertyChangedEventManager.htm">
+    <HelpTOCNode Id="82aa4ccc-de35-45c8-a3e5-97bb57434384" Title="PropertyChangedEventManager Class" Url="html/T-Tortuga.Anchor.Eventing.PropertyChangedEventManager.htm">
       <HelpTOCNode Title="PropertyChangedEventManager Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.PropertyChangedEventManager.htm" />
       <HelpTOCNode Title="PropertyChangedEventManager Constructor " Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.-ctor.htm" />
-      <HelpTOCNode Id="6e101e0e-593c-4542-9963-6d3a7ec54bc8" Title="PropertyChangedEventManager Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.PropertyChangedEventManager.htm">
+      <HelpTOCNode Id="c9e66a80-75ca-45c0-a710-c7b4678431ca" Title="PropertyChangedEventManager Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.PropertyChangedEventManager.htm">
         <HelpTOCNode Title="AttachToEvent Method " Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.AttachToEvent.htm" />
         <HelpTOCNode Title="DetachFromEvent Method " Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.DetachFromEvent.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="8a981747-2d6a-4a76-8888-895f58479371" Title="RelayedEventArgs Class" Url="html/T-Tortuga.Anchor.Eventing.RelayedEventArgs.htm">
+    <HelpTOCNode Id="bfdf2974-3c6f-4c34-9891-e40e05b90c14" Title="RelayedEventArgs Class" Url="html/T-Tortuga.Anchor.Eventing.RelayedEventArgs.htm">
       <HelpTOCNode Title="RelayedEventArgs Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.RelayedEventArgs.htm" />
-      <HelpTOCNode Id="00019b40-ca2e-4e82-b3e8-b294ff33f2ec" Title="RelayedEventArgs Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.RelayedEventArgs.htm">
+      <HelpTOCNode Id="2da2d69b-02c8-46b9-b605-8eecdf5506bc" Title="RelayedEventArgs Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.RelayedEventArgs.htm">
         <HelpTOCNode Title="Create(T) Method " Url="html/M-Tortuga.Anchor.Eventing.RelayedEventArgs.Create--1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="7b9491e4-e02d-4b16-bbac-0cfca74ff29e" Title="RelayedEventArgs(T) Class" Url="html/T-Tortuga.Anchor.Eventing.RelayedEventArgs-1.htm">
+    <HelpTOCNode Id="48effdc6-50a4-4473-a669-22acdaae014a" Title="RelayedEventArgs(T) Class" Url="html/T-Tortuga.Anchor.Eventing.RelayedEventArgs-1.htm">
       <HelpTOCNode Title="RelayedEventArgs(T) Members" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.RelayedEventArgs-1.htm" />
       <HelpTOCNode Title="RelayedEventArgs(T) Constructor " Url="html/M-Tortuga.Anchor.Eventing.RelayedEventArgs-1.-ctor.htm" />
       <HelpTOCNode Title="RelayedEventArgs(T) Methods" Url="html/Methods.T-Tortuga.Anchor.Eventing.RelayedEventArgs-1.htm" />
-      <HelpTOCNode Id="2eed0d61-ecac-43e0-a013-f0a933e0f81a" Title="RelayedEventArgs(T) Properties" Url="html/Properties.T-Tortuga.Anchor.Eventing.RelayedEventArgs-1.htm">
+      <HelpTOCNode Id="431da19e-d3bc-4f68-b12a-7e556c49d8ee" Title="RelayedEventArgs(T) Properties" Url="html/Properties.T-Tortuga.Anchor.Eventing.RelayedEventArgs-1.htm">
         <HelpTOCNode Title="EventArgs Property " Url="html/P-Tortuga.Anchor.Eventing.RelayedEventArgs-1.EventArgs.htm" />
         <HelpTOCNode Title="OriginalSender Property " Url="html/P-Tortuga.Anchor.Eventing.RelayedEventArgs-1.OriginalSender.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="RelayedEventHandler(T) Delegate" Url="html/T-Tortuga.Anchor.Eventing.RelayedEventHandler-1.htm" />
   </HelpTOCNode>
-  <HelpTOCNode Id="43fc3716-5cb7-4702-b9b0-22ef912de188" Title="Tortuga.Anchor.Metadata Namespace" Url="html/N-Tortuga.Anchor.Metadata.htm">
-    <HelpTOCNode Id="e17e99ae-43ca-418c-83fa-9a781612accb" Title="ClassMetadata Class" Url="html/T-Tortuga.Anchor.Metadata.ClassMetadata.htm">
+  <HelpTOCNode Id="3ac361d7-1547-4990-a093-148801e844ef" Title="Tortuga.Anchor.Metadata Namespace" Url="html/N-Tortuga.Anchor.Metadata.htm">
+    <HelpTOCNode Id="8048b008-1dd8-4786-8303-7d896aa44681" Title="ClassMetadata Class" Url="html/T-Tortuga.Anchor.Metadata.ClassMetadata.htm">
       <HelpTOCNode Title="ClassMetadata Members" Url="html/AllMembers.T-Tortuga.Anchor.Metadata.ClassMetadata.htm" />
-      <HelpTOCNode Id="fb144fa0-73c8-4ad6-b80d-b10108c9d26c" Title="ClassMetadata Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.ClassMetadata.htm">
+      <HelpTOCNode Id="aabc7415-3c54-427e-b89f-1287ce60604e" Title="ClassMetadata Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.ClassMetadata.htm">
         <HelpTOCNode Title="ToString Method " Url="html/M-Tortuga.Anchor.Metadata.ClassMetadata.ToString.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="af40e7fb-9724-42c5-8c51-21b62dfd0ca3" Title="ClassMetadata Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.ClassMetadata.htm">
+      <HelpTOCNode Id="a73740ac-b87f-432e-86e4-3a97d6922f1b" Title="ClassMetadata Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.ClassMetadata.htm">
         <HelpTOCNode Title="ColumnsFor Property " Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.ColumnsFor.htm" />
         <HelpTOCNode Title="Constructors Property " Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.Constructors.htm" />
         <HelpTOCNode Title="CSharpFullName Property " Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.CSharpFullName.htm" />
@@ -418,49 +383,49 @@
         <HelpTOCNode Title="Properties Property " Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.Properties.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e6f500bc-dfc6-4b33-bd81-25fab64c0b23" Title="ConstructorMetadata Class" Url="html/T-Tortuga.Anchor.Metadata.ConstructorMetadata.htm">
+    <HelpTOCNode Id="79e035df-66bd-4ed5-870c-54fba97b97dd" Title="ConstructorMetadata Class" Url="html/T-Tortuga.Anchor.Metadata.ConstructorMetadata.htm">
       <HelpTOCNode Title="ConstructorMetadata Members" Url="html/AllMembers.T-Tortuga.Anchor.Metadata.ConstructorMetadata.htm" />
       <HelpTOCNode Title="ConstructorMetadata Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.ConstructorMetadata.htm" />
-      <HelpTOCNode Id="9a7244a1-40f7-4c8d-8495-6852eaa6d88f" Title="ConstructorMetadata Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.ConstructorMetadata.htm">
+      <HelpTOCNode Id="a9331efc-2e62-493f-8894-0744047c548e" Title="ConstructorMetadata Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.ConstructorMetadata.htm">
         <HelpTOCNode Title="ConstructorInfo Property " Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadata.ConstructorInfo.htm" />
         <HelpTOCNode Title="ParameterNames Property " Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadata.ParameterNames.htm" />
         <HelpTOCNode Title="Signature Property " Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadata.Signature.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="e546d690-8d2c-4ca6-acc4-f5463759ba63" Title="ConstructorMetadataCollection Class" Url="html/T-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.htm">
+    <HelpTOCNode Id="cc213cb4-c2a3-4d2b-a1ba-b8d080ce7cf1" Title="ConstructorMetadataCollection Class" Url="html/T-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.htm">
       <HelpTOCNode Title="ConstructorMetadataCollection Members" Url="html/AllMembers.T-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.htm" />
-      <HelpTOCNode Id="fc160e4a-5836-47ce-b103-136453ba4639" Title="ConstructorMetadataCollection Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.htm">
-        <HelpTOCNode Id="ee16798e-fd60-48f9-ab85-8aa7ce4d6356" Title="Contains Method " Url="html/Overload-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Contains.htm">
+      <HelpTOCNode Id="5b034a9d-65c6-4361-992f-519664e774d6" Title="ConstructorMetadataCollection Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.htm">
+        <HelpTOCNode Id="3ed68752-52f3-4313-9630-c5a8dea7a320" Title="Contains Method " Url="html/Overload-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Contains.htm">
           <HelpTOCNode Title="Contains Method (ConstructorMetadata)" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Contains.htm" />
           <HelpTOCNode Title="Contains Method (IReadOnlyList(Type))" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Contains_1.htm" />
           <HelpTOCNode Title="Contains Method (Type[])" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Contains_2.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="CopyTo Method " Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.CopyTo.htm" />
-        <HelpTOCNode Id="f1822189-b613-4a2f-8b5c-6b7823ee5824" Title="Find Method " Url="html/Overload-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Find.htm">
+        <HelpTOCNode Id="3a1751b1-3984-4006-9e46-7523d0c8fcc8" Title="Find Method " Url="html/Overload-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Find.htm">
           <HelpTOCNode Title="Find Method (IReadOnlyList(Type))" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Find.htm" />
           <HelpTOCNode Title="Find Method (Type[])" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Find_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.GetEnumerator.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="257e1e65-120c-4436-b026-1d34a9601d79" Title="ConstructorMetadataCollection Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.htm">
+      <HelpTOCNode Id="c41e5783-ec44-4492-95ab-ca8347e93348" Title="ConstructorMetadataCollection Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.htm">
         <HelpTOCNode Title="Count Property " Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Count.htm" />
         <HelpTOCNode Title="HasDefaultConstructor Property " Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.HasDefaultConstructor.htm" />
         <HelpTOCNode Title="IsReadOnly Property " Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.IsReadOnly.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="f10abdbc-e419-4332-8157-8181e5d2404c" Title="MetadataCache Class" Url="html/T-Tortuga.Anchor.Metadata.MetadataCache.htm">
+    <HelpTOCNode Id="790f15cf-4cae-49dd-b0a1-9f3e3904fe7b" Title="MetadataCache Class" Url="html/T-Tortuga.Anchor.Metadata.MetadataCache.htm">
       <HelpTOCNode Title="MetadataCache Members" Url="html/AllMembers.T-Tortuga.Anchor.Metadata.MetadataCache.htm" />
-      <HelpTOCNode Id="bdc9928f-d048-4fed-a077-68e1599f1ce8" Title="MetadataCache Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.MetadataCache.htm">
+      <HelpTOCNode Id="4b2b6625-132f-4526-ae7f-6b1235ca5262" Title="MetadataCache Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.MetadataCache.htm">
         <HelpTOCNode Title="GetMetadata Method " Url="html/M-Tortuga.Anchor.Metadata.MetadataCache.GetMetadata.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="2911d9fa-9778-42bf-af7b-af78ef8fff66" Title="PropertyMetadata Class" Url="html/T-Tortuga.Anchor.Metadata.PropertyMetadata.htm">
+    <HelpTOCNode Id="7eef2baa-188b-433c-becc-cb24dbe219e3" Title="PropertyMetadata Class" Url="html/T-Tortuga.Anchor.Metadata.PropertyMetadata.htm">
       <HelpTOCNode Title="PropertyMetadata Members" Url="html/AllMembers.T-Tortuga.Anchor.Metadata.PropertyMetadata.htm" />
-      <HelpTOCNode Id="16f78c48-1f22-467d-a9d8-4f998eeaf2a7" Title="PropertyMetadata Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.PropertyMetadata.htm">
+      <HelpTOCNode Id="6b4100ef-99ca-4ae0-8c8c-35863f3112b1" Title="PropertyMetadata Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.PropertyMetadata.htm">
         <HelpTOCNode Title="InvokeGet Method " Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadata.InvokeGet.htm" />
         <HelpTOCNode Title="InvokeSet Method " Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadata.InvokeSet.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="f985c899-16e2-4270-bcbb-3885d090b8e2" Title="PropertyMetadata Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.PropertyMetadata.htm">
+      <HelpTOCNode Id="7cfc1de0-eccd-41f8-963d-cf25e7580f19" Title="PropertyMetadata Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.PropertyMetadata.htm">
         <HelpTOCNode Title="AffectsCalculatedFields Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.AffectsCalculatedFields.htm" />
         <HelpTOCNode Title="CalculatedFields Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.CalculatedFields.htm" />
         <HelpTOCNode Title="CanRead Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.CanRead.htm" />
@@ -474,14 +439,15 @@
         <HelpTOCNode Title="MappedColumnName Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.MappedColumnName.htm" />
         <HelpTOCNode Title="Name Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.Name.htm" />
         <HelpTOCNode Title="PropertyChangedEventArgs Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangedEventArgs.htm" />
+        <HelpTOCNode Title="PropertyChangingEventArgs Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangingEventArgs.htm" />
         <HelpTOCNode Title="PropertyType Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyType.htm" />
         <HelpTOCNode Title="Validators Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.Validators.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="8063299b-e614-4bd8-8412-568ffd92d8b9" Title="PropertyMetadataCollection Class" Url="html/T-Tortuga.Anchor.Metadata.PropertyMetadataCollection.htm">
+    <HelpTOCNode Id="0dd57af6-e9d4-484e-9788-6d2065dfc48b" Title="PropertyMetadataCollection Class" Url="html/T-Tortuga.Anchor.Metadata.PropertyMetadataCollection.htm">
       <HelpTOCNode Title="PropertyMetadataCollection Members" Url="html/AllMembers.T-Tortuga.Anchor.Metadata.PropertyMetadataCollection.htm" />
-      <HelpTOCNode Id="58dd1976-d6d4-4ea0-96c8-d0a518b647be" Title="PropertyMetadataCollection Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.PropertyMetadataCollection.htm">
-        <HelpTOCNode Id="4a26a50c-b048-4710-a8c6-7efaf5e637b4" Title="Contains Method " Url="html/Overload-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Contains.htm">
+      <HelpTOCNode Id="7d84c5d2-6dec-424b-b40b-6a00f6a86532" Title="PropertyMetadataCollection Methods" Url="html/Methods.T-Tortuga.Anchor.Metadata.PropertyMetadataCollection.htm">
+        <HelpTOCNode Id="6c48cc51-e997-4dd9-a43f-972b479d57dd" Title="Contains Method " Url="html/Overload-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Contains.htm">
           <HelpTOCNode Title="Contains Method (PropertyMetadata)" Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Contains.htm" />
           <HelpTOCNode Title="Contains Method (String)" Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Contains_1.htm" />
         </HelpTOCNode>
@@ -489,69 +455,69 @@
         <HelpTOCNode Title="GetEnumerator Method " Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadataCollection.GetEnumerator.htm" />
         <HelpTOCNode Title="TryGetValue Method " Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadataCollection.TryGetValue.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="777991c2-312f-4800-bd00-06e3589870bc" Title="PropertyMetadataCollection Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.PropertyMetadataCollection.htm">
+      <HelpTOCNode Id="22af9eb1-4ef6-4fe3-954c-27dcfe3122bd" Title="PropertyMetadataCollection Properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.PropertyMetadataCollection.htm">
         <HelpTOCNode Title="Count Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Count.htm" />
         <HelpTOCNode Title="PropertyNames Property " Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadataCollection.PropertyNames.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="e65341a9-76a6-4ea0-a4a1-69c27fb80ff1" Title="Tortuga.Anchor.Modeling Namespace" Url="html/N-Tortuga.Anchor.Modeling.htm">
-    <HelpTOCNode Id="6fd7c982-df57-4b1b-9ad5-579ab0c85eb2" Title="CalculatedFieldAttribute Class" Url="html/T-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.htm">
+  <HelpTOCNode Id="4664e091-8665-46c7-bbcd-2a536a40dc27" Title="Tortuga.Anchor.Modeling Namespace" Url="html/N-Tortuga.Anchor.Modeling.htm">
+    <HelpTOCNode Id="98791d85-8138-43a1-8b6b-9414c16f6e0d" Title="CalculatedFieldAttribute Class" Url="html/T-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.htm">
       <HelpTOCNode Title="CalculatedFieldAttribute Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.htm" />
       <HelpTOCNode Title="CalculatedFieldAttribute Constructor " Url="html/M-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.-ctor.htm" />
       <HelpTOCNode Title="CalculatedFieldAttribute Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.htm" />
-      <HelpTOCNode Id="2f71c37f-a383-4810-a828-ab5846d865d1" Title="CalculatedFieldAttribute Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.htm">
+      <HelpTOCNode Id="8b2127f8-0ca3-43f1-b46c-3a0b89d18412" Title="CalculatedFieldAttribute Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.htm">
         <HelpTOCNode Title="SourceProperties Property " Url="html/P-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.SourceProperties.htm" />
         <HelpTOCNode Title="Sources Property " Url="html/P-Tortuga.Anchor.Modeling.CalculatedFieldAttribute.Sources.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="1489bc97-3ae5-4486-90f9-ca50914e586f" Title="ChangeTrackingModelBase Class" Url="html/T-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.htm">
+    <HelpTOCNode Id="0317f759-96f8-4623-8bc0-e38e3d986706" Title="ChangeTrackingModelBase Class" Url="html/T-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.htm">
       <HelpTOCNode Title="ChangeTrackingModelBase Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.htm" />
       <HelpTOCNode Title="ChangeTrackingModelBase Constructor " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.-ctor.htm" />
-      <HelpTOCNode Id="1902e90b-5920-49ae-a6a6-4a1a1fc12797" Title="ChangeTrackingModelBase Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.htm">
+      <HelpTOCNode Id="8981e6f6-f9f0-4a66-80f9-2b072f74ba02" Title="ChangeTrackingModelBase Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.htm">
         <HelpTOCNode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.AcceptChanges.htm" />
         <HelpTOCNode Title="ChangedProperties Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.ChangedProperties.htm" />
         <HelpTOCNode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.GetPreviousValue.htm" />
         <HelpTOCNode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.RejectChanges.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="42678403-905f-458c-93b8-b55e8055553b" Title="ChangeTrackingModelBase Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.htm">
+      <HelpTOCNode Id="747012f1-63a0-4553-b550-bf676646e081" Title="ChangeTrackingModelBase Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.htm">
         <HelpTOCNode Title="IsChanged Property " Url="html/P-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.IsChanged.htm" />
         <HelpTOCNode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.IsChangedLocal.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ChangeTrackingModelBase Events" Url="html/Events.T-Tortuga.Anchor.Modeling.ChangeTrackingModelBase.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="88b9095d-2d04-4acf-acb9-bc76de53bb94" Title="ChangeTrackingModelCollection(TModelType) Class" Url="html/T-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.htm">
+    <HelpTOCNode Id="1167200b-96cd-407f-b274-9fad0bbf6b8d" Title="ChangeTrackingModelCollection(TModelType) Class" Url="html/T-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.htm">
       <HelpTOCNode Title="ChangeTrackingModelCollection(TModelType) Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.htm" />
-      <HelpTOCNode Id="1f305528-9e89-4b9f-ae6a-500ed7fbf9fc" Title="ChangeTrackingModelCollection(TModelType) Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.-ctor.htm">
+      <HelpTOCNode Id="7a942904-72d4-434e-8d4b-869dabd79783" Title="ChangeTrackingModelCollection(TModelType) Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.-ctor.htm">
         <HelpTOCNode Title="ChangeTrackingModelCollection(TModelType) Constructor " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.-ctor.htm" />
         <HelpTOCNode Title="ChangeTrackingModelCollection(TModelType) Constructor (List(TModelType))" Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.-ctor_1.htm" />
         <HelpTOCNode Title="ChangeTrackingModelCollection(TModelType) Constructor (IEnumerable(TModelType))" Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.-ctor_2.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="b679731a-3580-4453-9576-99292acbae20" Title="ChangeTrackingModelCollection(TModelType) Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.htm">
+      <HelpTOCNode Id="a830b1ee-2d7f-46ff-8a2d-14f0dd68deff" Title="ChangeTrackingModelCollection(TModelType) Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.htm">
         <HelpTOCNode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.AcceptChanges.htm" />
         <HelpTOCNode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.RejectChanges.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="36b91825-a5e6-4698-b0f5-9e5ea21f336b" Title="ChangeTrackingModelCollection(TModelType) Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.htm">
+      <HelpTOCNode Id="afbbf7b2-9319-47c5-8fb6-e085369cda78" Title="ChangeTrackingModelCollection(TModelType) Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.htm">
         <HelpTOCNode Title="IsChanged Property " Url="html/P-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.IsChanged.htm" />
         <HelpTOCNode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.IsChangedLocal.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ChangeTrackingModelCollection(TModelType) Events" Url="html/Events.T-Tortuga.Anchor.Modeling.ChangeTrackingModelCollection-1.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="9145accd-954a-4491-9c15-3ac681d23a30" Title="DecomposeAttribute Class" Url="html/T-Tortuga.Anchor.Modeling.DecomposeAttribute.htm">
+    <HelpTOCNode Id="82ce1c9e-78f9-410b-b2d5-53caf7307255" Title="DecomposeAttribute Class" Url="html/T-Tortuga.Anchor.Modeling.DecomposeAttribute.htm">
       <HelpTOCNode Title="DecomposeAttribute Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.DecomposeAttribute.htm" />
-      <HelpTOCNode Id="f8c16083-4c1d-4a00-9569-2511591670ba" Title="DecomposeAttribute Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.DecomposeAttribute.-ctor.htm">
+      <HelpTOCNode Id="b094498b-203f-48db-bd92-81b6185717c7" Title="DecomposeAttribute Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.DecomposeAttribute.-ctor.htm">
         <HelpTOCNode Title="DecomposeAttribute Constructor " Url="html/M-Tortuga.Anchor.Modeling.DecomposeAttribute.-ctor.htm" />
         <HelpTOCNode Title="DecomposeAttribute Constructor (String)" Url="html/M-Tortuga.Anchor.Modeling.DecomposeAttribute.-ctor_1.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="DecomposeAttribute Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.DecomposeAttribute.htm" />
-      <HelpTOCNode Id="fa8e8313-1ecd-4166-893e-5cd9ccde1b26" Title="DecomposeAttribute Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.DecomposeAttribute.htm">
+      <HelpTOCNode Id="b1d7a757-e78f-4f03-a1b6-2c1828d60fdf" Title="DecomposeAttribute Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.DecomposeAttribute.htm">
         <HelpTOCNode Title="Prefix Property " Url="html/P-Tortuga.Anchor.Modeling.DecomposeAttribute.Prefix.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="c1574a7e-1115-409b-99f7-06c6e04541f2" Title="EditableObjectModelBase Class" Url="html/T-Tortuga.Anchor.Modeling.EditableObjectModelBase.htm">
+    <HelpTOCNode Id="a5795825-48b4-4db3-96fd-5c903cb856b3" Title="EditableObjectModelBase Class" Url="html/T-Tortuga.Anchor.Modeling.EditableObjectModelBase.htm">
       <HelpTOCNode Title="EditableObjectModelBase Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.EditableObjectModelBase.htm" />
       <HelpTOCNode Title="EditableObjectModelBase Constructor " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.-ctor.htm" />
-      <HelpTOCNode Id="b38278b9-5d5c-4a1c-b9d4-f2d2d0cd552f" Title="EditableObjectModelBase Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.EditableObjectModelBase.htm">
+      <HelpTOCNode Id="c81e4eac-0396-4632-9d20-82fb234e8e1b" Title="EditableObjectModelBase Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.EditableObjectModelBase.htm">
         <HelpTOCNode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.AcceptChanges.htm" />
         <HelpTOCNode Title="BeginEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.BeginEdit.htm" />
         <HelpTOCNode Title="CancelEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.CancelEdit.htm" />
@@ -560,50 +526,50 @@
         <HelpTOCNode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.GetPreviousValue.htm" />
         <HelpTOCNode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelBase.RejectChanges.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="43857b69-fd9d-49e9-8446-568501ed1693" Title="EditableObjectModelBase Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.EditableObjectModelBase.htm">
+      <HelpTOCNode Id="0a98d653-d38a-487d-a968-19c65baa5310" Title="EditableObjectModelBase Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.EditableObjectModelBase.htm">
         <HelpTOCNode Title="IsChanged Property " Url="html/P-Tortuga.Anchor.Modeling.EditableObjectModelBase.IsChanged.htm" />
         <HelpTOCNode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.EditableObjectModelBase.IsChangedLocal.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="EditableObjectModelBase Events" Url="html/Events.T-Tortuga.Anchor.Modeling.EditableObjectModelBase.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="43586f6b-08bb-481a-8aed-d85ed11fd7b7" Title="EditableObjectModelCollection(TModelType) Class" Url="html/T-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.htm">
+    <HelpTOCNode Id="e63399df-a0f5-470f-8a37-b51e2bbe0f16" Title="EditableObjectModelCollection(TModelType) Class" Url="html/T-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.htm">
       <HelpTOCNode Title="EditableObjectModelCollection(TModelType) Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.htm" />
-      <HelpTOCNode Id="6e868b61-c648-48d5-890b-df5cc062a17e" Title="EditableObjectModelCollection(TModelType) Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.-ctor.htm">
+      <HelpTOCNode Id="fec13341-45a2-46f4-9b49-d6c8f666aff3" Title="EditableObjectModelCollection(TModelType) Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.-ctor.htm">
         <HelpTOCNode Title="EditableObjectModelCollection(TModelType) Constructor " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.-ctor.htm" />
         <HelpTOCNode Title="EditableObjectModelCollection(TModelType) Constructor (List(TModelType))" Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.-ctor_1.htm" />
         <HelpTOCNode Title="EditableObjectModelCollection(TModelType) Constructor (IEnumerable(TModelType))" Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.-ctor_2.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="7e1535d3-abd9-4a58-81ac-2b7a2c309efa" Title="EditableObjectModelCollection(TModelType) Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.htm">
+      <HelpTOCNode Id="04b01400-bb34-454b-bf76-903982b737dc" Title="EditableObjectModelCollection(TModelType) Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.htm">
         <HelpTOCNode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.AcceptChanges.htm" />
         <HelpTOCNode Title="BeginEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.BeginEdit.htm" />
         <HelpTOCNode Title="CancelEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.CancelEdit.htm" />
         <HelpTOCNode Title="EndEdit Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.EndEdit.htm" />
         <HelpTOCNode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.RejectChanges.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="b2aa27c1-de48-459a-b920-49810dfde069" Title="EditableObjectModelCollection(TModelType) Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.htm">
+      <HelpTOCNode Id="d70b4cab-09b9-488e-a456-ac124a3d920a" Title="EditableObjectModelCollection(TModelType) Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.htm">
         <HelpTOCNode Title="IsChanged Property " Url="html/P-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.IsChanged.htm" />
         <HelpTOCNode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.IsChangedLocal.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="EditableObjectModelCollection(TModelType) Events" Url="html/Events.T-Tortuga.Anchor.Modeling.EditableObjectModelCollection-1.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="f7314e00-9944-4178-8769-bb7caac40e31" Title="IgnoreOnInsertAttribute Class" Url="html/T-Tortuga.Anchor.Modeling.IgnoreOnInsertAttribute.htm">
+    <HelpTOCNode Id="b78aa9dc-d163-44af-82a7-501a7d19d12b" Title="IgnoreOnInsertAttribute Class" Url="html/T-Tortuga.Anchor.Modeling.IgnoreOnInsertAttribute.htm">
       <HelpTOCNode Title="IgnoreOnInsertAttribute Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.IgnoreOnInsertAttribute.htm" />
       <HelpTOCNode Title="IgnoreOnInsertAttribute Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.IgnoreOnInsertAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="e5421579-8536-4861-a476-bf4e2af45bd3" Title="IgnoreOnUpdateAttribute Class" Url="html/T-Tortuga.Anchor.Modeling.IgnoreOnUpdateAttribute.htm">
+    <HelpTOCNode Id="89092560-b841-479c-be9b-5db665b96c4d" Title="IgnoreOnUpdateAttribute Class" Url="html/T-Tortuga.Anchor.Modeling.IgnoreOnUpdateAttribute.htm">
       <HelpTOCNode Title="IgnoreOnUpdateAttribute Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.IgnoreOnUpdateAttribute.htm" />
       <HelpTOCNode Title="IgnoreOnUpdateAttribute Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.IgnoreOnUpdateAttribute.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="eb1be376-deef-4424-956f-b698c7645434" Title="ModelBase Class" Url="html/T-Tortuga.Anchor.Modeling.ModelBase.htm">
+    <HelpTOCNode Id="eec59504-0210-43c0-b0fb-f7ff91876f3c" Title="ModelBase Class" Url="html/T-Tortuga.Anchor.Modeling.ModelBase.htm">
       <HelpTOCNode Title="ModelBase Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.ModelBase.htm" />
       <HelpTOCNode Title="ModelBase Constructor " Url="html/M-Tortuga.Anchor.Modeling.ModelBase.-ctor.htm" />
       <HelpTOCNode Title="ModelBase Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.ModelBase.htm" />
       <HelpTOCNode Title="ModelBase Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.ModelBase.htm" />
       <HelpTOCNode Title="ModelBase Events" Url="html/Events.T-Tortuga.Anchor.Modeling.ModelBase.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="c0be93b4-785d-4835-807b-f04cc2816660" Title="ModelCollection(T) Class" Url="html/T-Tortuga.Anchor.Modeling.ModelCollection-1.htm">
+    <HelpTOCNode Id="4f05e1fc-b701-4c49-81f1-b7372c41118c" Title="ModelCollection(T) Class" Url="html/T-Tortuga.Anchor.Modeling.ModelCollection-1.htm">
       <HelpTOCNode Title="ModelCollection(T) Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.ModelCollection-1.htm" />
-      <HelpTOCNode Id="6fb51791-603e-48d1-bdb4-e2480c8f4eca" Title="ModelCollection(T) Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.ModelCollection-1.-ctor.htm">
+      <HelpTOCNode Id="339533a7-83e0-4c19-b9d8-f5bd542c4871" Title="ModelCollection(T) Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.ModelCollection-1.-ctor.htm">
         <HelpTOCNode Title="ModelCollection(T) Constructor " Url="html/M-Tortuga.Anchor.Modeling.ModelCollection-1.-ctor.htm" />
         <HelpTOCNode Title="ModelCollection(T) Constructor (List(T))" Url="html/M-Tortuga.Anchor.Modeling.ModelCollection-1.-ctor_1.htm" />
         <HelpTOCNode Title="ModelCollection(T) Constructor (IEnumerable(T))" Url="html/M-Tortuga.Anchor.Modeling.ModelCollection-1.-ctor_2.htm" />
@@ -615,15 +581,15 @@
     <HelpTOCNode Title="UpdateMode Enumeration" Url="html/T-Tortuga.Anchor.Modeling.UpdateMode.htm" />
     <HelpTOCNode Title="ValueChanged(T) Delegate" Url="html/T-Tortuga.Anchor.Modeling.ValueChanged-1.htm" />
   </HelpTOCNode>
-  <HelpTOCNode Id="70290086-5ab1-45a0-af1f-a8cf39226d28" Title="Tortuga.Anchor.Modeling.Internals Namespace" Url="html/N-Tortuga.Anchor.Modeling.Internals.htm">
-    <HelpTOCNode Id="b8431a77-398e-4a5c-a53b-2ababd5be64c" Title="AbstractModelBase Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm">
+  <HelpTOCNode Id="d85c6322-7960-4ed7-b8e5-a14519f9737f" Title="Tortuga.Anchor.Modeling.Internals Namespace" Url="html/N-Tortuga.Anchor.Modeling.Internals.htm">
+    <HelpTOCNode Id="e6fc52d5-8d28-4104-9480-2767495c13eb" Title="AbstractModelBase Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm">
       <HelpTOCNode Title="AbstractModelBase Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm" />
       <HelpTOCNode Title="AbstractModelBase Constructor " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.-ctor.htm" />
-      <HelpTOCNode Id="432f99a2-6c5c-4725-b5ca-bd28948ae156" Title="AbstractModelBase Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm">
+      <HelpTOCNode Id="58263777-60e8-4789-9de3-9bfd064df4d2" Title="AbstractModelBase Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm">
         <HelpTOCNode Title="AddHandler Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.AddHandler.htm" />
         <HelpTOCNode Title="ClearErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.ClearErrors.htm" />
         <HelpTOCNode Title="GetAllErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.GetAllErrors.htm" />
-        <HelpTOCNode Id="dbc8167b-fba9-4e99-9d92-6b613c7852d7" Title="GetErrors Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.GetErrors.htm">
+        <HelpTOCNode Id="4b8be30e-a328-47ab-b8e5-b053a7f5a597" Title="GetErrors Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.GetErrors.htm">
           <HelpTOCNode Title="GetErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.GetErrors.htm" />
           <HelpTOCNode Title="GetErrors Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.GetErrors_1.htm" />
         </HelpTOCNode>
@@ -633,27 +599,28 @@
         <HelpTOCNode Title="RemoveHandler Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.RemoveHandler.htm" />
         <HelpTOCNode Title="Validate Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.Validate.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="d172f598-b076-46e6-8065-8fc6ba6ad5eb" Title="AbstractModelBase Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm">
+      <HelpTOCNode Id="7113c62a-bb9f-44c8-82ce-215fb058fd9f" Title="AbstractModelBase Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm">
         <HelpTOCNode Title="HasErrors Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.HasErrors.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="b6413cb5-e1f6-4435-95cd-6eeefd955556" Title="AbstractModelBase Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm">
+      <HelpTOCNode Id="710ac69c-18cc-4e3e-a56d-89fe6f7919f2" Title="AbstractModelBase Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.htm">
         <HelpTOCNode Title="ErrorsChanged Event" Url="html/E-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.ErrorsChanged.htm" />
         <HelpTOCNode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Modeling.Internals.AbstractModelBase.PropertyChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="17ef7c3b-42ad-4311-9651-402a82e16992" Title="AbstractModelBase(TPropertyTracking) Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.htm">
+    <HelpTOCNode Id="a022710f-88d4-4c4c-ab19-3f4882bc5e4a" Title="AbstractModelBase(TPropertyTracking) Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.htm">
       <HelpTOCNode Title="AbstractModelBase(TPropertyTracking) Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.htm" />
       <HelpTOCNode Title="AbstractModelBase(TPropertyTracking) Constructor " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.-ctor.htm" />
-      <HelpTOCNode Id="3c10ac19-bfde-4f77-b5af-7c9bc7cd0c99" Title="AbstractModelBase(TPropertyTracking) Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.htm">
+      <HelpTOCNode Id="ec132950-1ac2-4f1e-9968-7def12724f86" Title="AbstractModelBase(TPropertyTracking) Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.htm">
         <HelpTOCNode Title="Get(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Get--1.htm" />
         <HelpTOCNode Title="GetDefault(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetDefault--1.htm" />
-        <HelpTOCNode Id="4ba0c502-d84f-478b-ad03-00c249bd4ac1" Title="GetNew Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetNew-.htm">
+        <HelpTOCNode Id="1dd97fd2-82ac-4985-89f8-8e12a3348ebf" Title="GetNew Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetNew-.htm">
           <HelpTOCNode Title="GetNew(T) Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetNew--1.htm" />
           <HelpTOCNode Title="GetNew Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetNew.htm" />
           <HelpTOCNode Title="GetNew(T) Method (Func(T), String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.GetNew--1_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="OnPropertyChanged Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.OnPropertyChanged.htm" />
-        <HelpTOCNode Id="faff804c-70ed-4131-9ac5-8d56548226a8" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Set-.htm">
+        <HelpTOCNode Title="OnPropertyChanging Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.OnPropertyChanging.htm" />
+        <HelpTOCNode Id="3657a5dd-bb48-4019-8463-307ae3dfa6ae" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Set-.htm">
           <HelpTOCNode Title="Set(T) Method (T, ValueChanged(T), String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Set--1.htm" />
           <HelpTOCNode Title="Set Method (Object, String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Set.htm" />
           <HelpTOCNode Title="Set(T) Method (T, PropertyChangedEventHandler, String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Set--1_1.htm" />
@@ -661,28 +628,28 @@
         </HelpTOCNode>
         <HelpTOCNode Title="Validate Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Validate.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="6d505a81-dbd6-493d-963d-52e50150148d" Title="AbstractModelBase(TPropertyTracking) Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.htm">
+      <HelpTOCNode Id="c79754e9-048a-419f-bf98-e9d813ef7490" Title="AbstractModelBase(TPropertyTracking) Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.htm">
         <HelpTOCNode Title="Properties Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Properties.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="AbstractModelBase(TPropertyTracking) Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="ecf8218c-8b90-4614-8ee6-37618195156e" Title="AbstractModelCollection(T, TPropertyTracking) Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.htm">
+    <HelpTOCNode Id="ef029cbb-8355-4bfb-9bf7-3adb81b84636" Title="AbstractModelCollection(T, TPropertyTracking) Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.htm">
       <HelpTOCNode Title="AbstractModelCollection(T, TPropertyTracking) Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.htm" />
-      <HelpTOCNode Id="e2ede99a-574c-48fb-8058-1b8c190604e9" Title="AbstractModelCollection(T, TPropertyTracking) Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.-ctor.htm">
+      <HelpTOCNode Id="738bab84-c4e9-4c33-aeb0-05c735644c16" Title="AbstractModelCollection(T, TPropertyTracking) Constructor " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.-ctor.htm">
         <HelpTOCNode Title="AbstractModelCollection(T, TPropertyTracking) Constructor " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.-ctor.htm" />
         <HelpTOCNode Title="AbstractModelCollection(T, TPropertyTracking) Constructor (List(T))" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.-ctor_1.htm" />
         <HelpTOCNode Title="AbstractModelCollection(T, TPropertyTracking) Constructor (IEnumerable(T))" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.-ctor_2.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="fb564f1c-73cb-415b-82cc-9f282f5d856a" Title="AbstractModelCollection(T, TPropertyTracking) Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.htm">
+      <HelpTOCNode Id="ff0550a0-3673-4b22-9306-ca186940a602" Title="AbstractModelCollection(T, TPropertyTracking) Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.htm">
         <HelpTOCNode Title="ClearErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.ClearErrors.htm" />
         <HelpTOCNode Title="Get(TValue) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Get--1.htm" />
         <HelpTOCNode Title="GetAllErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetAllErrors.htm" />
         <HelpTOCNode Title="GetDefault(TValue) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetDefault--1.htm" />
-        <HelpTOCNode Id="016604f4-53ed-452f-a312-73e8fc108494" Title="GetErrors Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetErrors.htm">
+        <HelpTOCNode Id="a8147684-6389-4e36-b00f-dff7a98fa549" Title="GetErrors Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetErrors.htm">
           <HelpTOCNode Title="GetErrors Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetErrors.htm" />
           <HelpTOCNode Title="GetErrors Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetErrors_1.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="3eb4d83d-e12b-4cec-b811-343a730c1dfe" Title="GetNew Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetNew-.htm">
+        <HelpTOCNode Id="7d8cea8a-0c79-443d-acd1-6892381220c2" Title="GetNew Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetNew-.htm">
           <HelpTOCNode Title="GetNew(TValue) Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetNew--1.htm" />
           <HelpTOCNode Title="GetNew(TValue) Method (Func(TValue), String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetNew--1_1.htm" />
           <HelpTOCNode Title="GetNew Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetNew.htm" />
@@ -690,92 +657,100 @@
         <HelpTOCNode Title="OnErrorsChanged Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.OnErrorsChanged.htm" />
         <HelpTOCNode Title="OnValidateObject Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.OnValidateObject.htm" />
         <HelpTOCNode Title="OnValidateProperty Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.OnValidateProperty.htm" />
-        <HelpTOCNode Id="2cdb72d0-7bab-46f8-886e-b0588b930d44" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Set.htm">
+        <HelpTOCNode Id="903afec3-af2f-4c71-a8a3-feb34062a225" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Set.htm">
           <HelpTOCNode Title="Set Method (Object, String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Set.htm" />
           <HelpTOCNode Title="Set(TValue) Method (TValue, PropertyChangedEventHandler, String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Set--1.htm" />
           <HelpTOCNode Title="Set(TValue) Method (TValue, NotifyCollectionChangedEventHandler, String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Set--1_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="Validate Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Validate.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="1237474e-9fbe-48d7-b176-80bbd9d4f8d7" Title="AbstractModelCollection(T, TPropertyTracking) Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.htm">
+      <HelpTOCNode Id="4f116335-d2ee-45a0-a63f-04100399a6a3" Title="AbstractModelCollection(T, TPropertyTracking) Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.htm">
         <HelpTOCNode Title="HasErrors Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.HasErrors.htm" />
         <HelpTOCNode Title="Properties Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.Properties.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="edb47d1d-1c7d-4c0e-a7c9-9efe7810224f" Title="AbstractModelCollection(T, TPropertyTracking) Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.htm">
+      <HelpTOCNode Id="6e530160-2f81-4c99-b41a-a53ea06c9cc4" Title="AbstractModelCollection(T, TPropertyTracking) Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.htm">
         <HelpTOCNode Title="ErrorsChanged Event" Url="html/E-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.ErrorsChanged.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="f3907ef7-18f5-449e-9987-530d9221cbb1" Title="ChangeTrackingPropertyBag Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.htm">
+    <HelpTOCNode Id="fa4c4c07-cb19-403a-89fe-871713efbf45" Title="ChangeTrackingPropertyBag Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.htm">
       <HelpTOCNode Title="ChangeTrackingPropertyBag Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.htm" />
       <HelpTOCNode Title="ChangeTrackingPropertyBag Constructor " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.-ctor.htm" />
-      <HelpTOCNode Id="d453cc9d-1313-4bda-8ebc-f8fa6af88411" Title="ChangeTrackingPropertyBag Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.htm">
+      <HelpTOCNode Id="d271809c-fff7-4344-a961-8a708c2855d1" Title="ChangeTrackingPropertyBag Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.htm">
         <HelpTOCNode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.AcceptChanges.htm" />
         <HelpTOCNode Title="ChangedProperties Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.ChangedProperties.htm" />
         <HelpTOCNode Title="GetPreviousValue Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.GetPreviousValue.htm" />
         <HelpTOCNode Title="GetValue Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.GetValue.htm" />
         <HelpTOCNode Title="IsDefined Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.IsDefined.htm" />
         <HelpTOCNode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.RejectChanges.htm" />
-        <HelpTOCNode Id="54d4a53d-24fa-40b1-9399-307b1a9130e3" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm">
+        <HelpTOCNode Id="604c554a-46cd-4e74-8253-a5c06fca1ba9" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm">
           <HelpTOCNode Title="Set Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Set.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="67cfc5d3-b3af-4ff4-ad1a-5ffbb9b24084" Title="ChangeTrackingPropertyBag Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.htm">
+      <HelpTOCNode Id="879fda08-1def-49ee-bcab-36d7b575d643" Title="ChangeTrackingPropertyBag Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.htm">
         <HelpTOCNode Title="IsChangedLocal Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.IsChangedLocal.htm" />
         <HelpTOCNode Title="Values Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Values.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ChangeTrackingPropertyBag Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="cd9d59aa-1237-4a1b-b8ff-830292c899d2" Title="EditableObjectPropertyBag Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.htm">
+    <HelpTOCNode Id="47686419-e3e4-417c-ac6f-a43e1d587581" Title="EditableObjectPropertyBag Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.htm">
       <HelpTOCNode Title="EditableObjectPropertyBag Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.htm" />
       <HelpTOCNode Title="EditableObjectPropertyBag Constructor " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.-ctor.htm" />
-      <HelpTOCNode Id="71d45fa8-6ed5-4924-a8be-7f96fa6dc18e" Title="EditableObjectPropertyBag Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.htm">
+      <HelpTOCNode Id="8893c9c9-829f-4e60-9697-7c58dc2ee8c2" Title="EditableObjectPropertyBag Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.htm">
         <HelpTOCNode Title="AcceptChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.AcceptChanges.htm" />
         <HelpTOCNode Title="BeginEdit Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.BeginEdit.htm" />
         <HelpTOCNode Title="CancelEdit Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.CancelEdit.htm" />
         <HelpTOCNode Title="EndEdit Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.EndEdit.htm" />
         <HelpTOCNode Title="RejectChanges Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.RejectChanges.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="a04cfcb6-754e-445b-b084-7e41d5595ccc" Title="EditableObjectPropertyBag Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.htm">
+      <HelpTOCNode Id="f73893fe-77fe-49b8-80b3-0b2c88b188ed" Title="EditableObjectPropertyBag Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.htm">
         <HelpTOCNode Title="IsEditing Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.IsEditing.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="EditableObjectPropertyBag Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.EditableObjectPropertyBag.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="8cdc4848-0b1d-45f3-a6fb-ae2de4754005" Title="NotSet Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.NotSet.htm">
+    <HelpTOCNode Id="7b4cdd94-9a0f-4c47-9119-9bc3332487d0" Title="NotSet Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.NotSet.htm">
       <HelpTOCNode Title="NotSet Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.NotSet.htm" />
-      <HelpTOCNode Id="a7df49e4-c34c-4312-98de-e31ebf41c3a1" Title="NotSet Fields" Url="html/Fields.T-Tortuga.Anchor.Modeling.Internals.NotSet.htm">
+      <HelpTOCNode Id="572b5be6-57b8-4c36-9c93-6f13002c8001" Title="NotSet Fields" Url="html/Fields.T-Tortuga.Anchor.Modeling.Internals.NotSet.htm">
         <HelpTOCNode Title="Value Field" Url="html/F-Tortuga.Anchor.Modeling.Internals.NotSet.Value.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="NotSet Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.NotSet.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="be476464-b37d-4947-b894-acca79cac692" Title="PropertyBag Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertyBag.htm">
+    <HelpTOCNode Id="4d461da4-f86e-49e8-92e5-3f5cb1fdcfa7" Title="PropertyBag Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertyBag.htm">
       <HelpTOCNode Title="PropertyBag Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.PropertyBag.htm" />
       <HelpTOCNode Title="PropertyBag Constructor " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.-ctor.htm" />
-      <HelpTOCNode Id="e18ce1ca-8a69-4300-873e-4f10998a1061" Title="PropertyBag Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.PropertyBag.htm">
+      <HelpTOCNode Id="56fe72fb-7144-4324-ba1e-e53b794845a7" Title="PropertyBag Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.PropertyBag.htm">
         <HelpTOCNode Title="GetValue Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.GetValue.htm" />
         <HelpTOCNode Title="IsDefined Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.IsDefined.htm" />
-        <HelpTOCNode Id="936c09c6-d406-4980-b8df-6dd53e38e824" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm">
+        <HelpTOCNode Id="0faa91ff-b9fa-45b2-8016-0de3a6434968" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm">
           <HelpTOCNode Title="Set Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBag.Set.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
       <HelpTOCNode Title="PropertyBag Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.PropertyBag.htm" />
       <HelpTOCNode Title="PropertyBag Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.PropertyBag.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="76dd3102-39cc-4978-98ba-3197018967c5" Title="PropertyBagBase Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm">
+    <HelpTOCNode Id="aa450d65-7213-47a7-8d55-e452a6edbe33" Title="PropertyBagBase Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm">
       <HelpTOCNode Title="PropertyBagBase Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm" />
       <HelpTOCNode Title="PropertyBagBase Constructor " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.-ctor.htm" />
-      <HelpTOCNode Id="94d70754-9427-4a73-9efb-aaaf2e2f7fe0" Title="PropertyBagBase Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm">
+      <HelpTOCNode Id="6e63136d-b66c-4b90-8bfd-55f28c32b6c5" Title="PropertyBagBase Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm">
         <HelpTOCNode Title="Get(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Get--1.htm" />
         <HelpTOCNode Title="GetDefault(T) Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetDefault--1.htm" />
-        <HelpTOCNode Id="166eb28d-ed59-4651-a1d3-263039e79c69" Title="GetNew Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetNew-.htm">
+        <HelpTOCNode Id="a40a5e96-390d-40c2-bf6d-0747395c3e3e" Title="GetNew Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetNew-.htm">
           <HelpTOCNode Title="GetNew(T) Method (Func(T), String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetNew--1.htm" />
           <HelpTOCNode Title="GetNew(T) Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetNew--1_1.htm" />
         </HelpTOCNode>
         <HelpTOCNode Title="GetValue Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetValue.htm" />
         <HelpTOCNode Title="IsDefined Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.IsDefined.htm" />
+        <HelpTOCNode Id="7c31f4eb-36a5-41d1-88b6-ec1866ecf362" Title="OnPropertyChanged Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanged.htm">
+          <HelpTOCNode Title="OnPropertyChanged Method (PropertyMetadata)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanged.htm" />
+          <HelpTOCNode Title="OnPropertyChanged Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanged_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="de2e8fb2-1e26-4f5d-956d-51e21a0423cc" Title="OnPropertyChanging Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanging.htm">
+          <HelpTOCNode Title="OnPropertyChanging Method (PropertyMetadata)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanging.htm" />
+          <HelpTOCNode Title="OnPropertyChanging Method (String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnPropertyChanging_1.htm" />
+        </HelpTOCNode>
         <HelpTOCNode Title="OnRevalidateObject Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnRevalidateObject.htm" />
         <HelpTOCNode Title="OnRevalidateProperty Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.OnRevalidateProperty.htm" />
         <HelpTOCNode Title="RevalidateAll Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateAll.htm" />
-        <HelpTOCNode Id="28c29c86-c313-49c8-ae87-69c4bd1e7746" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Set.htm">
+        <HelpTOCNode Id="8d2c5c4e-43da-4a1e-a7a8-d2b14ae81ac0" Title="Set Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Set.htm">
           <HelpTOCNode Title="Set Method (Object, PropertySetModes, String, Object)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Set.htm" />
           <HelpTOCNode Title="Set Method (Object, PropertySetModes, String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Set_1.htm" />
           <HelpTOCNode Title="Set Method (Object, String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Set_2.htm" />
@@ -784,26 +759,27 @@
           <HelpTOCNode Title="Set(T) Method (T, NotifyCollectionChangedEventHandler, String)" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Set--1_2.htm" />
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="f2a34b04-1aef-434b-9a64-06863412df14" Title="PropertyBagBase Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm">
+      <HelpTOCNode Id="a0ed70cc-4c12-48d9-bdf3-74a206a24fff" Title="PropertyBagBase Properties" Url="html/Properties.T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm">
         <HelpTOCNode Title="Metadata Property " Url="html/P-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Metadata.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="eb57006a-f4e8-480c-a929-0a39874256bc" Title="PropertyBagBase Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm">
+      <HelpTOCNode Id="166b3fea-8994-41b5-9d79-3fac8a0bfde3" Title="PropertyBagBase Events" Url="html/Events.T-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.htm">
         <HelpTOCNode Title="PropertyChanged Event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.PropertyChanged.htm" />
+        <HelpTOCNode Title="PropertyChanging Event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.PropertyChanging.htm" />
         <HelpTOCNode Title="RevalidateObject Event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateObject.htm" />
         <HelpTOCNode Title="RevalidateProperty Event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateProperty.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
     <HelpTOCNode Title="PropertySetModes Enumeration" Url="html/T-Tortuga.Anchor.Modeling.Internals.PropertySetModes.htm" />
-    <HelpTOCNode Id="2d053f9f-75ba-4609-92b9-0322bed8d977" Title="ValidationResultEqualityComparer Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.htm">
+    <HelpTOCNode Id="289b5c17-0fde-4cfa-9245-753b391b39f4" Title="ValidationResultEqualityComparer Class" Url="html/T-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.htm">
       <HelpTOCNode Title="ValidationResultEqualityComparer Members" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.htm" />
-      <HelpTOCNode Id="8ddea53b-7bf0-4d0a-8676-b837e63833c3" Title="ValidationResultEqualityComparer Fields" Url="html/Fields.T-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.htm">
+      <HelpTOCNode Id="a0037c02-8494-4f85-af4f-99433fbc396b" Title="ValidationResultEqualityComparer Fields" Url="html/Fields.T-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.htm">
         <HelpTOCNode Title="Default Field" Url="html/F-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Default.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="9a16ed04-40d1-4488-a8be-6836a4c6ac07" Title="ValidationResultEqualityComparer Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.htm">
-        <HelpTOCNode Id="ccee62d7-1576-4810-984a-5667579b54b8" Title="Equals Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Equals.htm">
+      <HelpTOCNode Id="6d8b69a8-1ed8-4a1b-b962-4a2ed80688ef" Title="ValidationResultEqualityComparer Methods" Url="html/Methods.T-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.htm">
+        <HelpTOCNode Id="4e2b7244-78cb-4558-98b7-c80be6eeade0" Title="Equals Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Equals.htm">
           <HelpTOCNode Title="Equals Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Equals.htm" />
         </HelpTOCNode>
-        <HelpTOCNode Id="dc4e00a4-7648-4533-b5fb-75605a543eca" Title="GetHashCode Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.GetHashCode.htm">
+        <HelpTOCNode Id="29af6f91-290a-44d3-8c2b-1d7966071bed" Title="GetHashCode Method " Url="html/Overload-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.GetHashCode.htm">
           <HelpTOCNode Title="GetHashCode Method " Url="html/M-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.GetHashCode.htm" />
         </HelpTOCNode>
       </HelpTOCNode>

@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tests</RootNamespace>
     <AssemblyName>Tests.Tortuga.Anchor.net461</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,13 +47,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Collections.Immutable, Version=1.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Linq, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.4.3.0\lib\net463\System.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.0\lib\net462\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Extensions.4.3.0\lib\net462\System.Runtime.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
@@ -70,70 +82,70 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ChangeTracking\ChangeTrackingTests.cs" />
-    <Compile Include="ChangeTracking\Customer.cs" />
-    <Compile Include="ChangeTracking\Order.cs" />
-    <Compile Include="ChangeTracking\OrderLine.cs" />
-    <Compile Include="ChangeTracking\OrderLinesCollection.cs" />
-    <Compile Include="ChangeTracking\OrdersCollection.cs" />
-    <Compile Include="Collections\CollectionUtilitiesTests.cs" />
-    <Compile Include="Collections\Dictionary3Tests.cs" />
-    <Compile Include="Collections\ExtendedObservableCollectionTests.cs" />
-    <Compile Include="Collections\ExtendedReadOnlyObservableCollectionTests.cs" />
-    <Compile Include="Collections\WeakReferenceCollectionTests.cs" />
-    <Compile Include="ComponentModel\ItemEventArgsTests.cs" />
-    <Compile Include="DataAnnotations\CalculatedFieldAttributeTests.cs" />
-    <Compile Include="DataAnnotations\ValidationResultCollectionTests.cs" />
-    <Compile Include="Dragnet\CollectionChangedEventTest.cs" />
-    <Compile Include="Dragnet\EventPair`1.cs" />
-    <Compile Include="Dragnet\EventTest.cs" />
-    <Compile Include="Dragnet\Memory.cs" />
-    <Compile Include="Dragnet\PropertyChangedEventTest.cs" />
-    <Compile Include="Dragnet\Severity.cs" />
-    <Compile Include="Dragnet\VerificationStep.cs" />
-    <Compile Include="Dragnet\Verify.cs" />
-    <Compile Include="Eventing\RelayedEventArgsTests.cs" />
-    <Compile Include="HelperClasses\ItemAddedEventTest`1.cs" />
-    <Compile Include="HelperClasses\ItemPropertyChangedEventAssert.cs" />
-    <Compile Include="HelperClasses\ItemRemovedEventAssert.cs" />
-    <Compile Include="Metadata\BadMock.cs" />
-    <Compile Include="Metadata\DataMapMock.cs" />
-    <Compile Include="Metadata\MetadataCacheTests.cs" />
-    <Compile Include="Metadata\Mock.cs" />
-    <Compile Include="Metadata\PropertyMetadataCollectionTests.cs" />
-    <Compile Include="Metadata\ShadowedMock.cs" />
-    <Compile Include="Metadata\ShadowedMockBase.cs" />
-    <Compile Include="Mocks\Bar.cs" />
-    <Compile Include="Mocks\ChangeTrackingPerson.cs" />
-    <Compile Include="Mocks\ChangeTrackingPersonCollection.cs" />
-    <Compile Include="Mocks\ChangeTrackingPersonCollectionRoot.cs" />
-    <Compile Include="Mocks\CustomPropertyBag.cs" />
-    <Compile Include="Mocks\EditablePerson.cs" />
-    <Compile Include="Mocks\EditablePersonCollection.cs" />
-    <Compile Include="Mocks\Foo.cs" />
-    <Compile Include="Mocks\FooCollection.cs" />
-    <Compile Include="Mocks\MockChangeTracking.cs" />
-    <Compile Include="Mocks\Notifier.cs" />
-    <Compile Include="Mocks\NotifierCollection.cs" />
-    <Compile Include="Mocks\ReadOnlyFooCollection.cs" />
-    <Compile Include="Mocks\SimplePerson.cs" />
-    <Compile Include="Mocks\SimplePersonCollection.cs" />
-    <Compile Include="Mocks\WeakNotifier.cs" />
-    <Compile Include="Modeling.Internals\ChangeTrackingPropertyBagTests.cs" />
-    <Compile Include="Modeling.Internals\EditableObjectPropertyBagTests.cs" />
-    <Compile Include="Modeling.Internals\PropertyBagBaseTests.cs" />
-    <Compile Include="Modeling.Internals\PropertyBagTests.cs" />
-    <Compile Include="Modeling.Internals\ValidationResultEqualityComparerTests.cs" />
-    <Compile Include="Modeling\ChangeTrackingModelBaseTests.cs" />
-    <Compile Include="Modeling\ChangeTrackingModelCollectionTests.cs" />
-    <Compile Include="Modeling\DataErrorsChangedEventArgsTests.cs" />
-    <Compile Include="Modeling\EditableObjectModelBaseTests.cs" />
-    <Compile Include="Modeling\EditableObjectModelCollectionTests.cs" />
-    <Compile Include="Modeling\ModelBaseCollectionTests.cs" />
-    <Compile Include="Modeling\ModelBaseTests.cs" />
+    <Compile Include="Shared\ChangeTracking\ChangeTrackingTests.cs" />
+    <Compile Include="Shared\ChangeTracking\Customer.cs" />
+    <Compile Include="Shared\ChangeTracking\Order.cs" />
+    <Compile Include="Shared\ChangeTracking\OrderLine.cs" />
+    <Compile Include="Shared\ChangeTracking\OrderLinesCollection.cs" />
+    <Compile Include="Shared\ChangeTracking\OrdersCollection.cs" />
+    <Compile Include="Shared\Collections\CollectionUtilitiesTests.cs" />
+    <Compile Include="Shared\Collections\Dictionary3Tests.cs" />
+    <Compile Include="Shared\Collections\ExtendedObservableCollectionTests.cs" />
+    <Compile Include="Shared\Collections\ExtendedReadOnlyObservableCollectionTests.cs" />
+    <Compile Include="Shared\Collections\WeakReferenceCollectionTests.cs" />
+    <Compile Include="Shared\ComponentModel\ItemEventArgsTests.cs" />
+    <Compile Include="Shared\DataAnnotations\CalculatedFieldAttributeTests.cs" />
+    <Compile Include="Shared\DataAnnotations\ValidationResultCollectionTests.cs" />
+    <Compile Include="Shared\Dragnet\CollectionChangedEventTest.cs" />
+    <Compile Include="Shared\Dragnet\EventPair`1.cs" />
+    <Compile Include="Shared\Dragnet\EventTest.cs" />
+    <Compile Include="Shared\Dragnet\Memory.cs" />
+    <Compile Include="Shared\Dragnet\PropertyChangedEventTest.cs" />
+    <Compile Include="Shared\Dragnet\Severity.cs" />
+    <Compile Include="Shared\Dragnet\VerificationStep.cs" />
+    <Compile Include="Shared\Dragnet\Verify.cs" />
+    <Compile Include="Shared\Eventing\RelayedEventArgsTests.cs" />
+    <Compile Include="Shared\HelperClasses\ItemAddedEventTest`1.cs" />
+    <Compile Include="Shared\HelperClasses\ItemPropertyChangedEventAssert.cs" />
+    <Compile Include="Shared\HelperClasses\ItemRemovedEventAssert.cs" />
+    <Compile Include="Shared\Metadata\BadMock.cs" />
+    <Compile Include="Shared\Metadata\DataMapMock.cs" />
+    <Compile Include="Shared\Metadata\MetadataCacheTests.cs" />
+    <Compile Include="Shared\Metadata\Mock.cs" />
+    <Compile Include="Shared\Metadata\PropertyMetadataCollectionTests.cs" />
+    <Compile Include="Shared\Metadata\ShadowedMock.cs" />
+    <Compile Include="Shared\Metadata\ShadowedMockBase.cs" />
+    <Compile Include="Shared\Mocks\Bar.cs" />
+    <Compile Include="Shared\Mocks\ChangeTrackingPerson.cs" />
+    <Compile Include="Shared\Mocks\ChangeTrackingPersonCollection.cs" />
+    <Compile Include="Shared\Mocks\ChangeTrackingPersonCollectionRoot.cs" />
+    <Compile Include="Shared\Mocks\CustomPropertyBag.cs" />
+    <Compile Include="Shared\Mocks\EditablePerson.cs" />
+    <Compile Include="Shared\Mocks\EditablePersonCollection.cs" />
+    <Compile Include="Shared\Mocks\Foo.cs" />
+    <Compile Include="Shared\Mocks\FooCollection.cs" />
+    <Compile Include="Shared\Mocks\MockChangeTracking.cs" />
+    <Compile Include="Shared\Mocks\Notifier.cs" />
+    <Compile Include="Shared\Mocks\NotifierCollection.cs" />
+    <Compile Include="Shared\Mocks\ReadOnlyFooCollection.cs" />
+    <Compile Include="Shared\Mocks\SimplePerson.cs" />
+    <Compile Include="Shared\Mocks\SimplePersonCollection.cs" />
+    <Compile Include="Shared\Mocks\WeakNotifier.cs" />
+    <Compile Include="Shared\Modeling.Internals\ChangeTrackingPropertyBagTests.cs" />
+    <Compile Include="Shared\Modeling.Internals\EditableObjectPropertyBagTests.cs" />
+    <Compile Include="Shared\Modeling.Internals\PropertyBagBaseTests.cs" />
+    <Compile Include="Shared\Modeling.Internals\PropertyBagTests.cs" />
+    <Compile Include="Shared\Modeling.Internals\ValidationResultEqualityComparerTests.cs" />
+    <Compile Include="Shared\Modeling\ChangeTrackingModelBaseTests.cs" />
+    <Compile Include="Shared\Modeling\ChangeTrackingModelCollectionTests.cs" />
+    <Compile Include="Shared\Modeling\DataErrorsChangedEventArgsTests.cs" />
+    <Compile Include="Shared\Modeling\EditableObjectModelBaseTests.cs" />
+    <Compile Include="Shared\Modeling\EditableObjectModelCollectionTests.cs" />
+    <Compile Include="Shared\Modeling\ModelBaseCollectionTests.cs" />
+    <Compile Include="Shared\Modeling\ModelBaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomExtendedTests.cs" />
-    <Compile Include="TaskUtilitiesTests.cs" />
+    <Compile Include="Shared\RandomExtendedTests.cs" />
+    <Compile Include="Shared\TaskUtilitiesTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tortuga.Anchor.source\Tortuga.Anchor.source.csproj">
@@ -142,6 +154,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

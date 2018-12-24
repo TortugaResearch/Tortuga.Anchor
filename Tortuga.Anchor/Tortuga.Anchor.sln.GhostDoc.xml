@@ -20,10 +20,11 @@
     <ImageFolderPath />
     <Theme>FlatGray</Theme>
     <HtmlFormats>
-      <HtmlHelp>true</HtmlHelp>
+      <HtmlHelp>false</HtmlHelp>
       <MSHelpViewer>false</MSHelpViewer>
       <MSHelp2>false</MSHelp2>
       <Website>true</Website>
+      <VSIntelliSenseFile>false</VSIntelliSenseFile>
     </HtmlFormats>
     <IncludeScopes>
       <Public>true</Public>
@@ -45,6 +46,10 @@
     <ResolveCrefLinks>true</ResolveCrefLinks>
     <HeaderText />
     <FooterText />
+    <ConceptualContent>
+      <ContentLayout />
+      <MediaContent />
+    </ConceptualContent>
     <SelectedProjects>
       <SelectedProject>Tortuga.Anchor.source</SelectedProject>
     </SelectedProjects>
