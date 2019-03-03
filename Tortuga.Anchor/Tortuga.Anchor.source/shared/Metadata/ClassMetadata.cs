@@ -16,15 +16,14 @@ namespace Tortuga.Anchor.Metadata
 
     public partial class ClassMetadata
     {
-        readonly TypeInfo m_TypeInfo;
-
         ImmutableArray<string> m_ColumnMap;
-
         string m_CSharpFullName;
+        string m_FSharpFullName;
+        string m_VisualBasicFullName;
 
         internal ClassMetadata(TypeInfo typeInfo)
         {
-            m_TypeInfo = typeInfo;
+            TypeInfo = typeInfo;
 
             var table = (TableAttribute)typeInfo.GetCustomAttributes(typeof(TableAttribute), true).SingleOrDefault();
             if (table != null)
@@ -36,7 +35,7 @@ namespace Tortuga.Anchor.Metadata
             var shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
             var propertyList = typeInfo.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-            bool IsHidden(PropertyInfo propertyInfo) => !shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => p.Name == propertyInfo.Name);
+            bool IsHidden(PropertyInfo propertyInfo) => !shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => string.CompareOrdinal(p.Name, propertyInfo.Name) == 0);
 
             Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select(p => new PropertyMetadata(p)));
 
@@ -85,12 +84,44 @@ namespace Tortuga.Anchor.Metadata
             {
                 if (m_CSharpFullName == null)
                 {
-                    var result = new StringBuilder(m_TypeInfo.ToString().Length);
-                    BuildCSharpFullName(m_TypeInfo.AsType(), null, result);
+                    var result = new StringBuilder(TypeInfo.ToString().Length);
+                    BuildFullName(TypeInfo.AsType(), null, result, "<", ", ", ">");
 
                     m_CSharpFullName = result.ToString();
                 }
                 return m_CSharpFullName;
+            }
+        }
+
+        /// <summary>
+        /// Gets the fully quantified name in F# format.
+        /// </summary>
+        public string FSharpFullName
+        {
+            get
+            {
+                if (m_FSharpFullName == null)
+                {
+                    var result = new StringBuilder(TypeInfo.ToString().Length);
+                    BuildFullName(TypeInfo.AsType(), null, result, "<'", ", '", ">");
+
+                    m_FSharpFullName = result.ToString();
+                }
+                return m_FSharpFullName;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is nullable.
+        /// </summary>
+        /// <value>
+        ///   True is the type is a reference type, interface, or a nullable value type.
+        /// </value>
+        public bool IsNullable
+        {
+            get
+            {
+                return (!TypeInfo.IsValueType || (TypeInfo.IsGenericType && (TypeInfo.GetGenericTypeDefinition() == typeof(Nullable<>))));
             }
         }
 
@@ -110,6 +141,53 @@ namespace Tortuga.Anchor.Metadata
         public PropertyMetadataCollection Properties { get; internal set; }
 
         /// <summary>
+        /// Gets the underlying type.
+        /// </summary>
+        public TypeInfo TypeInfo { get; private set; }
+
+        /// <summary>
+        /// Gets the fully quantified name in VB format.
+        /// </summary>
+        public string VisualBasicFullName
+        {
+            get
+            {
+                if (m_VisualBasicFullName == null)
+                {
+                    var result = new StringBuilder(TypeInfo.ToString().Length);
+                    BuildFullName(TypeInfo.AsType(), null, result, "(Of ", ", ", ")");
+
+                    m_VisualBasicFullName = result.ToString();
+                }
+                return m_VisualBasicFullName;
+            }
+        }
+
+        /// <summary>
+        /// Returns the non-nullable representation of the underlying type.
+        /// </summary>
+        /// <returns>If a nullable value type, returns the non-nullable type. Otherwise echoes the type.</returns>
+        public ClassMetadata MakeNonNullable()
+        {
+            if (TypeInfo.IsGenericType && (TypeInfo.GetGenericTypeDefinition() == typeof(Nullable<>)))
+                return MetadataCache.GetMetadata(TypeInfo.GetGenericArguments()[0]);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Returns the nullable representation of the underlying type.
+        /// </summary>
+        /// <returns>If a non-nullable value type, returns the nullable type. Otherwise echoes the type.</returns>
+        public ClassMetadata MakeNullable()
+        {
+            if (TypeInfo.IsValueType && !IsNullable)
+                return MetadataCache.GetMetadata(typeof(Nullable<>).MakeGenericType(new[] { TypeInfo }));
+
+            return this;
+        }
+
+        /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>
@@ -117,10 +195,10 @@ namespace Tortuga.Anchor.Metadata
         /// </returns>
         public override string ToString()
         {
-            return m_TypeInfo.ToString();
+            return TypeInfo.ToString();
         }
 
-        static void BuildCSharpFullName(Type typeInfo, List<Type> typeArgs, StringBuilder result)
+        static void BuildFullName(Type typeInfo, List<Type> typeArgs, StringBuilder result, string genericOpen, string genericSeparator, string genericClose)
         {
             var localTypeParamCount = typeInfo.GetTypeInfo().GenericTypeParameters.Length;
             var localTypeArgCount = typeInfo.GetTypeInfo().GenericTypeArguments.Length;
@@ -129,13 +207,9 @@ namespace Tortuga.Anchor.Metadata
                 typeArgs = new List<Type>(typeInfo.GetTypeInfo().GenericTypeArguments);
 
             if (typeInfo.IsNested)
-            {
-                BuildCSharpFullName(typeInfo.DeclaringType, typeArgs, result);
-            }
+                BuildFullName(typeInfo.DeclaringType, typeArgs, result, genericOpen, genericSeparator, genericClose);
             else
-            {
                 result.Append(typeInfo.Namespace);
-            }
 
             result.Append(".");
             foreach (var c in typeInfo.Name)
@@ -147,29 +221,29 @@ namespace Tortuga.Anchor.Metadata
 
             if (localTypeParamCount > 0)
             {
-                result.Append("<");
+                result.Append(genericOpen);
 
                 for (int i = 0; i < localTypeParamCount; i++)
                 {
                     if (i > 0)
-                        result.Append(",");
-                    BuildCSharpFullName(typeArgs[i], null, result); //note that we are "eating" the typeArgs that we passed to us from the nested type.
+                        result.Append(genericSeparator);
+                    BuildFullName(typeArgs[i], null, result, genericOpen, genericSeparator, genericClose); //note that we are "eating" the typeArgs that we passed to us from the nested type.
                 }
                 typeArgs.RemoveRange(0, localTypeParamCount); //remove the used args
 
-                result.Append(">");
+                result.Append(genericClose);
             }
             else if (localTypeArgCount > 0 && typeArgs.Count > 0)
             {
-                result.Append("<");
+                result.Append(genericOpen);
 
                 for (int i = 0; i < Math.Min(localTypeArgCount, typeArgs.Count); i++)
                 {
                     if (i > 0)
-                        result.Append(",");
-                    BuildCSharpFullName(typeArgs[i], null, result);
+                        result.Append(genericSeparator);
+                    BuildFullName(typeArgs[i], null, result, genericOpen, genericSeparator, genericClose);
                 }
-                result.Append(">");
+                result.Append(genericClose);
             }
         }
 

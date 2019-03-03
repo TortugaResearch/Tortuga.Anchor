@@ -85,6 +85,16 @@ namespace Tests.Metadata
         }
 
         [TestMethod]
+        public void MetadataCache_CSharp_Generic_Dictionary()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Dictionary<int, string>)).CSharpFullName;
+                verify.AreEqual("System.Collections.Generic.Dictionary<System.Int32, System.String>", name, "C# type name was not correct");
+            }
+        }
+
+        [TestMethod]
         public void MetadataCache_CSharp_Generic_Of_Generic()
         {
             using (var verify = new Verify())
@@ -157,6 +167,148 @@ namespace Tests.Metadata
                 var f = MetadataCache.GetMetadata(typeof(StaticConstructor));
                 verify.IsTrue(f.Constructors.HasDefaultConstructor, "NonDefaultConstructor does not have a default constructor");
             }
+        }
+
+        [TestMethod]
+        public void MetadataCache_FSharp_Generic()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>)).FSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<'System.Int32>", name, "F# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_FSharp_Generic_Dictionary()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Dictionary<int, string>)).FSharpFullName;
+                verify.AreEqual("System.Collections.Generic.Dictionary<'System.Int32, 'System.String>", name, "F# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_FSharp_Generic_Of_Generic()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<Generic<int>>)).FSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<'Tests.Metadata.Generic<'System.Int32>>", name, "F# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_FSharp_GenericNestedInGeneric()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>.GenericNestedInGeneric<long>)).FSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<'System.Int32>.GenericNestedInGeneric<'System.Int64>", name, "F# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_FSharp_Nested()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Normal.Nested)).FSharpFullName;
+                verify.AreEqual("Tests.Metadata.Normal.Nested", name, "F# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_FSharp_NestedInGeneric()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>.NestedInGeneric)).FSharpFullName;
+                verify.AreEqual("Tests.Metadata.Generic<'System.Int32>.NestedInGeneric", name, "F# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_FSharp_Normal()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Normal)).FSharpFullName;
+                verify.AreEqual("Tests.Metadata.Normal", name, "F# type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_IsNullable_Int()
+        {
+            var x = MetadataCache.GetMetadata(typeof(int));
+            var y = x.IsNullable;
+            Assert.AreEqual(false, y);
+        }
+
+        [TestMethod]
+        public void MetadataCache_IsNullable_Nullable_Int()
+        {
+            var x = MetadataCache.GetMetadata(typeof(int?));
+            var y = x.IsNullable;
+            Assert.AreEqual(true, y);
+        }
+
+        [TestMethod]
+        public void MetadataCache_IsNullable_Object()
+        {
+            var x = MetadataCache.GetMetadata(typeof(object));
+            var y = x.IsNullable;
+            Assert.AreEqual(true, y);
+        }
+
+        [TestMethod]
+        public void MetadataCache_MakeNonNullable_Int()
+        {
+            var x = MetadataCache.GetMetadata(typeof(int));
+            var y = x.MakeNonNullable().TypeInfo;
+            Assert.AreEqual(typeof(int), y);
+        }
+
+        [TestMethod]
+        public void MetadataCache_MakeNonNullable_Nullable_Int()
+        {
+            var x = MetadataCache.GetMetadata(typeof(int?));
+            var y = x.MakeNonNullable().TypeInfo;
+            Assert.AreEqual(typeof(int), y);
+        }
+
+        [TestMethod]
+        public void MetadataCache_MakeNonNullable_Object()
+        {
+            var x = MetadataCache.GetMetadata(typeof(object));
+            var y = x.MakeNonNullable().TypeInfo;
+            Assert.AreEqual(typeof(object), y);
+        }
+
+        [TestMethod]
+        public void MetadataCache_MakeNullable_Int()
+        {
+            var x = MetadataCache.GetMetadata(typeof(int));
+            var y = x.MakeNullable().TypeInfo;
+            Assert.AreEqual(typeof(int?), y);
+        }
+
+        [TestMethod]
+        public void MetadataCache_MakeNullable_Nullable_Int()
+        {
+            var x = MetadataCache.GetMetadata(typeof(int?));
+            var y = x.MakeNullable().TypeInfo;
+            Assert.AreEqual(typeof(int?), y);
+        }
+
+        [TestMethod]
+        public void MetadataCache_MakeNullable_Object()
+        {
+            var x = MetadataCache.GetMetadata(typeof(object));
+            var y = x.MakeNullable().TypeInfo;
+            Assert.AreEqual(typeof(object), y);
         }
 
         [TestMethod]
@@ -656,6 +808,76 @@ namespace Tests.Metadata
                 catch (InvalidOperationException)
                 {
                 }
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_VisualBasic_Generic()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>)).VisualBasicFullName;
+                verify.AreEqual("Tests.Metadata.Generic(Of System.Int32)", name, "VB type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_VisualBasic_Generic_Dictionary()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Dictionary<int, string>)).VisualBasicFullName;
+                verify.AreEqual("System.Collections.Generic.Dictionary(Of System.Int32, System.String)", name, "VB type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_VisualBasic_Generic_Of_Generic()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<Generic<int>>)).VisualBasicFullName;
+                verify.AreEqual("Tests.Metadata.Generic(Of Tests.Metadata.Generic(Of System.Int32))", name, "VB type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_VisualBasic_GenericNestedInGeneric()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>.GenericNestedInGeneric<long>)).VisualBasicFullName;
+                verify.AreEqual("Tests.Metadata.Generic(Of System.Int32).GenericNestedInGeneric(Of System.Int64)", name, "VB type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_VisualBasic_Nested()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Normal.Nested)).VisualBasicFullName;
+                verify.AreEqual("Tests.Metadata.Normal.Nested", name, "VB type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_VisualBasic_NestedInGeneric()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Generic<int>.NestedInGeneric)).VisualBasicFullName;
+                verify.AreEqual("Tests.Metadata.Generic(Of System.Int32).NestedInGeneric", name, "VB type name was not correct");
+            }
+        }
+
+        [TestMethod]
+        public void MetadataCache_VisualBasic_Normal()
+        {
+            using (var verify = new Verify())
+            {
+                var name = MetadataCache.GetMetadata(typeof(Normal)).VisualBasicFullName;
+                verify.AreEqual("Tests.Metadata.Normal", name, "VB type name was not correct");
             }
         }
 
