@@ -144,10 +144,10 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection`1" />.
         /// </summary>
         /// <returns>
-        /// The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// The number of elements contained in the <see cref="System.Collections.Generic.ICollection`1" />.
         /// </returns>
         public int Count
         {
@@ -167,10 +167,10 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Gets an <see cref="T:System.Collections.Generic.ICollection`1" /> containing the keys of the <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// Gets an <see cref="System.Collections.Generic.ICollection`1" /> containing the keys of the <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <returns>
-        /// An <see cref="T:System.Collections.Generic.ICollection`1" /> containing the keys of the object that implements <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// An <see cref="System.Collections.Generic.ICollection`1" /> containing the keys of the object that implements <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </returns>
         public ICollection<ValueTuple<TKey1, TKey2>> Keys
         {
@@ -183,10 +183,10 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Gets an <see cref="T:System.Collections.Generic.ICollection`1" /> containing the values in the <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// Gets an <see cref="System.Collections.Generic.ICollection`1" /> containing the values in the <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <returns>
-        /// An <see cref="T:System.Collections.Generic.ICollection`1" /> containing the values in the object that implements <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// An <see cref="System.Collections.Generic.ICollection`1" /> containing the values in the object that implements <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </returns>
         public ICollection<TValue> Values
         {
@@ -224,7 +224,7 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Adds an element with the provided key and value to the <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// Adds an element with the provided key and value to the <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <param name="key">
         /// The object to use as the key of the element to add.
@@ -232,11 +232,11 @@ namespace Tortuga.Anchor.Collections
         /// <param name="value">
         /// The object to use as the value of the element to add.
         /// </param>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="System.ArgumentNullException">
         /// <paramref name="key" /> is null.
         /// </exception>
-        /// <exception cref="T:System.ArgumentException">
-        /// An element with the same key already exists in the <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// <exception cref="System.ArgumentException">
+        /// An element with the same key already exists in the <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </exception>
         public void Add(ValueTuple<TKey1, TKey2> key, TValue value)
         {
@@ -244,25 +244,25 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Adds an element with the provided key and value to the <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// Adds an element with the provided key and value to the <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <param name="key1">The first key.</param>
         /// <param name="key2">The second key.</param>
         /// <param name="value">The object to use as the value of the element to add.</param>
-        /// <exception cref="T:System.ArgumentException">An element with the same key already exists in the <see cref="T:System.Collections.Generic.IDictionary`2" />.</exception>
+        /// <exception cref="System.ArgumentException">An element with the same key already exists in the <see cref="System.Collections.Generic.IDictionary`2" />.</exception>
         public void Add(TKey1 key1, TKey2 key2, TValue value)
         {
             m_Base.Add(ValueTuple.Create(key1, key2), value);
         }
 
         /// <summary>
-        /// Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// Adds an item to the <see cref="System.Collections.Generic.ICollection`1" />.
         /// </summary>
         /// <param name="item">
-        /// The object to add to the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// The object to add to the <see cref="System.Collections.Generic.ICollection`1" />.
         /// </param>
-        /// <exception cref="T:System.NotSupportedException">
-        /// The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
+        /// <exception cref="System.NotSupportedException">
+        /// The <see cref="System.Collections.Generic.ICollection`1" /> is read-only.
         /// </exception>
         public void Add(KeyValuePair<ValueTuple<TKey1, TKey2>, TValue> item)
         {
@@ -270,10 +270,10 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// Removes all items from the <see cref="System.Collections.Generic.ICollection`1" />.
         /// </summary>
-        /// <exception cref="T:System.NotSupportedException">
-        /// The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
+        /// <exception cref="System.NotSupportedException">
+        /// The <see cref="System.Collections.Generic.ICollection`1" /> is read-only.
         /// </exception>
         public void Clear()
         {
@@ -281,13 +281,13 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Determines whether the <see cref="T:System.Collections.Generic.ICollection`1" /> contains a specific value.
+        /// Determines whether the <see cref="System.Collections.Generic.ICollection`1" /> contains a specific value.
         /// </summary>
         /// <returns>
-        /// true if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false.
+        /// true if <paramref name="item" /> is found in the <see cref="System.Collections.Generic.ICollection`1" />; otherwise, false.
         /// </returns>
         /// <param name="item">
-        /// The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// The object to locate in the <see cref="System.Collections.Generic.ICollection`1" />.
         /// </param>
         public bool Contains(KeyValuePair<ValueTuple<TKey1, TKey2>, TValue> item)
         {
@@ -295,11 +295,11 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Determines whether the <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the specified key.
+        /// Determines whether the <see cref="System.Collections.Generic.IDictionary`2" /> contains an element with the specified key.
         /// </summary>
-        /// <param name="key">The key to locate in the <see cref="T:System.Collections.Generic.IDictionary`2" />.</param>
+        /// <param name="key">The key to locate in the <see cref="System.Collections.Generic.IDictionary`2" />.</param>
         /// <returns>
-        /// true if the <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the key; otherwise, false.
+        /// true if the <see cref="System.Collections.Generic.IDictionary`2" /> contains an element with the key; otherwise, false.
         /// </returns>
         public bool ContainsKey(ValueTuple<TKey1, TKey2> key)
         {
@@ -307,12 +307,12 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Determines whether the <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the specified key.
+        /// Determines whether the <see cref="System.Collections.Generic.IDictionary`2" /> contains an element with the specified key.
         /// </summary>
         /// <param name="key1">The first key.</param>
         /// <param name="key2">The second key.</param>
         /// <returns>
-        /// true if the <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the key; otherwise, false.
+        /// true if the <see cref="System.Collections.Generic.IDictionary`2" /> contains an element with the key; otherwise, false.
         /// </returns>
         public bool ContainsKey(TKey1 key1, TKey2 key2)
         {
@@ -333,7 +333,7 @@ namespace Tortuga.Anchor.Collections
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>
-        /// A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
+        /// A <see cref="System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
         /// </returns>
         public IEnumerator<KeyValuePair<ValueTuple<TKey1, TKey2>, TValue>> GetEnumerator()
         {
@@ -346,19 +346,19 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Removes the element with the specified key from the <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// Removes the element with the specified key from the <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <returns>
-        /// true if the element is successfully removed; otherwise, false.  This method also returns false if <paramref name="key" /> was not found in the original <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// true if the element is successfully removed; otherwise, false.  This method also returns false if <paramref name="key" /> was not found in the original <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </returns>
         /// <param name="key">
         /// The key of the element to remove.
         /// </param>
-        /// <exception cref="T:System.ArgumentNullException">
+        /// <exception cref="System.ArgumentNullException">
         /// <paramref name="key" /> is null.
         /// </exception>
-        /// <exception cref="T:System.NotSupportedException">
-        /// The <see cref="T:System.Collections.Generic.IDictionary`2" /> is read-only.
+        /// <exception cref="System.NotSupportedException">
+        /// The <see cref="System.Collections.Generic.IDictionary`2" /> is read-only.
         /// </exception>
         public bool Remove(ValueTuple<TKey1, TKey2> key)
         {
@@ -366,12 +366,12 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Removes the element with the specified key from the <see cref="T:System.Collections.Generic.IDictionary`2" />.
+        /// Removes the element with the specified key from the <see cref="System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <param name="key1">The first key.</param>
         /// <param name="key2">The second key.</param>
         /// <returns>
-        /// true if the element is successfully removed; otherwise, false.  This method also returns false if <paramref name="key1" />+<paramref name="key2" /> was not found in the original <see cref="T:System.Collections.Generic.IDictionary`2" />
+        /// true if the element is successfully removed; otherwise, false.  This method also returns false if <paramref name="key1" />+<paramref name="key2" /> was not found in the original <see cref="System.Collections.Generic.IDictionary`2" />
         /// </returns>
         public bool Remove(TKey1 key1, TKey2 key2)
         {
@@ -379,16 +379,16 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// Removes the first occurrence of a specific object from the <see cref="System.Collections.Generic.ICollection`1" />.
         /// </summary>
         /// <returns>
-        /// true if <paramref name="item" /> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, false. This method also returns false if <paramref name="item" /> is not found in the original <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// true if <paramref name="item" /> was successfully removed from the <see cref="System.Collections.Generic.ICollection`1" />; otherwise, false. This method also returns false if <paramref name="item" /> is not found in the original <see cref="System.Collections.Generic.ICollection`1" />.
         /// </returns>
         /// <param name="item">
-        /// The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+        /// The object to remove from the <see cref="System.Collections.Generic.ICollection`1" />.
         /// </param>
-        /// <exception cref="T:System.NotSupportedException">
-        /// The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
+        /// <exception cref="System.NotSupportedException">
+        /// The <see cref="System.Collections.Generic.ICollection`1" /> is read-only.
         /// </exception>
         public bool Remove(KeyValuePair<ValueTuple<TKey1, TKey2>, TValue> item)
         {
@@ -401,7 +401,7 @@ namespace Tortuga.Anchor.Collections
         /// <param name="key">The key whose value to get.</param>
         /// <param name="value">When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value" /> parameter. This parameter is passed uninitialized.</param>
         /// <returns>
-        /// true if the object that implements <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the specified key; otherwise, false.
+        /// true if the object that implements <see cref="System.Collections.Generic.IDictionary`2" /> contains an element with the specified key; otherwise, false.
         /// </returns>
         public bool TryGetValue(ValueTuple<TKey1, TKey2> key, out TValue value)
         {
@@ -414,7 +414,7 @@ namespace Tortuga.Anchor.Collections
         /// <param name="key1">The first key.</param>
         /// <param name="key2">The second key.</param>
         /// <param name="value">When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value" /> parameter. This parameter is passed uninitialized.</param>
-        /// <returns> true if the object that implements <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the specified key; otherwise, false.</returns>
+        /// <returns> true if the object that implements <see cref="System.Collections.Generic.IDictionary`2" /> contains an element with the specified key; otherwise, false.</returns>
         public bool TryGetValue(TKey1 key1, TKey2 key2, out TValue value)
         {
             return m_Base.TryGetValue(ValueTuple.Create(key1, key2), out value);

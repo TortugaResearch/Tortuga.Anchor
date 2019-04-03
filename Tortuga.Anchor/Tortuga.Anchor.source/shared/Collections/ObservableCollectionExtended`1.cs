@@ -299,7 +299,7 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Raises the <see cref="E:System.Collections.ObjectModel.ObservableCollection`1.PropertyChanged" /> event with the provided arguments.
+        /// Raises the <see cref="System.Collections.ObjectModel.ObservableCollection`1.PropertyChanged" /> event with the provided arguments.
         /// </summary>
         /// <param name="propertyName">
         /// Property that is being changed.
@@ -310,13 +310,13 @@ namespace Tortuga.Anchor.Collections
         }
 
         /// <summary>
-        /// Removes the element at the specified index of the <see cref="T:System.Collections.ObjectModel.Collection`1" />.
+        /// Removes the element at the specified index of the <see cref="System.Collections.ObjectModel.Collection`1" />.
         /// </summary>
         /// <param name="index">
         /// The zero-based index of the element to remove.
         /// </param>
-        /// <exception cref="T:System.ArgumentOutOfRangeException">
-        /// <paramref name="index" /> is less than zero -or-<paramref name="index" /> is equal to or greater than <see cref="P:System.Collections.ObjectModel.Collection`1.Count" />.
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// <paramref name="index" /> is less than zero -or-<paramref name="index" /> is equal to or greater than <see cref="System.Collections.ObjectModel.Collection`1.Count" />.
         /// </exception>
         /// <remarks>Do NOT invoke this method directly. This may be overridden to provide additional validation before an item is removed to the collection.</remarks>
         protected override void RemoveItem(int index)
