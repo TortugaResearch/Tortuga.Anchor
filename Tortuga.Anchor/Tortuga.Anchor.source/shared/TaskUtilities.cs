@@ -39,12 +39,14 @@ namespace Tortuga.Anchor
                 throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
 
             var tcs = new TaskCompletionSource<object>();
-            Timer t = null; //What prevents this timer from being prematurely garbage collected?
-            t = new Timer(state =>
+            var t = new System.Timers.Timer(delay.TotalMilliseconds);
+            t.AutoReset = false;
+            t.Elapsed += (source, e) =>
             {
                 t.Dispose();
                 tcs.SetCanceled();
-            }, null, delay, TimeSpan.FromMilliseconds(int.MaxValue));
+            };
+            t.Start();
             return tcs.Task;
         }
 
@@ -68,17 +70,7 @@ namespace Tortuga.Anchor
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
         public static Task AutoCancelingTask<T>(int delay)
         {
-            if (delay < 0)
-                throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
-
-            var tcs = new TaskCompletionSource<object>();
-            Timer t = null; //What prevents this timer from being prematurely garbage collected?
-            t = new Timer(state =>
-            {
-                t.Dispose();
-                tcs.SetCanceled();
-            }, null, delay, int.MaxValue);
-            return tcs.Task;
+            return AutoCancelingTask<T>(TimeSpan.FromMilliseconds(delay));
         }
 
         /// <summary>
@@ -105,12 +97,14 @@ namespace Tortuga.Anchor
                 throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
 
             var tcs = new TaskCompletionSource<T>();
-            Timer t = null; //What prevents this timer from being prematurely garbage collected?
-            t = new Timer(state =>
+            var t = new System.Timers.Timer(delay.TotalMilliseconds);
+            t.AutoReset = false;
+            t.Elapsed += (source, e) =>
             {
                 t.Dispose();
                 tcs.SetResult(result);
-            }, null, delay, TimeSpan.FromMilliseconds(int.MaxValue));
+            };
+            t.Start();
             return tcs.Task;
         }
 
@@ -125,17 +119,7 @@ namespace Tortuga.Anchor
         [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "AutoCompleting")]
         public static Task<T> AutoCompletingTask<T>(T result, int delay)
         {
-            if (delay < 0)
-                throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
-
-            var tcs = new TaskCompletionSource<T>();
-            Timer t = null; //What prevents this timer from being prematurely garbage collected?
-            t = new Timer(state =>
-            {
-                t.Dispose();
-                tcs.SetResult(result);
-            }, null, delay, int.MaxValue);
-            return tcs.Task;
+            return AutoCompletingTask(result, TimeSpan.FromMilliseconds(delay));
         }
 
 #endif
