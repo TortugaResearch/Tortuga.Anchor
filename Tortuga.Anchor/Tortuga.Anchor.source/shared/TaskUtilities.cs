@@ -19,7 +19,16 @@ namespace Tortuga.Anchor
         /// <returns>A task that can be canceled, but never completed.</returns>
         public static Task AsTask(this CancellationToken cancellationToken)
         {
-            var tcs = new TaskCompletionSource<object>();
+            return AsTask<object>(cancellationToken);
+        }
+
+        /// <summary>Allows using a Cancellation Token as if it were a task.</summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cancellationToken">The cancellation token.</param>
+        /// <returns>A task that can be canceled, but never completed.</returns>
+        public static Task<T> AsTask<T>(this CancellationToken cancellationToken)
+        {
+            var tcs = new TaskCompletionSource<T>();
             cancellationToken.Register(() => tcs.TrySetCanceled(), false);
             return tcs.Task;
         }
@@ -33,12 +42,12 @@ namespace Tortuga.Anchor
         /// <param name="delay">The delay before the task is completed.</param>
         /// <returns>Task that will be completed.</returns>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-        public static Task AutoCancelingTask<T>(TimeSpan delay)
+        public static Task<T> AutoCancelingTask<T>(TimeSpan delay)
         {
             if (delay.TotalMilliseconds < 0)
                 throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
 
-            var tcs = new TaskCompletionSource<object>();
+            var tcs = new TaskCompletionSource<T>();
             var t = new System.Timers.Timer(delay.TotalMilliseconds);
             t.AutoReset = false;
             t.Elapsed += (source, e) =>
@@ -68,7 +77,7 @@ namespace Tortuga.Anchor
         /// <returns>Task that will be completed.</returns>
         /// <remarks>Use Task.Delay if a result isn't needed.</remarks>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-        public static Task AutoCancelingTask<T>(int delay)
+        public static Task<T> AutoCancelingTask<T>(int delay)
         {
             return AutoCancelingTask<T>(TimeSpan.FromMilliseconds(delay));
         }
