@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Tortuga.Anchor</AssemblyName>
+    <RootNamespace>Tortuga.Anchor</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;NETSTANDARD2_0</DefineConstants>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <TreatSpecificWarningsAsErrors />
+    <DocumentationFile>bin\Release\netstandard2.0\Tortuga.Anchor.xml</DocumentationFile>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <CodeAnalysisRuleSet>Tortuga.Anchor.netstandard2.0.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0</DefineConstants>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <TreatSpecificWarningsAsErrors />
+    <DocumentationFile>bin\Debug\netstandard2.0\Tortuga.Anchor.xml</DocumentationFile>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <CodeAnalysisRuleSet>Tortuga.Anchor.netstandard2.0.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Missing\IChangeTracking.cs" />
+    <Compile Remove="Missing\IDataErrorInfo.cs" />
+    <Compile Remove="Missing\IEditableObject.cs" />
+    <Compile Remove="Missing\IRevertibleChangeTracking.cs" />
+    <Compile Remove="Missing\NotMappedAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Tortuga.Anchor.source\shared\**\*.cs">
+      <Link>shared\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Tortuga.Anchor.source\GlobalSuppressions.cs" Link="GlobalSuppressions.cs" />
+    <Compile Include="..\Tortuga.Anchor.source\Properties\LibrarySharedAssemblyInfo.cs" Link="LibrarySharedAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Missing\" />
+    <Folder Include="shared\Collections\" />
+    <Folder Include="shared\ComponentModel\" />
+    <Folder Include="shared\DataAnnotations\" />
+    <Folder Include="shared\Eventing\" />
+    <Folder Include="shared\Metadata\" />
+    <Folder Include="shared\Modeling.Internals\" />
+    <Folder Include="shared\Modeling\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.1" />
+  </ItemGroup>
+</Project>
