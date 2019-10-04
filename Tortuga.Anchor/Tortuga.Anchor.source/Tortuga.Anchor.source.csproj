@@ -82,6 +82,7 @@
     <Compile Include="shared\Eventing\RelayedEventArgs`1.cs" />
     <Compile Include="shared\Eventing\RelayedEventHandler`1.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="shared\LockUtilities.cs" />
     <Compile Include="shared\Metadata\ClassMetadata.cs" />
     <Compile Include="shared\Metadata\ConstructorMetadata.cs" />
     <Compile Include="shared\Metadata\ConstructorMetadataCollection.cs" />
