@@ -13,21 +13,23 @@
   </SpellChecker>
 <HelpConfigurations selected="HelpFile">
   <HelpConfiguration name="HelpFile">
-    <OutputPath>.\Help</OutputPath>
+    <OutputPath>..\docs\API</OutputPath>
     <CleanupOutputPath>true</CleanupOutputPath>
     <HelpFileName>Tortuga.Anchor</HelpFileName>
+    <HelpFileNamingMethod>MemberName</HelpFileNamingMethod>
     <ImageFolderPath />
     <Theme>FlatGray</Theme>
     <HtmlFormats>
-      <HtmlHelp>true</HtmlHelp>
+      <HtmlHelp>false</HtmlHelp>
       <MSHelpViewer>false</MSHelpViewer>
       <MSHelp2>false</MSHelp2>
       <Website>true</Website>
+      <VSIntelliSenseFile>false</VSIntelliSenseFile>
     </HtmlFormats>
     <IncludeScopes>
       <Public>true</Public>
       <Internal>false</Internal>
-      <Protected>false</Protected>
+      <Protected>true</Protected>
       <Private>false</Private>
       <Inherited>true</Inherited>
       <InheritedFromReferences>true</InheritedFromReferences>
@@ -44,11 +46,16 @@
     <ResolveCrefLinks>true</ResolveCrefLinks>
     <HeaderText />
     <FooterText />
+    <ConceptualContent>
+      <ContentLayout />
+      <MediaContent />
+    </ConceptualContent>
     <SelectedProjects>
-      <SelectedProject>Tortuga.Anchor.net461</SelectedProject>
+      <SelectedProject>Tortuga.Anchor.source</SelectedProject>
     </SelectedProjects>
   </HelpConfiguration>
 </HelpConfigurations>
 <GeneralProperties>
+  <SearchInheritedCommentsOnlyWithinProject>False</SearchInheritedCommentsOnlyWithinProject>
 </GeneralProperties>
 </GhostDoc>
