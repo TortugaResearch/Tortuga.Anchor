@@ -10,26 +10,6 @@ namespace Tortuga.Anchor
     public static class LockUtilities
     {
         /// <summary>
-        /// Acquires a read lock on the indicated ReaderWriterLockSlim.
-        /// </summary>
-        /// <param name="lock">The lock to be acquired.</param>
-        /// <remarks>To not use this in an environment where Thread Abort exceptions are possible, as it may lead to dead locks.</remarks>
-        public static IDisposable Read(this ReaderWriterLockSlim @lock)
-        {
-            return new ReaderWriterLockSlimReadToken(@lock);
-        }
-
-        /// <summary>
-        /// Acquires a write lock on the indicated ReaderWriterLockSlim.
-        /// </summary>
-        /// <param name="lock">The lock to be acquired.</param>
-        /// <remarks>To not use this in an environment where Thread Abort exceptions are possible, as it may lead to dead locks.</remarks>
-        public static IDisposable Write(this ReaderWriterLockSlim @lock)
-        {
-            return new ReaderWriterLockSlimWriteToken(@lock);
-        }
-
-        /// <summary>
         /// Acquires a semaphore as a blocking operation. When this is disposed, the semaphore will be released.
         /// </summary>
         /// <param name="semaphore">The semaphore.</param>
@@ -47,27 +27,28 @@ namespace Tortuga.Anchor
         /// <returns>Task&lt;IDisposable&gt;.</returns>
         public static async Task<IDisposable> AcquireAsync(this SemaphoreSlim semaphore)
         {
-            await semaphore.WaitAsync();
+            await semaphore.WaitAsync().ConfigureAwait(false);
             return new SemaphoreSlimToken(semaphore);
         }
 
-        sealed class SemaphoreSlimToken : IDisposable
+        /// <summary>
+        /// Acquires a read lock on the indicated ReaderWriterLockSlim.
+        /// </summary>
+        /// <param name="lock">The lock to be acquired.</param>
+        /// <remarks>To not use this in an environment where Thread Abort exceptions are possible, as it may lead to dead locks.</remarks>
+        public static IDisposable Read(this ReaderWriterLockSlim @lock)
         {
-            private SemaphoreSlim m_Semaphore;
+            return new ReaderWriterLockSlimReadToken(@lock);
+        }
 
-            public SemaphoreSlimToken(SemaphoreSlim semaphore)
-            {
-                m_Semaphore = semaphore;
-            }
-
-            public void Dispose()
-            {
-                if (m_Semaphore == null)
-                    return;
-
-                m_Semaphore.Release();
-                m_Semaphore = null;
-            }
+        /// <summary>
+        /// Acquires a write lock on the indicated ReaderWriterLockSlim.
+        /// </summary>
+        /// <param name="lock">The lock to be acquired.</param>
+        /// <remarks>To not use this in an environment where Thread Abort exceptions are possible, as it may lead to dead locks.</remarks>
+        public static IDisposable Write(this ReaderWriterLockSlim @lock)
+        {
+            return new ReaderWriterLockSlimWriteToken(@lock);
         }
 
         sealed class ReaderWriterLockSlimReadToken : IDisposable
@@ -93,6 +74,7 @@ namespace Tortuga.Anchor
         sealed class ReaderWriterLockSlimWriteToken : IDisposable
         {
             private ReaderWriterLockSlim m_Lock;
+
             public ReaderWriterLockSlimWriteToken(ReaderWriterLockSlim @lock)
             {
                 m_Lock = @lock;
@@ -106,6 +88,25 @@ namespace Tortuga.Anchor
 
                 m_Lock.ExitWriteLock();
                 m_Lock = null;
+            }
+        }
+
+        sealed class SemaphoreSlimToken : IDisposable
+        {
+            private SemaphoreSlim m_Semaphore;
+
+            public SemaphoreSlimToken(SemaphoreSlim semaphore)
+            {
+                m_Semaphore = semaphore;
+            }
+
+            public void Dispose()
+            {
+                if (m_Semaphore == null)
+                    return;
+
+                m_Semaphore.Release();
+                m_Semaphore = null;
             }
         }
     }

@@ -87,12 +87,16 @@ namespace Tortuga.Anchor.Metadata
         /// Note: "Item[]" will be mapped to "Item [Int32]"
         /// </param>
         /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public PropertyMetadata this[string propertyName]
         {
             get
             {
                 if (string.IsNullOrEmpty(propertyName))
+#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
                     throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
+#pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
 
                 if (m_Base.TryGetValue(propertyName, out PropertyMetadata result))
                     return result;
@@ -103,7 +107,9 @@ namespace Tortuga.Anchor.Metadata
                 if (m_StringIndexedProperties.TryGetValue(propertyName, out result))
                     return result;
 
+#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
                 throw new ArgumentOutOfRangeException(nameof(propertyName), propertyName, $"The property {propertyName} was not found");
+#pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
             }
         }
 

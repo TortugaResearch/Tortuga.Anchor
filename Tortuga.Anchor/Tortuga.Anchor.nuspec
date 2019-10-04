@@ -4,11 +4,12 @@
     <id>Tortuga.Anchor</id>
     <version></version>
     <authors>David Tomcik, Jonathan Allen</authors>
-    <copyright>Copyright David Tomcik, Jonathan Allen 2016</copyright>
+    <copyright>Copyright David Tomcik, Jonathan Allen 2016,2019</copyright>
     <description>Commons and data modeling library for the Toruga project.</description>
     <tags>MVVM</tags>
     <language>en-US</language>
     <projectUrl>https://github.com/docevaad/Anchor</projectUrl>
+    <license type="expression">MIT</license>
     <references>
       <reference file="Tortuga.Anchor.dll" />
     </references>
@@ -27,7 +28,7 @@
       </group>
 
       <group targetFramework="netstandard2.0">
-        <dependency id="System.Collections.Immutable" version="1.5.0" />
+        <dependency id="System.Collections.Immutable" version="1.6.0" />
         <dependency id="System.ComponentModel.Annotations" version="4.5.0" />
         <dependency id="System.Reflection.TypeExtensions" version="4.5.1" />
       </group>

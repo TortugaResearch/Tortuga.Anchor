@@ -84,12 +84,12 @@ namespace Tortuga.Anchor
         public static async Task AddRange<T>(this ICollection<T> target, IEnumerable<Task<T>> list)
         {
             if (target == null)
-                throw new ArgumentNullException("target", "target is null.");
+                throw new ArgumentNullException(nameof(target), "target is null.");
             if (list == null)
-                throw new ArgumentNullException("list", "list is null.");
+                throw new ArgumentNullException(nameof(list), "list is null.");
 
             foreach (var item in list)
-                target.Add(await item);
+                target.Add(await item.ConfigureAwait(false));
         }
 
         /// <summary>
