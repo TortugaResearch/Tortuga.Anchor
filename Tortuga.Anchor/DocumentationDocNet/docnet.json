@@ -1,0 +1,23 @@
+﻿{
+	"Name": "Tortuga Anchor",
+	"Source": ".",
+	"Destination": "..\\..\\docs",
+	"IncludeSource": "Includes",
+	"Theme": "Light",
+	"Footer": "Tortuga Anchor. <a href='https://github.com/docevaad/Anchor/' target='_blank'>Visit us at GitHub</a>.",
+	"Pages": {
+		"__index": "index.md",
+		"Modeling": {
+			"__index": "Modeling.md",
+			"Property Change Notification": "PropertyChangeNotification.md",
+			"Validation": "Validation.md",
+			"Change Tracking": "ChangeTracking.md"
+		},
+		"Collections": { "__index": "Collections.md" },
+		"ComponentModel": { "__index": "ComponentModel.md" },
+		"DataAnnotations": { "__index": "DataAnnotations.md" },
+		"Eventing": { "__index": "Eventing.md" },
+		"Metadata": { "__index": "Metadata.md" }
+
+	}
+}

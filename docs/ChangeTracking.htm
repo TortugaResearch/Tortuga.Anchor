@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Change Tracking - Tortuga Anchor</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="css/theme_colors.css" type="text/css" />
+    <link rel="stylesheet" href="css/styles/vs.css">
+    <link rel="stylesheet" href="css/font-awesome.4.5.0.min.css">
+</head>
+<body role="document">
+    <div class="grid-for-nav">
+        <nav data-toggle="nav-shift" class="nav-side stickynav">
+            <div class="side-nav-search">
+                <a href="index.htm"><i class="fa fa-home"></i> Tortuga Anchor</a>
+                <div role="search">
+                    <form id="search-form" class="form" action="Docnet_search.htm" method="get">
+                        <input type="text" name="q" placeholder="Search docs" />
+                    </form>
+                </div>
+            </div>
+            <div class="menu menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+<ul>
+<li class="tocentry"><a href="index.htm">Home</a>
+</li>
+
+<li class="tocentry">
+<ul>
+<li><span class="navigationgroup"><i class="fa fa-caret-down"></i> <a href="Modeling.htm">Modeling</a></span></li>
+
+<li class="tocentry"><a href="PropertyChangeNotification.htm">Property Change Notification</a>
+</li>
+<li class="tocentry"><a href="Validation.htm">Validation</a>
+</li>
+<li class="tocentry current"><a class="current" href="ChangeTracking.htm">Change Tracking</a>
+<ul class="currentrelative">
+<li class="tocentry"><a href="#ichangetracking">IChangeTracking</a></li>
+<li class="tocentry"><a href="#irevertiblechangetracking">IRevertibleChangeTracking</a></li>
+<li class="tocentry"><a href="#ipropertychangetrackingidetailedpropertychangetracking">IPropertyChangeTracking/IDetailedPropertyChangeTracking</a></li>
+<li class="tocentry"><a href="#ieditableobject">IEditableObject</a></li>
+</ul>
+</ul>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="Collections.htm">Collections</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="ComponentModel.htm">ComponentModel</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="DataAnnotations.htm">DataAnnotations</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="Eventing.htm">Eventing</a></span>
+</li>
+<li class="tocentry">
+<span class="navigationgroup"><i class="fa fa-caret-right"></i> <a href="Metadata.htm">Metadata</a></span>
+</li>
+</ul>
+				<div class="toc-footer">
+					<span class="text-small">
+						<hr/>
+						<a href="https://github.com/FransBouma/DocNet" target="_blank">Made with <i class="fa fa-github"></i> DocNet</a>
+					</span>
+				</div>	
+			</div>
+            &nbsp;
+        </nav>
+        <section data-toggle="nav-shift" class="nav-content-wrap">
+            <nav class="nav-top" role="navigation" aria-label="top navigation">
+                <i data-toggle="nav-top" class="fa fa-bars"></i>
+                <a href="index.htm">Tortuga Anchor</a>
+            </nav>
+            <div class="nav-content">
+                <div role="navigation" aria-label="breadcrumbs navigation">
+                    <div class="breadcrumbs">
+<ul><li><a href="index.htm">Home</a></li> / <li><a href="Modeling.htm">Modeling</a></li> / <li><a href="ChangeTracking.htm">Change Tracking</a></li></ul>
+					
+                    </div>
+                    <hr />
+                </div>
+                <div role="main">
+                    <div class="section">
+<h1 id="change-tracking">Change Tracking<a class="headerlink" href="#change-tracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h1>
+<p>Using the <code>ChangeTrackingModelBase</code> and <code>ChangeTrackingModelCollection</code> base classes enable the change tracking features in Tortuga Anchor.</p>
+<p>To fully take advantage of these capabilities, the following rules must be followed:</p>
+<ul>
+<li>All tracked properties are managed (i.e. they use the <code>Get</code>/<code>Set</code> helper methods).</li>
+<li>All tracked model properties are subclasses of <code>ChangeTrackingModelBase</code> or <code>EditableObjectModelBase</code></li>
+<li>All tracked collection properties are subclasses of <code>ChangeTrackingModelCollection</code> or <code>EditableObjectModelCollection</code></li>
+<li>There are no circular graphs among tracked properties. This means that if A is the child of B, then B can't also be the child of A. </li>
+</ul>
+<h2 id="ichangetracking">IChangeTracking<a class="headerlink" href="#ichangetracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>Tortuga Anchor implements IChangeTracking at the object graph level. This means that <code>IsChanged</code> will return true if the object has changes or if any of its managed children have changes. </p>
+<p>If you want to know if the current object is changed, without considering its children, use the <code>IsChangedLocal</code> property.</p>
+<p>Calling <code>AcceptChanges()</code> will mark the current object as unchanged and call <code>AcceptChanges()</code> and all of its managed children. Theoretically the children will then call their children, recursively walking the entire tree. This is why circular graphs are problematic.</p>
+<p>One way to avoid a circular graph is to use an unmanaged property to refer to a parent object.</p>
+<pre class="nocode">public EmployeeCollection Employees =&gt; GetNew&lt;EmployeeCollection&gt;();
+
+public Employee Manager {get; set; } //back-reference 
+</pre><p>The typical use of this interface is to track records that have unsaved changes.</p>
+<h2 id="irevertiblechangetracking">IRevertibleChangeTracking<a class="headerlink" href="#irevertiblechangetracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>Like IChangeTracking, this works at the object graph level. Invoking <code>RejectChanges()</code> will call <code>RejectChanges()</code>.</p>
+<h2 id="ipropertychangetrackingidetailedpropertychangetracking">IPropertyChangeTracking/IDetailedPropertyChangeTracking<a class="headerlink" href="#ipropertychangetrackingidetailedpropertychangetracking" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>These interfaces are specific to Tortuga Anchor.</p>
+<p>The <code>ChangedProperties()</code> method will return a readonly list of modified property names. To get the previous value of any property, use the <code>GetPreviousValue(string propertyName)</code> method. Retrieving the current value can be done normally or via reflection.</p>
+<p>These interfaces are meant to be used for logging changes to an object. They are also used by Tortuga Chain when generating SQL.</p>
+<h2 id="ieditableobject">IEditableObject<a class="headerlink" href="#ieditableobject" title="Permalink to this headline"><i class="fa fa-link" aria-hidden="true"></i></a></h2>
+<p>The <code>IEditableObject</code> is used in .NET to deal with short-term, revertible changes. If you imagine a dialog window with Ok and Cancel buttons, that would normally be implemented using <code>IEditableObject</code>. Data grids in WinForms and WPF also use this interface.</p>
+<p>In Tortuga Anchor, this interface is exposed by the <code>EditableObjectModel</code> and <code>EditableObjectModelCollection</code> base classes. As with <code>ChangeTrackingModelBase</code>, the <code>BeginEdit()</code>, <code>EndEdit()</code>, and <code>CancelEdit()</code> methods are implemented at the object graph level. </p>
+<p>Since <code>EditableObjectModel</code> and <code>EditableObjectModelCollection</code> also implement <code>IRevertibleChangeTracking</code>, you effective have two levels of undo possible.</p>
+
+                    </div>
+                </div>
+                <footer>
+                    <hr />
+                    <div role="contentinfo">
+Tortuga Anchor. <a href='https://github.com/docevaad/Anchor/' target='_blank'>Visit us at GitHub</a>.
+                    </div>
+                </footer>
+            </div>
+        </section>
+    </div>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/modernizr-2.8.3.min.js"></script>
+    <script src="js/highlight.pack.js"></script>
+    <script src="js/theme.js"></script>
+
+</body>
+</html>
