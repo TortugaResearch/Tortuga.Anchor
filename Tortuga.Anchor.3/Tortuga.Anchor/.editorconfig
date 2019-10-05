@@ -1,0 +1,34 @@
+﻿[*.cs]
+
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = none
+
+# IDE0040: Add accessibility modifiers
+dotnet_style_require_accessibility_modifiers = never:silent
+
+# RCS1018: Add accessibility modifiers.
+dotnet_diagnostic.RCS1018.severity = none
+
+# RCS1089: Use --/++ operator instead of assignment.
+dotnet_diagnostic.RCS1089.severity = none
+
+# RCS1180: Inline lazy initialization.
+dotnet_diagnostic.RCS1180.severity = none
+
+# RCS1171: Simplify lazy initialization.
+dotnet_diagnostic.RCS1171.severity = none
+
+# RCS1001: Add braces (when expression spans over multiple lines).
+dotnet_diagnostic.RCS1001.severity = none
+
+# RCS1003: Add braces to if-else (when expression spans over multiple lines).
+dotnet_diagnostic.RCS1003.severity = none
+
+# RCS1159: Use EventHandler<T>.
+dotnet_diagnostic.RCS1159.severity = none
+
+# IDE0017: Simplify object initialization
+dotnet_style_object_initializer = true:none
+
+# IDE0067: Dispose objects before losing scope
+dotnet_diagnostic.IDE0067.severity = none
