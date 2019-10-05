@@ -66,7 +66,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (obj == null || obj.ErrorMessage == null)
                 return 0;
 
-#if NET_STD_20
+#if NET_STD_20 || NET_46
             return obj.ErrorMessage.GetHashCode();
 #elif NET_STD_21
             return obj.ErrorMessage.GetHashCode(StringComparison.Ordinal);
