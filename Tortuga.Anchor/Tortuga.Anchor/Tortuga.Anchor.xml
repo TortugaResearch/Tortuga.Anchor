@@ -1331,13 +1331,21 @@
             Cache's metadata fetched via reflection.
             </summary>
         </member>
+        <member name="M:Tortuga.Anchor.Metadata.MetadataCache.GetMetadata``1">
+            <summary>
+            Gets the metadata for the indicated type.
+            </summary>
+            <typeparam name="T">The type of interest</typeparam>
+            <returns>A thread-safe copy of the class's metadata</returns>
+            <remarks>Actually fetching the metadata may require taking a lock. Therefore it is advisable to locally cache the metadata as well.</remarks>
+        </member>
         <member name="M:Tortuga.Anchor.Metadata.MetadataCache.GetMetadata(System.Type)">
             <summary>
             Gets the metadata for the indicated type.
             </summary>
             <param name="type">The type of interest</param>
             <returns>A thread-safe copy of the class's metadata</returns>
-            <remarks>Actually fetching the metadata requires taking a lock. Therefore it is advisable to locally cache the metadata as well.</remarks>
+            <remarks>Actually fetching the metadata may require taking a lock. Therefore it is advisable to locally cache the metadata as well.</remarks>
         </member>
         <member name="T:Tortuga.Anchor.Metadata.PropertyMetadata">
             <summary>
@@ -1356,12 +1364,22 @@
         </member>
         <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.CanRead">
             <summary>
-            Returns true if there is a public getter
+            Returns true if there is a public getter and it is not an indexed property.
+            </summary>
+        </member>
+        <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.CanReadIndexed">
+            <summary>
+            Returns true if there is a public getter and it is an indexed property.
             </summary>
         </member>
         <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.CanWrite">
             <summary>
-            Returns true is there is a public setter
+            Returns true is there is a public setter and it is not an indexed property.
+            </summary>
+        </member>
+        <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.CanWriteIndexed">
+            <summary>
+            Returns true is there is a public setter and it is an indexed property.
             </summary>
         </member>
         <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.Decompose">
@@ -1432,6 +1450,40 @@
             Cached PropertyInfo for the property.
             </summary>
         </member>
+        <member name="M:Tortuga.Anchor.Metadata.PropertyMetadata.CreateDelegateGetter``2">
+            <summary>Creates the delegate setter.</summary>
+            <typeparam name="TTarget">The type of the target object.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <returns>Func&lt;TTarget, TProperty&gt;.</returns>
+            <exception cref="T:System.InvalidOperationException">CanRead is false for property {Name}</exception>
+            <remarks>This is much faster than calling InvokeGet, but you must provide the correct TTarget and  TProperty arguments.</remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.Metadata.PropertyMetadata.CreateDelegateGetter``3">
+            <summary>Creates the delegate setter for an indexed property.</summary>
+            <typeparam name="TTarget">The type of the target object.</typeparam>
+            <typeparam name="TIndex">The type of the index parameter.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <returns>Func&lt;TTarget, TProperty&gt;.</returns>
+            <exception cref="T:System.InvalidOperationException">CanReadIndexed is false for property {Name}</exception>
+            <remarks>This is much faster than calling InvokeGet, but you must provide the correct TTarget and  TProperty arguments.</remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.Metadata.PropertyMetadata.CreateDelegateSetter``2">
+            <summary>Creates the delegate setter.</summary>
+            <typeparam name="TTarget">The type of the target object.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <returns>Action&lt;TTarget, TProperty&gt;.</returns>
+            <exception cref="T:System.InvalidOperationException">CanWrite is false for property {Name}</exception>
+            <remarks>This is much faster than calling InvokeSet, but you must provide the correct TTarget and  TProperty arguments.</remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.Metadata.PropertyMetadata.CreateDelegateSetter``3">
+            <summary>Creates the delegate setter for an indexed property.</summary>
+            <typeparam name="TTarget">The type of the target object.</typeparam>
+            <typeparam name="TIndex">The type of the index parameter.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <returns>Action&lt;TTarget, TProperty&gt;.</returns>
+            <exception cref="T:System.InvalidOperationException">CanWriteIndexed is false for property {Name}</exception>
+            <remarks>This is much faster than calling InvokeSet, but you must provide the correct TTarget and  TProperty arguments.</remarks>
+        </member>
         <member name="M:Tortuga.Anchor.Metadata.PropertyMetadata.InvokeGet(System.Object)">
             <summary>
             Invokes this property's getter on the supplied object
@@ -1440,6 +1492,16 @@
             <returns>System.Object.</returns>
             <exception cref="T:System.ArgumentException">Error getting property " + Name</exception>
             <exception cref="T:System.InvalidOperationException">CanRead is false on property {Name}.</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.Metadata.PropertyMetadata.InvokeGet(System.Object,System.Object)">
+            <summary>
+            Invokes this property's getter on the supplied object
+            </summary>
+            <param name="target">The target.</param>
+            <param name="index">The index.</param>
+            <returns>System.Object.</returns>
+            <exception cref="T:System.ArgumentException">Error getting property " + Name</exception>
+            <exception cref="T:System.InvalidOperationException">CanReadIndexed is false on property {Name}.</exception>
         </member>
         <member name="M:Tortuga.Anchor.Metadata.PropertyMetadata.InvokeSet(System.Object,System.Object)">
             <summary>
@@ -1450,6 +1512,17 @@
             <returns>System.Object.</returns>
             <exception cref="T:System.ArgumentException">Error setting property " + Name</exception>
             <exception cref="T:System.InvalidOperationException">CanWrite is false for property {Name}</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.Metadata.PropertyMetadata.InvokeSet(System.Object,System.Object,System.Object)">
+            <summary>
+            Invokes this property's setter on the supplied object
+            </summary>
+            <param name="target">The target.</param>
+            <param name="index">The index.</param>
+            <param name="value">The value.</param>
+            <returns>System.Object.</returns>
+            <exception cref="T:System.ArgumentException">Error setting property " + Name</exception>
+            <exception cref="T:System.InvalidOperationException">CanWriteIndexed is false for property {Name}</exception>
         </member>
         <member name="M:Tortuga.Anchor.Metadata.PropertyMetadata.AddCalculatedField(Tortuga.Anchor.Metadata.PropertyMetadata)">
             <summary>

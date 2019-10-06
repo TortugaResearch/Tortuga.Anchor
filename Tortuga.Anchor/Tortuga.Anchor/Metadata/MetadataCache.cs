@@ -15,9 +15,17 @@ namespace Tortuga.Anchor.Metadata
         /// <summary>
         /// Gets the metadata for the indicated type.
         /// </summary>
+        /// <typeparam name="T">The type of interest</typeparam>
+        /// <returns>A thread-safe copy of the class's metadata</returns>
+        /// <remarks>Actually fetching the metadata may require taking a lock. Therefore it is advisable to locally cache the metadata as well.</remarks>
+        public static ClassMetadata GetMetadata<T>() => GetMetadata(typeof(T));
+
+        /// <summary>
+        /// Gets the metadata for the indicated type.
+        /// </summary>
         /// <param name="type">The type of interest</param>
         /// <returns>A thread-safe copy of the class's metadata</returns>
-        /// <remarks>Actually fetching the metadata requires taking a lock. Therefore it is advisable to locally cache the metadata as well.</remarks>
+        /// <remarks>Actually fetching the metadata may require taking a lock. Therefore it is advisable to locally cache the metadata as well.</remarks>
         public static ClassMetadata GetMetadata(Type type)
         {
             if (type == null)
