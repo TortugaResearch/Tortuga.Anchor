@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Tortuga.Anchor
@@ -53,13 +54,14 @@ namespace Tortuga.Anchor
         /// Indicates whether a specified string is null, empty, or consists only of white-space
         /// characters.</summary>
         /// <param name="value">The string to test</param>
-        public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
+
+        public static bool IsNullOrEmpty([NotNullWhen(false)] this string? value) => string.IsNullOrEmpty(value);
 
         /// <summary>
         /// Indicates whether a specified string is null, empty, or consists only of white-space
         /// characters.</summary>
         /// <param name="value">The string to test</param>
-        public static bool IsNullOrWhiteSpace(this string value) => string.IsNullOrWhiteSpace(value);
+        public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? value) => string.IsNullOrWhiteSpace(value);
 
         /// <summary>
         /// Joins the list of values using the specified separator and options.

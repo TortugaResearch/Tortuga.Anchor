@@ -11,9 +11,9 @@
     <Deterministic>false</Deterministic>
     <ProductName>Tortuga Anchor</ProductName>
 
-    <AssemblyVersion>3.0.3</AssemblyVersion>
-    <Version>3.0.3</Version>
-    <FileVersion>3.0.3.0</FileVersion>
+    <AssemblyVersion>3.0.6</AssemblyVersion>
+    <Version>3.0.6</Version>
+    <FileVersion>3.0.6.0</FileVersion>
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
@@ -32,10 +32,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net46'">
-    <DefineConstants></DefineConstants>
+    <DefineConstants>NULL_MISSING</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <DefineConstants></DefineConstants>
+    <DefineConstants>NULL_MISSING</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <DefineConstants>OrdinalHashCodes</DefineConstants>

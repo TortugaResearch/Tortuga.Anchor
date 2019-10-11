@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -98,6 +99,7 @@ namespace Tortuga.Anchor
         /// <param name="source">The source. If the source is null, the result will be null.</param>
         /// <returns>Returns an IList.</returns>
         /// <remarks>This is primarily meant to be used with poorly designed interfaces that return lists disguised as IEnumerable.</remarks>
+        [return: NotNullIfNotNull("source")]
         public static IList<T>? AsList<T>(this IEnumerable<T> source)
         {
             if (source == null)
