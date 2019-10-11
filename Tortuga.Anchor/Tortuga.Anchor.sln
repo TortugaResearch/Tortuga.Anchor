@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortuga.Anchor", "Tortuga.Anchor\Tortuga.Anchor.csproj", "{341D1FCA-DBA5-42FA-BE55-2F382AB6453F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortuga.Anchor.Tests", "Tortuga.Anchor.Tests\Tortuga.Anchor.Tests.csproj", "{13B95FCC-0ABC-41D6-9AC9-494F0B3F86CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortuga.Anchor.Tests", "Tortuga.Anchor.Tests\Tortuga.Anchor.Tests.csproj", "{F9DFC0BD-9F31-4B58-A2DC-8C6E87D8225C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentationDocNet", "DocumentationDocNet\DocumentationDocNet.csproj", "{64697C8B-60FD-4EE7-8560-37C4BD58580A}"
 EndProject
@@ -19,10 +19,10 @@ Global
 		{341D1FCA-DBA5-42FA-BE55-2F382AB6453F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{341D1FCA-DBA5-42FA-BE55-2F382AB6453F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{341D1FCA-DBA5-42FA-BE55-2F382AB6453F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13B95FCC-0ABC-41D6-9AC9-494F0B3F86CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13B95FCC-0ABC-41D6-9AC9-494F0B3F86CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13B95FCC-0ABC-41D6-9AC9-494F0B3F86CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13B95FCC-0ABC-41D6-9AC9-494F0B3F86CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9DFC0BD-9F31-4B58-A2DC-8C6E87D8225C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9DFC0BD-9F31-4B58-A2DC-8C6E87D8225C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9DFC0BD-9F31-4B58-A2DC-8C6E87D8225C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9DFC0BD-9F31-4B58-A2DC-8C6E87D8225C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64697C8B-60FD-4EE7-8560-37C4BD58580A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64697C8B-60FD-4EE7-8560-37C4BD58580A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64697C8B-60FD-4EE7-8560-37C4BD58580A}.Release|Any CPU.ActiveCfg = Release|Any CPU
