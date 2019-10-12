@@ -84,9 +84,9 @@ namespace Tortuga.Anchor
         public static async Task AddRange<T>(this ICollection<T> target, IEnumerable<Task<T>> list)
         {
             if (target == null)
-                throw new ArgumentNullException(nameof(target), "target is null.");
+                throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
             if (list == null)
-                throw new ArgumentNullException(nameof(list), "list is null.");
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
             foreach (var item in list)
                 target.Add(await item.ConfigureAwait(false));
@@ -235,7 +235,7 @@ namespace Tortuga.Anchor
         public static void RemoveRange<T>(this IList<T> list, int startingIndex, int count)
         {
             if (list == null)
-                throw new ArgumentNullException(nameof(list), "list is null.");
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
             if (list.IsReadOnly)
                 throw new ArgumentException("list.IsReadOnly must be false", nameof(list));
             if (startingIndex < 0)

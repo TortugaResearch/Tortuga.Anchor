@@ -61,7 +61,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler)
         {
             if (eventHandler == null)
-                throw new ArgumentNullException(nameof(eventHandler), "eventHandler is null.");
+                throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
             m_PropertyChangedEventManager.AddHandler(eventHandler);
         }

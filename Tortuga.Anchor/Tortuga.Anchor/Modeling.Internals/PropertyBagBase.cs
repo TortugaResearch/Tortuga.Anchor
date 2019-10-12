@@ -19,7 +19,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected PropertyBagBase(object owner)
         {
             if (owner == null)
-                throw new ArgumentNullException(nameof(owner), "owner is null.");
+                throw new ArgumentNullException(nameof(owner), $"{nameof(owner)} is null.");
 
             Metadata = MetadataCache.GetMetadata(owner.GetType());
         }
