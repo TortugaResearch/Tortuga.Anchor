@@ -1,1 +1,0 @@
-﻿This project is used for development purposes and will always target the most recent version of .NET. Other project heads will link to the source files in this project and be used for generating Nuget packages.
