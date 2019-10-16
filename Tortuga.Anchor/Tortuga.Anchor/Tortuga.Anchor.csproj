@@ -27,7 +27,7 @@
 
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <DocumentationFile>C:\Source\Anchor\Tortuga.Anchor\Tortuga.Anchor\Tortuga.Anchor.xml</DocumentationFile>
+    <DocumentationFile>Tortuga.Anchor.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net46'">
