@@ -14,7 +14,54 @@ namespace Tests
     public class TaskUtilitiesTests
     {
         [TestMethod]
-        public void TaskUtilitiesTests_AutoCancelingTaskTest1()
+        public async Task DelaySafe_TimeSpan_Canceled()
+        {
+
+            var token = TaskUtilities.AutoCancelingToken(TimeSpan.FromMilliseconds(100));
+            var sw = Stopwatch.StartNew();
+            await TaskUtilities.DelaySafe(TimeSpan.FromMilliseconds(500), token);
+            sw.Stop();
+            Assert.IsTrue(sw.ElapsedMilliseconds >= 100, "Expected a delay of at least 100 ms");
+            Assert.IsTrue(sw.ElapsedMilliseconds <= 150, "Expected a delay less than 150 ms");
+        }
+
+        [TestMethod]
+        public async Task DelaySafe_TimeSpan_Elapsed()
+        {
+            var token = new CancellationToken();
+            var sw = Stopwatch.StartNew();
+            await TaskUtilities.DelaySafe(TimeSpan.FromMilliseconds(100), token);
+            sw.Stop();
+            Assert.IsTrue(sw.ElapsedMilliseconds >= 100, "Expected a delay of at least 100 ms");
+            Assert.IsTrue(sw.ElapsedMilliseconds <= 150, "Expected a delay less than 150 ms");
+        }
+
+
+        [TestMethod]
+        public async Task DelaySafe_int_Canceled()
+        {
+
+            var token = TaskUtilities.AutoCancelingToken(100);
+            var sw = Stopwatch.StartNew();
+            await TaskUtilities.DelaySafe(500, token);
+            sw.Stop();
+            Assert.IsTrue(sw.ElapsedMilliseconds >= 100, "Expected a delay of at least 100 ms");
+            Assert.IsTrue(sw.ElapsedMilliseconds <= 150, "Expected a delay less than 150 ms");
+        }
+
+        [TestMethod]
+        public async Task DelaySafe_int_Elapsed()
+        {
+            var token = new CancellationToken();
+            var sw = Stopwatch.StartNew();
+            await TaskUtilities.DelaySafe(100, token);
+            sw.Stop();
+            Assert.IsTrue(sw.ElapsedMilliseconds >= 100, "Expected a delay of at least 100 ms");
+            Assert.IsTrue(sw.ElapsedMilliseconds <= 150, "Expected a delay less than 150 ms");
+        }
+
+        [TestMethod]
+        public void AutoCancelingTaskTest1()
         {
             using (var verify = new Verify())
             {
@@ -31,7 +78,7 @@ namespace Tests
 
         //}
         [TestMethod]
-        public void TaskUtilitiesTests_AutoCancelingTaskTest2()
+        public void AutoCancelingTaskTest2()
         {
             using (var verify = new Verify())
             {
@@ -47,7 +94,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_AutoCompletingTaskTest1()
+        public async Task AutoCompletingTaskTest1()
         {
             using (var verify = new Verify())
             {
@@ -62,7 +109,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_AutoCompletingTaskTest2()
+        public async Task AutoCompletingTaskTest2()
         {
             using (var verify = new Verify())
             {
@@ -77,7 +124,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_ForEachAsync_ListAction_1()
+        public async Task ForEachAsync_ListAction_1()
         {
             using (var verify = new Verify())
             {
@@ -93,7 +140,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_ForEachAsync_ListAction_2()
+        public async Task ForEachAsync_ListAction_2()
         {
             using (var verify = new Verify())
             {
@@ -109,7 +156,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_ForEachAsync_ListT_1()
+        public async Task ForEachAsync_ListT_1()
         {
             using (var verify = new Verify())
             {
@@ -119,7 +166,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_ForEachAsync_ListT_2()
+        public async Task ForEachAsync_ListT_2()
         {
             using (var verify = new Verify())
             {
@@ -129,7 +176,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TaskUtilitiesTests_RunConcurrently()
+        public void RunConcurrently()
         {
             using (var verify = new Verify())
             {
@@ -139,7 +186,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TaskUtilitiesTests_RunConcurrentlyTest()
+        public void RunConcurrentlyTest()
         {
             using (var verify = new Verify())
             {
@@ -148,7 +195,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TaskUtilitiesTests_WaitForCancelTest1()
+        public void WaitForCancelTest1()
         {
             using (var verify = new Verify())
             {
@@ -163,7 +210,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void TaskUtilitiesTests_WaitForCancelTest2()
+        public void WaitForCancelTest2()
         {
             using (var verify = new Verify())
             {
@@ -179,7 +226,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_WhenAllCancelTest1()
+        public async Task WhenAllCancelTest1()
         {
             using (var verify = new Verify())
             {
@@ -198,7 +245,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_WhenAllCancelTest2()
+        public async Task WhenAllCancelTest2()
         {
             using (var verify = new Verify())
             {
@@ -226,7 +273,7 @@ namespace Tests
 
         //    Assert.IsTrue(counter == 1);
         [TestMethod]
-        public async Task TaskUtilitiesTests_WhenAllTest1()
+        public async Task WhenAllTest1()
         {
             using (var verify = new Verify())
             {
@@ -236,7 +283,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_WhenAnyCancelTest1()
+        public async Task WhenAnyCancelTest1()
         {
             using (var verify = new Verify())
             {
@@ -256,7 +303,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public async Task TaskUtilitiesTests_WhenAnyCancelTest2()
+        public async Task WhenAnyCancelTest2()
         {
             using (var verify = new Verify())
             {
@@ -281,9 +328,8 @@ namespace Tests
             }
         }
 
-        //    Thread.Sleep(TimeSpan.FromSeconds(5));
         [TestMethod]
-        public async Task TaskUtilitiesTests_WhenAnyTest1()
+        public async Task WhenAnyTest1()
         {
             using (var verify = new Verify())
             {
@@ -336,9 +382,8 @@ namespace Tests
                 verify.WriteLine("After");
             });
         }
-
         //[TestMethod]
-        //public void TaskUtilitiesTests_TimerMemoryTest()
+        //public void TimerMemoryTest()
         //{
         //    var counter = 0;
         //    Func<Timer> Foo = () => new Timer((a) => { counter += 1; }, null, TimeSpan.FromSeconds(3), TimeSpan.FromMilliseconds(int.MaxValue));

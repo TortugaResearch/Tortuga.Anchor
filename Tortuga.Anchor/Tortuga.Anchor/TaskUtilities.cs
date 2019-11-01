@@ -33,15 +33,13 @@ namespace Tortuga.Anchor
             return tcs.Task;
         }
 
-#if !Timer_Missing
-
         /// <summary>
-        /// Creates a task that automatically completes after a given delay.
+        /// Creates a task that automatically cancels after a given delay.
         /// </summary>
         /// <typeparam name="T">Task type</typeparam>
-        /// <param name="delay">The delay before the task is completed.</param>
-        /// <returns>Task that will be completed.</returns>
-        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
+        /// <param name="delay">The delay before the task is canceled.</param>
+        /// <returns>Task that will be canceled.</returns>
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope")]
         public static Task<T> AutoCancelingTask<T>(TimeSpan delay)
         {
             if (delay.TotalMilliseconds < 0)
@@ -60,21 +58,21 @@ namespace Tortuga.Anchor
         }
 
         /// <summary>
-        /// Creates a task that automatically completes after a given delay.
+        /// Creates a task that automatically cancels after a given delay.
         /// </summary>
-        /// <param name="delay">The delay before the task is completed.</param>
-        /// <returns>Task that will be completed.</returns>
+        /// <param name="delay">The delay before the task is canceled.</param>
+        /// <returns>Task that will be canceled.</returns>
         public static Task AutoCancelingTask(TimeSpan delay)
         {
             return AutoCancelingTask<object>(delay);
         }
 
         /// <summary>
-        /// Creates a task that automatically completes after a given delay.
+        /// Creates a task that automatically cancels after a given delay.
         /// </summary>
         /// <typeparam name="T">Task type</typeparam>
-        /// <param name="delay">The delay, in milliseconds, before the task is completed.</param>
-        /// <returns>Task that will be completed.</returns>
+        /// <param name="delay">The delay, in milliseconds, before the task is canceled.</param>
+        /// <returns>Task that will be canceled.</returns>
         /// <remarks>Use Task.Delay if a result isn't needed.</remarks>
         public static Task<T> AutoCancelingTask<T>(int delay)
         {
@@ -82,13 +80,65 @@ namespace Tortuga.Anchor
         }
 
         /// <summary>
-        /// Creates a task that automatically completes after a given delay.
+        /// Creates a task that automatically cancels after a given delay.
         /// </summary>
-        /// <param name="delay">The delay, in milliseconds, before the task is completed.</param>
-        /// <returns>Task that will be completed.</returns>
+        /// <param name="delay">The delay, in milliseconds, before the task is canceled.</param>
+        /// <returns>Task that will be canceled.</returns>
         public static Task AutoCancelingTask(int delay)
         {
             return AutoCancelingTask<object>(delay);
+        }
+
+        /// <summary>
+        /// Automatically cancels a CancellationToken after the indicated amount of time.
+        /// </summary>
+        /// <param name="delay">The delay before the token is canceled.</param>
+        /// <returns>CancellationToken.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">delay</exception>
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope")]
+        public static CancellationToken AutoCancelingToken(TimeSpan delay)
+        {
+            if (delay.TotalMilliseconds < 0)
+                throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
+
+            var cts = new CancellationTokenSource();
+
+            var t = new System.Timers.Timer(delay.TotalMilliseconds);
+            t.AutoReset = false;
+            t.Elapsed += (source, e) =>
+            {
+                cts.Cancel();
+                cts.Dispose();
+                t.Dispose();
+            };
+            t.Start();
+            return cts.Token;
+        }
+
+        /// <summary>
+        /// Automatically cancels a CancellationToken after the indicated amount of time in milliseconds.
+        /// </summary>
+        /// <param name="millisecondsDelay">The delay in milliseconds before the token is canceled.</param>
+        /// <returns>CancellationToken.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">delay</exception>
+        [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope")]
+        public static CancellationToken AutoCancelingToken(int millisecondsDelay)
+        {
+            if (millisecondsDelay < 0)
+                throw new ArgumentOutOfRangeException(nameof(millisecondsDelay), millisecondsDelay, $"{nameof(millisecondsDelay)} cannot be less than 0");
+
+            var cts = new CancellationTokenSource();
+
+            var t = new System.Timers.Timer(millisecondsDelay);
+            t.AutoReset = false;
+            t.Elapsed += (source, e) =>
+            {
+                cts.Cancel();
+                cts.Dispose();
+                t.Dispose();
+            };
+            t.Start();
+            return cts.Token;
         }
 
         /// <summary>
@@ -98,6 +148,7 @@ namespace Tortuga.Anchor
         /// <param name="result">The result to be given to the task.</param>
         /// <param name="delay">The delay before the task is completed.</param>
         /// <returns>Task that will be completed.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">delay</exception>
         [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>")]
         public static Task<T> AutoCompletingTask<T>(T result, TimeSpan delay)
         {
@@ -129,13 +180,48 @@ namespace Tortuga.Anchor
             return AutoCompletingTask(result, TimeSpan.FromMilliseconds(delay));
         }
 
-#endif
+        /// <summary>
+        /// Creates a cancellable task that completes after a specified time interval. This will not throw an exception if the cancellationToken is triggered or disposed.
+        /// </summary>
+        /// <param name="delay">The time span to wait before completing the returned task, or TimeSpan.FromMilliseconds(-1) to wait indefinitely.</param>
+        /// <param name="cancellationToken">A cancellation token to observe while waiting for the task to complete.</param>
+        /// <returns>A task that represents the time delay.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">The millisecondsDelay argument is less than -1.</exception>
+        public static async Task DelaySafe(TimeSpan delay, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await Task.Delay(delay, cancellationToken).ConfigureAwait(false);
+            }
+            catch (ObjectDisposedException) { }
+            catch (TaskCanceledException) { }
+        }
+
+        /// <summary>
+        /// Creates a cancellable task that completes after a specified number of milliseconds. This will not throw an exception if the cancellationToken is triggered or disposed.
+        /// </summary>
+        /// <param name="millisecondsDelay">The number of milliseconds to wait before completing the returned task, or -1 to wait indefinitely.
+        /// </param>
+        /// <param name="cancellationToken">A cancellation token to observe while waiting for the task to complete.</param>
+        /// <returns>A task that represents the time delay.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">The millisecondsDelay argument is less than -1.</exception>
+        public static async Task DelaySafe(int millisecondsDelay, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await Task.Delay(millisecondsDelay, cancellationToken).ConfigureAwait(false);
+            }
+            catch (ObjectDisposedException) { }
+            catch (TaskCanceledException) { }
+        }
 
         /// <summary>
         /// Runs each action in parallel.
         /// </summary>
         /// <param name="actions">The actions.</param>
         /// <returns>A Task that is completed when all actions are complete</returns>
+        /// <exception cref="ArgumentNullException">actions</exception>
+        /// <exception cref="ArgumentException">actions</exception>
         public static Task ForEachAsync(this IReadOnlyCollection<Func<Task>> actions)
         {
             if (actions == null)
@@ -171,9 +257,12 @@ namespace Tortuga.Anchor
         /// <typeparam name="T"></typeparam>
         /// <param name="list">The list of input values to be passed to the action.</param>
         /// <param name="action">The action to be performed on each element in the list.</param>
-        /// <returns>
-        /// A Task that is completed when all actions are complete
-        /// </returns>
+        /// <returns>A Task that is completed when all actions are complete</returns>
+        /// <exception cref="ArgumentNullException">
+        /// list
+        /// or
+        /// action
+        /// </exception>
         public static Task ForEachAsync<T>(this IReadOnlyCollection<T> list, Func<T, Task> action)
         {
             if (list == null)
@@ -205,6 +294,7 @@ namespace Tortuga.Anchor
         /// Runs the Task in a concurrent thread without waiting for it to complete. This will start the task if it is not already running.
         /// </summary>
         /// <param name="task">The task to run.</param>
+        /// <exception cref="ArgumentNullException">task</exception>
         /// <remarks>This is usually used to avoid warning messages about not waiting for the task to complete.</remarks>
         public static void RunConcurrently(this Task task)
         {
@@ -255,6 +345,8 @@ namespace Tortuga.Anchor
         /// Task.WhenAll as an extension method.
         /// </summary>
         /// <param name="tasks">The tasks to wait for.</param>
+        /// <returns>Task.</returns>
+        /// <exception cref="ArgumentNullException">tasks</exception>
         public static Task WhenAll(this IEnumerable<Task> tasks)
         {
             if (tasks == null)
@@ -281,6 +373,8 @@ namespace Tortuga.Anchor
         /// A version of Task.WhenAll that can be canceled.
         /// </summary>
         /// <param name="tasks">The tasks to wait for.</param>
+        /// <returns>Task.</returns>
+        /// <exception cref="ArgumentNullException">tasks</exception>
         public static Task WhenAny(this IEnumerable<Task> tasks)
         {
             if (tasks == null)
