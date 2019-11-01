@@ -1173,14 +1173,6 @@
               True is the type is a reference type, interface, or a nullable value type.
             </value>
         </member>
-        <member name="P:Tortuga.Anchor.Metadata.ClassMetadata.IsNullableEx">
-            <summary>
-            Gets a value indicating whether this instance is nullable. This supports C# 8.0's nullable reference types.
-            </summary>
-            <value>
-              True is the type is a reference type, interface, or a nullable value type.
-            </value>
-        </member>
         <member name="P:Tortuga.Anchor.Metadata.ClassMetadata.MappedSchemaName">
             <summary>
             Schema referred to by TableAttribute.
@@ -1413,6 +1405,12 @@
             Property implements the Key attribute.
             </summary>
         </member>
+        <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.IsReferenceNullable">
+            <summary>
+            Gets a value indicating whether this is nullable reference type.
+            </summary>
+            <value><c>null</c> if null agnostic, <c>true</c> if nullable; <c>false</c> is non-nullable.</value>
+        </member>
         <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.MappedColumnName">
             <summary>
             Column that this attribute is mapped to. Defaults to the property's name, but may be overridden by ColumnAttribute.
@@ -1422,6 +1420,13 @@
             <summary>
             Public name of the property
             </summary>
+        </member>
+        <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.NullabilityFlags">
+            <summary>
+            Gets the nullability flags from the property's NullableAttribute.
+            </summary>
+            <value>The nullability flags.</value>
+            <remarks>See https://github.com/dotnet/roslyn/blob/master/docs/features/nullable-metadata.md for more information.</remarks>
         </member>
         <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangedEventArgs">
             <summary>
