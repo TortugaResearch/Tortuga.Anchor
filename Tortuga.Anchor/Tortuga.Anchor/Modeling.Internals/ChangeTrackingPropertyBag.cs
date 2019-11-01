@@ -46,14 +46,6 @@ namespace Tortuga.Anchor.Modeling.Internals
         }
 
         /// <summary>
-        /// Access to the values dictionary for sub-classes. Extreme care must be taken when working this dictionary directly, as events will not be automatically fired.
-        /// </summary>
-        /// <value>
-        /// The values.
-        /// </value>
-        protected Dictionary<string, object?> Values { get; } = new Dictionary<string, object?>(StringComparer.Ordinal);
-
-        /// <summary>
         /// Marks all fields as unchanged by storing them in the original values collection.
         /// </summary>
         /// <param name="recursive">if set to <c>true</c> [recursive].</param>

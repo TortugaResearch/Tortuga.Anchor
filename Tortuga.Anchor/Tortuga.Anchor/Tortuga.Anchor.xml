@@ -1226,6 +1226,34 @@
             A string that represents the current object.
             </returns>
         </member>
+        <member name="T:Tortuga.Anchor.Metadata.CloneOptions">
+            <summary>
+            Enum CloneOptions
+            </summary>
+        </member>
+        <member name="F:Tortuga.Anchor.Metadata.CloneOptions.None">
+            <summary>
+            No optional behavior selected
+            </summary>
+        </member>
+        <member name="F:Tortuga.Anchor.Metadata.CloneOptions.BypassProperties">
+            <summary>
+            The bypass properties by directly copying the property bag. Only applies to classes that inherit from AbstractModelBase or AbstractModelCollection
+            </summary>
+            <remarks>Warning: This will not work if you have a mix of normal and property bag properties</remarks>
+        </member>
+        <member name="F:Tortuga.Anchor.Metadata.CloneOptions.DeepClone">
+            <summary>
+            Perform a deep clone on all properties. 
+            </summary>
+            <remarks>Set maxRecursions to limit depth of cloning</remarks>
+        </member>
+        <member name="F:Tortuga.Anchor.Metadata.CloneOptions.UseIClonable">
+            <summary>
+            Invoke IClonable.Clone() on any value that implements IClonable
+            </summary>
+            <remarks>Recursive cloning will not be used on objects where IClonable.Clone() is invoked.</remarks>
+        </member>
         <member name="T:Tortuga.Anchor.Metadata.ConstructorMetadata">
             <summary>
             Class ConstructorMetadata.
@@ -1346,6 +1374,16 @@
             <param name="type">The type of interest</param>
             <returns>A thread-safe copy of the class's metadata</returns>
             <remarks>Actually fetching the metadata may require taking a lock. Therefore it is advisable to locally cache the metadata as well.</remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.Metadata.MetadataCache.Clone``1(``0,Tortuga.Anchor.Metadata.CloneOptions,System.Nullable{System.Int32})">
+            <summary>
+            Clones the specified source.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source">The source object to copy.</param>
+            <param name="options">The clone options.</param>
+            <param name="maxRecursion">The maximum recursion. Only applicable when CloneOptions.Recursive is used.</param>
+            <returns>T.</returns>
         </member>
         <member name="T:Tortuga.Anchor.Metadata.PropertyMetadata">
             <summary>
@@ -2198,14 +2236,6 @@
             </summary>
             <returns>true if the object’s content has changed since the last call to <see cref="M:System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
         </member>
-        <member name="P:Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.Values">
-            <summary>
-            Access to the values dictionary for sub-classes. Extreme care must be taken when working this dictionary directly, as events will not be automatically fired.
-            </summary>
-            <value>
-            The values.
-            </value>
-        </member>
         <member name="M:Tortuga.Anchor.Modeling.Internals.ChangeTrackingPropertyBag.AcceptChanges(System.Boolean)">
             <summary>
             Marks all fields as unchanged by storing them in the original values collection.
@@ -2551,6 +2581,21 @@
             <remarks>
             Storing the default value will trigger validation but not a property-changed event.
             </remarks>
+        </member>
+        <member name="P:Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Values">
+            <summary>
+            Access to the values dictionary for sub-classes. Extreme care must be taken when working this dictionary directly, as events will not be automatically fired.
+            </summary>
+            <value>
+            The values.
+            </value>
+        </member>
+        <member name="M:Tortuga.Anchor.Modeling.Internals.PropertyBagBase.SetValues(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Overrides the value dictionary.
+            </summary>
+            <param name="source">The source.</param>
+            <remarks>This should only be called on newly created objects</remarks>
         </member>
         <member name="M:Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetNew``1(System.Func{``0},System.String)">
             <summary>

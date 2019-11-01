@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Tortuga.Anchor.Modeling.Internals;
 
 namespace Tortuga.Anchor.Metadata
 {
@@ -65,6 +68,76 @@ namespace Tortuga.Anchor.Metadata
                     yield return decompositionPrefix + property.MappedColumnName;
                 }
             }
+        }
+
+        /// <summary>
+        /// Clones the specified source.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source object to copy.</param>
+        /// <param name="options">The clone options.</param>
+        /// <param name="maxRecursion">The maximum recursion. Only applicable when CloneOptions.Recursive is used.</param>
+        /// <returns>T.</returns>
+        public static T Clone<T>(this T source, CloneOptions options, int? maxRecursion = null) where T : class, new()
+        {
+            object? CloneValue(object? value)
+            {
+                if (value == null)
+                    return null;
+
+                if (options.HasFlag(CloneOptions.UseIClonable) && value is ICloneable cloneable)
+                    return cloneable.Clone();
+
+                if (!options.HasFlag(CloneOptions.DeepClone)) //deep clone not requested
+                    return value;
+
+                if (maxRecursion <= 0) //out of recursions
+                    return value;
+
+                if (GetMetadata(value.GetType()).Constructors.HasDefaultConstructor)
+                {
+                    MethodInfo method = typeof(MetadataCache).GetMethod("Clone");
+                    MethodInfo generic = method.MakeGenericMethod(value.GetType());
+                    return generic.Invoke(null, new object?[] { value, options, (maxRecursion - 1) });
+                }
+
+                return value;
+            }
+
+
+            var target = new T();
+
+            if (options.HasFlag(CloneOptions.BypassProperties) && source is IUsesPropertyTracking tracked)
+            {
+                var sourceValues = tracked.Properties.Values;
+                var targetValues = sourceValues.ToDictionary(x => x.Key, x => CloneValue(x.Value));
+                ((IUsesPropertyTracking)target).Properties.SetValues(targetValues);
+            }
+            else
+            {
+                foreach (var property in GetMetadata<T>().Properties)
+                {
+                    if (property.CanRead && property.CanWrite)
+                    {
+                        var sourceValue = property.InvokeGet(source);
+                        var targetValue = CloneValue(sourceValue);
+                        property.InvokeSet(target, targetValue);
+                    }
+                }
+
+                if (source is IList collectionSource)
+                {
+                    var targetCollection = (IList)target;
+
+                    foreach (var sourceValue in collectionSource)
+                    {
+                        var targetValue = CloneValue(sourceValue);
+                        targetCollection.Add(targetValue);
+                    }
+                }
+            }
+
+            return target;
         }
     }
 }

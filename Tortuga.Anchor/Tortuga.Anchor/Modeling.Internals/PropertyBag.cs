@@ -9,8 +9,6 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// </summary>
     public class PropertyBag : PropertyBagBase
     {
-        readonly Dictionary<string, object?> m_Values = new Dictionary<string, object?>(StringComparer.Ordinal);
-
         /// <summary>
         /// This is the simplest implementation of PropertyBagBase. It supports normal property-change notifications and validation events.
         /// </summary>
@@ -35,8 +33,8 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
-            if (m_Values.ContainsKey(propertyName))
-                return m_Values[propertyName];
+            if (Values.ContainsKey(propertyName))
+                return Values[propertyName];
 
             return NotSet.Value;
         }
@@ -54,7 +52,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
-            return m_Values.ContainsKey(propertyName);
+            return Values.ContainsKey(propertyName);
         }
 
         /// <summary>
@@ -90,7 +88,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             if ((mode & PropertySetModes.RaiseChangedEvent) != 0)
                 OnPropertyChanging(property);
 
-            m_Values[propertyName] = value;
+            Values[propertyName] = value;
 
             if ((mode & PropertySetModes.RaiseChangedEvent) != 0)
                 OnPropertyChanged(property);

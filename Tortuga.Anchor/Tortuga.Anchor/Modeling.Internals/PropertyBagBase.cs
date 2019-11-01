@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -127,7 +128,29 @@ namespace Tortuga.Anchor.Modeling.Internals
             }
         }
 
+
+
 #nullable restore
+
+        /// <summary>
+        /// Access to the values dictionary for sub-classes. Extreme care must be taken when working this dictionary directly, as events will not be automatically fired.
+        /// </summary>
+        /// <value>
+        /// The values.
+        /// </value>
+        protected internal Dictionary<string, object?> Values { get; } = new Dictionary<string, object?>(StringComparer.Ordinal);
+
+        /// <summary>
+        /// Overrides the value dictionary.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <remarks>This should only be called on newly created objects</remarks>
+        internal void SetValues(Dictionary<string, object?> source)
+        {
+            Values.Clear();
+            foreach (var item in source)
+                Set(item.Value, item.Key);
+        }
 
         /// <summary>
         /// Fetches a value, creating it if it doesn't exist.
@@ -243,6 +266,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             OnRevalidateObject();
         }
 
+
         /// <summary>
         /// Implementors need to override this to save the indicated value.
         /// </summary>
@@ -269,7 +293,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">propertyName;propertyName is null</exception>
         /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-        public bool Set(object value, PropertySetModes mode, [CallerMemberName] string propertyName = "")
+        public bool Set(object? value, PropertySetModes mode, [CallerMemberName] string propertyName = "")
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
@@ -286,7 +310,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">propertyName;propertyName is null</exception>
         /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-        public bool Set(object value, [CallerMemberName] string propertyName = "")
+        public bool Set(object? value, [CallerMemberName] string propertyName = "")
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));

@@ -10,12 +10,13 @@ using Tortuga.Anchor.DataAnnotations;
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
+
     /// <summary>
     /// A base class for models and entities. This is not meant to be used directly by client code.
     /// </summary>
     /// <typeparam name="TPropertyTracking">The type of property tracking desired.</typeparam>
     [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-    public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractModelBase, INotifyDataErrorInfo
+    public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractModelBase, INotifyDataErrorInfo, IUsesPropertyTracking
         where TPropertyTracking : PropertyBagBase
     {
         /// <summary>
@@ -35,6 +36,8 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </summary>
         [NotMapped]
         protected TPropertyTracking Properties { get; private set; }
+
+        PropertyBagBase IUsesPropertyTracking.Properties => Properties;
 
         /// <summary>
         /// Gets the validation errors for a specified property or for the entire entity.
