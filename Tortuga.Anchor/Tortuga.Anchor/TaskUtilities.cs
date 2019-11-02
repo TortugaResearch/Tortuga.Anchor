@@ -101,18 +101,10 @@ namespace Tortuga.Anchor
             if (delay.TotalMilliseconds < 0)
                 throw new ArgumentOutOfRangeException(nameof(delay), delay, $"{nameof(delay)} cannot be less than 0");
 
-            var cts = new CancellationTokenSource();
-
-            var t = new System.Timers.Timer(delay.TotalMilliseconds);
-            t.AutoReset = false;
-            t.Elapsed += (source, e) =>
-            {
-                cts.Cancel();
-                cts.Dispose();
-                t.Dispose();
-            };
-            t.Start();
-            return cts.Token;
+            var cts = new CancellationTokenSource(delay);
+            var result = cts.Token;
+            result.Register(() => cts.Dispose());
+            return result;
         }
 
         /// <summary>
@@ -127,18 +119,10 @@ namespace Tortuga.Anchor
             if (millisecondsDelay < 0)
                 throw new ArgumentOutOfRangeException(nameof(millisecondsDelay), millisecondsDelay, $"{nameof(millisecondsDelay)} cannot be less than 0");
 
-            var cts = new CancellationTokenSource();
-
-            var t = new System.Timers.Timer(millisecondsDelay);
-            t.AutoReset = false;
-            t.Elapsed += (source, e) =>
-            {
-                cts.Cancel();
-                cts.Dispose();
-                t.Dispose();
-            };
-            t.Start();
-            return cts.Token;
+            var cts = new CancellationTokenSource(millisecondsDelay);
+            var result = cts.Token;
+            result.Register(() => cts.Dispose());
+            return result;
         }
 
         /// <summary>
