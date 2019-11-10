@@ -247,6 +247,195 @@
             <param name="value">When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value" /> parameter. This parameter is passed uninitialized.</param>
             <returns> true if the object that implements <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the specified key; otherwise, false.</returns>
         </member>
+        <member name="T:Tortuga.Anchor.Collections.ListSegment`1">
+            <summary>
+            This represents a segment of an IList.
+            </summary>
+        </member>
+        <member name="F:Tortuga.Anchor.Collections.ListSegment`1.m_InitialCount">
+            <summary>
+            Used to detect if the underlying list has been modified.
+            </summary>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.#ctor(System.Collections.Generic.IList{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tortuga.Anchor.Collections.ListSegment`1" /> struct.
+            </summary>
+            <param name="list">The array.</param>
+            <exception cref="T:System.ArgumentNullException">list</exception>
+            <exception cref="T:System.ArgumentException">list</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.#ctor(System.Collections.Generic.IList{`0},System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tortuga.Anchor.Collections.ListSegment`1"/> struct.
+            </summary>
+            <param name="list">The list.</param>
+            <param name="offset">The offset.</param>
+            <param name="count">The count.</param>
+            <exception cref="T:System.ArgumentNullException">list</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            offset
+            or
+            count
+            </exception>
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ListSegment`1.Count">
+            <summary>
+            Gets the count.
+            </summary>
+            <value>The count.</value>
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ListSegment`1.List">
+            <summary>
+            Gets the underlying list.
+            </summary>
+            <value>The list.</value>
+            <exception cref="T:System.InvalidOperationException">The ListSegment is empty.</exception>
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ListSegment`1.Offset">
+            <summary>
+            Gets the offset.
+            </summary>
+            <value>The offset.</value>
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ListSegment`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the value at the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <returns>T.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            index
+            or
+            index
+            </exception>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.op_Implicit(System.Collections.Generic.List{`0})~Tortuga.Anchor.Collections.ListSegment{`0}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Collections.Generic.List`1"/> to <see cref="T:Tortuga.Anchor.Collections.ListSegment`1"/>.
+            </summary>
+            <param name="list">The list.</param>
+            <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.op_Implicit(System.Collections.ObjectModel.Collection{`0})~Tortuga.Anchor.Collections.ListSegment{`0}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Collections.Generic.List`1"/> to <see cref="T:Tortuga.Anchor.Collections.ListSegment`1"/>.
+            </summary>
+            <param name="collection">The collection.</param>
+            <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.op_Inequality(Tortuga.Anchor.Collections.ListSegment{`0},Tortuga.Anchor.Collections.ListSegment{`0})">
+            <summary>
+            Implements the != operator.
+            </summary>
+            <param name="a">a.</param>
+            <param name="b">The b.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.op_Equality(Tortuga.Anchor.Collections.ListSegment{`0},Tortuga.Anchor.Collections.ListSegment{`0})">
+            <summary>
+            Implements the == operator.
+            </summary>
+            <param name="a">a.</param>
+            <param name="b">The b.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.Contains(`0)">
+            <summary>
+            Determines whether the list segment contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the list segment.</param>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.CopyTo(`0[])">
+            <summary>
+            Copies the list segment to the destination array.
+            </summary>
+            <param name="destination">The destination.</param>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies the list segment to the destination array.
+            </summary>
+            <param name="destination">The destination.</param>
+            <param name="destinationIndex">Index of the destination.</param>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.CopyTo(Tortuga.Anchor.Collections.ListSegment{`0})">
+            <summary>
+            Copies the list segment to the destination list segment.
+            </summary>
+            <param name="destination">The destination.</param>
+            <exception cref="T:System.InvalidOperationException">The ListSegment is empty.</exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object" /> is equal to this instance.
+            </summary>
+            <param name="other">The object to compare with the current instance.</param>
+            <returns><c>true</c> if the specified <see cref="T:System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.Equals(Tortuga.Anchor.Collections.ListSegment{`0})">
+            <summary>
+            Returns true if both list segments refer to the same list at the same offset and count.
+            </summary>
+            <param name="other">The other segment.</param>
+            <returns>System.Boolean.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.GetEnumerator">
+            <summary>
+            Gets the enumerator.
+            </summary>
+            <returns>Enumerator.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.Slice(System.Int32)">
+            <summary>
+            Slices the segment specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <returns>ListSegment&lt;T&gt;.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.Slice(System.Int32,System.Int32)">
+            <summary>
+            Slices the segment specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="count">The count.</param>
+            <returns>ListSegment&lt;T&gt;.</returns>
+        </member>
+        <member name="T:Tortuga.Anchor.Collections.ListSegment`1.Enumerator">
+            <summary>
+            Enumerator for a ListSegment
+            Implements the <see cref="T:System.Collections.Generic.IEnumerator`1" /></summary>
+            <seealso cref="T:System.Collections.Generic.IEnumerator`1" />
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ListSegment`1.Enumerator.Current">
+            <summary>
+            Gets the element in the collection at the current position of the enumerator.
+            </summary>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.Enumerator.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.Enumerator.MoveNext">
+            <summary>
+            Advances the enumerator to the next element of the collection.
+            </summary>
+            <returns>
+              <see langword="true" /> if the enumerator was successfully advanced to the next element; <see langword="false" /> if the enumerator has passed the end of the collection.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ListSegment`1.Enumerator.System#Collections#IEnumerator#Reset">
+            <summary>
+            Sets the enumerator to its initial position, which is before the first element in the collection.
+            </summary>
+        </member>
         <member name="T:Tortuga.Anchor.Collections.ObservableCollectionExtended`1">
             <summary>
             This is an ObservableCollection with a read-only wrapper and support for weak events.
@@ -416,6 +605,195 @@
         <member name="M:Tortuga.Anchor.Collections.ObservableCollectionExtended`1.ListenToEvents">
             <summary>
             This enables the ItemPropertyChanged events.
+            </summary>
+        </member>
+        <member name="T:Tortuga.Anchor.Collections.ReadOnlyListSegment`1">
+            <summary>
+            This represents a segment of an IList.
+            </summary>
+        </member>
+        <member name="F:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.m_InitialCount">
+            <summary>
+            Used to detect if the underlying list has been modified.
+            </summary>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.#ctor(System.Collections.Generic.IReadOnlyList{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tortuga.Anchor.Collections.ReadOnlyListSegment`1" /> struct.
+            </summary>
+            <param name="list">The array.</param>
+            <exception cref="T:System.ArgumentNullException">list</exception>
+            <exception cref="T:System.ArgumentException">list</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.#ctor(System.Collections.Generic.IReadOnlyList{`0},System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tortuga.Anchor.Collections.ReadOnlyListSegment`1"/> struct.
+            </summary>
+            <param name="list">The list.</param>
+            <param name="offset">The offset.</param>
+            <param name="count">The count.</param>
+            <exception cref="T:System.ArgumentNullException">list</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            offset
+            or
+            count
+            </exception>
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Count">
+            <summary>
+            Gets the count.
+            </summary>
+            <value>The count.</value>
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.List">
+            <summary>
+            Gets the underlying list.
+            </summary>
+            <value>The list.</value>
+            <exception cref="T:System.InvalidOperationException">The ReadOnlyListSegment is empty.</exception>
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Offset">
+            <summary>
+            Gets the offset.
+            </summary>
+            <value>The offset.</value>
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the value at the specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <returns>T.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            index
+            or
+            index
+            </exception>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.op_Implicit(System.Collections.Generic.List{`0})~Tortuga.Anchor.Collections.ReadOnlyListSegment{`0}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Collections.Generic.List`1"/> to <see cref="T:Tortuga.Anchor.Collections.ReadOnlyListSegment`1"/>.
+            </summary>
+            <param name="list">The list.</param>
+            <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.op_Implicit(System.Collections.ObjectModel.Collection{`0})~Tortuga.Anchor.Collections.ReadOnlyListSegment{`0}">
+            <summary>
+            Performs an implicit conversion from <see cref="T:System.Collections.Generic.List`1"/> to <see cref="T:Tortuga.Anchor.Collections.ReadOnlyListSegment`1"/>.
+            </summary>
+            <param name="collection">The collection.</param>
+            <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.op_Inequality(Tortuga.Anchor.Collections.ReadOnlyListSegment{`0},Tortuga.Anchor.Collections.ReadOnlyListSegment{`0})">
+            <summary>
+            Implements the != operator.
+            </summary>
+            <param name="a">a.</param>
+            <param name="b">The b.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.op_Equality(Tortuga.Anchor.Collections.ReadOnlyListSegment{`0},Tortuga.Anchor.Collections.ReadOnlyListSegment{`0})">
+            <summary>
+            Implements the == operator.
+            </summary>
+            <param name="a">a.</param>
+            <param name="b">The b.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Contains(`0)">
+            <summary>
+            Determines whether the list segment contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the list segment.</param>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.CopyTo(`0[])">
+            <summary>
+            Copies the list segment to the destination array.
+            </summary>
+            <param name="destination">The destination.</param>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.CopyTo(`0[],System.Int32)">
+            <summary>
+            Copies the list segment to the destination array.
+            </summary>
+            <param name="destination">The destination.</param>
+            <param name="destinationIndex">Index of the destination.</param>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.CopyTo(Tortuga.Anchor.Collections.ListSegment{`0})">
+            <summary>
+            Copies the list segment to the destination list segment.
+            </summary>
+            <param name="destination">The destination.</param>
+            <exception cref="T:System.InvalidOperationException">The ReadOnlyListSegment is empty.</exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object" /> is equal to this instance.
+            </summary>
+            <param name="other">The object to compare with the current instance.</param>
+            <returns><c>true</c> if the specified <see cref="T:System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Equals(Tortuga.Anchor.Collections.ReadOnlyListSegment{`0})">
+            <summary>
+            Returns true if both list segments refer to the same list at the same offset and count.
+            </summary>
+            <param name="other">The other segment.</param>
+            <returns>System.Boolean.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.GetEnumerator">
+            <summary>
+            Gets the enumerator.
+            </summary>
+            <returns>Enumerator.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.GetHashCode">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Slice(System.Int32)">
+            <summary>
+            Slices the segment specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <returns>ReadOnlyListSegment&lt;T&gt;.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Slice(System.Int32,System.Int32)">
+            <summary>
+            Slices the segment specified index.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="count">The count.</param>
+            <returns>ReadOnlyListSegment&lt;T&gt;.</returns>
+        </member>
+        <member name="T:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Enumerator">
+            <summary>
+            Enumerator for a ReadOnlyListSegment
+            Implements the <see cref="T:System.Collections.Generic.IEnumerator`1" /></summary>
+            <seealso cref="T:System.Collections.Generic.IEnumerator`1" />
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Enumerator.Current">
+            <summary>
+            Gets the element in the collection at the current position of the enumerator.
+            </summary>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Enumerator.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Enumerator.MoveNext">
+            <summary>
+            Advances the enumerator to the next element of the collection.
+            </summary>
+            <returns>
+              <see langword="true" /> if the enumerator was successfully advanced to the next element; <see langword="false" /> if the enumerator has passed the end of the collection.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReadOnlyListSegment`1.Enumerator.System#Collections#IEnumerator#Reset">
+            <summary>
+            Sets the enumerator to its initial position, which is before the first element in the collection.
             </summary>
         </member>
         <member name="T:Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended`1">
@@ -681,6 +1059,16 @@
             <param name="dictionary">The dictionary.</param>
             <returns></returns>
             <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.IndexOf``1(System.Collections.Generic.IReadOnlyList{``0},``0)">
+            <summary>
+            Locates the index of the indicated item.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">The list.</param>
+            <param name="item">The item.</param>
+            <returns>System.Int32.</returns>
+            <exception cref="T:System.ArgumentNullException">list</exception>
         </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.InsertRange``1(System.Collections.Generic.IList{``0},System.Int32,System.Collections.Generic.IEnumerable{``0})">
             <summary>
