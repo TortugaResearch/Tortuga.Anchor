@@ -31,10 +31,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net46'">
-    <DefineConstants>NULL_MISSING</DefineConstants>
+    <DefineConstants>NULL_MISSING;HASHCODE_MISSING</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <DefineConstants>NULL_MISSING</DefineConstants>
+    <DefineConstants>NULL_MISSING;HASHCODE_MISSING</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <DefineConstants>OrdinalHashCodes</DefineConstants>
