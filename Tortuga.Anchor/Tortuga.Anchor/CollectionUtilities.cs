@@ -155,20 +155,25 @@ namespace Tortuga.Anchor
             if (batchSize <= 0)
                 throw new ArgumentOutOfRangeException(nameof(batchSize), batchSize, $"{batchSize} must be greater than 0");
 
-            int count = 0;
-            using (var iter = source.GetEnumerator())
+            return BatchAsListsCore();
+
+            IEnumerable<List<T>> BatchAsListsCore()
             {
-                while (iter.MoveNext())
+                int count = 0;
+                using (var iter = source.GetEnumerator())
                 {
-                    var chunk = new List<T>(batchSize);
-                    count = 1;
-                    chunk[0] = iter.Current;
-                    for (int i = 1; i < batchSize && iter.MoveNext(); i++)
+                    while (iter.MoveNext())
                     {
-                        chunk[i] = iter.Current;
-                        count++;
+                        var chunk = new List<T>(batchSize);
+                        count = 1;
+                        chunk.Add(iter.Current);
+                        for (int i = 1; i < batchSize && iter.MoveNext(); i++)
+                        {
+                            chunk.Add(iter.Current);
+                            count++;
+                        }
+                        yield return chunk;
                     }
-                    yield return chunk;
                 }
             }
         }
@@ -188,9 +193,9 @@ namespace Tortuga.Anchor
             if (list == null)
                 throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
-            return Concat2();
+            return ConcatCore();
 
-            IEnumerable<TSource> Concat2()
+            IEnumerable<TSource> ConcatCore()
             {
                 foreach (var element in list)
                     yield return element;
