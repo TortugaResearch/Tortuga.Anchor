@@ -146,6 +146,45 @@ namespace Tortuga.Anchor
         }
 
         /// <summary>
+        /// Batches the specified enumeration into lists according to the indicated batch size.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="batchSize">Size of the batch.</param>
+        /// <returns>IEnumerable&lt;List&lt;T&gt;&gt;.</returns>
+        /// <exception cref="ArgumentNullException">source</exception>
+        /// <exception cref="ArgumentOutOfRangeException">batchSize</exception>
+        public static IEnumerable<List<T>> BatchAsLists<T>(this IEnumerable<T> source, int batchSize)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+            if (batchSize <= 0)
+                throw new ArgumentOutOfRangeException(nameof(batchSize), batchSize, $"{batchSize} must be greater than 0");
+
+            return BatchAsListsCore();
+
+            IEnumerable<List<T>> BatchAsListsCore()
+            {
+                int count = 0;
+                using (var iter = source.GetEnumerator())
+                {
+                    while (iter.MoveNext())
+                    {
+                        var chunk = new List<T>(batchSize);
+                        count = 1;
+                        chunk.Add(iter.Current);
+                        for (int i = 1; i < batchSize && iter.MoveNext(); i++)
+                        {
+                            chunk.Add(iter.Current);
+                            count++;
+                        }
+                        yield return chunk;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Concatenates an item onto the emd of an enumeration.
         /// </summary>
         /// <typeparam name="TSource">The type of enumerable</typeparam>
@@ -160,9 +199,9 @@ namespace Tortuga.Anchor
             if (list == null)
                 throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
-            return Concat2();
+            return ConcatCore();
 
-            IEnumerable<TSource> Concat2()
+            IEnumerable<TSource> ConcatCore()
             {
                 foreach (var element in list)
                     yield return element;
