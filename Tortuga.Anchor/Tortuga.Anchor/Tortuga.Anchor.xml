@@ -625,16 +625,21 @@
         </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.AsList``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
-            Returns the enumeration as an IList. If it isn't already an IList, it makes it into one so that you can safely enumeration the list multiple times.
+            Returns the enumeration as an IList. If it isn't already an IList, it makes it into one
+            so that you can safely enumeration the list multiple times.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="source">The source. If the source is null, the result will be null.</param>
             <returns>Returns an IList.</returns>
-            <remarks>This is primarily meant to be used with poorly designed interfaces that return lists disguised as IEnumerable.</remarks>
+            <remarks>
+            This is primarily meant to be used with poorly designed interfaces that return lists
+            disguised as IEnumerable.
+            </remarks>
         </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.AsReadOnlyCollection``1(System.Collections.Generic.ICollection{``0})">
             <summary>
-            Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in an adapter.
+            Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
+            wrapped in an adapter.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="list">The list.</param>
@@ -643,12 +648,24 @@
         </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.AsReadOnlyList``1(System.Collections.Generic.IList{``0})">
             <summary>
-            Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in a ReadOnlyCollection&lt;T&gt;.
+            Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
+            wrapped in a ReadOnlyCollection&lt;T&gt;.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="list">The list.</param>
             <returns>IReadOnlyList&lt;T&gt;.</returns>
             <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.BatchAsLists``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Batches the specified enumeration into lists according to the indicated batch size.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source">The source.</param>
+            <param name="batchSize">Size of the batch.</param>
+            <returns>IEnumerable&lt;List&lt;T&gt;&gt;.</returns>
+            <exception cref="T:System.ArgumentNullException">source</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">batchSize</exception>
         </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.Concat``1(System.Collections.Generic.IEnumerable{``0},``0)">
             <summary>
@@ -700,7 +717,53 @@
             <param name="list"></param>
             <param name="startingIndex"></param>
             <param name="count"></param>
-            <remarks>This isn't as fast as a real RemoveRange, it just removes one item at a time.</remarks>
+            <remarks>
+            This isn't as fast as a real RemoveRange, it just removes one item at a time.
+            </remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.Sort``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Performs an in-place sort of the specified list using it's IComparable&lt;T&gt; interface.
+            </summary>
+            <typeparam name="T">Type of item in the list</typeparam>
+            <param name="list">The list to sort.</param>
+            <exception cref="T:System.ArgumentNullException">list or comparer</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.Sort``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Performs an in-place sort of the specified list.
+            </summary>
+            <typeparam name="T">Type of item in the list</typeparam>
+            <param name="list">The list to sort.</param>
+            <param name="comparer">The comparer to use when sorting.</param>
+            <exception cref="T:System.ArgumentNullException">list or comparer</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.Sort``1(System.Collections.Generic.IList{``0},System.Int32,System.Int32,System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Performs an in-place sort of the specified list.
+            </summary>
+            <typeparam name="T">Type of item in the list</typeparam>
+            <param name="list">The list to sort.</param>
+            <param name="startIndex">The start index.</param>
+            <param name="count">The count.</param>
+            <param name="comparer">The comparer to use when sorting.</param>
+            <exception cref="T:System.ArgumentNullException">list or comparer</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.Sort``1(System.Collections.Generic.IList{``0},System.Comparison{``0})">
+            <summary>
+            Performs an in-place sort of the specified list.
+            </summary>
+            <typeparam name="T">Type of item in the list</typeparam>
+            <param name="list">The list to sort.</param>
+            <param name="comparison">The comparison function to use when sorting.</param>
+            <exception cref="T:System.ArgumentNullException">list or comparer</exception>
+        </member>
+        <member name="F:Tortuga.Anchor.CollectionUtilities.s_IntrospectiveSortSizeThreshold">
+            <summary>
+            This is the threshold where Introspective sort switches to Insertion sort. Empirically,
+            16 seems to speed up most cases without slowing down others, at least for integers. Large
+            value types may benefit from a smaller number.
+            </summary>
         </member>
         <member name="T:Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking">
             <summary>
@@ -1173,14 +1236,6 @@
               True is the type is a reference type, interface, or a nullable value type.
             </value>
         </member>
-        <member name="P:Tortuga.Anchor.Metadata.ClassMetadata.IsNullableEx">
-            <summary>
-            Gets a value indicating whether this instance is nullable. This supports C# 8.0's nullable reference types.
-            </summary>
-            <value>
-              True is the type is a reference type, interface, or a nullable value type.
-            </value>
-        </member>
         <member name="P:Tortuga.Anchor.Metadata.ClassMetadata.MappedSchemaName">
             <summary>
             Schema referred to by TableAttribute.
@@ -1413,6 +1468,12 @@
             Property implements the Key attribute.
             </summary>
         </member>
+        <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.IsReferenceNullable">
+            <summary>
+            Gets a value indicating whether this is nullable reference type.
+            </summary>
+            <value><c>null</c> if null agnostic, <c>true</c> if nullable; <c>false</c> is non-nullable.</value>
+        </member>
         <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.MappedColumnName">
             <summary>
             Column that this attribute is mapped to. Defaults to the property's name, but may be overridden by ColumnAttribute.
@@ -1422,6 +1483,13 @@
             <summary>
             Public name of the property
             </summary>
+        </member>
+        <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.NullabilityFlags">
+            <summary>
+            Gets the nullability flags from the property's NullableAttribute.
+            </summary>
+            <value>The nullability flags.</value>
+            <remarks>See https://github.com/dotnet/roslyn/blob/master/docs/features/nullable-metadata.md for more information.</remarks>
         </member>
         <member name="P:Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangedEventArgs">
             <summary>
@@ -3421,34 +3489,50 @@
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.AutoCancelingTask``1(System.TimeSpan)">
             <summary>
-            Creates a task that automatically completes after a given delay.
+            Creates a task that automatically cancels after a given delay.
             </summary>
             <typeparam name="T">Task type</typeparam>
-            <param name="delay">The delay before the task is completed.</param>
-            <returns>Task that will be completed.</returns>
+            <param name="delay">The delay before the task is canceled.</param>
+            <returns>Task that will be canceled.</returns>
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.AutoCancelingTask(System.TimeSpan)">
             <summary>
-            Creates a task that automatically completes after a given delay.
+            Creates a task that automatically cancels after a given delay.
             </summary>
-            <param name="delay">The delay before the task is completed.</param>
-            <returns>Task that will be completed.</returns>
+            <param name="delay">The delay before the task is canceled.</param>
+            <returns>Task that will be canceled.</returns>
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.AutoCancelingTask``1(System.Int32)">
             <summary>
-            Creates a task that automatically completes after a given delay.
+            Creates a task that automatically cancels after a given delay.
             </summary>
             <typeparam name="T">Task type</typeparam>
-            <param name="delay">The delay, in milliseconds, before the task is completed.</param>
-            <returns>Task that will be completed.</returns>
+            <param name="delay">The delay, in milliseconds, before the task is canceled.</param>
+            <returns>Task that will be canceled.</returns>
             <remarks>Use Task.Delay if a result isn't needed.</remarks>
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.AutoCancelingTask(System.Int32)">
             <summary>
-            Creates a task that automatically completes after a given delay.
+            Creates a task that automatically cancels after a given delay.
             </summary>
-            <param name="delay">The delay, in milliseconds, before the task is completed.</param>
-            <returns>Task that will be completed.</returns>
+            <param name="delay">The delay, in milliseconds, before the task is canceled.</param>
+            <returns>Task that will be canceled.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.TaskUtilities.AutoCancelingToken(System.TimeSpan)">
+            <summary>
+            Automatically cancels a CancellationToken after the indicated amount of time.
+            </summary>
+            <param name="delay">The delay before the token is canceled.</param>
+            <returns>CancellationToken.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">delay</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.TaskUtilities.AutoCancelingToken(System.Int32)">
+            <summary>
+            Automatically cancels a CancellationToken after the indicated amount of time in milliseconds.
+            </summary>
+            <param name="millisecondsDelay">The delay in milliseconds before the token is canceled.</param>
+            <returns>CancellationToken.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">delay</exception>
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.AutoCompletingTask``1(``0,System.TimeSpan)">
             <summary>
@@ -3458,6 +3542,7 @@
             <param name="result">The result to be given to the task.</param>
             <param name="delay">The delay before the task is completed.</param>
             <returns>Task that will be completed.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">delay</exception>
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.AutoCompletingTask``1(``0,System.Int32)">
             <summary>
@@ -3469,12 +3554,33 @@
             <returns>Task that will be completed.</returns>
             <remarks>Use Task.Delay if a result isn't needed.</remarks>
         </member>
+        <member name="M:Tortuga.Anchor.TaskUtilities.DelaySafe(System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Creates a cancellable task that completes after a specified time interval. This will not throw an exception if the cancellationToken is triggered or disposed.
+            </summary>
+            <param name="delay">The time span to wait before completing the returned task, or TimeSpan.FromMilliseconds(-1) to wait indefinitely.</param>
+            <param name="cancellationToken">A cancellation token to observe while waiting for the task to complete.</param>
+            <returns>A task that represents the time delay.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">The millisecondsDelay argument is less than -1.</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.TaskUtilities.DelaySafe(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Creates a cancellable task that completes after a specified number of milliseconds. This will not throw an exception if the cancellationToken is triggered or disposed.
+            </summary>
+            <param name="millisecondsDelay">The number of milliseconds to wait before completing the returned task, or -1 to wait indefinitely.
+            </param>
+            <param name="cancellationToken">A cancellation token to observe while waiting for the task to complete.</param>
+            <returns>A task that represents the time delay.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">The millisecondsDelay argument is less than -1.</exception>
+        </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.ForEachAsync(System.Collections.Generic.IReadOnlyCollection{System.Func{System.Threading.Tasks.Task}})">
             <summary>
             Runs each action in parallel.
             </summary>
             <param name="actions">The actions.</param>
             <returns>A Task that is completed when all actions are complete</returns>
+            <exception cref="T:System.ArgumentNullException">actions</exception>
+            <exception cref="T:System.ArgumentException">actions</exception>
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.ForEachAsync``1(System.Collections.Generic.IReadOnlyCollection{``0},System.Func{``0,System.Threading.Tasks.Task})">
             <summary>
@@ -3483,15 +3589,19 @@
             <typeparam name="T"></typeparam>
             <param name="list">The list of input values to be passed to the action.</param>
             <param name="action">The action to be performed on each element in the list.</param>
-            <returns>
-            A Task that is completed when all actions are complete
-            </returns>
+            <returns>A Task that is completed when all actions are complete</returns>
+            <exception cref="T:System.ArgumentNullException">
+            list
+            or
+            action
+            </exception>
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.RunConcurrently(System.Threading.Tasks.Task)">
             <summary>
             Runs the Task in a concurrent thread without waiting for it to complete. This will start the task if it is not already running.
             </summary>
             <param name="task">The task to run.</param>
+            <exception cref="T:System.ArgumentNullException">task</exception>
             <remarks>This is usually used to avoid warning messages about not waiting for the task to complete.</remarks>
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.WaitForCompleteOrCancel(System.Threading.Tasks.Task)">
@@ -3514,6 +3624,8 @@
             Task.WhenAll as an extension method.
             </summary>
             <param name="tasks">The tasks to wait for.</param>
+            <returns>Task.</returns>
+            <exception cref="T:System.ArgumentNullException">tasks</exception>
         </member>
         <member name="M:Tortuga.Anchor.TaskUtilities.WhenAny(System.Collections.Generic.IEnumerable{System.Threading.Tasks.Task},System.Threading.CancellationToken)">
             <summary>
@@ -3527,6 +3639,8 @@
             A version of Task.WhenAll that can be canceled.
             </summary>
             <param name="tasks">The tasks to wait for.</param>
+            <returns>Task.</returns>
+            <exception cref="T:System.ArgumentNullException">tasks</exception>
         </member>
     </members>
 </doc>
