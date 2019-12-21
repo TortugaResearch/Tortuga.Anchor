@@ -1627,11 +1627,12 @@
         </member>
         <member name="P:Tortuga.Anchor.Metadata.PropertyMetadataCollection.Item(System.String)">
             <summary>
-            Attempts to fetch property metadata for the indicated property. Will throw an error if not found.
+            Attempts to fetch property metadata for the indicated property. Will throw an error if
+            not found.
             </summary>
             <param name="propertyName">
-            Case insensitive property name.
-            For indexed properties the parameter types should appear inside brackets. For example, "Item [Int32]".
+            Case insensitive property name. For indexed properties the parameter types should appear
+            inside brackets. For example, "Item [Int32]".
             Note: "Item[]" will be mapped to "Item [Int32]"
             </param>
             <returns></returns>
@@ -1643,7 +1644,10 @@
             Returns true if the property is known
             </summary>
             <param name="item">item to look for</param>
-            <returns><see langword="true" /> if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, <see langword="false" />.</returns>
+            <returns>
+            <see langword="true"/> if <paramref name="item"/> is found in the <see
+            cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, <see langword="false"/>.
+            </returns>
             <exception cref="T:System.ArgumentNullException">item</exception>
         </member>
         <member name="M:Tortuga.Anchor.Metadata.PropertyMetadataCollection.Contains(System.String)">
@@ -1658,7 +1662,9 @@
             <summary>
             Copies the collection elements to an existing array
             </summary>
-            <param name="array">The one-dimensional System.Array that is the destination of the elements</param>
+            <param name="array">
+            The one-dimensional System.Array that is the destination of the elements
+            </param>
             <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
             <exception cref="T:System.ArgumentNullException">array</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">arrayIndex</exception>
@@ -1671,7 +1677,8 @@
         </member>
         <member name="M:Tortuga.Anchor.Metadata.PropertyMetadataCollection.TryGetValue(System.String,Tortuga.Anchor.Metadata.PropertyMetadata@)">
             <summary>
-            Attempts to fetch property metadata for the indicated property. Will not throw an error if not found.
+            Attempts to fetch property metadata for the indicated property. Will not throw an error
+            if not found.
             </summary>
             <param name="propertyName">case insensitive property name</param>
             <param name="value">The value.</param>
