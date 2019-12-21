@@ -625,16 +625,21 @@
         </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.AsList``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
-            Returns the enumeration as an IList. If it isn't already an IList, it makes it into one so that you can safely enumeration the list multiple times.
+            Returns the enumeration as an IList. If it isn't already an IList, it makes it into one
+            so that you can safely enumeration the list multiple times.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="source">The source. If the source is null, the result will be null.</param>
             <returns>Returns an IList.</returns>
-            <remarks>This is primarily meant to be used with poorly designed interfaces that return lists disguised as IEnumerable.</remarks>
+            <remarks>
+            This is primarily meant to be used with poorly designed interfaces that return lists
+            disguised as IEnumerable.
+            </remarks>
         </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.AsReadOnlyCollection``1(System.Collections.Generic.ICollection{``0})">
             <summary>
-            Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in an adapter.
+            Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
+            wrapped in an adapter.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="list">The list.</param>
@@ -643,7 +648,8 @@
         </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.AsReadOnlyList``1(System.Collections.Generic.IList{``0})">
             <summary>
-            Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in a ReadOnlyCollection&lt;T&gt;.
+            Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
+            wrapped in a ReadOnlyCollection&lt;T&gt;.
             </summary>
             <typeparam name="T"></typeparam>
             <param name="list">The list.</param>
@@ -700,7 +706,53 @@
             <param name="list"></param>
             <param name="startingIndex"></param>
             <param name="count"></param>
-            <remarks>This isn't as fast as a real RemoveRange, it just removes one item at a time.</remarks>
+            <remarks>
+            This isn't as fast as a real RemoveRange, it just removes one item at a time.
+            </remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.Sort``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            Performs an in-place sort of the specified list using it's IComparable&lt;T&gt; interface.
+            </summary>
+            <typeparam name="T">Type of item in the list</typeparam>
+            <param name="list">The list to sort.</param>
+            <exception cref="T:System.ArgumentNullException">list or comparer</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.Sort``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Performs an in-place sort of the specified list.
+            </summary>
+            <typeparam name="T">Type of item in the list</typeparam>
+            <param name="list">The list to sort.</param>
+            <param name="comparer">The comparer to use when sorting.</param>
+            <exception cref="T:System.ArgumentNullException">list or comparer</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.Sort``1(System.Collections.Generic.IList{``0},System.Int32,System.Int32,System.Collections.Generic.IComparer{``0})">
+            <summary>
+            Performs an in-place sort of the specified list.
+            </summary>
+            <typeparam name="T">Type of item in the list</typeparam>
+            <param name="list">The list to sort.</param>
+            <param name="startIndex">The start index.</param>
+            <param name="count">The count.</param>
+            <param name="comparer">The comparer to use when sorting.</param>
+            <exception cref="T:System.ArgumentNullException">list or comparer</exception>
+        </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.Sort``1(System.Collections.Generic.IList{``0},System.Comparison{``0})">
+            <summary>
+            Performs an in-place sort of the specified list.
+            </summary>
+            <typeparam name="T">Type of item in the list</typeparam>
+            <param name="list">The list to sort.</param>
+            <param name="comparison">The comparison function to use when sorting.</param>
+            <exception cref="T:System.ArgumentNullException">list or comparer</exception>
+        </member>
+        <member name="F:Tortuga.Anchor.CollectionUtilities.s_IntrospectiveSortSizeThreshold">
+            <summary>
+            This is the threshold where Introspective sort switches to Insertion sort. Empirically,
+            16 seems to speed up most cases without slowing down others, at least for integers. Large
+            value types may benefit from a smaller number.
+            </summary>
         </member>
         <member name="T:Tortuga.Anchor.ComponentModel.IDetailedPropertyChangeTracking">
             <summary>
