@@ -656,6 +656,17 @@
             <returns>IReadOnlyList&lt;T&gt;.</returns>
             <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
         </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.BatchAsLists``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Batches the specified enumeration into lists according to the indicated batch size.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source">The source.</param>
+            <param name="batchSize">Size of the batch.</param>
+            <returns>IEnumerable&lt;List&lt;T&gt;&gt;.</returns>
+            <exception cref="T:System.ArgumentNullException">source</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">batchSize</exception>
+        </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.Concat``1(System.Collections.Generic.IEnumerable{``0},``0)">
             <summary>
             Concatenates an item onto the emd of an enumeration.
