@@ -12,6 +12,16 @@ using Tortuga.Dragnet;
 
 namespace Tests.Metadata
 {
+    public class NullTestsA
+    {
+        public object NotNull { get; set; }
+        public object? Nullable { get; set; }
+
+#nullable disable
+        public object NullUnknown { get; set; }
+#nullable enable
+    }
+
     public class Base
     {
         [Decompose]
@@ -55,6 +65,29 @@ namespace Tests.Metadata
     [TestClass]
     public class MetadataCacheTests
     {
+        [TestMethod]
+        public void NullableProperty()
+        {
+            var meta = MetadataCache.GetMetadata<NullTestsA>();
+            Assert.AreEqual(false, meta.Properties.Single(x => x.Name == "NotNull").IsReferenceNullable);
+        }
+
+        [TestMethod]
+        public void NonNullableProperty()
+        {
+            var meta = MetadataCache.GetMetadata<NullTestsA>();
+            Assert.AreEqual(true, meta.Properties.Single(x => x.Name == "Nullable").IsReferenceNullable);
+        }
+
+        [TestMethod]
+        public void NullAgnostic()
+        {
+            var meta = MetadataCache.GetMetadata<NullTestsA>();
+            Assert.IsNull(meta.Properties.Single(x => x.Name == "NullUnknown").IsReferenceNullable);
+        }
+
+
+
         [TestMethod]
         public void MetadataCache_Constructors_Test()
         {

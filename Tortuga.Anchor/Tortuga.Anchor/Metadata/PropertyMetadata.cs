@@ -61,6 +61,28 @@ namespace Tortuga.Anchor.Metadata
             }
             IgnoreOnInsert = info.GetCustomAttributes(typeof(IgnoreOnInsertAttribute), true).Length > 0;
             IgnoreOnUpdate = info.GetCustomAttributes(typeof(IgnoreOnUpdateAttribute), true).Length > 0;
+
+
+            if (!PropertyType.IsValueType)
+            {
+                var nullableAttribute = info.GetCustomAttributes().Where(a => a.GetType().FullName == "System.Runtime.CompilerServices.NullableAttribute").FirstOrDefault();
+
+                if (nullableAttribute != null)
+                {
+                    byte[] bytes = (byte[])nullableAttribute.GetType().GetField("NullableFlags").GetValue(nullableAttribute);
+
+                    if (bytes.Length >= 1)
+                        IsReferenceNullable = bytes[0] switch
+                        {
+                            0 => (bool?)null,
+                            1 => false,
+                            2 => true,
+                            _ => null
+                        };
+
+                    NullabilityFlags = ImmutableArray.Create<byte>(bytes);
+                }
+            }
         }
 
         /// <summary>
@@ -140,6 +162,12 @@ namespace Tortuga.Anchor.Metadata
         public bool IsKey { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this is nullable reference type.
+        /// </summary>
+        /// <value><c>null</c> if null agnostic, <c>true</c> if nullable; <c>false</c> is non-nullable.</value>
+        public bool? IsReferenceNullable { get; }
+
+        /// <summary>
         /// Column that this attribute is mapped to. Defaults to the property's name, but may be overridden by ColumnAttribute.
         /// </summary>
         public string? MappedColumnName { get; }
@@ -148,6 +176,13 @@ namespace Tortuga.Anchor.Metadata
         /// Public name of the property
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// Gets the nullability flags from the property's NullableAttribute.
+        /// </summary>
+        /// <value>The nullability flags.</value>
+        /// <remarks>See https://github.com/dotnet/roslyn/blob/master/docs/features/nullable-metadata.md for more information.</remarks>
+        public ImmutableArray<byte> NullabilityFlags { get; }
 
         /// <summary>
         /// Gets a cached instance of PropertyChangedEventArgs

@@ -5,6 +5,8 @@
 
     <IsPackable>false</IsPackable>
     <CodeAnalysisRuleSet>Tortuga.Anchor.Tests.ruleset</CodeAnalysisRuleSet>
+    <Nullable>enable</Nullable>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
@@ -46,6 +48,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+
   <ItemGroup>
     <ProjectReference Include="..\Tortuga.Anchor\Tortuga.Anchor.csproj" />
   </ItemGroup>
