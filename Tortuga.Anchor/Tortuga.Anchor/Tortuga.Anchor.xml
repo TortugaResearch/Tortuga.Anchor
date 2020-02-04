@@ -1241,6 +1241,12 @@
             Schema referred to by TableAttribute.
             </summary>
         </member>
+        <member name="P:Tortuga.Anchor.Metadata.ClassMetadata.MappedViewName">
+            <summary>
+            View referred to by TableAndViewAttribute.
+            </summary>
+            <remarks>This is only used for SELECT operations.</remarks>
+        </member>
         <member name="P:Tortuga.Anchor.Metadata.ClassMetadata.MappedTableName">
             <summary>
             Table referred to by TableAttribute.
@@ -3233,6 +3239,22 @@
             Creates a model collection using the default property bag implementation..
             </summary>
             <param name="collection">The collection from which the elements are copied.</param>
+        </member>
+        <member name="T:Tortuga.Anchor.Modeling.TableAndViewAttribute">
+            <summary>
+            Allows custom mapping to the database. Use when a different view is used for read vs write operations.
+            </summary>
+            <seealso cref="T:System.ComponentModel.DataAnnotations.Schema.TableAttribute" />
+        </member>
+        <member name="M:Tortuga.Anchor.Modeling.TableAndViewAttribute.#ctor(System.String)">
+            <summary>Initializes a new instance of the <see cref="T:Tortuga.Anchor.Modeling.TableAndViewAttribute" /> class using the specified name of the table.</summary>
+            <param name="name">The name of the table the class is mapped to.</param>
+        </member>
+        <member name="P:Tortuga.Anchor.Modeling.TableAndViewAttribute.ViewName">
+            <summary>
+            Gets or sets the name of the view to be used for read operations.
+            </summary>
+            <value>The name of the view.</value>
         </member>
         <member name="T:Tortuga.Anchor.Modeling.UpdateMode">
             <summary>

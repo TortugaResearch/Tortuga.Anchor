@@ -22,6 +22,7 @@ namespace Tests.Metadata
 #nullable enable
     }
 
+    [Table("TableBase")]
     public class Base
     {
         [Decompose]
@@ -33,6 +34,7 @@ namespace Tests.Metadata
         public int Property0 { get; set; }
     }
 
+    [TableAndView("ChildTable", ViewName = "ChildView")]
     public class ChildA
     {
         [Column("PropertyA2")]
@@ -66,6 +68,21 @@ namespace Tests.Metadata
     public class MetadataCacheTests
     {
         [TestMethod]
+        public void TableAttribute()
+        {
+            var meta = MetadataCache.GetMetadata<Base>();
+            Assert.AreEqual("TableBase", meta.MappedTableName);
+        }
+
+        [TestMethod]
+        public void TableAndViewAttribute()
+        {
+            var meta = MetadataCache.GetMetadata<ChildA>();
+            Assert.AreEqual("ChildTable", meta.MappedTableName);
+            Assert.AreEqual("ChildView", meta.MappedViewName);
+        }
+
+        [TestMethod]
         public void NullableProperty()
         {
             var meta = MetadataCache.GetMetadata<NullTestsA>();
@@ -85,8 +102,6 @@ namespace Tests.Metadata
             var meta = MetadataCache.GetMetadata<NullTestsA>();
             Assert.IsNull(meta.Properties.Single(x => x.Name == "NullUnknown").IsReferenceNullable);
         }
-
-
 
         [TestMethod]
         public void MetadataCache_Constructors_Test()
