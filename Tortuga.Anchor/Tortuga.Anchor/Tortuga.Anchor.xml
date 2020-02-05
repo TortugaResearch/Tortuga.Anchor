@@ -636,23 +636,23 @@
             disguised as IEnumerable.
             </remarks>
         </member>
-        <member name="M:Tortuga.Anchor.CollectionUtilities.AsReadOnlyCollection``1(System.Collections.Generic.ICollection{``0})">
+        <member name="M:Tortuga.Anchor.CollectionUtilities.AsReadOnlyCollection``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
             wrapped in an adapter.
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="list">The list.</param>
+            <param name="source">The source. If the source is null, the result will be null.</param>
             <returns>IReadOnlyList&lt;T&gt;.</returns>
             <remarks>This is meant to be used for legacy codebases that predate IReadOnlyCollection&lt;T&gt;.</remarks>
         </member>
-        <member name="M:Tortuga.Anchor.CollectionUtilities.AsReadOnlyList``1(System.Collections.Generic.IList{``0})">
+        <member name="M:Tortuga.Anchor.CollectionUtilities.AsReadOnlyList``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
             wrapped in a ReadOnlyCollection&lt;T&gt;.
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="list">The list.</param>
+            <param name="source">The source. If the source is null, the result will be null.</param>
             <returns>IReadOnlyList&lt;T&gt;.</returns>
             <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
         </member>

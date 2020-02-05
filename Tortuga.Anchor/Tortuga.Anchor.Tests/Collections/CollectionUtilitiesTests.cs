@@ -168,6 +168,153 @@ namespace Tests.Collections
             }
         }
 
+        [TestMethod]
+        public void AsList_Test1()
+        {
+            var x = (IEnumerable<int>)new List<int>();
+            var y = x.AsList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsList_Test2()
+        {
+            var x = new Collection<int>() { 1, 2, 3, 4, 5 };
+            var y = x.AsList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsList_Test3()
+        {
+            var x = Enumerable.Range(1, 5);
+            var y = x.AsList();
+            Assert.AreNotEqual(x, y);
+            Assert.AreEqual(x.Count(), y.Count);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyList_Test1()
+        {
+            var x = (IEnumerable<int>)new List<int>();
+            var y = x.AsReadOnlyList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyList_Test2()
+        {
+            var x = (IEnumerable<int>)new Collection<int>();
+            var y = x.AsReadOnlyList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyList_Test3()
+        {
+            var x = Enumerable.Range(1, 5);
+            var y = x.AsReadOnlyList();
+            Assert.AreNotEqual(x, y);
+            Assert.AreEqual(x.Count(), y.Count);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyCollection_Test1()
+        {
+            var x = (IEnumerable<int>)new List<int>();
+            var y = x.AsReadOnlyCollection();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyCollection_Test2()
+        {
+            var x = (IEnumerable<int>)new Collection<int>();
+            var y = x.AsReadOnlyCollection();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyCollection_Test3()
+        {
+            var x = Enumerable.Range(1, 5);
+            var y = x.AsReadOnlyCollection();
+            Assert.AreNotEqual(x, y);
+            Assert.AreEqual(x.Count(), y.Count);
+        }
+
+        [TestMethod()]
+        public void BatchAsLists_Test1()
+        {
+            var sourceList = Enumerable.Range(0, 1000).ToList();
+
+            var batches = sourceList.BatchAsLists(250);
+            var offset = 0;
+            Assert.AreEqual(4, batches.Count());
+            foreach (var batch in batches)
+            {
+                Assert.AreEqual(250, batch.Count);
+                Assert.AreEqual(offset, batch.Min());
+                Assert.AreEqual(offset + 249, batch.Max());
+                offset += 250;
+            }
+        }
+
+        [TestMethod()]
+        public void BatchAsLists_Test2()
+        {
+            var sourceList = Enumerable.Range(0, 1002).ToList();
+
+            var batches = sourceList.BatchAsLists(250);
+            var offset = 0;
+            Assert.AreEqual(5, batches.Count());
+            foreach (var batch in batches.Take(4))
+            {
+                Assert.AreEqual(250, batch.Count);
+                Assert.AreEqual(offset, batch.Min());
+                Assert.AreEqual(offset + 249, batch.Max());
+                offset += 250;
+            }
+            {
+                var batch = batches.Skip(4).Single();
+                Assert.AreEqual(2, batch.Count);
+                Assert.AreEqual(offset, batch.Min());
+                Assert.AreEqual(offset + 1, batch.Max());
+                offset += 250;
+            }
+        }
+
+        [TestMethod()]
+        public void BatchAsLists_Test3()
+        {
+            var sourceList = Enumerable.Range(0, 0).ToList();
+
+            var batches = sourceList.BatchAsLists(250);
+
+            Assert.AreEqual(0, batches.Count());
+        }
+
+        [TestMethod()]
+        public void BatchAsLists_Test4()
+        {
+            using (var verify = new Verify())
+            {
+                IList<int> sourceList = null;
+                verify.ArgumentNullException("source", () => sourceList.BatchAsLists(250));
+            }
+        }
+
+        [TestMethod()]
+        public void BatchAsLists_Test5()
+        {
+            using (var verify = new Verify())
+            {
+                var sourceList = Enumerable.Range(0, 0).ToList();
+
+                verify.ArgumentOutOfRangeException("batchSize", 0, () => sourceList.BatchAsLists(0));
+            }
+        }
+
         [TestMethod()]
         public void InsertRange_Test1()
         {
@@ -353,78 +500,6 @@ namespace Tests.Collections
             {
                 IList<int> target = new ReadOnlyCollection<int>(new List<int> { 4, 5, 6 });
                 verify.ArgumentException("list", () => CollectionUtilities.RemoveRange(target, 1, 1), "read-only list");
-            }
-        }
-
-        [TestMethod()]
-        public void BatchAsLists_Test1()
-        {
-            var sourceList = Enumerable.Range(0, 1000).ToList();
-
-            var batches = sourceList.BatchAsLists(250);
-            var offset = 0;
-            Assert.AreEqual(4, batches.Count());
-            foreach (var batch in batches)
-            {
-                Assert.AreEqual(250, batch.Count);
-                Assert.AreEqual(offset, batch.Min());
-                Assert.AreEqual(offset + 249, batch.Max());
-                offset += 250;
-            }
-        }
-
-        [TestMethod()]
-        public void BatchAsLists_Test2()
-        {
-            var sourceList = Enumerable.Range(0, 1002).ToList();
-
-            var batches = sourceList.BatchAsLists(250);
-            var offset = 0;
-            Assert.AreEqual(5, batches.Count());
-            foreach (var batch in batches.Take(4))
-            {
-                Assert.AreEqual(250, batch.Count);
-                Assert.AreEqual(offset, batch.Min());
-                Assert.AreEqual(offset + 249, batch.Max());
-                offset += 250;
-            }
-            {
-                var batch = batches.Skip(4).Single();
-                Assert.AreEqual(2, batch.Count);
-                Assert.AreEqual(offset, batch.Min());
-                Assert.AreEqual(offset + 1, batch.Max());
-                offset += 250;
-            }
-        }
-
-        [TestMethod()]
-        public void BatchAsLists_Test3()
-        {
-            var sourceList = Enumerable.Range(0, 0).ToList();
-
-            var batches = sourceList.BatchAsLists(250);
-
-            Assert.AreEqual(0, batches.Count());
-        }
-
-        [TestMethod()]
-        public void BatchAsLists_Test4()
-        {
-            using (var verify = new Verify())
-            {
-                IList<int> sourceList = null;
-                verify.ArgumentNullException("source", () => sourceList.BatchAsLists(250));
-            }
-        }
-
-        [TestMethod()]
-        public void BatchAsLists_Test5()
-        {
-            using (var verify = new Verify())
-            {
-                var sourceList = Enumerable.Range(0, 0).ToList();
-
-                verify.ArgumentOutOfRangeException("batchSize", 0, () => sourceList.BatchAsLists(0));
             }
         }
     }
