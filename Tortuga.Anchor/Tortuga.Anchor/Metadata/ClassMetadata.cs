@@ -20,7 +20,6 @@ namespace Tortuga.Anchor.Metadata
         string? m_CSharpFullName;
         string? m_FSharpFullName;
         bool? m_IsNullable;
-        bool? m_IsNullableEx;
         string? m_VisualBasicFullName;
 
         internal ClassMetadata(TypeInfo typeInfo)
@@ -127,23 +126,6 @@ namespace Tortuga.Anchor.Metadata
                     m_IsNullable = !TypeInfo.IsValueType || (TypeInfo.IsGenericType && (TypeInfo.GetGenericTypeDefinition() == typeof(Nullable<>)));
 
                 return m_IsNullable.Value;
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is nullable. This supports C# 8.0's nullable reference types.
-        /// </summary>
-        /// <value>
-        ///   True is the type is a reference type, interface, or a nullable value type.
-        /// </value>
-        public bool IsNullableEx
-        {
-            get
-            {
-                if (m_IsNullableEx == null)
-                    m_IsNullableEx = !TypeInfo.IsValueType || (TypeInfo.IsGenericType && (TypeInfo.GetGenericTypeDefinition() == typeof(Nullable<>)));
-
-                return m_IsNullableEx.Value;
             }
         }
 

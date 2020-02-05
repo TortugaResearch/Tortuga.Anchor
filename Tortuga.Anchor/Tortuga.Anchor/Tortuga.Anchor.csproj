@@ -7,12 +7,12 @@
     <Description>Commons and data modeling library for the Tortuga project.</Description>
     <PackageTags>MVVM,Reflection</PackageTags>
     <LangVersion>8.0</LangVersion>
-    <Deterministic>false</Deterministic>
+    <Deterministic>true</Deterministic>
     <ProductName>Tortuga Anchor</ProductName>
 
-    <AssemblyVersion>3.0.*</AssemblyVersion>
-    <Version>3.0.0</Version>
-    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>3.2.0</AssemblyVersion>
+    <Version>3.2.0</Version>
+    <FileVersion>3.2.0.0</FileVersion>
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
@@ -41,12 +41,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Collections.Immutable" Version="1.6.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.7.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
