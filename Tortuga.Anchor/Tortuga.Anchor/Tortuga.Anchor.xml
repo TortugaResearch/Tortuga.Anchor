@@ -699,6 +699,16 @@
             <returns></returns>
             <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
         </member>
+        <member name="M:Tortuga.Anchor.CollectionUtilities.IndexOf``1(System.Collections.Generic.IReadOnlyList{``0},``0)">
+            <summary>
+            Locates the index of the indicated item.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list">The list.</param>
+            <param name="item">The item.</param>
+            <returns>System.Int32.</returns>
+            <exception cref="T:System.ArgumentNullException">list</exception>
+        </member>
         <member name="M:Tortuga.Anchor.CollectionUtilities.InsertRange``1(System.Collections.Generic.IList{``0},System.Int32,System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Inserts a list of values into the target collection.
