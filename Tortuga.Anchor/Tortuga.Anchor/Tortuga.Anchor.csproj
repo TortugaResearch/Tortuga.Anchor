@@ -37,7 +37,7 @@
     <DefineConstants>NULL_MISSING</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <DefineConstants>OrdinalHashCodes</DefineConstants>
+    <DefineConstants>ORDINAL_STRINGS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

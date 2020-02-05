@@ -508,6 +508,60 @@
             This will not forward the properties "Count" and "Item[]".
             </remarks>
         </member>
+        <member name="T:Tortuga.Anchor.Collections.ReversibleEqualityComparer`1">
+            <summary>
+            Equality comparer for ValueTuple`2 where [Item1, Item2] equals [Item2, Item1].
+            </summary>
+            <remarks>Use with Dictionary`3 to provide a bi-directional mapping between [key1, key2] and [key2, key1].</remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReversibleEqualityComparer`1.Equals(System.ValueTuple{`0,`0},System.ValueTuple{`0,`0})">
+            <summary>
+            Determines whether the specified objects are equal.
+            </summary>
+            <param name="x">The first object of type to compare.</param>
+            <param name="y">The second object of type to compare.</param>
+            <returns><see langword="true" /> if the specified objects are equal; otherwise, <see langword="false" />.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReversibleEqualityComparer`1.GetHashCode(System.ValueTuple{`0,`0})">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <param name="obj">The value for which a hash code is to be returned.</param>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="T:Tortuga.Anchor.Collections.ReversibleStringEqualityComparer">
+            <summary>
+            Equality comparer for ValueTuple`2 where [Item1, Item2] equals [Item2, Item1].
+            </summary>
+            <remarks>Use with Dictionary`3 to provide a bi-directional mapping between [key1, key2] and [key2, key1].</remarks>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReversibleStringEqualityComparer.#ctor(System.StringComparison)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Tortuga.Anchor.Collections.ReversibleStringEqualityComparer"/> class.
+            </summary>
+            <param name="stringComparison">The string comparison.</param>
+        </member>
+        <member name="P:Tortuga.Anchor.Collections.ReversibleStringEqualityComparer.StringComparison">
+            <summary>
+            Gets the string comparison.
+            </summary>
+            <value>The string comparison.</value>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReversibleStringEqualityComparer.Equals(System.ValueTuple{System.String,System.String},System.ValueTuple{System.String,System.String})">
+            <summary>
+            Determines whether the specified objects are equal.
+            </summary>
+            <param name="x">The first object of type to compare.</param>
+            <param name="y">The second object of type to compare.</param>
+            <returns><see langword="true" /> if the specified objects are equal; otherwise, <see langword="false" />.</returns>
+        </member>
+        <member name="M:Tortuga.Anchor.Collections.ReversibleStringEqualityComparer.GetHashCode(System.ValueTuple{System.String,System.String})">
+            <summary>
+            Returns a hash code for this instance.
+            </summary>
+            <param name="obj">The value for which a hash code is to be returned.</param>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
         <member name="T:Tortuga.Anchor.Collections.WeakReferenceCollection`1">
             <summary>
             This represents a collection of weak references.
