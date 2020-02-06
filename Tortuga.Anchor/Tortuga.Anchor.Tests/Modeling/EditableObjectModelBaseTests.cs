@@ -190,6 +190,18 @@ namespace Tests.Modeling
             person.AcceptChangesLocal();
             Assert.IsFalse(person.IsChangedLocal);
             Assert.IsTrue(person.IsChanged);
+
+            person.AcceptChanges();
+            Assert.IsFalse(person.IsChangedLocal);
+            Assert.IsFalse(person.IsChanged);
+
+            person.FirstName = "Jimmy";
+            Assert.IsTrue(person.IsChangedLocal);
+            Assert.IsTrue(person.IsChanged);
+
+            person.FirstName = "Tom";
+            Assert.IsFalse(person.IsChangedLocal);
+            Assert.IsFalse(person.IsChanged);
         }
 
         [TestMethod]

@@ -19,6 +19,7 @@ namespace Tortuga.Anchor.Modeling
         readonly List<TModelType> m_CheckpointItems = new List<TModelType>();
         readonly List<TModelType> m_OriginalList = new List<TModelType>();
         bool m_AllowIsChangedEvents;
+        bool m_CollectionChanged;
 
         /// <summary>
         /// Creates a model by auto-constructing the property bag defined by TPropertyTracking.
@@ -87,10 +88,7 @@ namespace Tortuga.Anchor.Modeling
         /// </summary>
         /// <returns>true if the object’s content has changed since the last call to <see cref="System.ComponentModel.IChangeTracking.AcceptChanges" />; otherwise, false.</returns>
         [NotMapped]
-        public bool IsChangedLocal
-        {
-            get { return Properties.IsChangedLocal; }
-        }
+        public bool IsChangedLocal => Properties.IsChangedLocal || m_CollectionChanged;
 
         /// <summary>
         /// Marks all fields as unchanged and clears the IsChanged flag.
@@ -110,6 +108,7 @@ namespace Tortuga.Anchor.Modeling
             m_OriginalList.Clear();
             m_OriginalList.AddRange(this);
             m_CheckpointItems.Clear();
+            UpdateCollectionChanged();
         }
 
         /// <summary>
@@ -177,6 +176,7 @@ namespace Tortuga.Anchor.Modeling
             }
 
             m_AllowIsChangedEvents = true;
+            UpdateCollectionChanged();
         }
 
         void ChangeTrackingModelCollection_OnItemPropertyChanged(object sender, RelayedEventArgs<PropertyChangedEventArgs> e)
@@ -198,13 +198,37 @@ namespace Tortuga.Anchor.Modeling
         void EditableObjectEntityCollection_ItemAdded(object sender, ItemEventArgs<TModelType> e)
         {
             if (m_AllowIsChangedEvents)
-                Properties.IsChangedLocal = true;
+                UpdateCollectionChanged();
         }
 
         void EditableObjectEntityCollection_ItemRemoved(object sender, ItemEventArgs<TModelType> e)
         {
             if (m_AllowIsChangedEvents)
-                Properties.IsChangedLocal = true;
+                UpdateCollectionChanged();
+        }
+
+        void UpdateCollectionChanged()
+        {
+            var previousFlag = m_CollectionChanged;
+            var newFlag = Count != m_OriginalList.Count;
+            if (!newFlag)
+            {
+                for (int i = 0; i < Count; i++)
+                    if (!Equals(this[i], m_OriginalList[i]))
+                    {
+                        newFlag = true;
+                        break;
+                    }
+            }
+
+            if (previousFlag != newFlag)
+            {
+                m_CollectionChanged = newFlag;
+
+                //These may fire unnecessarily depending on the state of Properties.IsChanged, but that will be very rare.
+                OnPropertyChanged(CommonProperties.IsChangedLocalProperty);
+                OnPropertyChanged(CommonProperties.IsChangedProperty);
+            }
         }
 
         [OnDeserialized]
