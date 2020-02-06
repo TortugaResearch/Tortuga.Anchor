@@ -208,6 +208,7 @@ namespace Tests.Modeling
             };
             person.Boss.Age = 99;
             person.AcceptChanges();
+            Assert.AreEqual(0, person.ChangedProperties().Count);
 
             Assert.IsFalse(person.IsChangedLocal);
 

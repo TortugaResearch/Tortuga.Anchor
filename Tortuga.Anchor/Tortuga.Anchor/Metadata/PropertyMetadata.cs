@@ -19,9 +19,10 @@ namespace Tortuga.Anchor.Metadata
         readonly MethodInfo m_GetMethod;
         readonly MethodInfo m_SetMethod;
 
-        internal PropertyMetadata(PropertyInfo info)
+        internal PropertyMetadata(PropertyInfo info, int propertyIndex)
         {
             PropertyInfo = info;
+            PropertyIndex = propertyIndex;
 
             Validators = ImmutableArray.CreateRange(info.GetCustomAttributes(typeof(ValidationAttribute), true).OfType<ValidationAttribute>());
 
@@ -61,7 +62,6 @@ namespace Tortuga.Anchor.Metadata
             }
             IgnoreOnInsert = info.GetCustomAttributes(typeof(IgnoreOnInsertAttribute), true).Length > 0;
             IgnoreOnUpdate = info.GetCustomAttributes(typeof(IgnoreOnUpdateAttribute), true).Length > 0;
-
 
             if (!PropertyType.IsValueType)
             {
@@ -390,5 +390,12 @@ namespace Tortuga.Anchor.Metadata
         {
             CalculatedFields = ImmutableArray.CreateRange(m_CalculatedFieldsBuilder);
         }
+
+        /// <summary>
+        /// Gets or sets the index of the property.
+        /// </summary>
+        /// <value>The index of the property.</value>
+        /// <remarks>Used by property bags and other things that need to store property values in arrays.</remarks>
+        public int PropertyIndex { get; }
     }
 }
