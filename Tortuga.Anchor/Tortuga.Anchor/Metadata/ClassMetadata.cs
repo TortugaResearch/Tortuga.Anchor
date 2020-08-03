@@ -33,7 +33,7 @@ namespace Tortuga.Anchor.Metadata
                 MappedSchemaName = table.Schema;
             }
 
-            var shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
+            List<PropertyInfo> shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
             var propertyList = typeInfo.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
             bool IsHidden(PropertyInfo propertyInfo) => !shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => string.CompareOrdinal(p.Name, propertyInfo.Name) == 0);

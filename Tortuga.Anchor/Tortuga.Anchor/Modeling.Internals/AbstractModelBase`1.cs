@@ -239,7 +239,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </returns>
         /// <exception cref="ArgumentNullException">propertyName;propertyName is null</exception>
         /// <exception cref="ArgumentException">propertyName is null or empty.;propertyName</exception>
-        protected bool Set(object value, [CallerMemberName] string propertyName = "")
+        protected bool Set(object? value, [CallerMemberName] string propertyName = "")
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
