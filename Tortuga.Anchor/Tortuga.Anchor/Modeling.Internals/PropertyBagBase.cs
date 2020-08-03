@@ -483,5 +483,17 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             RevalidateProperty?.Invoke(this, property.PropertyChangedEventArgs);
         }
+
+        /// <summary>
+        /// Gets the index of the property.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        protected int GetPropertyIndex(string propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
+
+            return Metadata.Properties[propertyName].PropertyIndex;
+        }
     }
 }

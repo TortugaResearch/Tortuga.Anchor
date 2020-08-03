@@ -38,7 +38,7 @@ namespace Tortuga.Anchor.Metadata
 
             bool IsHidden(PropertyInfo propertyInfo) => !shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => string.CompareOrdinal(p.Name, propertyInfo.Name) == 0);
 
-            Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select(p => new PropertyMetadata(p)));
+            Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select((p, i) => new PropertyMetadata(p, i)));
 
             //List the properties that are affected when the indicated property is modified.
             foreach (var property in Properties)
