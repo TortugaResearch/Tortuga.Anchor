@@ -31,14 +31,24 @@ namespace Tortuga.Anchor.Metadata
             {
                 MappedTableName = table.Name;
                 MappedSchemaName = table.Schema;
+
+                if (table is TableAndViewAttribute tav)
+                {
+                    MappedViewName = tav.ViewName;
+                    /* TASK-47: Reserved for future work
+                       MappedInsertFunctionName = tav.InsertFunctionName;
+                       MappedUpdateFunctionName = tav.UpdateFunctionName;
+                       MappedDeleteFunctionName = tav.DeleteFunctionName;
+                     */
+                }
             }
 
-            var shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
+            List<PropertyInfo> shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
             var propertyList = typeInfo.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
             bool IsHidden(PropertyInfo propertyInfo) => !shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => string.CompareOrdinal(p.Name, propertyInfo.Name) == 0);
 
-            Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select(p => new PropertyMetadata(p)));
+            Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select((p, i) => new PropertyMetadata(p, i)));
 
             //List the properties that are affected when the indicated property is modified.
             foreach (var property in Properties)
@@ -133,6 +143,29 @@ namespace Tortuga.Anchor.Metadata
         /// Schema referred to by TableAttribute.
         /// </summary>
         public string? MappedSchemaName { get; }
+
+        /// <summary>
+        /// View referred to by TableAndViewAttribute.
+        /// </summary>
+        /// <remarks>This is only used for SELECT operations.</remarks>
+        public string? MappedViewName { get; }
+
+        /* TASK-47: Reserved for future work
+        /// <summary>
+        /// The name of the insert function or stored procedure.
+        /// </summary>
+        public string? MappedInsertFunctionName { get; }
+
+        /// <summary>
+        /// The name of the update function or stored procedure.
+        /// </summary>
+        public string? MappedUpdateFunctionName { get; }
+
+        /// <summary>
+        /// The name of the delete function or stored procedure.
+        /// </summary>
+        public string? MappedDeleteFunctionName { get; }
+        */
 
         /// <summary>
         /// Table referred to by TableAttribute.

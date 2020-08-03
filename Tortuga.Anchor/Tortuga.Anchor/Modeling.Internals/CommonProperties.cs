@@ -19,6 +19,11 @@ namespace Tortuga.Anchor.Modeling.Internals
         public readonly static PropertyChangedEventArgs HasErrorsProperty = new PropertyChangedEventArgs("HasErrors");
 
         /// <summary>
+        /// The "IsChangedLocal" property
+        /// </summary>
+        public readonly static PropertyChangedEventArgs IsChangedLocalProperty = new PropertyChangedEventArgs("IsChangedLocal");
+
+        /// <summary>
         /// The "IsChanged" property
         /// </summary>
         public readonly static PropertyChangedEventArgs IsChangedProperty = new PropertyChangedEventArgs("IsChanged");

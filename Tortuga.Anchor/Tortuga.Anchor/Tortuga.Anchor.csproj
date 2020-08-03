@@ -7,12 +7,12 @@
     <Description>Commons and data modeling library for the Tortuga project.</Description>
     <PackageTags>MVVM,Reflection</PackageTags>
     <LangVersion>8.0</LangVersion>
-    <Deterministic>false</Deterministic>
+    <Deterministic>true</Deterministic>
     <ProductName>Tortuga Anchor</ProductName>
 
-    <AssemblyVersion>3.1.*</AssemblyVersion>
-    <Version>3.1.0</Version>
-    <FileVersion>3.1.0.0</FileVersion>
+    <AssemblyVersion>3.3.0</AssemblyVersion>
+    <Version>3.3.0</Version>
+    <FileVersion>3.3.0.0</FileVersion>
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
@@ -37,8 +37,11 @@
     <DefineConstants>NULL_MISSING</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <DefineConstants>OrdinalHashCodes</DefineConstants>
+    <DefineConstants>ORDINAL_STRINGS</DefineConstants>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Tortuga.Anchor.xml~origin_ReversibleIEqualityComparer" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">

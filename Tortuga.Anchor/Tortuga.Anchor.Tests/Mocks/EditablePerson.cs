@@ -4,7 +4,6 @@ using Tortuga.Anchor.DataAnnotations;
 using Tortuga.Anchor.Modeling;
 using Tortuga.Anchor.Modeling.Internals;
 
-
 namespace Tests.Mocks
 {
     public class EditablePerson : EditableObjectModelBase
@@ -13,6 +12,12 @@ namespace Tests.Mocks
         public string FirstName
         {
             get { return Get<string>(); }
+            set { Set(value); }
+        }
+
+        public string? MiddleName
+        {
+            get { return Get<string?>(); }
             set { Set(value); }
         }
 
@@ -59,7 +64,6 @@ namespace Tests.Mocks
                 results.Add(new ValidationResult("First and last names cannot match", new string[] { "FirstName", "LastName" }));
         }
 
-
         public Tests.Mocks.EditablePerson Boss
         {
             get
@@ -92,7 +96,6 @@ namespace Tests.Mocks
             base.OnPropertyChanged("Boom");
         }
 
-
         public void InvokeGoodPropertyMessage()
         {
             base.OnPropertyChanged("FullName");
@@ -117,7 +120,6 @@ namespace Tests.Mocks
         {
             base.Get<int>("");
         }
-
 
         public void BadGetNew1()
         {
@@ -163,6 +165,5 @@ namespace Tests.Mocks
         {
             Properties.AcceptChanges(false);
         }
-
     }
 }
