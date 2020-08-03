@@ -240,6 +240,33 @@ namespace Tortuga.Anchor
         }
 
         /// <summary>
+        /// Locates the index of the indicated item.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <param name="item">The item.</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="ArgumentNullException">list</exception>
+        public static int IndexOf<T>(this IReadOnlyList<T> list, T item)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null ");
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                var value = list[i];
+                if (value == null)
+                {
+                    if (item == null)
+                        return i;
+                }
+                else if (value.Equals(item))
+                    return i;
+            }
+            return -1;
+        }
+
+        /// <summary>
         /// Inserts a list of values into the target collection.
         /// </summary>
         /// <typeparam name="T"></typeparam>
