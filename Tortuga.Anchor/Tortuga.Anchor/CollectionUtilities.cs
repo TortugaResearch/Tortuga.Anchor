@@ -118,15 +118,19 @@ namespace Tortuga.Anchor
         /// wrapped in an adapter.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="list">The list.</param>
+        /// <param name="source">The source. If the source is null, the result will be null.</param>
         /// <returns>IReadOnlyList&lt;T&gt;.</returns>
         /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyCollection&lt;T&gt;.</remarks>
-        public static IReadOnlyCollection<T> AsReadOnlyCollection<T>(this ICollection<T> list)
+        [return: NotNullIfNotNull("source")]
+        public static IReadOnlyCollection<T>? AsReadOnlyCollection<T>(this IEnumerable<T>? source)
         {
-            if (list is IReadOnlyCollection<T> result)
+            if (source == null)
+                return null;
+
+            if (source is IReadOnlyCollection<T> result)
                 return result;
 
-            return new SimpleReadOnlyCollection<T>(list);
+            return new SimpleReadOnlyCollection<T>(source);
         }
 
         /// <summary>
@@ -134,16 +138,41 @@ namespace Tortuga.Anchor
         /// wrapped in a ReadOnlyCollection&lt;T&gt;.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="list">The list.</param>
+        /// <param name="source">The source. If the source is null, the result will be null.</param>
         /// <returns>IReadOnlyList&lt;T&gt;.</returns>
         /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
-        public static IReadOnlyList<T> AsReadOnlyList<T>(this IList<T> list)
+        public static IReadOnlyList<T>? AsReadOnlyList<T>(this IEnumerable<T>? source)
         {
-            if (list is IReadOnlyList<T> result)
-                return result;
+            if (source == null)
+                return null;
 
-            return new ReadOnlyCollection<T>(list);
+            if (source is IReadOnlyList<T> rList)
+                return rList;
+
+            if (source is IList<T> list)
+                return new ReadOnlyCollection<T>(list);
+
+            return new ReadOnlyCollection<T>(source.ToList());
         }
+
+        ///// <summary>
+        ///// Creates a read-only list from an System.Collections.Generic.IEnumerable`1.
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="source">The source.</param>
+        ///// <returns>IReadOnlyList&lt;T&gt;.</returns>
+        ///// <exception cref="ArgumentNullException">source</exception>
+        ///// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
+        //public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
+        //{
+        //    if (source == null)
+        //        throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+
+        //    if (source is IList<T> list)
+        //        return new ReadOnlyCollection<T>(list);
+        //    else
+        //        return new ReadOnlyCollection<T>(source.ToList());
+        //}
 
         /// <summary>
         /// Batches the specified enumeration into lists according to the indicated batch size.
@@ -409,16 +438,16 @@ namespace Tortuga.Anchor
 
         class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
         {
-            readonly ICollection<T> m_List;
+            readonly IEnumerable<T> m_List;
 
-            public SimpleReadOnlyCollection(ICollection<T> list)
+            public SimpleReadOnlyCollection(IEnumerable<T> list)
             {
                 m_List = list;
             }
 
             public int Count
             {
-                get { return m_List.Count; }
+                get { return m_List.Count(); }
             }
 
             public IEnumerator<T> GetEnumerator()

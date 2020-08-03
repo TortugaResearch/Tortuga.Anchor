@@ -168,6 +168,81 @@ namespace Tests.Collections
             }
         }
 
+        [TestMethod]
+        public void AsList_Test1()
+        {
+            var x = (IEnumerable<int>)new List<int>();
+            var y = x.AsList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsList_Test2()
+        {
+            var x = new Collection<int>() { 1, 2, 3, 4, 5 };
+            var y = x.AsList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsList_Test3()
+        {
+            var x = Enumerable.Range(1, 5);
+            var y = x.AsList();
+            Assert.AreNotEqual(x, y);
+            Assert.AreEqual(x.Count(), y.Count);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyCollection_Test1()
+        {
+            var x = (IEnumerable<int>)new List<int>();
+            var y = x.AsReadOnlyCollection();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyCollection_Test2()
+        {
+            var x = (IEnumerable<int>)new Collection<int>();
+            var y = x.AsReadOnlyCollection();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyCollection_Test3()
+        {
+            var x = Enumerable.Range(1, 5);
+            var y = x.AsReadOnlyCollection();
+            Assert.AreNotEqual(x, y);
+            Assert.AreEqual(x.Count(), y.Count);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyList_Test1()
+        {
+            var x = (IEnumerable<int>)new List<int>();
+            var y = x.AsReadOnlyList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyList_Test2()
+        {
+            var x = (IEnumerable<int>)new Collection<int>();
+            var y = x.AsReadOnlyList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyList_Test3()
+        {
+            var x = Enumerable.Range(1, 5);
+            var y = x.AsReadOnlyList();
+            Assert.AreNotEqual(x, y);
+            Assert.AreEqual(x.Count(), y.Count);
+        }
+
         [TestMethod()]
         public void BatchAsLists_Test1()
         {
