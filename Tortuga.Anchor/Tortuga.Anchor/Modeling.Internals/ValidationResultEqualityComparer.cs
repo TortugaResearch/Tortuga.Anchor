@@ -66,11 +66,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (obj == null || obj.ErrorMessage == null)
                 return 0;
 
-#if OrdinalHashCodes
             return obj.ErrorMessage.GetHashCode(StringComparison.Ordinal);
-#else
-            return obj.ErrorMessage.GetHashCode();
-#endif
         }
     }
 }
