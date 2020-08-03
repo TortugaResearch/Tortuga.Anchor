@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace Tortuga.Anchor.Modeling.Internals
 {
@@ -11,7 +8,7 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// </summary>
     public class EditableObjectPropertyBag : ChangeTrackingPropertyBag
     {
-        readonly Dictionary<string, object?> m_CheckpointValues = new Dictionary<string, object?>(StringComparer.Ordinal);
+        readonly object?[] m_CheckpointValues;
         bool m_OldIsChangedLocal;
 
         /// <summary>
@@ -21,7 +18,14 @@ namespace Tortuga.Anchor.Modeling.Internals
 
         public EditableObjectPropertyBag(object owner)
             : base(owner)
-        { }
+        {
+            var count = Metadata.Properties.Count;
+            m_CheckpointValues = new object?[count];
+            for (var i = 0; i < count; i++)
+            {
+                m_CheckpointValues[i] = NotSet.Value;
+            }
+        }
 
         /// <summary>
         /// Currently editing
@@ -68,11 +72,12 @@ namespace Tortuga.Anchor.Modeling.Internals
             IsEditing = true;
             BlockReentrant = true;
 
-            foreach (var item in Values)
+            for (int i = 0; i < Values.Length; i++)
             {
-                m_CheckpointValues.Add(item.Key, item.Value);
-                if (item.Value is IEditableObject)
-                    ((IEditableObject)item.Value).BeginEdit();
+                var currentValue = Values[i];
+                m_CheckpointValues[i] = currentValue;
+                if (currentValue is IEditableObject eo)
+                    eo.BeginEdit();
             }
 
             BlockReentrant = false;
@@ -93,46 +98,53 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (BlockReentrant)
                 throw new InvalidOperationException("Reentrant call to CancelEdit detected");
 
+            var count = Metadata.Properties.Count;
+
             IsChangedLocal = m_OldIsChangedLocal;
             IsEditing = false;
             BlockReentrant = true;
 
-            //remove properties that no longer exist
-            foreach (var item in Values.ToList())
-            {
-                if (!m_CheckpointValues.ContainsKey(item.Key))
-                {
-                    var property = Metadata.Properties[item.Key];
-                    OnPropertyChanging(property);
-                    Values.Remove(item.Key);
-                    OnPropertyChanged(property);
-                    OnRevalidateProperty(property);
-                }
-            }
+            ////remove properties that no longer exist
+            //foreach (var item in Values.ToList())
+            //{
+            //    if (!m_CheckpointValues.ContainsKey(item.Key))
+            //    {
+            //        var property = Metadata.Properties[item.Key];
+            //        OnPropertyChanging(property);
+            //        Values.Remove(item.Key);
+            //        OnPropertyChanged(property);
+            //        OnRevalidateProperty(property);
+            //    }
+            //}
 
-            //update remaining properties
-            foreach (var item in m_CheckpointValues)
+            ////update remaining properties
+
+            for (int i = 0; i < count; i++)
             {
-                var oldValue = GetValue(item.Key);
-                if (!Equals(oldValue, item.Value))
+                var checkpointValue = m_CheckpointValues[i];
+                var currentValue = Values[i];
+                if (!Equals(currentValue, checkpointValue))
                 {
-                    var property = Metadata.Properties[item.Key];
+                    var property = Metadata.Properties[i];
                     OnPropertyChanging(property);
-                    Values[item.Key] = item.Value;
+                    Values[i] = checkpointValue;
                     OnPropertyChanged(property);
                     OnRevalidateProperty(property);
                 }
             }
 
             //recursively call CancelEdit
-            foreach (var item in m_CheckpointValues)
-            {
-                if (item.Value is IEditableObject)
-                    ((IEditableObject)item.Value).CancelEdit();
-            }
+            for (int i = 0; i < count; i++)
+                if (m_CheckpointValues[i] is IEditableObject eo)
+                    eo.CancelEdit();
 
             OnRevalidateObject();
-            m_CheckpointValues.Clear();
+
+            //Clear the checkpoint
+            for (var i = 0; i < count; i++)
+                m_CheckpointValues[i] = NotSet.Value;
+
+            UpdateIsChangedLocal();
 
             BlockReentrant = false;
         }
@@ -156,12 +168,16 @@ namespace Tortuga.Anchor.Modeling.Internals
             IsEditing = false;
             BlockReentrant = true;
 
-            foreach (var item in m_CheckpointValues)
-            {
-                if (item.Value is IEditableObject)
-                    ((IEditableObject)item.Value).EndEdit();
-            }
-            m_CheckpointValues.Clear();
+            var count = Metadata.Properties.Count;
+
+            //recursively call EndEdit
+            for (int i = 0; i < count; i++)
+                if (m_CheckpointValues[i] is IEditableObject eo)
+                    eo.EndEdit();
+
+            //Clear the checkpoint
+            for (var i = 0; i < count; i++)
+                m_CheckpointValues[i] = NotSet.Value;
 
             BlockReentrant = false;
         }

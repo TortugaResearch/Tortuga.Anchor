@@ -190,6 +190,18 @@ namespace Tests.Modeling
             person.AcceptChangesLocal();
             Assert.IsFalse(person.IsChangedLocal);
             Assert.IsTrue(person.IsChanged);
+
+            person.AcceptChanges();
+            Assert.IsFalse(person.IsChangedLocal);
+            Assert.IsFalse(person.IsChanged);
+
+            person.FirstName = "Jimmy";
+            Assert.IsTrue(person.IsChangedLocal);
+            Assert.IsTrue(person.IsChanged);
+
+            person.FirstName = "Tom";
+            Assert.IsFalse(person.IsChangedLocal);
+            Assert.IsFalse(person.IsChanged);
         }
 
         [TestMethod]
@@ -208,6 +220,7 @@ namespace Tests.Modeling
             };
             person.Boss.Age = 99;
             person.AcceptChanges();
+            Assert.AreEqual(0, person.ChangedProperties().Count);
 
             Assert.IsFalse(person.IsChangedLocal);
 
