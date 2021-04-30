@@ -265,9 +265,7 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             Values[property.PropertyIndex] = value;
 
-#pragma warning disable CA1062 // Compiler error, value is allowed to be null
             UpdateChangeTrackingEventHandlers(oldValue, value);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             if ((mode & PropertySetModes.RaiseChangedEvent) != 0)
                 OnPropertyChanged(property);
@@ -330,7 +328,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             IsChangedLocal = false;
         }
 
-        void OnChildIsChangedPropertyChanged(object sender, PropertyChangedEventArgs e)
+        void OnChildIsChangedPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.PropertyName) || e.PropertyName == "IsChanged")
                 OnPropertyChanged(Metadata.Properties["IsChanged"]);

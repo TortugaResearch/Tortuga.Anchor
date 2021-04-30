@@ -26,7 +26,7 @@ namespace Tortuga.Anchor.Metadata
         {
             TypeInfo = typeInfo;
 
-            var table = (TableAttribute)typeInfo.GetCustomAttributes(typeof(TableAttribute), true).SingleOrDefault();
+            var table = (TableAttribute?)typeInfo.GetCustomAttributes(typeof(TableAttribute), true).SingleOrDefault();
             if (table != null)
             {
                 MappedTableName = table.Name;
@@ -241,7 +241,7 @@ namespace Tortuga.Anchor.Metadata
                 typeArgs = new List<Type>(typeInfo.GetTypeInfo().GenericTypeArguments);
 
             if (typeInfo.IsNested)
-                BuildFullName(typeInfo.DeclaringType, typeArgs, result, genericOpen, genericSeparator, genericClose);
+                BuildFullName(typeInfo.DeclaringType!, typeArgs, result, genericOpen, genericSeparator, genericClose);
             else
                 result.Append(typeInfo.Namespace);
 
@@ -283,7 +283,7 @@ namespace Tortuga.Anchor.Metadata
 
         static bool IsHidingMember(PropertyInfo propertyInfo)
         {
-            var baseType = propertyInfo.DeclaringType.GetTypeInfo().BaseType;
+            var baseType = propertyInfo.DeclaringType!.GetTypeInfo().BaseType;
             if (baseType == null)
                 return false;
 
@@ -296,7 +296,7 @@ namespace Tortuga.Anchor.Metadata
                 return false;
 
             if (baseProperty.GetMethod == null || propertyInfo.GetMethod == null)
-                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "Cannot support classes with write-only properties. Class: {0} PropertyName {1}", propertyInfo.DeclaringType.Name, propertyInfo.Name));
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "Cannot support classes with write-only properties. Class: {0} PropertyName {1}", propertyInfo.DeclaringType!.Name, propertyInfo.Name));
 
             var basePropertyGetGetMethod = baseProperty.GetMethod;
             var propertyInfoGetGetMethod = propertyInfo.GetMethod;
@@ -304,7 +304,7 @@ namespace Tortuga.Anchor.Metadata
             var baseMethodDefinition = basePropertyGetGetMethod.GetRuntimeBaseDefinition();
             var thisMethodDefinition = propertyInfoGetGetMethod.GetRuntimeBaseDefinition();
 
-            return baseMethodDefinition.DeclaringType != thisMethodDefinition.DeclaringType;
+            return baseMethodDefinition?.DeclaringType != thisMethodDefinition?.DeclaringType;
         }
     }
 }

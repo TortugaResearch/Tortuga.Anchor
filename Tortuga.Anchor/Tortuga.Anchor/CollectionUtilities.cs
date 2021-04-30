@@ -104,7 +104,7 @@ namespace Tortuga.Anchor
         /// disguised as IEnumerable.
         /// </remarks>
         [return: NotNullIfNotNull("source")]
-        public static IList<T>? AsList<T>(this IEnumerable<T> source)
+        public static IList<T>? AsList<T>(this IEnumerable<T>? source)
         {
             if (source == null)
                 return null;
@@ -141,6 +141,7 @@ namespace Tortuga.Anchor
         /// <param name="source">The source. If the source is null, the result will be null.</param>
         /// <returns>IReadOnlyList&lt;T&gt;.</returns>
         /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
+        [return: NotNullIfNotNull("source")]
         public static IReadOnlyList<T>? AsReadOnlyList<T>(this IEnumerable<T>? source)
         {
             if (source == null)
@@ -247,6 +248,7 @@ namespace Tortuga.Anchor
         /// <returns></returns>
         /// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
         public static ReadOnlyCollection<TKey> GetKeys<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+            where TKey : notnull
         {
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");
@@ -262,6 +264,7 @@ namespace Tortuga.Anchor
         /// <returns></returns>
         /// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
         public static ReadOnlyCollection<TValue> GetValues<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+            where TKey : notnull
         {
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");

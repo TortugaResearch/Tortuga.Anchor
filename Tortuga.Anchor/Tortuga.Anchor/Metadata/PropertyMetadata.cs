@@ -16,8 +16,8 @@ namespace Tortuga.Anchor.Metadata
     public partial class PropertyMetadata
     {
         readonly List<PropertyMetadata> m_CalculatedFieldsBuilder = new List<PropertyMetadata>();
-        readonly MethodInfo m_GetMethod;
-        readonly MethodInfo m_SetMethod;
+        readonly MethodInfo? m_GetMethod;
+        readonly MethodInfo? m_SetMethod;
 
         internal PropertyMetadata(PropertyInfo info, int propertyIndex)
         {
@@ -33,7 +33,7 @@ namespace Tortuga.Anchor.Metadata
 
             PropertyType = info.PropertyType;
 
-            var name = info.ToString();
+            var name = info.ToString()!;
             Name = name.Substring(name.IndexOf(" ", StringComparison.Ordinal) + 1);
 
             if (IsIndexed)
@@ -51,10 +51,10 @@ namespace Tortuga.Anchor.Metadata
             var doNotMap = info.GetCustomAttributes(typeof(NotMappedAttribute), true).Length > 0;
             if (!doNotMap)
             {
-                var column = (ColumnAttribute)info.GetCustomAttributes(typeof(ColumnAttribute), true).SingleOrDefault();
+                var column = (ColumnAttribute?)info.GetCustomAttributes(typeof(ColumnAttribute), true).SingleOrDefault();
                 MappedColumnName = column != null ? column.Name : Name;
             }
-            var decomposeAttribute = (DecomposeAttribute)(info.GetCustomAttributes(typeof(DecomposeAttribute), true).FirstOrDefault());
+            var decomposeAttribute = (DecomposeAttribute?)(info.GetCustomAttributes(typeof(DecomposeAttribute), true).FirstOrDefault());
             if (decomposeAttribute != null)
             {
                 Decompose = true;
@@ -69,7 +69,7 @@ namespace Tortuga.Anchor.Metadata
 
                 if (nullableAttribute != null)
                 {
-                    byte[] bytes = (byte[])nullableAttribute.GetType().GetField("NullableFlags").GetValue(nullableAttribute);
+                    byte[] bytes = (byte[])nullableAttribute.GetType().GetField("NullableFlags")!.GetValue(nullableAttribute)!;
 
                     if (bytes.Length >= 1)
                         IsReferenceNullable = bytes[0] switch
@@ -221,7 +221,7 @@ namespace Tortuga.Anchor.Metadata
         {
             if (CanRead)
             {
-                return (Func<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TProperty>), m_GetMethod);
+                return (Func<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TProperty>), m_GetMethod!);
             }
             else
                 throw new InvalidOperationException($"CanRead is false for property {Name}");
@@ -238,7 +238,7 @@ namespace Tortuga.Anchor.Metadata
         {
             if (CanReadIndexed)
             {
-                return (Func<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TIndex, TProperty>), m_GetMethod);
+                return (Func<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TIndex, TProperty>), m_GetMethod!);
             }
             else
                 throw new InvalidOperationException($"CanReadIndexed is false for property {Name}");
@@ -254,7 +254,7 @@ namespace Tortuga.Anchor.Metadata
         {
             if (CanWrite)
             {
-                return (Action<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TProperty>), m_SetMethod);
+                return (Action<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TProperty>), m_SetMethod!);
             }
             else
                 throw new InvalidOperationException($"CanWrite is false for property {Name}");
@@ -271,7 +271,7 @@ namespace Tortuga.Anchor.Metadata
         {
             if (CanWriteIndexed)
             {
-                return (Action<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TIndex, TProperty>), m_SetMethod);
+                return (Action<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TIndex, TProperty>), m_SetMethod!);
             }
             else
                 throw new InvalidOperationException($"CanWriteIndexed is false for property {Name}");
@@ -284,13 +284,13 @@ namespace Tortuga.Anchor.Metadata
         /// <returns>System.Object.</returns>
         /// <exception cref="ArgumentException">Error getting property " + Name</exception>
         /// <exception cref="InvalidOperationException">CanRead is false on property {Name}.</exception>
-        public object InvokeGet(object target)
+        public object? InvokeGet(object target)
         {
             if (CanRead)
             {
                 try
                 {
-                    return m_GetMethod.Invoke(target, null);
+                    return m_GetMethod!.Invoke(target, null);
                 }
                 catch (ArgumentException ex)
                 {
@@ -309,13 +309,13 @@ namespace Tortuga.Anchor.Metadata
         /// <returns>System.Object.</returns>
         /// <exception cref="System.ArgumentException">Error getting property " + Name</exception>
         /// <exception cref="System.InvalidOperationException">CanReadIndexed is false on property {Name}.</exception>
-        public object InvokeGet(object target, object? index)
+        public object? InvokeGet(object target, object? index)
         {
             if (CanReadIndexed)
             {
                 try
                 {
-                    return m_GetMethod.Invoke(target, new object?[] { index });
+                    return m_GetMethod!.Invoke(target, new object?[] { index });
                 }
                 catch (ArgumentException ex)
                 {
@@ -340,7 +340,7 @@ namespace Tortuga.Anchor.Metadata
             {
                 try
                 {
-                    m_SetMethod.Invoke(target, new object?[] { value });
+                    m_SetMethod!.Invoke(target, new object?[] { value });
                 }
                 catch (ArgumentException ex)
                 {
@@ -366,7 +366,7 @@ namespace Tortuga.Anchor.Metadata
             {
                 try
                 {
-                    m_SetMethod.Invoke(target, new object?[] { index, value });
+                    m_SetMethod!.Invoke(target, new object?[] { index, value });
                 }
                 catch (ArgumentException ex)
                 {

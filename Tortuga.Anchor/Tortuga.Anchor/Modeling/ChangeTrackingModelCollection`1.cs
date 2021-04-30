@@ -131,19 +131,19 @@ namespace Tortuga.Anchor.Modeling
             UpdateCollectionChanged();
         }
 
-        void ChangeTrackingModelCollection_ItemAdded(object sender, ItemEventArgs<TModelType> e)
+        void ChangeTrackingModelCollection_ItemAdded(object? sender, ItemEventArgs<TModelType> e)
         {
             if (m_AllowIsChangedEvents)
                 UpdateCollectionChanged();
         }
 
-        void ChangeTrackingModelCollection_ItemRemoved(object sender, ItemEventArgs<TModelType> e)
+        void ChangeTrackingModelCollection_ItemRemoved(object? sender, ItemEventArgs<TModelType> e)
         {
             if (m_AllowIsChangedEvents)
                 UpdateCollectionChanged();
         }
 
-        void ChangeTrackingModelCollection_OnItemPropertyChanged(object sender, RelayedEventArgs<PropertyChangedEventArgs> e)
+        void ChangeTrackingModelCollection_OnItemPropertyChanged(object? sender, RelayedEventArgs<PropertyChangedEventArgs> e)
         {
             if (string.IsNullOrEmpty(e.EventArgs.PropertyName) || e.EventArgs.PropertyName == CommonProperties.IsChangedProperty.PropertyName)
                 OnPropertyChanged(CommonProperties.IsChangedProperty);

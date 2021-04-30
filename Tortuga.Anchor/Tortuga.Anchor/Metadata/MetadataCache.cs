@@ -31,7 +31,7 @@ namespace Tortuga.Anchor.Metadata
             if (type == null)
                 throw new ArgumentNullException(nameof(type), $"{nameof(type)} is null.");
 
-            if (s_ModelInfo.TryGetValue(type, out ClassMetadata result))
+            if (s_ModelInfo.TryGetValue(type, out ClassMetadata? result))
                 return result;
 
             //Cache the TypeInfo object

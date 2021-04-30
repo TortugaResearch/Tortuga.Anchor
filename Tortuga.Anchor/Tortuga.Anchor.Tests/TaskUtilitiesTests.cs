@@ -72,7 +72,7 @@ namespace Tests
                 timer.Stop();
                 verify.IsFalse(result, "WaitForCompleteOrCancel should have returned false");
                 verify.IsTrue(t.IsCanceled, "Task should have been canceled.");
-                verify.AreEqual(1.0, timer.Elapsed.TotalSeconds, 0.05, "Elapsed time was incorrect.");
+                verify.AreEqual(1.0, timer.Elapsed.TotalSeconds, 0.15, "Elapsed time was incorrect.");
             }
         }
 
