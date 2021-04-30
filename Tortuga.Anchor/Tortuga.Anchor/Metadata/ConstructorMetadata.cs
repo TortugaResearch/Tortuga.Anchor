@@ -19,7 +19,7 @@ namespace Tortuga.Anchor.Metadata
             ConstructorInfo = constructorInfo;
 
             Signature = constructorInfo.GetParameters().Select(p => p.ParameterType).ToImmutableArray();
-            ParameterNames = constructorInfo.GetParameters().Select(p => p.Name).ToImmutableArray();
+            ParameterNames = constructorInfo.GetParameters().Select(p => p.Name).Cast<string>().ToImmutableArray();
         }
 
         /// <summary>

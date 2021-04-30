@@ -248,6 +248,7 @@ namespace Tortuga.Anchor
         /// <returns></returns>
         /// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
         public static ReadOnlyCollection<TKey> GetKeys<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+            where TKey : notnull
         {
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");
@@ -263,6 +264,7 @@ namespace Tortuga.Anchor
         /// <returns></returns>
         /// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
         public static ReadOnlyCollection<TValue> GetValues<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+            where TKey : notnull
         {
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");

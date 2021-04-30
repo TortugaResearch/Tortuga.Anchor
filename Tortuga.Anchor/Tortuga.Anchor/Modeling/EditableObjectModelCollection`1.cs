@@ -179,7 +179,7 @@ namespace Tortuga.Anchor.Modeling
             UpdateCollectionChanged();
         }
 
-        void ChangeTrackingModelCollection_OnItemPropertyChanged(object sender, RelayedEventArgs<PropertyChangedEventArgs> e)
+        void ChangeTrackingModelCollection_OnItemPropertyChanged(object? sender, RelayedEventArgs<PropertyChangedEventArgs> e)
         {
             if (e.EventArgs.PropertyName == CommonProperties.IsChangedProperty.PropertyName)
                 OnPropertyChanged(CommonProperties.IsChangedProperty);
@@ -195,13 +195,13 @@ namespace Tortuga.Anchor.Modeling
             m_AllowIsChangedEvents = true;
         }
 
-        void EditableObjectEntityCollection_ItemAdded(object sender, ItemEventArgs<TModelType> e)
+        void EditableObjectEntityCollection_ItemAdded(object? sender, ItemEventArgs<TModelType> e)
         {
             if (m_AllowIsChangedEvents)
                 UpdateCollectionChanged();
         }
 
-        void EditableObjectEntityCollection_ItemRemoved(object sender, ItemEventArgs<TModelType> e)
+        void EditableObjectEntityCollection_ItemRemoved(object? sender, ItemEventArgs<TModelType> e)
         {
             if (m_AllowIsChangedEvents)
                 UpdateCollectionChanged();

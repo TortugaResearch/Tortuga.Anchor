@@ -138,7 +138,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>
 
-        internal ReadOnlyCollection<ValidationResult> GetErrors(string propertyName)
+        internal ReadOnlyCollection<ValidationResult> GetErrors(string? propertyName)
         {
             if (propertyName == null)
                 propertyName = "";

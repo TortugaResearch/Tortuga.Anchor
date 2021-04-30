@@ -32,9 +32,9 @@ namespace Tortuga.Anchor.Metadata
                 if (value.IsIndexed)
                 {
                     if (value.Name.EndsWith(" [Int32]", StringComparison.Ordinal))
-                        m_Int32IndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName, value);
+                        m_Int32IndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName!, value);
                     else if (value.Name.EndsWith(" [System.String]", StringComparison.Ordinal))
-                        m_StringIndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName, value);
+                        m_StringIndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName!, value);
                 }
             }
             m_QuickList = ImmutableArray.CreateRange(m_Base.Values);
@@ -91,7 +91,7 @@ namespace Tortuga.Anchor.Metadata
                     throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 #pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
 
-                if (m_Base.TryGetValue(propertyName, out PropertyMetadata result))
+                if (m_Base.TryGetValue(propertyName, out PropertyMetadata? result))
                     return result;
 
                 if (m_Int32IndexedProperties.TryGetValue(propertyName, out result))
