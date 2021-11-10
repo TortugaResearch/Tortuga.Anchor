@@ -1,4 +1,4 @@
-﻿#if !ORDINAL_STRINGS
+﻿#if !ORDINAL_STRINGS && !NET5_0_OR_GREATER
 
 using System;
 
