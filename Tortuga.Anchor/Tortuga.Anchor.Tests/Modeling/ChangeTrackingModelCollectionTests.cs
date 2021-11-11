@@ -125,7 +125,7 @@ public class ChangeTrackingModelCollectionTests
 		var person = new ChangeTrackingPersonCollection();
 		try
 		{
-			person.AddHandler((IListener<PropertyChangedEventArgs>)null);
+			person.AddHandler((IListener<PropertyChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -140,7 +140,7 @@ public class ChangeTrackingModelCollectionTests
 		var person = new ChangeTrackingPersonCollection();
 		try
 		{
-			person.AddHandler((IListener<NotifyCollectionChangedEventArgs>)null);
+			person.AddHandler((IListener<NotifyCollectionChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -155,7 +155,7 @@ public class ChangeTrackingModelCollectionTests
 		var person = new ChangeTrackingPersonCollection();
 		try
 		{
-			person.AddHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
+			person.AddHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -328,7 +328,7 @@ public class ChangeTrackingModelCollectionTests
 	[TestMethod]
 	public void ChangeTrackingModelCollection_CtrTest()
 	{
-		var employee = new ChangeTrackingPersonCollection();
+		new ChangeTrackingPersonCollection();
 	}
 
 	[TestMethod]
@@ -536,7 +536,7 @@ public class ChangeTrackingModelCollectionTests
 		var person = new ChangeTrackingPersonCollection();
 		try
 		{
-			person.RemoveHandler((IListener<PropertyChangedEventArgs>)null);
+			person.RemoveHandler((IListener<PropertyChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -551,7 +551,7 @@ public class ChangeTrackingModelCollectionTests
 		var person = new ChangeTrackingPersonCollection();
 		try
 		{
-			person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null);
+			person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -566,7 +566,7 @@ public class ChangeTrackingModelCollectionTests
 		var person = new ChangeTrackingPersonCollection();
 		try
 		{
-			person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
+			person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -609,7 +609,7 @@ public class ChangeTrackingModelCollectionTests
 		var serializer = new DataContractSerializer(typeof(ChangeTrackingPersonCollectionRoot));
 		serializer.WriteObject(stream, root);
 		stream.Position = 0;
-		var newRoot = (ChangeTrackingPersonCollectionRoot)serializer.ReadObject(stream);
+		var newRoot = (ChangeTrackingPersonCollectionRoot)serializer.ReadObject(stream)!;
 		var newPeople = newRoot.ChangeTrackingPersonCollection;// (ChangeTrackingPersonCollection)serializer.ReadObject(stream);
 
 		//Property serialization isn't supported by the data contract serializer

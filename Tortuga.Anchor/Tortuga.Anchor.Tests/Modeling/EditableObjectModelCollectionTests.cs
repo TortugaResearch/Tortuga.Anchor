@@ -17,7 +17,7 @@ public class EditableObjectModelCollectionTests
 		var person = new EditablePersonCollection();
 		try
 		{
-			person.AddHandler((IListener<PropertyChangedEventArgs>)null);
+			person.AddHandler((IListener<PropertyChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -32,7 +32,7 @@ public class EditableObjectModelCollectionTests
 		var person = new EditablePersonCollection();
 		try
 		{
-			person.AddHandler((IListener<NotifyCollectionChangedEventArgs>)null);
+			person.AddHandler((IListener<NotifyCollectionChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -47,7 +47,7 @@ public class EditableObjectModelCollectionTests
 		var person = new EditablePersonCollection();
 		try
 		{
-			person.AddHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
+			person.AddHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -323,7 +323,7 @@ public class EditableObjectModelCollectionTests
 	[TestMethod]
 	public void EditableObjectModelCollection_CtrTest()
 	{
-		var employee = new EditablePersonCollection();
+		_ = new EditablePersonCollection();
 	}
 
 	[TestMethod]
@@ -349,9 +349,7 @@ public class EditableObjectModelCollectionTests
 	[TestMethod]
 	public void EditableObjectModelCollection_EditableObjectTest()
 	{
-		var people = new EditablePersonCollection();
-
-		people.FirstName = "Albert";
+		var people = new EditablePersonCollection() { FirstName = "Albert" };
 		people.Boss.Age = 99;
 		people.AcceptChanges();
 
@@ -572,9 +570,7 @@ public class EditableObjectModelCollectionTests
 	[TestMethod]
 	public void EditableObjectModelCollection_MultiFieldValidation()
 	{
-		var person = new EditablePersonCollection();
-		person.FirstName = "Tom";
-		person.LastName = "Tom";
+		var person = new EditablePersonCollection() { FirstName = "Tom", LastName = "Tom" };
 		var errors = person.GetErrors("FirstName");
 		Assert.AreEqual(1, errors.Count);
 		Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
@@ -603,7 +599,7 @@ public class EditableObjectModelCollectionTests
 		var person = new EditablePersonCollection();
 		try
 		{
-			person.RemoveHandler((IListener<PropertyChangedEventArgs>)null);
+			person.RemoveHandler((IListener<PropertyChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -618,7 +614,7 @@ public class EditableObjectModelCollectionTests
 		var person = new EditablePersonCollection();
 		try
 		{
-			person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null);
+			person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -633,7 +629,7 @@ public class EditableObjectModelCollectionTests
 		var person = new EditablePersonCollection();
 		try
 		{
-			person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
+			person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -642,21 +638,6 @@ public class EditableObjectModelCollectionTests
 		}
 	}
 
-	//[TestMethod]
-	//public void EditableObjectModelCollection_PropertyChangedTest()
-	//{
-	//	var person = new EditableSimplePersonCollection();
-	//	try
-	//	{
-	//		person.InvokeBadPropertyMessage();
-	//		Assert.Fail("Expected an exception");
-	//	}
-	//	catch (ArgumentOutOfRangeException ex)
-	//	{
-	//		Assert.AreEqual("propertyName", ex.ParamName);
-	//		Assert.AreEqual("Boom", ex.ActualValue);
-	//	}
-	//}
 
 	[TestMethod]
 	public void EditableObjectModelCollection_SerializationTest1()
@@ -676,7 +657,7 @@ public class EditableObjectModelCollectionTests
 		var serializer = new DataContractSerializer(typeof(EditablePersonCollectionRoot));
 		serializer.WriteObject(stream, root);
 		stream.Position = 0;
-		var newRoot = (EditablePersonCollectionRoot)serializer.ReadObject(stream);
+		var newRoot = (EditablePersonCollectionRoot)serializer.ReadObject(stream)!;
 		var newPeople = newRoot.EditablePersonCollection;
 
 		//Property serialization isn't supported by the data contract serializer

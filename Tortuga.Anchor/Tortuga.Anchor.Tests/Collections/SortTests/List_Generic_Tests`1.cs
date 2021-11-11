@@ -181,17 +181,17 @@ public abstract partial class List_Generic_Tests<T> where T : IComparable<T>
 			}
 	}
 
-	protected IList<T> CreateEnumerable(IEnumerable<T> enumerableToMatchTo, int count, int numberOfMatchingElements, int numberOfDuplicateElements)
+	protected IList<T> CreateEnumerable(IEnumerable<T>? enumerableToMatchTo, int count, int numberOfMatchingElements, int numberOfDuplicateElements)
 	{
 		return new List<T>(CreateList(enumerableToMatchTo, count, numberOfMatchingElements, numberOfDuplicateElements));
 	}
 
-	protected IEnumerable<T> CreateList(IEnumerable<T> enumerableToMatchTo, int count, int numberOfMatchingElements, int numberOfDuplicateElements)
+	protected IEnumerable<T> CreateList(IEnumerable<T>? enumerableToMatchTo, int count, int numberOfMatchingElements, int numberOfDuplicateElements)
 	{
 		IList<T> list = new Collection<T>();
 		int seed = 528;
 		int duplicateAdded = 0;
-		IList<T> match = null;
+		IList<T>? match = null;
 
 		// Add Matching elements
 		if (enumerableToMatchTo != null)
@@ -240,7 +240,7 @@ public abstract partial class List_Generic_Tests<T> where T : IComparable<T>
 		return new Collection<T>(CreateEnumerable(null, count, 0, 0));
 	}
 
-	void InRange(int compare, int minValue, int maxValue)
+	static void InRange(int compare, int minValue, int maxValue)
 	{
 		Assert.IsTrue(minValue <= compare);
 		Assert.IsTrue(compare <= maxValue);

@@ -50,7 +50,7 @@ public class ExtendedObservableCollectionTests
 			try
 			{
 				var result = new ObservableCollectionExtended<object>();
-				result.AddRange(null);
+				result.AddRange(null!);
 				verify.Fail("Expected an ArgumentNullException exception");
 			}
 			catch (ArgumentNullException ex)
@@ -97,9 +97,7 @@ public class ExtendedObservableCollectionTests
 	{
 		using (var verify = new Verify())
 		{
-			var result = new ObservableCollectionExtended<object>();
-			result.Add(1);
-			result.Add("Boat");
+			var result = new ObservableCollectionExtended<object> { 1, "Boat" };
 
 			var weakNotifier = new WeakNotifier();
 			var notifier = new Notifier();
@@ -176,7 +174,7 @@ public class ExtendedObservableCollectionTests
 		using (var verify = new Verify())
 		{
 			var result = new FooCollection();
-			var itemPropertyChangedEventQueue = new Queue<Tuple<object, RelayedEventArgs<PropertyChangedEventArgs>>>();
+			var itemPropertyChangedEventQueue = new Queue<Tuple<object?, RelayedEventArgs<PropertyChangedEventArgs>>>();
 			var itemPropertyChangedListener = new Listener<RelayedEventArgs<PropertyChangedEventArgs>>((s, e) => itemPropertyChangedEventQueue.Enqueue(Tuple.Create(s, e)));
 
 			var mutator = new Foo();
@@ -204,14 +202,14 @@ public class ExtendedObservableCollectionTests
 	{
 		using (var verify = new Verify())
 		{
-			Func<WeakReference> builder = () =>
+			static WeakReference builder()
 			{
 				var result = new ObservableCollectionExtended<object>();
 				var weakNotifier = new WeakNotifier();
 				result.Add(weakNotifier);
 
 				return new WeakReference(result);
-			};
+			}
 
 			var wr = builder();
 
@@ -228,7 +226,7 @@ public class ExtendedObservableCollectionTests
 		{
 			var fired = 0;
 			var result = new FooCollection();
-			PropertyChangedEventHandler eventHandler = (s, e) => fired += 1;
+			void eventHandler(object? s, PropertyChangedEventArgs e) => fired += 1;
 
 			result.PropertyChanged += eventHandler;
 			result.Add(new Foo());
@@ -324,16 +322,13 @@ public class ExtendedObservableCollectionTests
 	{
 		using (var verify = new Verify())
 		{
-			var collection = new ObservableCollectionExtended<Foo>();
-			collection.Add(new Foo());
-			collection.Add(new Foo());
-			collection.Add(new Foo());
+			var collection = new ObservableCollectionExtended<Foo> { new Foo(), new Foo(), new Foo() };
 
 			var stream = new MemoryStream();
 			var fooSerializer = new DataContractSerializer(typeof(ObservableCollectionExtended<Foo>));
 			fooSerializer.WriteObject(stream, collection);
 			stream.Position = 0;
-			var newFoo = (ObservableCollectionExtended<Foo>)fooSerializer.ReadObject(stream);
+			var newFoo = (ObservableCollectionExtended<Foo>)fooSerializer.ReadObject(stream)!;
 
 			verify.AreEqual(collection.Count, newFoo.Count, "collection count was off");
 		}
@@ -344,16 +339,13 @@ public class ExtendedObservableCollectionTests
 	{
 		using (var verify = new Verify())
 		{
-			var collection = new FooCollection();
-			collection.Add(new Foo());
-			collection.Add(new Foo());
-			collection.Add(new Foo());
+			var collection = new FooCollection { new Foo(), new Foo(), new Foo() };
 
-			var stream = new System.IO.MemoryStream();
+			var stream = new MemoryStream();
 			var fooSerializer = new DataContractSerializer(typeof(FooCollection));
 			fooSerializer.WriteObject(stream, collection);
 			stream.Position = 0;
-			var newFoo = (FooCollection)fooSerializer.ReadObject(stream);
+			var newFoo = (FooCollection)fooSerializer.ReadObject(stream)!;
 
 			verify.AreEqual(collection.Count, newFoo.Count, "collection count was off");
 		}
@@ -413,10 +405,10 @@ public class ExtendedObservableCollectionTests
 		var itemAssert = new ItemPropertyChangedEventTest(verify, result);
 
 		var itemAddedEventQueue = new Queue<Tuple<object?, ItemEventArgs<object>>>();
-		result.ItemAdded += (s, e) => itemAddedEventQueue.Enqueue(Tuple.Create(s, e));
+		result.ItemAdded += (s, e) => itemAddedEventQueue.Enqueue(Tuple.Create<object?, ItemEventArgs<object>>(s, e));
 
 		var itemRemovedEventQueue = new Queue<Tuple<object?, ItemEventArgs<object>>>();
-		result.ItemRemoved += (s, e) => itemRemovedEventQueue.Enqueue(Tuple.Create(s, e));
+		result.ItemRemoved += (s, e) => itemRemovedEventQueue.Enqueue(Tuple.Create<object?, ItemEventArgs<object>>(s, e));
 
 		weakNotifier.Age += 1;
 		itemAssert.ExpectEvent(weakNotifier, "Age");

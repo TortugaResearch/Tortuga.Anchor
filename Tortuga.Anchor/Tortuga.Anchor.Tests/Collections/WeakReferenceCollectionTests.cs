@@ -37,9 +37,7 @@ public class WeakReferenceCollectionTests
 			string item1 = "AAA";
 			string item2 = "BBB";
 
-			var list = new List<string>();
-			list.Add(item1);
-			list.Add(item2);
+			var list = new List<string> { item1, item2 };
 
 			var result = new WeakReferenceCollection<string>();
 			result.AddRange(list);
@@ -56,9 +54,7 @@ public class WeakReferenceCollectionTests
 			string item1 = "AAA";
 			string item2 = "BBB";
 
-			var list = new List<string>();
-			list.Add(item1);
-			list.Add(item2);
+			var list = new List<string> { item1, item2 };
 
 			var result = new WeakReferenceCollection<string>();
 			result.AddRange(list);
@@ -77,7 +73,7 @@ public class WeakReferenceCollectionTests
 		using (var verify = new Verify())
 		{
 			var result = new WeakReferenceCollection<string>();
-			verify.ArgumentNullException("array", () => result.CopyTo(null, 0));
+			verify.ArgumentNullException("array", () => result.CopyTo(null!, 0));
 		}
 	}
 
@@ -86,9 +82,8 @@ public class WeakReferenceCollectionTests
 	{
 		using (var verify = new Verify())
 		{
-			var result = new WeakReferenceCollection<string>();
-			result.Add("");
-			var array = new string[0];
+			var result = new WeakReferenceCollection<string> { "" };
+			var array = Array.Empty<string>();
 			verify.ArgumentException("array", () => result.CopyTo(array, 0), "array is too small");
 		}
 	}
@@ -98,8 +93,7 @@ public class WeakReferenceCollectionTests
 	{
 		using (var verify = new Verify())
 		{
-			var result = new WeakReferenceCollection<string>();
-			result.Add("AAA");
+			var result = new WeakReferenceCollection<string> { "AAA" };
 			var array = new string[1];
 			result.CopyTo(array, 0);
 			verify.ItemsAreEqual(new[] { "AAA" }, array, "");
@@ -111,9 +105,8 @@ public class WeakReferenceCollectionTests
 	{
 		using (var verify = new Verify())
 		{
-			var result = new WeakReferenceCollection<string>();
-			result.Add("");
-			var array = new string[0];
+			var result = new WeakReferenceCollection<string> { "" };
+			var array = Array.Empty<string>();
 			verify.ArgumentOutOfRangeException("arrayIndex", 1, () => result.CopyTo(array, 1));
 		}
 	}
@@ -123,9 +116,8 @@ public class WeakReferenceCollectionTests
 	{
 		using (var verify = new Verify())
 		{
-			var result = new WeakReferenceCollection<string>();
-			result.Add("");
-			var array = new string[0];
+			var result = new WeakReferenceCollection<string> { "" };
+			var array = Array.Empty<string>();
 			verify.ArgumentOutOfRangeException("arrayIndex", -1, () => result.CopyTo(array, -1));
 		}
 	}
@@ -159,9 +151,7 @@ public class WeakReferenceCollectionTests
 			string item1 = "AAA";
 			string item2 = "BBB";
 
-			var list = new List<string>();
-			list.Add(item1);
-			list.Add(item2);
+			var list = new List<string> { item1, item2 };
 
 			var result = new WeakReferenceCollection<string>();
 			result.AddRange(list);

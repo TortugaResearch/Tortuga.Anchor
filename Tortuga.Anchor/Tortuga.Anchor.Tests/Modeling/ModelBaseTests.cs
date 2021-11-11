@@ -17,7 +17,7 @@ public class ModelBaseTests
 		var person = new SimplePerson();
 		try
 		{
-			person.AddHandler(null);
+			person.AddHandler(null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -119,7 +119,7 @@ public class ModelBaseTests
 	[TestMethod]
 	public void ModelBase_CtrTest()
 	{
-		var employee = new SimplePerson();
+		new SimplePerson();
 	}
 
 	[TestMethod]
@@ -356,7 +356,7 @@ public class ModelBaseTests
 		var person = new SimplePerson();
 		try
 		{
-			person.RemoveHandler(null);
+			person.RemoveHandler(null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -368,15 +368,13 @@ public class ModelBaseTests
 	[TestMethod]
 	public void ModelBase_SerializationTest1()
 	{
-		var person = new SimplePerson();
-		person.FirstName = "Tom";
-		person.LastName = "Jones";
+		var person = new SimplePerson() { FirstName = "Tom", LastName = "Jones" };
 
 		var stream = new MemoryStream();
 		var serializer = new DataContractSerializer(typeof(SimplePerson));
 		serializer.WriteObject(stream, person);
 		stream.Position = 0;
-		var newPerson = (SimplePerson)serializer.ReadObject(stream);
+		var newPerson = (SimplePerson)serializer.ReadObject(stream)!;
 
 		Assert.AreEqual(person.FirstName, newPerson.FirstName);
 		Assert.AreEqual(person.LastName, newPerson.LastName);

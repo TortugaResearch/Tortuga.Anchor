@@ -6,7 +6,7 @@ namespace Tortuga.Dragnet;
 
 public class Verify : IDisposable
 {
-	ConcurrentQueue<VerificationStep> m_TestResults = new();
+	readonly ConcurrentQueue<VerificationStep> m_TestResults = new();
 
 	public bool AreEqual<T>(T? expected, T? actual, string message)
 	{
@@ -128,7 +128,7 @@ public class Verify : IDisposable
 	public TException Exception<TException>(Action body, string message) where TException : Exception
 	{
 		if (body == null)
-			throw new ArgumentNullException("body", "body is null.");
+			throw new ArgumentNullException(nameof(body), "body is null.");
 		try
 		{
 			body();
@@ -199,7 +199,7 @@ public class Verify : IDisposable
 		return AreEqual(false, actual, message);
 	}
 
-	public bool IsNotNull<T>(T actual, string message) where T : class
+	public bool IsNotNull<T>(T? actual, string message) where T : class
 	{
 		if (actual == null)
 		{
@@ -210,7 +210,7 @@ public class Verify : IDisposable
 		return true;
 	}
 
-	public bool IsNull<T>(T actual, string message) where T : class
+	public bool IsNull<T>(T? actual, string message) where T : class
 	{
 		if (actual != null)
 		{
@@ -367,8 +367,8 @@ public class Verify : IDisposable
 		m_TestResults.Enqueue(new VerificationStep(null, message, severity));
 	}
 
-	void Add(string checkType, string message, Severity severity)
-	{
-		m_TestResults.Enqueue(new VerificationStep(checkType, message, severity));
-	}
+	//void Add(string checkType, string message, Severity severity)
+	//{
+	//	m_TestResults.Enqueue(new VerificationStep(checkType, message, severity));
+	//}
 }

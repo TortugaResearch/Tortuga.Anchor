@@ -68,7 +68,7 @@ public class ExtendedReadOnlyObservableCollectionTests
 		{
 			try
 			{
-				ObservableCollectionExtended<int> list = null;
+				ObservableCollectionExtended<int> list = null!;
 				var result = new ReadOnlyObservableCollectionExtended<int>(list);
 				verify.Fail("Expected an ArgumentNullException");
 			}
@@ -84,7 +84,7 @@ public class ExtendedReadOnlyObservableCollectionTests
 	{
 		using (var verify = new Verify())
 		{
-			Func<WeakReference> builder = () =>
+			WeakReference builder()
 			{
 				var source = new ObservableCollectionExtended<int>();
 				var target = new ReadOnlyObservableCollectionExtended<int>(source);
@@ -115,7 +115,7 @@ public class ExtendedReadOnlyObservableCollectionTests
 				verify.ItemsAreEqual(source, target, "");
 
 				return new WeakReference(target);
-			};
+			}
 
 			var wr = builder();
 

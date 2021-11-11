@@ -40,8 +40,8 @@ public class ValidationResultEqualityComparerTests
 		Assert.IsFalse(test.Equals(d1, e));
 		Assert.IsFalse(test.Equals(e, d1));
 
-		Assert.AreEqual(0, test.GetHashCode(null));
+		Assert.AreEqual(0, test.GetHashCode(null!));
 		Assert.AreEqual(0, test.GetHashCode(d1));
-		Assert.AreEqual(test.GetHashCode(a1), test.GetHashCode(a2));
+		Assert.AreEqual(test.GetHashCode(a1!), test.GetHashCode(a2));
 	}
 }

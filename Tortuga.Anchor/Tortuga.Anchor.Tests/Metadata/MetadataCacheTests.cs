@@ -23,10 +23,10 @@ public class NullTestsA
 public class Base
 {
 	[Decompose]
-	public ChildA ChildA { get; set; }
+	public ChildA ChildA { get; set; } = null!;
 
 	[Decompose("Bbb")]
-	public ChildB ChildB { get; set; }
+	public ChildB ChildB { get; set; } = null!;
 
 	public int Property0 { get; set; }
 }
@@ -520,7 +520,7 @@ public class MetadataCacheTests
 			var mock = new Mock();
 			var prop = result.Properties["PublicProperty"];
 			prop.InvokeSet(mock, 5);
-			var value = (int)prop.InvokeGet(mock);
+			var value = (int)prop.InvokeGet(mock)!;
 			verify.AreEqual(5, value, "InvokeGet");
 		}
 	}
@@ -533,7 +533,7 @@ public class MetadataCacheTests
 			var result = MetadataCache.GetMetadata(typeof(Mock));
 			verify.ArgumentException("propertyName", () =>
 				{
-					var x = result.Properties[null];
+					var x = result.Properties[null!];
 				});
 		}
 	}
@@ -546,7 +546,7 @@ public class MetadataCacheTests
 			var result = MetadataCache.GetMetadata(typeof(Mock));
 			verify.ArgumentException("propertyName", () =>
 			{
-				var x = result.Properties[null];
+				var x = result.Properties[null!];
 			}, "empty strings are not allowed");
 		}
 	}
@@ -613,7 +613,7 @@ public class MetadataCacheTests
 		using (var verify = new Verify())
 		{
 			var result = MetadataCache.GetMetadata(typeof(Mock));
-			verify.ArgumentNullException("item", () => result.Properties.Contains((PropertyMetadata)null));
+			verify.ArgumentNullException("item", () => result.Properties.Contains((PropertyMetadata)null!));
 		}
 	}
 
@@ -623,7 +623,7 @@ public class MetadataCacheTests
 		using (var verify = new Verify())
 		{
 			var result = MetadataCache.GetMetadata(typeof(Mock));
-			verify.ArgumentException("propertyName", () => result.Properties.Contains((string)null));
+			verify.ArgumentException("propertyName", () => result.Properties.Contains((string)null!));
 		}
 	}
 
@@ -632,7 +632,7 @@ public class MetadataCacheTests
 	{
 		using (var verify = new Verify())
 		{
-			verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((Type)null));
+			verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((Type)null!));
 		}
 	}
 
@@ -695,7 +695,7 @@ public class MetadataCacheTests
 		using (var verify = new Verify())
 		{
 			var result = MetadataCache.GetMetadata(typeof(Mock));
-			verify.IsFalse(result.Properties.TryGetValue("DOES_NOT_EXIST", out PropertyMetadata p), "TryGet expected to fail here");
+			verify.IsFalse(result.Properties.TryGetValue("DOES_NOT_EXIST", out var p), "TryGet expected to fail here");
 			verify.IsNull(p, "TryGet failed, so this should be null.");
 		}
 	}
@@ -706,7 +706,7 @@ public class MetadataCacheTests
 		using (var verify = new Verify())
 		{
 			var result = MetadataCache.GetMetadata(typeof(Mock));
-			verify.IsTrue(result.Properties.TryGetValue("PublicProperty", out PropertyMetadata p), "TryGet should have succeeded");
+			verify.IsTrue(result.Properties.TryGetValue("PublicProperty", out var p), "TryGet should have succeeded");
 			verify.IsNotNull(p, "TryGet should have succeeded");
 		}
 	}
@@ -717,7 +717,7 @@ public class MetadataCacheTests
 		using (var verify = new Verify())
 		{
 			var result = MetadataCache.GetMetadata(typeof(Mock));
-			verify.ArgumentException("propertyName", () => result.Properties.TryGetValue("", out PropertyMetadata p), "can't use empty strings for property name");
+			verify.ArgumentException("propertyName", () => result.Properties.TryGetValue("", out var p), "can't use empty strings for property name");
 		}
 	}
 
@@ -727,7 +727,7 @@ public class MetadataCacheTests
 		using (var verify = new Verify())
 		{
 			var result = MetadataCache.GetMetadata(typeof(Mock));
-			verify.ArgumentException("propertyName", () => result.Properties.TryGetValue(null, out PropertyMetadata p));
+			verify.ArgumentException("propertyName", () => result.Properties.TryGetValue(null!, out var p));
 		}
 	}
 
@@ -746,7 +746,7 @@ public class MetadataCacheTests
 	{
 		using (var verify = new Verify())
 		{
-			verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((TypeInfo)null));
+			verify.ArgumentNullException("type", () => MetadataCache.GetMetadata((TypeInfo)null!));
 		}
 	}
 
@@ -941,6 +941,7 @@ public class MetadataCacheTests
 		{
 		}
 
+#pragma warning disable IDE0060 // Remove unused parameter
 		public MultiConstructor(int x)
 		{
 		}
@@ -952,13 +953,16 @@ public class MetadataCacheTests
 		public MultiConstructor(int a, string b)
 		{
 		}
+#pragma warning restore IDE0060 // Remove unused parameter
 	}
 
 	public class NonDefaultConstructor
 	{
+#pragma warning disable IDE0060 // Remove unused parameter
 		public NonDefaultConstructor(int x)
 		{
 		}
+#pragma warning restore IDE0060 // Remove unused parameter
 	}
 
 	public class PrivateDefaultConstructor

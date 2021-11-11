@@ -15,7 +15,7 @@ public class PropertyMetadataCollectionTests
 			try
 			{
 				var result = MetadataCache.GetMetadata(typeof(Tests.Metadata.Mock)).Properties;
-				result.CopyTo(null, 0);
+				result.CopyTo(null!, 0);
 
 				verify.Fail("Expected an ArgumentNullException");
 			}

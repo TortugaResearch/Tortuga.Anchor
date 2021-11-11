@@ -16,7 +16,7 @@ public class EditableObjectModelBaseTests
 		var person = new EditablePerson();
 		try
 		{
-			person.AddHandler(null);
+			person.AddHandler(null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -204,7 +204,7 @@ public class EditableObjectModelBaseTests
 	[TestMethod]
 	public void EditableObjectModelBase_CtrTest()
 	{
-		var employee = new EditablePerson();
+		_ = new EditablePerson();
 	}
 
 	[TestMethod]
@@ -446,7 +446,7 @@ public class EditableObjectModelBaseTests
 	public void EditableObjectModelBase_MissingOriginalTest()
 	{
 		var person = new EditablePerson();
-		var value = person.GetPreviousValue("FirstName");
+		person.GetPreviousValue("FirstName");
 	}
 
 	[TestMethod]
@@ -501,7 +501,7 @@ public class EditableObjectModelBaseTests
 		var person = new EditablePerson();
 		try
 		{
-			person.RemoveHandler(null);
+			person.RemoveHandler(null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -513,16 +513,14 @@ public class EditableObjectModelBaseTests
 	[TestMethod]
 	public void EditableObjectModelBase_SerializationTest1()
 	{
-		var person = new EditablePerson();
-		person.FirstName = "Tom";
-		person.LastName = "Jones";
+		var person = new EditablePerson() { FirstName = "Tom", LastName = "Jones" };
 		person.AcceptChanges();
 
 		var stream = new MemoryStream();
 		var serializer = new DataContractSerializer(typeof(EditablePerson));
 		serializer.WriteObject(stream, person);
 		stream.Position = 0;
-		var newPerson = (EditablePerson)serializer.ReadObject(stream);
+		var newPerson = (EditablePerson)serializer.ReadObject(stream)!;
 
 		Assert.AreEqual(person.FirstName, newPerson.FirstName);
 		Assert.AreEqual(person.LastName, newPerson.LastName);

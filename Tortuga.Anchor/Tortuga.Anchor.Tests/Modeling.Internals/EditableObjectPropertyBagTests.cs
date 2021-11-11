@@ -42,7 +42,7 @@ public class EditableObjectPropertyBagTests
 	{
 		try
 		{
-			var bag = new PropertyBag(null);
+			var bag = new PropertyBag(null!);
 
 			Assert.Fail("Expected an exception");
 		}
@@ -282,7 +282,7 @@ public class EditableObjectPropertyBagTests
 		var bag = GetPropertyBag();
 		try
 		{
-			bag.GetValue(null);
+			bag.GetValue(null!);
 
 			Assert.Fail("Expected an exception");
 		}
@@ -314,7 +314,7 @@ public class EditableObjectPropertyBagTests
 		var bag = GetPropertyBag();
 		try
 		{
-			bag.IsDefined(null);
+			bag.IsDefined(null!);
 
 			Assert.Fail("Expected an exception");
 		}
@@ -361,7 +361,7 @@ public class EditableObjectPropertyBagTests
 		var bag = GetPropertyBag();
 		try
 		{
-			bag.Set(0, (string)null);
+			bag.Set(0, (string)null!);
 
 			Assert.Fail("Expected an exception");
 		}
@@ -393,7 +393,7 @@ public class EditableObjectPropertyBagTests
 		var bag = GetPropertyBag();
 		try
 		{
-			bag.Set(0, PropertySetModes.None, null);
+			bag.Set(0, PropertySetModes.None, null!);
 
 			Assert.Fail("Expected an exception");
 		}

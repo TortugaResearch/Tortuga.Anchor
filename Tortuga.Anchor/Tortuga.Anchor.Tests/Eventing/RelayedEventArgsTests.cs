@@ -14,7 +14,7 @@ public class RelayedEventArgsTests
 		{
 			try
 			{
-				var e = RelayedEventArgs.Create(new object(), (EventArgs)null);
+				var e = RelayedEventArgs.Create(new object(), (EventArgs)null!);
 				verify.Fail("Expected an ArgumentNullException");
 			}
 			catch (ArgumentNullException ex)

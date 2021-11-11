@@ -13,7 +13,7 @@ public class PropertyBagBaseTests
 		var bag = GetPropertyBagBase();
 		try
 		{
-			bag.PropertyChanged(null);
+			bag.PropertyChanged(null!);
 		}
 		catch (ArgumentNullException ex)
 		{
@@ -27,7 +27,7 @@ public class PropertyBagBaseTests
 		var bag = GetPropertyBagBase();
 		try
 		{
-			bag.RevalidateProperty(null);
+			bag.RevalidateProperty(null!);
 		}
 		catch (ArgumentNullException ex)
 		{
@@ -50,14 +50,14 @@ public class PropertyBagBaseTests
 
 	class MockPropertyBag : PropertyBagBase
 	{
-		Dictionary<string, object> m_Values = new Dictionary<string, object>();
+		readonly Dictionary<string, object?> m_Values = new();
 
 		public MockPropertyBag(object owner)
 						: base(owner)
 		{
 		}
 
-		public override object GetValue(string propertyName)
+		public override object? GetValue(string propertyName)
 		{
 			if (m_Values.ContainsKey(propertyName))
 				return m_Values[propertyName];
@@ -80,7 +80,7 @@ public class PropertyBagBaseTests
 			base.OnRevalidateProperty(property);
 		}
 
-		public override bool Set(object? value, PropertySetModes mode, string propertyName, out object oldValue)
+		public override bool Set(object? value, PropertySetModes mode, string propertyName, out object? oldValue)
 		{
 			oldValue = null;
 			m_Values[propertyName] = value;

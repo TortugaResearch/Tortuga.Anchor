@@ -16,10 +16,7 @@ public class PropertyChangedEventTest : EventTest<PropertyChangedEventArgs>
 	public PropertyChangedEventTest(Verify verify, INotifyPropertyChanged source)
 		: base(verify, source)
 	{
-		if (source == null)
-			throw new ArgumentNullException("source", "source is null.");
-
-		m_Source = source;
+		m_Source = source ?? throw new ArgumentNullException(nameof(source), "source is null.");
 		m_Source.PropertyChanged += SourceEventFired;
 	}
 
@@ -45,8 +42,8 @@ public class PropertyChangedEventTest : EventTest<PropertyChangedEventArgs>
 		while (workingList.Count > 0 && Count > 0)
 		{
 			var nextEvent = ExpectEvent();
-			if (workingList.Contains(nextEvent.EventArgs.PropertyName))
-				workingList.Remove(nextEvent.EventArgs.PropertyName);
+			if (workingList.Contains(nextEvent.EventArgs.PropertyName!))
+				workingList.Remove(nextEvent.EventArgs.PropertyName!);
 			else
 				Verify.Fail("The property named " + nextEvent.EventArgs.PropertyName + " was not expected.");
 		}

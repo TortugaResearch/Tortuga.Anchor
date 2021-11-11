@@ -104,7 +104,7 @@ public class ChangeTrackingPerson : ChangeTrackingModelBase
 
 	public void BadGetWithDefault()
 	{
-		GetDefault<int>(10, null);
+		GetDefault<int>(10, null!);
 	}
 
 	public void BadGetWithDefault2()
@@ -114,7 +114,7 @@ public class ChangeTrackingPerson : ChangeTrackingModelBase
 
 	public void BadGet()
 	{
-		base.Get<int>(null);
+		base.Get<int>(null!);
 	}
 
 	public void BadGet2()
@@ -124,7 +124,7 @@ public class ChangeTrackingPerson : ChangeTrackingModelBase
 
 	public void BadGetNew1()
 	{
-		base.GetNew<int>(() => 1, null);
+		base.GetNew<int>(() => 1, null!);
 	}
 
 	public void BadGetNew2()
@@ -134,12 +134,12 @@ public class ChangeTrackingPerson : ChangeTrackingModelBase
 
 	public void BadGetNew3()
 	{
-		base.GetNew<int>(null, "");
+		base.GetNew<int>(null!, "");
 	}
 
 	public void BadGetNew4()
 	{
-		base.GetNew<int>(null);
+		base.GetNew<int>(null!);
 	}
 
 	public void BadGetNew5()
@@ -149,7 +149,7 @@ public class ChangeTrackingPerson : ChangeTrackingModelBase
 
 	public void BadSet1()
 	{
-		base.Set(null, null);
+		base.Set(null!, null!);
 	}
 
 	public void BadSet2()

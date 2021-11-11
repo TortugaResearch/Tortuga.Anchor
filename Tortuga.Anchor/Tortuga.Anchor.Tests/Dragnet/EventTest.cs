@@ -18,13 +18,8 @@ public abstract class EventTest<TEventArgs> where TEventArgs : EventArgs
 	/// <param name="source"></param>
 	protected EventTest(Verify verify, object source)
 	{
-		if (verify == null)
-			throw new ArgumentNullException("verify", "verify is null.");
-		if (source == null)
-			throw new ArgumentNullException("source", "source is null.");
-
-		m_Verify = verify;
-		m_Source = source;
+		m_Verify = verify ?? throw new ArgumentNullException(nameof(verify), "verify is null.");
+		m_Source = source ?? throw new ArgumentNullException(nameof(source), "source is null.");
 	}
 
 	/// <summary>
@@ -108,7 +103,7 @@ public abstract class EventTest<TEventArgs> where TEventArgs : EventArgs
 	/// </summary>
 	public void ExpectNothing()
 	{
-		ExpectCountEquals(0, null);
+		ExpectCountEquals(0, null!);
 	}
 
 	/// <summary>

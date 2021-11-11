@@ -69,7 +69,7 @@ public class SimplePerson : ModelBase
 
 	public void BadGet()
 	{
-		base.Get<int>(null);
+		base.Get<int>(null!);
 	}
 
 	public void BadGet2()
@@ -79,7 +79,7 @@ public class SimplePerson : ModelBase
 
 	public void BadGetNew1()
 	{
-		base.GetNew<int>(() => 1, null);
+		base.GetNew<int>(() => 1, null!);
 	}
 
 	public void BadGetNew2()
@@ -89,12 +89,12 @@ public class SimplePerson : ModelBase
 
 	public void BadGetNew3()
 	{
-		base.GetNew<int>(null, "");
+		base.GetNew<int>(null!, "");
 	}
 
 	public void BadGetNew4()
 	{
-		base.GetNew<int>(null);
+		base.GetNew<int>(null!);
 	}
 
 	public void BadGetNew5()
@@ -104,7 +104,7 @@ public class SimplePerson : ModelBase
 
 	public void BadGetNew6()
 	{
-		base.GetNew(null);
+		base.GetNew(null!);
 	}
 
 	public void BadGetNew7()
@@ -114,7 +114,7 @@ public class SimplePerson : ModelBase
 
 	public void BadGetWithDefault()
 	{
-		base.GetDefault<int>(10, null);
+		base.GetDefault<int>(10, null!);
 	}
 
 	public void BadGetWithDefault2()
@@ -124,7 +124,7 @@ public class SimplePerson : ModelBase
 
 	public void BadSet1()
 	{
-		base.Set(null, null);
+		base.Set(null, null!);
 	}
 
 	public void BadSet2()
@@ -159,7 +159,7 @@ public class SimplePerson : ModelBase
 	{
 		PreviousDateOfBirth = oldValue;
 	}
-	void Secretary_Changed(object sender, PropertyChangedEventArgs e)
+	void Secretary_Changed(object? sender, PropertyChangedEventArgs e)
 	{
 		m_SecretaryChangeCounter += 1;
 	}

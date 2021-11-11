@@ -17,7 +17,7 @@ public class ModelBaseCollectionTests
 		var person = new SimplePersonCollection();
 		try
 		{
-			person.AddHandler((IListener<PropertyChangedEventArgs>)null);
+			person.AddHandler((IListener<PropertyChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -32,7 +32,7 @@ public class ModelBaseCollectionTests
 		var person = new SimplePersonCollection();
 		try
 		{
-			person.AddHandler((IListener<NotifyCollectionChangedEventArgs>)null);
+			person.AddHandler((IListener<NotifyCollectionChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -47,7 +47,7 @@ public class ModelBaseCollectionTests
 		var person = new SimplePersonCollection();
 		try
 		{
-			person.AddHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
+			person.AddHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -149,7 +149,7 @@ public class ModelBaseCollectionTests
 	[TestMethod]
 	public void ModelBaseCollection_CtrTest()
 	{
-		var employee = new SimplePersonCollection();
+		new SimplePersonCollection();
 	}
 
 	[TestMethod]
@@ -324,9 +324,7 @@ public class ModelBaseCollectionTests
 	[TestMethod]
 	public void ModelBaseCollection_MultiFieldValidation()
 	{
-		var person = new SimplePersonCollection();
-		person.FirstName = "Tom";
-		person.LastName = "Tom";
+		var person = new SimplePersonCollection() { FirstName = "Tom", LastName = "Tom" };
 		var errors = person.GetErrors("FirstName");
 		Assert.AreEqual(1, errors.Count);
 		Assert.IsTrue(errors[0].MemberNames.Contains("FirstName"));
@@ -355,7 +353,7 @@ public class ModelBaseCollectionTests
 		var person = new SimplePersonCollection();
 		try
 		{
-			person.RemoveHandler((IListener<PropertyChangedEventArgs>)null);
+			person.RemoveHandler((IListener<PropertyChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -370,7 +368,7 @@ public class ModelBaseCollectionTests
 		var person = new SimplePersonCollection();
 		try
 		{
-			person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null);
+			person.RemoveHandler((IListener<NotifyCollectionChangedEventArgs>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -385,7 +383,7 @@ public class ModelBaseCollectionTests
 		var person = new SimplePersonCollection();
 		try
 		{
-			person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null);
+			person.RemoveHandler((IListener<RelayedEventArgs<PropertyChangedEventArgs>>)null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -425,7 +423,7 @@ public class ModelBaseCollectionTests
 		var serializer = new DataContractSerializer(typeof(SimplePersonCollection));
 		serializer.WriteObject(stream, people);
 		stream.Position = 0;
-		var newPeople = (SimplePersonCollection)serializer.ReadObject(stream);
+		var newPeople = (SimplePersonCollection)serializer.ReadObject(stream)!;
 
 		//Property serialization isn't supported by the data contract serializer
 		//Assert.AreEqual(people.FirstName, newPeople.FirstName);

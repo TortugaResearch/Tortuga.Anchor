@@ -7,19 +7,16 @@ namespace Tortuga.Dragnet;
 public class EventPair<T> where T : EventArgs
 {
 	readonly T m_EventArgs;
-	readonly object m_Sender;
+	readonly object? m_Sender;
 
 	/// <summary>
 	/// Creates a new EventPair
 	/// </summary>
 	/// <param name="sender"></param>
 	/// <param name="eventArgs"></param>
-	public EventPair(object sender, T eventArgs)
+	public EventPair(object? sender, T eventArgs)
 	{
-		if (eventArgs == null)
-			throw new ArgumentNullException("eventArgs", "eventArgs is null.");
-
-		m_EventArgs = eventArgs;
+		m_EventArgs = eventArgs ?? throw new ArgumentNullException(nameof(eventArgs), "eventArgs is null.");
 		m_Sender = sender;
 	}
 
@@ -34,7 +31,7 @@ public class EventPair<T> where T : EventArgs
 	/// <summary>
 	/// The sender associated with this event. This may be null.
 	/// </summary>
-	public object Sender
+	public object? Sender
 	{
 		get { return m_Sender; }
 	}

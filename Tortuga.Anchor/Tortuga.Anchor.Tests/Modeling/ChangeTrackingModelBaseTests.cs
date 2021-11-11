@@ -20,7 +20,7 @@ public class ChangeTrackingModelBaseTests
 		var person = new ChangeTrackingPerson();
 		try
 		{
-			person.AddHandler(null);
+			person.AddHandler(null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -230,7 +230,7 @@ public class ChangeTrackingModelBaseTests
 	[TestMethod]
 	public void ChangeTrackingModelBase_CtrTest()
 	{
-		var employee = new ChangeTrackingPerson();
+		new ChangeTrackingPerson();
 	}
 
 	[TestMethod]
@@ -414,7 +414,7 @@ public class ChangeTrackingModelBaseTests
 	public void ChangeTrackingModelBase_MissingOriginalTest()
 	{
 		var person = new ChangeTrackingPerson();
-		var value = person.GetPreviousValue("FirstName");
+		person.GetPreviousValue("FirstName");
 	}
 
 	[TestMethod]
@@ -467,7 +467,7 @@ public class ChangeTrackingModelBaseTests
 		var person = new ChangeTrackingPerson();
 		try
 		{
-			person.RemoveHandler(null);
+			person.RemoveHandler(null!);
 			Assert.Fail("Excepted an ArgumentNullException");
 		}
 		catch (ArgumentNullException ex)
@@ -479,16 +479,14 @@ public class ChangeTrackingModelBaseTests
 	[TestMethod]
 	public void ChangeTrackingModelBase_SerializationTest1()
 	{
-		var person = new ChangeTrackingPerson();
-		person.FirstName = "Tom";
-		person.LastName = "Jones";
+		var person = new ChangeTrackingPerson() { FirstName = "Tom", LastName = "Jones" };
 		person.AcceptChanges();
 
 		var stream = new MemoryStream();
 		var serializer = new DataContractSerializer(typeof(ChangeTrackingPerson));
 		serializer.WriteObject(stream, person);
 		stream.Position = 0;
-		var newPerson = (ChangeTrackingPerson)serializer.ReadObject(stream);
+		var newPerson = (ChangeTrackingPerson)serializer.ReadObject(stream)!;
 
 		Assert.AreEqual(person.FirstName, newPerson.FirstName);
 		Assert.AreEqual(person.LastName, newPerson.LastName);
