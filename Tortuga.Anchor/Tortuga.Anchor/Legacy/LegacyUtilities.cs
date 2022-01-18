@@ -1,25 +1,19 @@
-﻿#if !ORDINAL_STRINGS
+﻿#if !ORDINAL_STRINGS && !NET5_0_OR_GREATER
+namespace Tortuga.Anchor;
 
-using System;
-
-namespace Tortuga.Anchor
+static class LegacyUtilities
 {
-    static class LegacyUtilities
-    {
-        public static int GetHashCode(this string source, StringComparison stringComparison)
-        {
-            switch (stringComparison)
-            {
-                case StringComparison.CurrentCultureIgnoreCase:
-                case StringComparison.OrdinalIgnoreCase:
-                case StringComparison.InvariantCultureIgnoreCase:
-                    return source.ToUpperInvariant().GetHashCode();
-
-                default:
-                    return source.GetHashCode();
-            }
-        }
-    }
+	public static int GetHashCode(this string source, StringComparison stringComparison)
+	{
+		return stringComparison switch
+		{
+			StringComparison.CurrentCultureIgnoreCase or
+			StringComparison.OrdinalIgnoreCase or
+			StringComparison.InvariantCultureIgnoreCase
+				=> source.ToUpperInvariant().GetHashCode(),
+			_ => source.GetHashCode(),
+		};
+	}
 }
 
 #endif

@@ -1,9 +1,8 @@
-namespace Tortuga.Dragnet
+namespace Tortuga.Dragnet;
+
+public enum Severity
 {
-    public enum Severity
-    {
-        Message,
-        Inconclusive,
-        Failed
-    }
+	Message,
+	Inconclusive,
+	Failed
 }

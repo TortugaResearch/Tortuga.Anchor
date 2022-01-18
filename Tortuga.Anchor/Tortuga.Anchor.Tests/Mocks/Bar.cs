@@ -1,10 +1,7 @@
-using System;
+namespace Tests.Mocks;
 
-namespace Tests.Mocks
+public class Bar
 {
-    public class Bar
-    {
-        public Decimal Cost { get; set; }
-        public int Weight { get; set; }
-    }
+	public Decimal Cost { get; set; }
+	public int Weight { get; set; }
 }
