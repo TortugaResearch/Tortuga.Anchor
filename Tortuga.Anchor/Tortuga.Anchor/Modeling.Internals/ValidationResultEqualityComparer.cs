@@ -34,7 +34,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <remarks>
         /// WARNING: The result of Equals can change! It is based on ValidationResult, which unfortunately isn't immutable.
         /// </remarks>
-        public bool Equals(ValidationResult x, ValidationResult y)
+        public bool Equals(ValidationResult? x, ValidationResult? y)
         {
             if (x == y)
                 return true;
@@ -66,11 +66,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (obj == null || obj.ErrorMessage == null)
                 return 0;
 
-#if OrdinalHashCodes
             return obj.ErrorMessage.GetHashCode(StringComparison.Ordinal);
-#else
-            return obj.ErrorMessage.GetHashCode();
-#endif
         }
     }
 }

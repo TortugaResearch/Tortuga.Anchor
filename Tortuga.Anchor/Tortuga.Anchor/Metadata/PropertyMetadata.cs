@@ -16,12 +16,13 @@ namespace Tortuga.Anchor.Metadata
     public partial class PropertyMetadata
     {
         readonly List<PropertyMetadata> m_CalculatedFieldsBuilder = new List<PropertyMetadata>();
-        readonly MethodInfo m_GetMethod;
-        readonly MethodInfo m_SetMethod;
+        readonly MethodInfo? m_GetMethod;
+        readonly MethodInfo? m_SetMethod;
 
-        internal PropertyMetadata(PropertyInfo info)
+        internal PropertyMetadata(PropertyInfo info, int propertyIndex)
         {
             PropertyInfo = info;
+            PropertyIndex = propertyIndex;
 
             Validators = ImmutableArray.CreateRange(info.GetCustomAttributes(typeof(ValidationAttribute), true).OfType<ValidationAttribute>());
 
@@ -32,7 +33,7 @@ namespace Tortuga.Anchor.Metadata
 
             PropertyType = info.PropertyType;
 
-            var name = info.ToString();
+            var name = info.ToString()!;
             Name = name.Substring(name.IndexOf(" ", StringComparison.Ordinal) + 1);
 
             if (IsIndexed)
@@ -50,10 +51,10 @@ namespace Tortuga.Anchor.Metadata
             var doNotMap = info.GetCustomAttributes(typeof(NotMappedAttribute), true).Length > 0;
             if (!doNotMap)
             {
-                var column = (ColumnAttribute)info.GetCustomAttributes(typeof(ColumnAttribute), true).SingleOrDefault();
+                var column = (ColumnAttribute?)info.GetCustomAttributes(typeof(ColumnAttribute), true).SingleOrDefault();
                 MappedColumnName = column != null ? column.Name : Name;
             }
-            var decomposeAttribute = (DecomposeAttribute)(info.GetCustomAttributes(typeof(DecomposeAttribute), true).FirstOrDefault());
+            var decomposeAttribute = (DecomposeAttribute?)(info.GetCustomAttributes(typeof(DecomposeAttribute), true).FirstOrDefault());
             if (decomposeAttribute != null)
             {
                 Decompose = true;
@@ -61,6 +62,27 @@ namespace Tortuga.Anchor.Metadata
             }
             IgnoreOnInsert = info.GetCustomAttributes(typeof(IgnoreOnInsertAttribute), true).Length > 0;
             IgnoreOnUpdate = info.GetCustomAttributes(typeof(IgnoreOnUpdateAttribute), true).Length > 0;
+
+            if (!PropertyType.IsValueType)
+            {
+                var nullableAttribute = info.GetCustomAttributes().Where(a => a.GetType().FullName == "System.Runtime.CompilerServices.NullableAttribute").FirstOrDefault();
+
+                if (nullableAttribute != null)
+                {
+                    byte[] bytes = (byte[])nullableAttribute.GetType().GetField("NullableFlags")!.GetValue(nullableAttribute)!;
+
+                    if (bytes.Length >= 1)
+                        IsReferenceNullable = bytes[0] switch
+                        {
+                            0 => (bool?)null,
+                            1 => false,
+                            2 => true,
+                            _ => null
+                        };
+
+                    NullabilityFlags = ImmutableArray.Create<byte>(bytes);
+                }
+            }
         }
 
         /// <summary>
@@ -140,6 +162,12 @@ namespace Tortuga.Anchor.Metadata
         public bool IsKey { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this is nullable reference type.
+        /// </summary>
+        /// <value><c>null</c> if null agnostic, <c>true</c> if nullable; <c>false</c> is non-nullable.</value>
+        public bool? IsReferenceNullable { get; }
+
+        /// <summary>
         /// Column that this attribute is mapped to. Defaults to the property's name, but may be overridden by ColumnAttribute.
         /// </summary>
         public string? MappedColumnName { get; }
@@ -148,6 +176,13 @@ namespace Tortuga.Anchor.Metadata
         /// Public name of the property
         /// </summary>
         public string Name { get; }
+
+        /// <summary>
+        /// Gets the nullability flags from the property's NullableAttribute.
+        /// </summary>
+        /// <value>The nullability flags.</value>
+        /// <remarks>See https://github.com/dotnet/roslyn/blob/master/docs/features/nullable-metadata.md for more information.</remarks>
+        public ImmutableArray<byte> NullabilityFlags { get; }
 
         /// <summary>
         /// Gets a cached instance of PropertyChangedEventArgs
@@ -186,7 +221,7 @@ namespace Tortuga.Anchor.Metadata
         {
             if (CanRead)
             {
-                return (Func<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TProperty>), m_GetMethod);
+                return (Func<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TProperty>), m_GetMethod!);
             }
             else
                 throw new InvalidOperationException($"CanRead is false for property {Name}");
@@ -203,7 +238,7 @@ namespace Tortuga.Anchor.Metadata
         {
             if (CanReadIndexed)
             {
-                return (Func<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TIndex, TProperty>), m_GetMethod);
+                return (Func<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TIndex, TProperty>), m_GetMethod!);
             }
             else
                 throw new InvalidOperationException($"CanReadIndexed is false for property {Name}");
@@ -219,7 +254,7 @@ namespace Tortuga.Anchor.Metadata
         {
             if (CanWrite)
             {
-                return (Action<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TProperty>), m_SetMethod);
+                return (Action<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TProperty>), m_SetMethod!);
             }
             else
                 throw new InvalidOperationException($"CanWrite is false for property {Name}");
@@ -236,7 +271,7 @@ namespace Tortuga.Anchor.Metadata
         {
             if (CanWriteIndexed)
             {
-                return (Action<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TIndex, TProperty>), m_SetMethod);
+                return (Action<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TIndex, TProperty>), m_SetMethod!);
             }
             else
                 throw new InvalidOperationException($"CanWriteIndexed is false for property {Name}");
@@ -249,13 +284,13 @@ namespace Tortuga.Anchor.Metadata
         /// <returns>System.Object.</returns>
         /// <exception cref="ArgumentException">Error getting property " + Name</exception>
         /// <exception cref="InvalidOperationException">CanRead is false on property {Name}.</exception>
-        public object InvokeGet(object target)
+        public object? InvokeGet(object target)
         {
             if (CanRead)
             {
                 try
                 {
-                    return m_GetMethod.Invoke(target, null);
+                    return m_GetMethod!.Invoke(target, null);
                 }
                 catch (ArgumentException ex)
                 {
@@ -274,13 +309,13 @@ namespace Tortuga.Anchor.Metadata
         /// <returns>System.Object.</returns>
         /// <exception cref="System.ArgumentException">Error getting property " + Name</exception>
         /// <exception cref="System.InvalidOperationException">CanReadIndexed is false on property {Name}.</exception>
-        public object InvokeGet(object target, object? index)
+        public object? InvokeGet(object target, object? index)
         {
             if (CanReadIndexed)
             {
                 try
                 {
-                    return m_GetMethod.Invoke(target, new object?[] { index });
+                    return m_GetMethod!.Invoke(target, new object?[] { index });
                 }
                 catch (ArgumentException ex)
                 {
@@ -305,7 +340,7 @@ namespace Tortuga.Anchor.Metadata
             {
                 try
                 {
-                    m_SetMethod.Invoke(target, new object?[] { value });
+                    m_SetMethod!.Invoke(target, new object?[] { value });
                 }
                 catch (ArgumentException ex)
                 {
@@ -331,7 +366,7 @@ namespace Tortuga.Anchor.Metadata
             {
                 try
                 {
-                    m_SetMethod.Invoke(target, new object?[] { index, value });
+                    m_SetMethod!.Invoke(target, new object?[] { index, value });
                 }
                 catch (ArgumentException ex)
                 {
@@ -355,5 +390,12 @@ namespace Tortuga.Anchor.Metadata
         {
             CalculatedFields = ImmutableArray.CreateRange(m_CalculatedFieldsBuilder);
         }
+
+        /// <summary>
+        /// Gets or sets the index of the property.
+        /// </summary>
+        /// <value>The index of the property.</value>
+        /// <remarks>Used by property bags and other things that need to store property values in arrays.</remarks>
+        public int PropertyIndex { get; }
     }
 }

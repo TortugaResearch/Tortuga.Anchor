@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Tortuga.Anchor.Metadata
@@ -31,9 +32,9 @@ namespace Tortuga.Anchor.Metadata
                 if (value.IsIndexed)
                 {
                     if (value.Name.EndsWith(" [Int32]", StringComparison.Ordinal))
-                        m_Int32IndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName, value);
+                        m_Int32IndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName!, value);
                     else if (value.Name.EndsWith(" [System.String]", StringComparison.Ordinal))
-                        m_StringIndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName, value);
+                        m_StringIndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName!, value);
                 }
             }
             m_QuickList = ImmutableArray.CreateRange(m_Base.Values);
@@ -70,11 +71,12 @@ namespace Tortuga.Anchor.Metadata
         public PropertyMetadata this[int index] => m_QuickList[index];
 
         /// <summary>
-        /// Attempts to fetch property metadata for the indicated property. Will throw an error if not found.
+        /// Attempts to fetch property metadata for the indicated property. Will throw an error if
+        /// not found.
         /// </summary>
         /// <param name="propertyName">
-        /// Case insensitive property name.
-        /// For indexed properties the parameter types should appear inside brackets. For example, "Item [Int32]".
+        /// Case insensitive property name. For indexed properties the parameter types should appear
+        /// inside brackets. For example, "Item [Int32]".
         /// Note: "Item[]" will be mapped to "Item [Int32]"
         /// </param>
         /// <returns></returns>
@@ -89,7 +91,7 @@ namespace Tortuga.Anchor.Metadata
                     throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 #pragma warning restore CA1065 // Do not raise exceptions in unexpected locations
 
-                if (m_Base.TryGetValue(propertyName, out PropertyMetadata result))
+                if (m_Base.TryGetValue(propertyName, out PropertyMetadata? result))
                     return result;
 
                 if (m_Int32IndexedProperties.TryGetValue(propertyName, out result))
@@ -118,7 +120,10 @@ namespace Tortuga.Anchor.Metadata
         /// Returns true if the property is known
         /// </summary>
         /// <param name="item">item to look for</param>
-        /// <returns><see langword="true" /> if <paramref name="item" /> is found in the <see cref="ICollection{T}" />; otherwise, <see langword="false" />.</returns>
+        /// <returns>
+        /// <see langword="true"/> if <paramref name="item"/> is found in the <see
+        /// cref="ICollection{T}"/>; otherwise, <see langword="false"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException">item</exception>
         public bool Contains(PropertyMetadata item)
         {
@@ -146,7 +151,9 @@ namespace Tortuga.Anchor.Metadata
         /// <summary>
         /// Copies the collection elements to an existing array
         /// </summary>
-        /// <param name="array">The one-dimensional System.Array that is the destination of the elements</param>
+        /// <param name="array">
+        /// The one-dimensional System.Array that is the destination of the elements
+        /// </param>
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
         /// <exception cref="ArgumentNullException">array</exception>
         /// <exception cref="ArgumentOutOfRangeException">arrayIndex</exception>
@@ -192,12 +199,13 @@ namespace Tortuga.Anchor.Metadata
         }
 
         /// <summary>
-        /// Attempts to fetch property metadata for the indicated property. Will not throw an error if not found.
+        /// Attempts to fetch property metadata for the indicated property. Will not throw an error
+        /// if not found.
         /// </summary>
         /// <param name="propertyName">case insensitive property name</param>
         /// <param name="value">The value.</param>
         /// <exception cref="ArgumentException">propertyName</exception>
-        public bool TryGetValue(string propertyName, out PropertyMetadata? value)
+        public bool TryGetValue(string propertyName, [NotNullWhen(true)] out PropertyMetadata? value)
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));

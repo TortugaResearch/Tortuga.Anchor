@@ -176,7 +176,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// Call Validate() to refresh this property.
         /// </remarks>
 
-        public ReadOnlyCollection<ValidationResult> GetErrors(string propertyName)
+        public ReadOnlyCollection<ValidationResult> GetErrors(string? propertyName)
         {
             return ErrorsDictionary.GetErrors(propertyName);
         }

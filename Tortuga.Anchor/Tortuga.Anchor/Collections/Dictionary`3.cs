@@ -330,7 +330,9 @@ namespace Tortuga.Anchor.Collections
         /// <returns>
         /// true if the object that implements <see cref="IDictionary{TKey,TValue}" /> contains an element with the specified key; otherwise, false.
         /// </returns>
-        public bool TryGetValue(ValueTuple<TKey1, TKey2> key, out TValue value) => m_Base.TryGetValue(key, out value);
+#pragma warning disable CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
+        public bool TryGetValue(ValueTuple<TKey1, TKey2> key, out TValue? value) => m_Base.TryGetValue(key, out value);
+#pragma warning restore CS8767 // Nullability of reference types in type of parameter doesn't match implicitly implemented member (possibly because of nullability attributes).
 
         /// <summary>
         /// Gets the value associated with the specified key.
@@ -339,6 +341,6 @@ namespace Tortuga.Anchor.Collections
         /// <param name="key2">The second key.</param>
         /// <param name="value">When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value" /> parameter. This parameter is passed uninitialized.</param>
         /// <returns> true if the object that implements <see cref="IDictionary{TKey,TValue}" /> contains an element with the specified key; otherwise, false.</returns>
-        public bool TryGetValue(TKey1 key1, TKey2 key2, out TValue value) => m_Base.TryGetValue((key1, key2), out value);
+        public bool TryGetValue(TKey1 key1, TKey2 key2, out TValue? value) => m_Base.TryGetValue((key1, key2), out value);
     }
 }

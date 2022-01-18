@@ -82,7 +82,7 @@ namespace Tests.Modeling.Internals
                 base.OnRevalidateProperty(property);
             }
 
-            public override bool Set(object value, PropertySetModes mode, string propertyName, out object oldValue)
+            public override bool Set(object? value, PropertySetModes mode, string propertyName, out object oldValue)
             {
                 oldValue = null;
                 m_Values[propertyName] = value;

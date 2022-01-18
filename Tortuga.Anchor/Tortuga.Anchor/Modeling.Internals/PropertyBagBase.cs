@@ -269,7 +269,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">propertyName;propertyName is null</exception>
         /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-        public bool Set(object value, PropertySetModes mode, [CallerMemberName] string propertyName = "")
+        public bool Set(object? value, PropertySetModes mode, [CallerMemberName] string propertyName = "")
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
@@ -286,7 +286,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <returns></returns>
         /// <exception cref="ArgumentNullException">propertyName;propertyName is null</exception>
         /// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-        public bool Set(object value, [CallerMemberName] string propertyName = "")
+        public bool Set(object? value, [CallerMemberName] string propertyName = "")
         {
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
@@ -324,8 +324,6 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             return result;
         }
-
-#nullable restore
 
         /// <summary>
         /// Set the indicated property to the value.
@@ -394,6 +392,8 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             return result;
         }
+
+#nullable restore
 
         /// <summary>
         /// Triggers the PropertyChanged event.
@@ -482,6 +482,18 @@ namespace Tortuga.Anchor.Modeling.Internals
                 throw new ArgumentNullException(nameof(property), $"{nameof(property)} is null.");
 
             RevalidateProperty?.Invoke(this, property.PropertyChangedEventArgs);
+        }
+
+        /// <summary>
+        /// Gets the index of the property.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        protected int GetPropertyIndex(string propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
+
+            return Metadata.Properties[propertyName].PropertyIndex;
         }
     }
 }

@@ -12,6 +12,17 @@ using Tortuga.Dragnet;
 
 namespace Tests.Metadata
 {
+    public class NullTestsA
+    {
+        public object NotNull { get; set; }
+        public object? Nullable { get; set; }
+
+#nullable disable
+        public object NullUnknown { get; set; }
+#nullable enable
+    }
+
+    [Table("TableBase")]
     public class Base
     {
         [Decompose]
@@ -23,6 +34,7 @@ namespace Tests.Metadata
         public int Property0 { get; set; }
     }
 
+    [TableAndView("ChildTable", ViewName = "ChildView")]
     public class ChildA
     {
         [Column("PropertyA2")]
@@ -55,6 +67,42 @@ namespace Tests.Metadata
     [TestClass]
     public class MetadataCacheTests
     {
+        [TestMethod]
+        public void TableAttribute()
+        {
+            var meta = MetadataCache.GetMetadata<Base>();
+            Assert.AreEqual("TableBase", meta.MappedTableName);
+        }
+
+        [TestMethod]
+        public void TableAndViewAttribute()
+        {
+            var meta = MetadataCache.GetMetadata<ChildA>();
+            Assert.AreEqual("ChildTable", meta.MappedTableName);
+            Assert.AreEqual("ChildView", meta.MappedViewName);
+        }
+
+        [TestMethod]
+        public void NullableProperty()
+        {
+            var meta = MetadataCache.GetMetadata<NullTestsA>();
+            Assert.AreEqual(false, meta.Properties.Single(x => x.Name == "NotNull").IsReferenceNullable);
+        }
+
+        [TestMethod]
+        public void NonNullableProperty()
+        {
+            var meta = MetadataCache.GetMetadata<NullTestsA>();
+            Assert.AreEqual(true, meta.Properties.Single(x => x.Name == "Nullable").IsReferenceNullable);
+        }
+
+        [TestMethod]
+        public void NullAgnostic()
+        {
+            var meta = MetadataCache.GetMetadata<NullTestsA>();
+            Assert.IsNull(meta.Properties.Single(x => x.Name == "NullUnknown").IsReferenceNullable);
+        }
+
         [TestMethod]
         public void MetadataCache_Constructors_Test()
         {

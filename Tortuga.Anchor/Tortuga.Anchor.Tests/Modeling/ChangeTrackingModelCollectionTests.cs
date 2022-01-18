@@ -100,6 +100,27 @@ namespace Tests.Modeling
             people.AcceptChangesLocal();
             Assert.IsFalse(people.IsChangedLocal);
             Assert.IsTrue(people.IsChanged);
+
+            people.AcceptChanges();
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+
+            people.FirstName = "Jimmy";
+            Assert.IsTrue(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+
+            people.FirstName = "Tom";
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
+
+            people.AcceptChanges();
+            var last = new ChangeTrackingPerson();
+            people.Add(last);
+            Assert.IsTrue(people.IsChangedLocal);
+            Assert.IsTrue(people.IsChanged);
+            people.Remove(last);
+            Assert.IsFalse(people.IsChangedLocal);
+            Assert.IsFalse(people.IsChanged);
         }
 
         [TestMethod]

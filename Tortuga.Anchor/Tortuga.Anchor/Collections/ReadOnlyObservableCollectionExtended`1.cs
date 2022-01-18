@@ -167,17 +167,17 @@ namespace Tortuga.Anchor.Collections
         /// </remarks>
         protected virtual void OnSourcePropertyChanged(string propertyName) { }
 
-        void OnItemPropertyChanged(object sender, RelayedEventArgs<PropertyChangedEventArgs> e)
+        void OnItemPropertyChanged(object? sender, RelayedEventArgs<PropertyChangedEventArgs> e)
         {
             ItemPropertyChanged?.Invoke(this, e);
         }
 
-        void OnSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        void OnSourceCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             OnCollectionChanged(e);
         }
 
-        void OnSourcePropertyChanged(object sender, PropertyChangedEventArgs e)
+        void OnSourcePropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(e.PropertyName))
                 OnPropertyChanged(e);

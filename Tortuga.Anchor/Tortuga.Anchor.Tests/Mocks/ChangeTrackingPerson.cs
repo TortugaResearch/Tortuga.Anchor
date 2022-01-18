@@ -21,6 +21,12 @@ namespace Tests.Mocks
             set { Set(value); }
         }
 
+        public string? MiddleName
+        {
+            get { return Get<string?>(); }
+            set { Set(value); }
+        }
+
         [CalculatedField("FirstName,LastName")]
         public string FullName
         {
@@ -57,7 +63,6 @@ namespace Tests.Mocks
             if (FirstName == LastName && FirstName != "")
                 results.Add(new ValidationResult("First and last names cannot match", new string[] { "FirstName", "LastName" }));
         }
-
 
         public ChangeTrackingPerson Boss
         {
@@ -118,7 +123,6 @@ namespace Tests.Mocks
             base.Get<int>("");
         }
 
-
         public void BadGetNew1()
         {
             base.GetNew<int>(() => 1, null);
@@ -163,6 +167,5 @@ namespace Tests.Mocks
         {
             Properties.AcceptChanges(false);
         }
-
     }
 }

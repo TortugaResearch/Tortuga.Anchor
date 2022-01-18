@@ -17,7 +17,7 @@ namespace Tortuga.Anchor.Eventing
         /// <param name="originalSender">The original sender.</param>
         /// <param name="eventArgs">The event arguments.</param>
         /// <exception cref="ArgumentNullException">eventArgs</exception>
-        public RelayedEventArgs(object originalSender, T eventArgs)
+        public RelayedEventArgs(object? originalSender, T eventArgs)
         {
             EventArgs = eventArgs ?? throw new ArgumentNullException(nameof(eventArgs), $"{nameof(eventArgs)} is null.");
             OriginalSender = originalSender;
@@ -31,6 +31,6 @@ namespace Tortuga.Anchor.Eventing
         /// <summary>
         /// The object that raised the original event
         /// </summary>
-        public object OriginalSender { get; }
+        public object? OriginalSender { get; }
     }
 }

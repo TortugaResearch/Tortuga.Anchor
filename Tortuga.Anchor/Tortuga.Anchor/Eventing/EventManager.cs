@@ -65,7 +65,7 @@ namespace Tortuga.Anchor.Eventing
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void EventFired(object sender, T e)
+        protected void EventFired(object? sender, T e)
         {
             m_Targets.CleanUp();
 
