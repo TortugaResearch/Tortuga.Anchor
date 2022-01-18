@@ -216,7 +216,7 @@ namespace Tortuga.Anchor
 		}
 
 		/// <summary>
-		/// Batches the specified enumeration into lists according to the indicated batch size.
+		/// Batches the specified enumeration into lightweight segments according to the indicated batch size.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="source">The source.</param>
