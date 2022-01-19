@@ -349,8 +349,6 @@ namespace Tortuga.Anchor.Modeling.Internals
             return result;
         }
 
-#nullable restore
-
         /// <summary>
         /// Set the indicated property to the value.
         /// If the value doesn't match the previous value, or if there is no previous value, raise a property changed notification.
@@ -418,6 +416,8 @@ namespace Tortuga.Anchor.Modeling.Internals
 
             return result;
         }
+
+#nullable restore
 
         /// <summary>
         /// Triggers the PropertyChanged event.
@@ -506,6 +506,18 @@ namespace Tortuga.Anchor.Modeling.Internals
                 throw new ArgumentNullException(nameof(property), $"{nameof(property)} is null.");
 
             RevalidateProperty?.Invoke(this, property.PropertyChangedEventArgs);
+        }
+
+        /// <summary>
+        /// Gets the index of the property.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        protected int GetPropertyIndex(string propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+                throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
+
+            return Metadata.Properties[propertyName].PropertyIndex;
         }
     }
 }

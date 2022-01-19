@@ -3,9 +3,9 @@ Data Modeling Library in .NET
 
 ## Documentation
 
-* [Documentation Website](https://docevaad.github.io/Anchor)
-* [API Reference](http://docevaad.github.io/Anchor/API/Index.html)
-* [Anchor Wiki](https://github.com/docevaad/Anchor/wiki)
+* [Documentation Website](https://tortugaresearch.github.io/Anchor/)
+* [API Reference](http://tortugaresearch.github.io/Anchor/API/Index.html)
+* [Anchor Wiki](https://github.com/tortugaresearch/Anchor/wiki)
 
 ## What does your entity base class really give you?
 

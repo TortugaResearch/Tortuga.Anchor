@@ -90,7 +90,7 @@ namespace Tortuga.Anchor.Collections
         /// <summary>
         /// This just exposes the INotifyPropertyChanged.PropertyChanged from the base class so you don't have to cast to get to it.
         /// </summary>
-        public new event PropertyChangedEventHandler PropertyChanged
+        public new event PropertyChangedEventHandler? PropertyChanged
         {
             add { base.PropertyChanged += value; }
             remove { base.PropertyChanged -= value; }
@@ -374,7 +374,7 @@ namespace Tortuga.Anchor.Collections
             m_ListeningToItemEvents = true;
         }
 
-        void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        void OnItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             m_ItemPropertyChangedEvent?.Invoke(this, RelayedEventArgs.Create(sender, e));
         }

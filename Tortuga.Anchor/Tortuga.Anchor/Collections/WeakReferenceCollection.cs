@@ -105,7 +105,7 @@ namespace Tortuga.Anchor.Collections
             if (Count + arrayIndex > array.Length)
                 throw new ArgumentException($"{nameof(Count)} + {nameof(arrayIndex)} is greater than the array's length", nameof(array));
 
-            var temp = m_Collection.Select(x => (T)x.Target).Where(x => x != null).ToList();
+            var temp = m_Collection.Select(x => (T?)x.Target).Where(x => x != null).Cast<T>().ToList();
 
             for (var i = 0; i < temp.Count; i++)
                 array[arrayIndex + i] = temp[i];
@@ -117,7 +117,7 @@ namespace Tortuga.Anchor.Collections
         /// <returns></returns>
         public IEnumerator<T> GetEnumerator()
         {
-            return m_Collection.Select(x => (T)x.Target).Where(x => x != null).ToList().GetEnumerator();
+            return m_Collection.Select(x => (T?)x.Target).Where(x => x != null).ToList().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
@@ -141,7 +141,7 @@ namespace Tortuga.Anchor.Collections
                 var found = false; //used to ensure we only remove one
                 foreach (var wr in m_Collection)
                 {
-                    var target = (T)wr.Target;
+                    var target = (T?)wr.Target;
                     if (target == null)
                         continue;
 

@@ -13,6 +13,6 @@ namespace Tortuga.Anchor.Eventing
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Invoke(object sender, T e);
+        void Invoke(object? sender, T e);
     }
 }

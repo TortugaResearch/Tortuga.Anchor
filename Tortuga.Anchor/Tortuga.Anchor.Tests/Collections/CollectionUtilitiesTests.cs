@@ -11,7 +11,7 @@ namespace Tests.Collections
     public class CollectionUtilitiesTests
     {
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test1()
+        public void AddRange_Test1()
         {
             using (var verify = new Verify())
             {
@@ -22,7 +22,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test10()
+        public void AddRange_Test10()
         {
             using (var verify = new Verify())
             {
@@ -34,7 +34,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test11()
+        public void AddRange_Test11()
         {
             using (var verify = new Verify())
             {
@@ -46,7 +46,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test2()
+        public void AddRange_Test2()
         {
             using (var verify = new Verify())
             {
@@ -57,7 +57,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test3()
+        public void AddRange_Test3()
         {
             using (var verify = new Verify())
             {
@@ -74,7 +74,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test3b()
+        public void AddRange_Test3b()
         {
             using (var verify = new Verify())
             {
@@ -91,7 +91,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test4()
+        public void AddRange_Test4()
         {
             using (var verify = new Verify())
             {
@@ -107,7 +107,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test5()
+        public void AddRange_Test5()
         {
             using (var verify = new Verify())
             {
@@ -123,7 +123,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test6()
+        public void AddRange_Test6()
         {
             using (var verify = new Verify())
             {
@@ -135,7 +135,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test7()
+        public void AddRange_Test7()
         {
             using (var verify = new Verify())
             {
@@ -146,7 +146,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test8()
+        public void AddRange_Test8()
         {
             using (var verify = new Verify())
             {
@@ -157,7 +157,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_AddRange_Test9()
+        public void AddRange_Test9()
         {
             using (var verify = new Verify())
             {
@@ -168,8 +168,219 @@ namespace Tests.Collections
             }
         }
 
+        [TestMethod]
+        public void AsList_Test1()
+        {
+            var x = (IEnumerable<int>)new List<int>();
+            var y = x.AsList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsList_Test2()
+        {
+            var x = new Collection<int>() { 1, 2, 3, 4, 5 };
+            var y = x.AsList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsList_Test3()
+        {
+            var x = Enumerable.Range(1, 5);
+            var y = x.AsList();
+            Assert.AreNotEqual(x, y);
+            Assert.AreEqual(x.Count(), y.Count);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyCollection_Test1()
+        {
+            var x = (IEnumerable<int>)new List<int>();
+            var y = x.AsReadOnlyCollection();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyCollection_Test2()
+        {
+            var x = (IEnumerable<int>)new Collection<int>();
+            var y = x.AsReadOnlyCollection();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyCollection_Test3()
+        {
+            var x = Enumerable.Range(1, 5);
+            var y = x.AsReadOnlyCollection();
+            Assert.AreNotEqual(x, y);
+            Assert.AreEqual(x.Count(), y.Count);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyList_Test1()
+        {
+            var x = (IEnumerable<int>)new List<int>();
+            var y = x.AsReadOnlyList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyList_Test2()
+        {
+            var x = (IEnumerable<int>)new Collection<int>();
+            var y = x.AsReadOnlyList();
+            Assert.AreEqual(x, y);
+        }
+
+        [TestMethod]
+        public void AsReadOnlyList_Test3()
+        {
+            var x = Enumerable.Range(1, 5);
+            var y = x.AsReadOnlyList();
+            Assert.AreNotEqual(x, y);
+            Assert.AreEqual(x.Count(), y.Count);
+        }
+
         [TestMethod()]
-        public void CollectionUtilities_InsertRange_Test1()
+        public void BatchAsLists_Test1()
+        {
+            var sourceList = Enumerable.Range(0, 1000).ToList();
+
+            var batches = sourceList.BatchAsLists(250);
+            var offset = 0;
+            Assert.AreEqual(4, batches.Count());
+            foreach (var batch in batches)
+            {
+                Assert.AreEqual(250, batch.Count);
+                Assert.AreEqual(offset, batch.Min());
+                Assert.AreEqual(offset + 249, batch.Max());
+                offset += 250;
+            }
+        }
+
+        [TestMethod()]
+        public void BatchAsLists_Test2()
+        {
+            var sourceList = Enumerable.Range(0, 1002).ToList();
+
+            var batches = sourceList.BatchAsLists(250);
+            var offset = 0;
+            Assert.AreEqual(5, batches.Count());
+            foreach (var batch in batches.Take(4))
+            {
+                Assert.AreEqual(250, batch.Count);
+                Assert.AreEqual(offset, batch.Min());
+                Assert.AreEqual(offset + 249, batch.Max());
+                offset += 250;
+            }
+            {
+                var batch = batches.Skip(4).Single();
+                Assert.AreEqual(2, batch.Count);
+                Assert.AreEqual(offset, batch.Min());
+                Assert.AreEqual(offset + 1, batch.Max());
+                offset += 250;
+            }
+        }
+
+        [TestMethod()]
+        public void BatchAsLists_Test3()
+        {
+            var sourceList = Enumerable.Range(0, 0).ToList();
+
+            var batches = sourceList.BatchAsLists(250);
+
+            Assert.AreEqual(0, batches.Count());
+        }
+
+        [TestMethod()]
+        public void BatchAsLists_Test4()
+        {
+            using (var verify = new Verify())
+            {
+                IList<int> sourceList = null;
+                verify.ArgumentNullException("source", () => sourceList.BatchAsLists(250));
+            }
+        }
+
+        [TestMethod()]
+        public void BatchAsLists_Test5()
+        {
+            using (var verify = new Verify())
+            {
+                var sourceList = Enumerable.Range(0, 0).ToList();
+
+                verify.ArgumentOutOfRangeException("batchSize", 0, () => sourceList.BatchAsLists(0));
+            }
+        }
+
+        [TestMethod]
+        public void IndexOf_Test1()
+        {
+            var list = (IReadOnlyList<int>)new List<int> { 1, 2, 3, 4, 5 };
+
+            Assert.AreEqual(0, list.IndexOf(1));
+        }
+
+        [TestMethod]
+        public void IndexOf_Test2()
+        {
+            var list = (IReadOnlyList<int>)new List<int> { 1, 2, 3, 4, 5 };
+
+            Assert.AreEqual(-1, list.IndexOf(10));
+        }
+
+        [TestMethod]
+        public void IndexOf_Test3()
+        {
+            var list = (IReadOnlyList<int?>)new List<int?> { 1, 2, 3, 4, 5 };
+
+            Assert.AreEqual(0, list.IndexOf(1));
+        }
+
+        [TestMethod]
+        public void IndexOf_Test4()
+        {
+            var list = (IReadOnlyList<int?>)new List<int?> { 1, 2, 3, 4, 5 };
+
+            Assert.AreEqual(-1, list.IndexOf(10));
+        }
+
+        [TestMethod]
+        public void IndexOf_Test5()
+        {
+            var list = (IReadOnlyList<int?>)new List<int?> { 1, 2, 3, 4, 5, null };
+
+            Assert.AreEqual(5, list.IndexOf(null));
+        }
+
+        [TestMethod]
+        public void IndexOf_Test6()
+        {
+            var list = (IReadOnlyList<int?>)new List<int?> { 1, 2, 3, 4, 5 };
+
+            Assert.AreEqual(-1, list.IndexOf(null));
+        }
+
+        [TestMethod]
+        public void IndexOf_Test7()
+        {
+            var list = (IReadOnlyList<string?>)new List<string?> { "1", "2", "3" };
+
+            Assert.AreEqual(-1, list.IndexOf(null));
+        }
+
+        [TestMethod]
+        public void IndexOf_Test8()
+        {
+            var list = (IReadOnlyList<string?>)new List<string?> { "1", "2", "3", null };
+
+            Assert.AreEqual(3, list.IndexOf(null));
+        }
+
+        [TestMethod()]
+        public void InsertRange_Test1()
         {
             using (var verify = new Verify())
             {
@@ -180,7 +391,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_InsertRange_Test2()
+        public void InsertRange_Test2()
         {
             using (var verify = new Verify())
             {
@@ -191,7 +402,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_InsertRange_Test3()
+        public void InsertRange_Test3()
         {
             using (var verify = new Verify())
             {
@@ -207,7 +418,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_InsertRange_Test4()
+        public void InsertRange_Test4()
         {
             using (var verify = new Verify())
             {
@@ -223,7 +434,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_InsertRange_Test5()
+        public void InsertRange_Test5()
         {
             using (var verify = new Verify())
             {
@@ -239,7 +450,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_InsertRange_Test6()
+        public void InsertRange_Test6()
         {
             using (var verify = new Verify())
             {
@@ -250,7 +461,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_InsertRange_Test7()
+        public void InsertRange_Test7()
         {
             using (var verify = new Verify())
             {
@@ -261,7 +472,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_InsertRange_Test8()
+        public void InsertRange_Test8()
         {
             using (var verify = new Verify())
             {
@@ -272,7 +483,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_RemoveRange_Test1()
+        public void RemoveRange_Test1()
         {
             using (var verify = new Verify())
             {
@@ -282,7 +493,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_RemoveRange_Test2()
+        public void RemoveRange_Test2()
         {
             using (var verify = new Verify())
             {
@@ -297,7 +508,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_RemoveRange_Test3()
+        public void RemoveRange_Test3()
         {
             using (var verify = new Verify())
             {
@@ -312,7 +523,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_RemoveRange_Test4()
+        public void RemoveRange_Test4()
         {
             using (var verify = new Verify())
             {
@@ -327,7 +538,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_RemoveRange_Test5()
+        public void RemoveRange_Test5()
         {
             using (var verify = new Verify())
             {
@@ -337,7 +548,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_RemoveRange_Test6()
+        public void RemoveRange_Test6()
         {
             using (var verify = new Verify())
             {
@@ -347,7 +558,7 @@ namespace Tests.Collections
         }
 
         [TestMethod()]
-        public void CollectionUtilities_RemoveRange_Test7()
+        public void RemoveRange_Test7()
         {
             using (var verify = new Verify())
             {

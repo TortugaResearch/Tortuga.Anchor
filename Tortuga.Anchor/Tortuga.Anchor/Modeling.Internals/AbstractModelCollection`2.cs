@@ -40,7 +40,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         void OnDeserializing(StreamingContext context)
 #pragma warning restore RCS1163 // Unused parameter.
         {
-            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this);
+            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this)!;
             Properties.PropertyChanged += Properties_PropertyChanged;
             Properties.RevalidateProperty += (s, e) => ValidateProperty(e.PropertyName);
             Properties.RevalidateObject += (s, e) => ValidateObject();
@@ -54,7 +54,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// </remarks>
         protected AbstractModelCollection()
         {
-            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this);
+            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this)!;
             Properties.PropertyChanged += Properties_PropertyChanged;
             Properties.RevalidateProperty += (s, e) => ValidateProperty(e.PropertyName);
             Properties.RevalidateObject += (s, e) => ValidateObject();
@@ -67,7 +67,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected AbstractModelCollection(List<T> list)
             : base(list)
         {
-            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this);
+            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this)!;
             Properties.PropertyChanged += Properties_PropertyChanged;
             Properties.RevalidateProperty += (s, e) => ValidateProperty(e.PropertyName);
             Properties.RevalidateObject += (s, e) => ValidateObject();
@@ -80,7 +80,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         protected AbstractModelCollection(IEnumerable<T> collection)
             : base(collection)
         {
-            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this);
+            Properties = (TPropertyTracking)Activator.CreateInstance(typeof(TPropertyTracking), this)!;
             Properties.PropertyChanged += Properties_PropertyChanged;
             Properties.RevalidateProperty += (s, e) => ValidateProperty(e.PropertyName);
             Properties.RevalidateObject += (s, e) => ValidateObject();
@@ -145,7 +145,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <remarks>
         /// Call Validate() to refresh this property.
         /// </remarks>
-        public ReadOnlyCollection<ValidationResult> GetErrors(string propertyName)
+        public ReadOnlyCollection<ValidationResult> GetErrors(string? propertyName)
         {
             return ErrorsDictionary.GetErrors(propertyName);
         }
@@ -383,7 +383,7 @@ namespace Tortuga.Anchor.Modeling.Internals
 
         partial void AttributeBasedValidation(string propertyName, ValidationResultCollection results);
 
-        void Properties_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        void Properties_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             OnPropertyChanged(e);
         }
@@ -399,15 +399,18 @@ namespace Tortuga.Anchor.Modeling.Internals
                 OnErrorsChanged(p);
         }
 
-        void ValidateProperty(string propertyName)
+        void ValidateProperty(string? propertyName)
         {
+            if (string.IsNullOrWhiteSpace(propertyName))
+                return;
+
             var results = new ValidationResultCollection();
 
-            AttributeBasedValidation(propertyName, results);
+            AttributeBasedValidation(propertyName!, results);
 
-            OnValidateProperty(propertyName, results);
+            OnValidateProperty(propertyName!, results);
 
-            OnErrorsChanged(propertyName, ErrorsDictionary.SetErrors(propertyName, results));
+            OnErrorsChanged(propertyName!, ErrorsDictionary.SetErrors(propertyName!, results));
         }
 
         /// <summary>
@@ -425,7 +428,7 @@ namespace Tortuga.Anchor.Modeling.Internals
         /// <returns>
         /// The validation errors for the property or entity.
         /// </returns>
-        IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
+        IEnumerable INotifyDataErrorInfo.GetErrors(string? propertyName)
         {
             return GetErrors(propertyName);
         }

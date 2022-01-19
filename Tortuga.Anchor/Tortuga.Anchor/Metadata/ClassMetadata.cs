@@ -20,26 +20,35 @@ namespace Tortuga.Anchor.Metadata
         string? m_CSharpFullName;
         string? m_FSharpFullName;
         bool? m_IsNullable;
-        bool? m_IsNullableEx;
         string? m_VisualBasicFullName;
 
         internal ClassMetadata(TypeInfo typeInfo)
         {
             TypeInfo = typeInfo;
 
-            var table = (TableAttribute)typeInfo.GetCustomAttributes(typeof(TableAttribute), true).SingleOrDefault();
+            var table = (TableAttribute?)typeInfo.GetCustomAttributes(typeof(TableAttribute), true).SingleOrDefault();
             if (table != null)
             {
                 MappedTableName = table.Name;
                 MappedSchemaName = table.Schema;
+
+                if (table is TableAndViewAttribute tav)
+                {
+                    MappedViewName = tav.ViewName;
+                    /* TASK-47: Reserved for future work
+                       MappedInsertFunctionName = tav.InsertFunctionName;
+                       MappedUpdateFunctionName = tav.UpdateFunctionName;
+                       MappedDeleteFunctionName = tav.DeleteFunctionName;
+                     */
+                }
             }
 
-            var shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
+            List<PropertyInfo> shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
             var propertyList = typeInfo.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
             bool IsHidden(PropertyInfo propertyInfo) => !shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => string.CompareOrdinal(p.Name, propertyInfo.Name) == 0);
 
-            Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select(p => new PropertyMetadata(p)));
+            Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select((p, i) => new PropertyMetadata(p, i)));
 
             //List the properties that are affected when the indicated property is modified.
             foreach (var property in Properties)
@@ -131,26 +140,32 @@ namespace Tortuga.Anchor.Metadata
         }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is nullable. This supports C# 8.0's nullable reference types.
-        /// </summary>
-        /// <value>
-        ///   True is the type is a reference type, interface, or a nullable value type.
-        /// </value>
-        public bool IsNullableEx
-        {
-            get
-            {
-                if (m_IsNullableEx == null)
-                    m_IsNullableEx = !TypeInfo.IsValueType || (TypeInfo.IsGenericType && (TypeInfo.GetGenericTypeDefinition() == typeof(Nullable<>)));
-
-                return m_IsNullableEx.Value;
-            }
-        }
-
-        /// <summary>
         /// Schema referred to by TableAttribute.
         /// </summary>
         public string? MappedSchemaName { get; }
+
+        /// <summary>
+        /// View referred to by TableAndViewAttribute.
+        /// </summary>
+        /// <remarks>This is only used for SELECT operations.</remarks>
+        public string? MappedViewName { get; }
+
+        /* TASK-47: Reserved for future work
+        /// <summary>
+        /// The name of the insert function or stored procedure.
+        /// </summary>
+        public string? MappedInsertFunctionName { get; }
+
+        /// <summary>
+        /// The name of the update function or stored procedure.
+        /// </summary>
+        public string? MappedUpdateFunctionName { get; }
+
+        /// <summary>
+        /// The name of the delete function or stored procedure.
+        /// </summary>
+        public string? MappedDeleteFunctionName { get; }
+        */
 
         /// <summary>
         /// Table referred to by TableAttribute.
@@ -226,7 +241,7 @@ namespace Tortuga.Anchor.Metadata
                 typeArgs = new List<Type>(typeInfo.GetTypeInfo().GenericTypeArguments);
 
             if (typeInfo.IsNested)
-                BuildFullName(typeInfo.DeclaringType, typeArgs, result, genericOpen, genericSeparator, genericClose);
+                BuildFullName(typeInfo.DeclaringType!, typeArgs, result, genericOpen, genericSeparator, genericClose);
             else
                 result.Append(typeInfo.Namespace);
 
@@ -268,7 +283,7 @@ namespace Tortuga.Anchor.Metadata
 
         static bool IsHidingMember(PropertyInfo propertyInfo)
         {
-            var baseType = propertyInfo.DeclaringType.GetTypeInfo().BaseType;
+            var baseType = propertyInfo.DeclaringType!.GetTypeInfo().BaseType;
             if (baseType == null)
                 return false;
 
@@ -281,7 +296,7 @@ namespace Tortuga.Anchor.Metadata
                 return false;
 
             if (baseProperty.GetMethod == null || propertyInfo.GetMethod == null)
-                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "Cannot support classes with write-only properties. Class: {0} PropertyName {1}", propertyInfo.DeclaringType.Name, propertyInfo.Name));
+                throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "Cannot support classes with write-only properties. Class: {0} PropertyName {1}", propertyInfo.DeclaringType!.Name, propertyInfo.Name));
 
             var basePropertyGetGetMethod = baseProperty.GetMethod;
             var propertyInfoGetGetMethod = propertyInfo.GetMethod;
@@ -289,7 +304,7 @@ namespace Tortuga.Anchor.Metadata
             var baseMethodDefinition = basePropertyGetGetMethod.GetRuntimeBaseDefinition();
             var thisMethodDefinition = propertyInfoGetGetMethod.GetRuntimeBaseDefinition();
 
-            return baseMethodDefinition.DeclaringType != thisMethodDefinition.DeclaringType;
+            return baseMethodDefinition?.DeclaringType != thisMethodDefinition?.DeclaringType;
         }
     }
 }

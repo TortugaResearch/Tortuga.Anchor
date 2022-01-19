@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net46;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net46;netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>
     <Authors>David Tomcik, Jonathan Allen</Authors>
     <Company>Tortuga Technologies</Company>
     <Description>Commons and data modeling library for the Tortuga project.</Description>
     <PackageTags>MVVM,Reflection</PackageTags>
-    <LangVersion>8.0</LangVersion>
-    <Deterministic>false</Deterministic>
+    <LangVersion>9.0</LangVersion>
+    <Deterministic>true</Deterministic>
     <ProductName>Tortuga Anchor</ProductName>
 
-    <AssemblyVersion>3.0.*</AssemblyVersion>
-    <Version>3.0.0</Version>
-    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>3.4.0</AssemblyVersion>
+    <Version>3.4.0</Version>
+    <FileVersion>3.4.0.0</FileVersion>
 
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
@@ -37,16 +37,19 @@
     <DefineConstants>NULL_MISSING</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <DefineConstants>OrdinalHashCodes</DefineConstants>
+    <DefineConstants>ORDINAL_STRINGS</DefineConstants>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Tortuga.Anchor.xml~origin_ReversibleIEqualityComparer" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Collections.Immutable" Version="1.6.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="5.0.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net46'">

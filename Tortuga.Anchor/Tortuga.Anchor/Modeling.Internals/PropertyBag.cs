@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Tortuga.Anchor.Modeling.Internals
@@ -9,6 +8,8 @@ namespace Tortuga.Anchor.Modeling.Internals
     /// </summary>
     public class PropertyBag : PropertyBagBase
     {
+        readonly object?[] m_Values;
+
         /// <summary>
         /// This is the simplest implementation of PropertyBagBase. It supports normal property-change notifications and validation events.
         /// </summary>
@@ -16,7 +17,12 @@ namespace Tortuga.Anchor.Modeling.Internals
 
         public PropertyBag(object owner)
             : base(owner)
-        { }
+        {
+            var count = Metadata.Properties.Count;
+            m_Values = new object?[count];
+            for (var i = 0; i < count; i++)
+                m_Values[i] = NotSet.Value;
+        }
 
         /// <summary>
         /// Implementors need to override this to return the indicated value.
@@ -33,10 +39,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
-            if (Values.ContainsKey(propertyName))
-                return Values[propertyName];
-
-            return NotSet.Value;
+            return m_Values[GetPropertyIndex(propertyName)];
         }
 
         /// <summary>
@@ -52,7 +55,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             if (string.IsNullOrEmpty(propertyName))
                 throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
-            return Values.ContainsKey(propertyName);
+            return m_Values[GetPropertyIndex(propertyName)] != NotSet.Value;
         }
 
         /// <summary>
@@ -88,7 +91,7 @@ namespace Tortuga.Anchor.Modeling.Internals
             if ((mode & PropertySetModes.RaiseChangedEvent) != 0)
                 OnPropertyChanging(property);
 
-            Values[propertyName] = value;
+            m_Values[property.PropertyIndex] = value;
 
             if ((mode & PropertySetModes.RaiseChangedEvent) != 0)
                 OnPropertyChanged(property);

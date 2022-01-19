@@ -12,7 +12,7 @@ namespace Tortuga.Anchor
     /// <summary>
     /// Utility methods for collection classes.
     /// </summary>
-    public static class CollectionUtilities
+    public static partial class CollectionUtilities
     {
         /// <summary>
         /// Adds a list of values into the target collection.
@@ -93,14 +93,18 @@ namespace Tortuga.Anchor
         }
 
         /// <summary>
-        /// Returns the enumeration as an IList. If it isn't already an IList, it makes it into one so that you can safely enumeration the list multiple times.
+        /// Returns the enumeration as an IList. If it isn't already an IList, it makes it into one
+        /// so that you can safely enumeration the list multiple times.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source. If the source is null, the result will be null.</param>
         /// <returns>Returns an IList.</returns>
-        /// <remarks>This is primarily meant to be used with poorly designed interfaces that return lists disguised as IEnumerable.</remarks>
+        /// <remarks>
+        /// This is primarily meant to be used with poorly designed interfaces that return lists
+        /// disguised as IEnumerable.
+        /// </remarks>
         [return: NotNullIfNotNull("source")]
-        public static IList<T>? AsList<T>(this IEnumerable<T> source)
+        public static IList<T>? AsList<T>(this IEnumerable<T>? source)
         {
             if (source == null)
                 return null;
@@ -110,33 +114,104 @@ namespace Tortuga.Anchor
         }
 
         /// <summary>
-        /// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in an adapter.
+        /// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
+        /// wrapped in an adapter.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="list">The list.</param>
+        /// <param name="source">The source. If the source is null, the result will be null.</param>
         /// <returns>IReadOnlyList&lt;T&gt;.</returns>
         /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyCollection&lt;T&gt;.</remarks>
-        public static IReadOnlyCollection<T> AsReadOnlyCollection<T>(this ICollection<T> list)
+        [return: NotNullIfNotNull("source")]
+        public static IReadOnlyCollection<T>? AsReadOnlyCollection<T>(this IEnumerable<T>? source)
         {
-            if (list is IReadOnlyCollection<T> result)
+            if (source == null)
+                return null;
+
+            if (source is IReadOnlyCollection<T> result)
                 return result;
 
-            return new SimpleReadOnlyCollection<T>(list);
+            return new SimpleReadOnlyCollection<T>(source);
         }
 
         /// <summary>
-        /// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is wrapped in a ReadOnlyCollection&lt;T&gt;.
+        /// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
+        /// wrapped in a ReadOnlyCollection&lt;T&gt;.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="list">The list.</param>
+        /// <param name="source">The source. If the source is null, the result will be null.</param>
         /// <returns>IReadOnlyList&lt;T&gt;.</returns>
         /// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
-        public static IReadOnlyList<T> AsReadOnlyList<T>(this IList<T> list)
+        [return: NotNullIfNotNull("source")]
+        public static IReadOnlyList<T>? AsReadOnlyList<T>(this IEnumerable<T>? source)
         {
-            if (list is IReadOnlyList<T> result)
-                return result;
+            if (source == null)
+                return null;
 
-            return new ReadOnlyCollection<T>(list);
+            if (source is IReadOnlyList<T> rList)
+                return rList;
+
+            if (source is IList<T> list)
+                return new ReadOnlyCollection<T>(list);
+
+            return new ReadOnlyCollection<T>(source.ToList());
+        }
+
+        ///// <summary>
+        ///// Creates a read-only list from an System.Collections.Generic.IEnumerable`1.
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="source">The source.</param>
+        ///// <returns>IReadOnlyList&lt;T&gt;.</returns>
+        ///// <exception cref="ArgumentNullException">source</exception>
+        ///// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
+        //public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
+        //{
+        //    if (source == null)
+        //        throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+
+        //    if (source is IList<T> list)
+        //        return new ReadOnlyCollection<T>(list);
+        //    else
+        //        return new ReadOnlyCollection<T>(source.ToList());
+        //}
+
+        /// <summary>
+        /// Batches the specified enumeration into lists according to the indicated batch size.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="batchSize">Size of the batch.</param>
+        /// <returns>IEnumerable&lt;List&lt;T&gt;&gt;.</returns>
+        /// <exception cref="ArgumentNullException">source</exception>
+        /// <exception cref="ArgumentOutOfRangeException">batchSize</exception>
+        public static IEnumerable<List<T>> BatchAsLists<T>(this IEnumerable<T> source, int batchSize)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+            if (batchSize <= 0)
+                throw new ArgumentOutOfRangeException(nameof(batchSize), batchSize, $"{batchSize} must be greater than 0");
+
+            return BatchAsListsCore();
+
+            IEnumerable<List<T>> BatchAsListsCore()
+            {
+                int count = 0;
+                using (var iter = source.GetEnumerator())
+                {
+                    while (iter.MoveNext())
+                    {
+                        var chunk = new List<T>(batchSize);
+                        count = 1;
+                        chunk.Add(iter.Current);
+                        for (int i = 1; i < batchSize && iter.MoveNext(); i++)
+                        {
+                            chunk.Add(iter.Current);
+                            count++;
+                        }
+                        yield return chunk;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -154,9 +229,9 @@ namespace Tortuga.Anchor
             if (list == null)
                 throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
-            return Concat2();
+            return ConcatCore();
 
-            IEnumerable<TSource> Concat2()
+            IEnumerable<TSource> ConcatCore()
             {
                 foreach (var element in list)
                     yield return element;
@@ -173,6 +248,7 @@ namespace Tortuga.Anchor
         /// <returns></returns>
         /// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
         public static ReadOnlyCollection<TKey> GetKeys<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+            where TKey : notnull
         {
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");
@@ -188,10 +264,38 @@ namespace Tortuga.Anchor
         /// <returns></returns>
         /// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
         public static ReadOnlyCollection<TValue> GetValues<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+            where TKey : notnull
         {
             if (dictionary == null)
                 throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");
             return (ReadOnlyCollection<TValue>)dictionary.Values;
+        }
+
+        /// <summary>
+        /// Locates the index of the indicated item.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <param name="item">The item.</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="ArgumentNullException">list</exception>
+        public static int IndexOf<T>(this IReadOnlyList<T> list, T item)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null ");
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                var value = list[i];
+                if (value == null)
+                {
+                    if (item == null)
+                        return i;
+                }
+                else if (value.Equals(item))
+                    return i;
+            }
+            return -1;
         }
 
         /// <summary>
@@ -231,7 +335,9 @@ namespace Tortuga.Anchor
         /// <param name="list"></param>
         /// <param name="startingIndex"></param>
         /// <param name="count"></param>
-        /// <remarks>This isn't as fast as a real RemoveRange, it just removes one item at a time.</remarks>
+        /// <remarks>
+        /// This isn't as fast as a real RemoveRange, it just removes one item at a time.
+        /// </remarks>
         public static void RemoveRange<T>(this IList<T> list, int startingIndex, int count)
         {
             if (list == null)
@@ -247,18 +353,104 @@ namespace Tortuga.Anchor
                 list.RemoveAt(startingIndex);
         }
 
+        /// <summary>
+        /// Performs an in-place sort of the specified list using it's IComparable&lt;T&gt; interface.
+        /// </summary>
+        /// <typeparam name="T">Type of item in the list</typeparam>
+        /// <param name="list">The list to sort.</param>
+        /// <exception cref="ArgumentNullException">list or comparer</exception>
+        public static void Sort<T>(this IList<T> list) where T : IComparable<T>
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
+
+            if (list.Count == 0)
+                return;
+
+            //This will pull the compare method from IComparable<T>
+            IntrospectiveSort(list, 0, list.Count, Comparer<T>.Default.Compare);
+        }
+
+        /// <summary>
+        /// Performs an in-place sort of the specified list.
+        /// </summary>
+        /// <typeparam name="T">Type of item in the list</typeparam>
+        /// <param name="list">The list to sort.</param>
+        /// <param name="comparer">The comparer to use when sorting.</param>
+        /// <exception cref="ArgumentNullException">list or comparer</exception>
+        public static void Sort<T>(this IList<T> list, IComparer<T> comparer)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
+            if (comparer == null)
+                throw new ArgumentNullException(nameof(comparer), $"{nameof(comparer)} is null.");
+
+            if (list.Count == 0)
+                return;
+
+            IntrospectiveSort(list, 0, list.Count, comparer.Compare);
+        }
+
+        /// <summary>
+        /// Performs an in-place sort of the specified list.
+        /// </summary>
+        /// <typeparam name="T">Type of item in the list</typeparam>
+        /// <param name="list">The list to sort.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="count">The count.</param>
+        /// <param name="comparer">The comparer to use when sorting.</param>
+        /// <exception cref="ArgumentNullException">list or comparer</exception>
+        public static void Sort<T>(this IList<T> list, int startIndex, int count, IComparer<T> comparer)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
+            if (comparer == null)
+                throw new ArgumentNullException(nameof(comparer), $"{nameof(comparer)} is null.");
+            if (startIndex >= list.Count)
+                throw new ArgumentOutOfRangeException(nameof(startIndex), startIndex, $"{nameof(startIndex)} must be less than {nameof(list.Count)}");
+            if (startIndex < 0)
+                throw new ArgumentOutOfRangeException(nameof(startIndex), startIndex, $"{nameof(startIndex)} must be greater than 0");
+            if (count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(count), count, $"{nameof(count)} must be greater than 0");
+
+            if (list.Count == 0)
+                return;
+
+            IntrospectiveSort(list, startIndex, count, comparer.Compare);
+        }
+
+        /// <summary>
+        /// Performs an in-place sort of the specified list.
+        /// </summary>
+        /// <typeparam name="T">Type of item in the list</typeparam>
+        /// <param name="list">The list to sort.</param>
+        /// <param name="comparison">The comparison function to use when sorting.</param>
+        /// <exception cref="ArgumentNullException">list or comparer</exception>
+        public static void Sort<T>(this IList<T> list, Comparison<T> comparison)
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
+            if (comparison == null)
+                throw new ArgumentNullException(nameof(comparison), $"{nameof(comparison)} is null.");
+
+            if (list.Count == 0)
+                return;
+
+            IntrospectiveSort(list, 0, list.Count, comparison);
+        }
+
         class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
         {
-            readonly ICollection<T> m_List;
+            readonly IEnumerable<T> m_List;
 
-            public SimpleReadOnlyCollection(ICollection<T> list)
+            public SimpleReadOnlyCollection(IEnumerable<T> list)
             {
                 m_List = list;
             }
 
             public int Count
             {
-                get { return m_List.Count; }
+                get { return m_List.Count(); }
             }
 
             public IEnumerator<T> GetEnumerator()
