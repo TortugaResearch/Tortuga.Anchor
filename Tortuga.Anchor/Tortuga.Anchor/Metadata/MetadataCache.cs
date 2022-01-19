@@ -67,15 +67,18 @@ public static class MetadataCache
 		}
 	}
 
+
 	/// <summary>
-	/// Clones the specified source.
+	/// Clones the specified source into the target.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="source">The source object to copy.</param>
+	/// <param name="target">The target.</param>
 	/// <param name="options">The clone options.</param>
-	/// <param name="maxRecursion">The maximum recursion. Only applicable when CloneOptions.Recursive is used.</param>
+	/// <param name="maxRecursion">The maximum recursion. Only applicable when CloneOptions.DeepClone is used.</param>
 	/// <returns>T.</returns>
-	public static T Clone<T>(this T source, CloneOptions options, int? maxRecursion = null) where T : class, new()
+	/// <remarks>This should be used to help create a class's Clone method. It is not intended as a general purpose method and does not cover all possible scenarios.</remarks>
+	public static void CloneInto<T>(T source, T target, CloneOptions options, int? maxRecursion = null) where T : notnull
 	{
 		object? CloneValue(object? value)
 		{
@@ -101,9 +104,6 @@ public static class MetadataCache
 			return value;
 		}
 
-
-		var target = new T();
-
 		if (options.HasFlag(CloneOptions.BypassProperties) && source is IUsesPropertyTracking tracked)
 		{
 			var sourceValues = tracked.Properties.GetInternalValues();
@@ -114,12 +114,27 @@ public static class MetadataCache
 		{
 			foreach (var property in GetMetadata<T>().Properties)
 			{
-				if (property.CanRead && property.CanWrite)
+				if (property.CanRead)
 				{
-					var sourceValue = property.InvokeGet(source);
-					var targetValue = CloneValue(sourceValue);
-					property.InvokeSet(target, targetValue);
+					if (property.CanWrite)
+					{
+						var sourceValue = property.InvokeGet(source);
+						var targetValue = CloneValue(sourceValue);
+						property.InvokeSet(target, targetValue);
+					}
+					else if (options.HasFlag(CloneOptions.DeepClone) && (maxRecursion == null || maxRecursion > 0))
+					{
+						var sourceValue = property.InvokeGet(source);
+						var targetValue = property.InvokeGet(target);
+						if (sourceValue != null && targetValue != null)
+						{
+							var method = typeof(MetadataCache).GetMethod("CloneInto")!;
+							var generic = method.MakeGenericMethod(sourceValue.GetType());
+							generic.Invoke(null, new object?[] { sourceValue, targetValue, options, (maxRecursion - 1) });
+						}
+					}
 				}
+
 			}
 
 			if (source is IList collectionSource)
@@ -134,6 +149,21 @@ public static class MetadataCache
 			}
 		}
 
+	}
+
+	/// <summary>
+	/// Clones the specified source.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="source">The source object to copy.</param>
+	/// <param name="options">The clone options.</param>
+	/// <param name="maxRecursion">The maximum recursion. Only applicable when CloneOptions.DeepClone is used.</param>
+	/// <returns>T.</returns>
+	/// <remarks>This should be used to help create a class's Clone method. It is not intended as a general purpose method and does not cover all possible scenarios.</remarks>
+	public static T Clone<T>(T source, CloneOptions options, int? maxRecursion = null) where T : class, new()
+	{
+		var target = new T();
+		CloneInto(source, target, options, maxRecursion);
 		return target;
 	}
 }
