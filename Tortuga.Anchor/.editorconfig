@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CA5394: Do not use insecure randomness
+dotnet_diagnostic.CA5394.severity = none
+
+[*.{cs,vb}]
+dotnet_diagnostic.CA5394.severity=silent

@@ -1,9 +1,8 @@
 
-namespace Tests.Metadata
+namespace Tests.Metadata;
+
+class ShadowedMockBase
 {
-    class ShadowedMockBase
-    {
-        public int SimpleProperty { get; set; }
-        public string SimpleProperty2 { get; set; }
-    }
+	public int SimpleProperty { get; set; }
+	public string SimpleProperty2 { get; set; } = null!;
 }

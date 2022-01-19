@@ -1,10 +1,9 @@
 using Tortuga.Anchor.Modeling;
 
-namespace Tests.Metadata
+namespace Tests.Metadata;
+
+class BadMock
 {
-    class BadMock
-    {
-        [CalculatedField("MissingProperty")]
-        public int CalculatedTarget { get { return 0; } }
-    }
+	[CalculatedField("MissingProperty")]
+	public int CalculatedTarget { get { return 0; } }
 }

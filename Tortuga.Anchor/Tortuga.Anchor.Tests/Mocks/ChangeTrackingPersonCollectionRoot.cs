@@ -1,9 +1,8 @@
 using Tortuga.Anchor.Modeling;
 
-namespace Tests.Mocks
+namespace Tests.Mocks;
+
+public class ChangeTrackingPersonCollectionRoot : ChangeTrackingModelBase
 {
-    public class ChangeTrackingPersonCollectionRoot : ChangeTrackingModelBase
-    {
-        public ChangeTrackingPersonCollection ChangeTrackingPersonCollection { get { return GetNew<ChangeTrackingPersonCollection>("ChangeTrackingPersonCollection"); } }
-    }
+	public ChangeTrackingPersonCollection ChangeTrackingPersonCollection { get { return GetNew<ChangeTrackingPersonCollection>("ChangeTrackingPersonCollection"); } }
 }
