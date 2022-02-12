@@ -3,6 +3,7 @@ using System.Collections;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Reflection;
+using Tests.Mocks;
 using Tortuga.Anchor.Metadata;
 using Tortuga.Anchor.Modeling;
 using Tortuga.Dragnet;
@@ -924,6 +925,25 @@ public class MetadataCacheTests
 			var name = MetadataCache.GetMetadata(typeof(Normal)).VisualBasicFullName;
 			verify.AreEqual("Tests.Metadata.Normal", name, "VB type name was not correct");
 		}
+	}
+
+	[TestMethod]
+	public void SkipRecordSpecialProperties()
+	{
+		using (var verify = new Verify())
+		{
+			var result = MetadataCache.GetMetadata(typeof(BarRecord));
+
+			verify.AreEqual(2, result.Properties.Where(p => p.CanRead).Count(), "CanRead");
+			verify.AreEqual(2, result.Properties.Where(p => p.CanWrite).Count(), "CanWrite");
+			verify.AreEqual(2, result.ColumnsFor.Count(), "ColumnsFor");
+
+
+			verify.AreEqual(3, result.Properties.Where(p => p.CanReadRestricted).Count(), "CanReadRestricted");
+			verify.AreEqual(2, result.Properties.Where(p => p.CanWriteRestricted).Count(), "CanWriteRestricted");
+
+		}
+
 	}
 
 	public class AutoConstructor { }
