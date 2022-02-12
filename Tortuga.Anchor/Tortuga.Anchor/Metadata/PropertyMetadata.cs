@@ -346,7 +346,7 @@ public partial class PropertyMetadata
 	/// <exception cref="System.InvalidOperationException">CanReadIndexed and CanReadIndexedRestrictedis false on property {Name}.</exception>
 	public object? InvokeGet(object target, object? index)
 	{
-		if (CanReadIndexed || CanReadIndexedRestricted)
+		if (CanReadIndexed || CanReadIndexedAndRestricted)
 		{
 			try
 			{
@@ -397,7 +397,7 @@ public partial class PropertyMetadata
 	/// <exception cref="System.InvalidOperationException">CanWriteIndexed and CanWriteIndexedRestricted is false for property {Name}</exception>
 	public void InvokeSet(object target, object? index, object? value)
 	{
-		if (CanWriteIndexed || CanWriteIndexedRestricted)
+		if (CanWriteIndexed || CanWriteIndexedAndRestricted)
 		{
 			try
 			{
