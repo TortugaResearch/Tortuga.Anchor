@@ -31,7 +31,8 @@ public class Base
 	public int Property0 { get; set; }
 }
 
-[TableAndView("ChildTable", ViewName = "ChildView")]
+[Table("ChildTable")]
+[View("ChildView")]
 public class ChildA
 {
 	[Column("PropertyA2")]
