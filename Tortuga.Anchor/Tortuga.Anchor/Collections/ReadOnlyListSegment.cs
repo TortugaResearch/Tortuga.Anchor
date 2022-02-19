@@ -193,29 +193,6 @@ namespace Tortuga.Anchor.Collections
 			}
 		}
 
-		/// <summary>
-		/// Copies the list segment to the destination list segment.
-		/// </summary>
-		/// <param name="destination">The destination.</param>
-		/// <exception cref="InvalidOperationException">The ReadOnlyListSegment is empty.</exception>
-		/// <exception cref="ArgumentException"></exception>
-		public void CopyTo(ListSegment<T> destination)
-		{
-			if (m_List == null)
-				throw new InvalidOperationException("The ReadOnlyListSegment is empty.");
-			if (destination.Count == 0)
-				throw new ArgumentException($"{nameof(destination)} is empty.");
-			var j = 0;
-			for (var i = Offset; i < Count; i++)
-			{
-				if (destination.Count == j)
-					return;
-
-				destination[j] = m_List[i];
-				j++;
-			}
-		}
-
 		void CheckSource()
 		{
 			if (m_List == null)
