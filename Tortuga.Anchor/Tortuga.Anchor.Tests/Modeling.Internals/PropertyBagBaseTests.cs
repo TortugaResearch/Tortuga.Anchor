@@ -86,5 +86,15 @@ public class PropertyBagBaseTests
 			m_Values[propertyName] = value;
 			return true;
 		}
+
+		protected override object?[] GetInternalValues()
+		{
+			throw new NotImplementedException();
+		}
+
+		protected override void SetInternalValues(object?[] valuesArray)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

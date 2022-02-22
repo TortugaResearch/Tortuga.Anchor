@@ -103,4 +103,18 @@ public class PropertyBag : PropertyBagBase
 
 		return true;
 	}
+
+	/// <inheritdoc/>
+	protected internal override object?[] GetInternalValues()
+	{
+		return m_Values;
+	}
+
+	/// <inheritdoc/>
+	protected internal override void SetInternalValues(object?[] valuesArray)
+	{
+		if (valuesArray == null)
+			throw new ArgumentNullException(nameof(valuesArray));
+		valuesArray.CopyTo(m_Values, 0);
+	}
 }

@@ -927,6 +927,91 @@ public class MetadataCacheTests
 		}
 	}
 
+
+	[TestMethod]
+	public void CloneTest_Shallow()
+	{
+		var original = new Base();
+		original.Property0 = 10;
+		original.ChildA = new() { Property = 100, PropertyA1 = 110, PropertyAX = 120 };
+		original.ChildB = new() { Property = 200, PropertyB1 = 220, PropertyBX = 230 };
+
+		var copy = MetadataCache.Clone(original, CloneOptions.None);
+		Assert.IsNotNull(copy);
+		Assert.AreEqual(original.Property0, copy.Property0);
+		Assert.AreSame(original.ChildA, copy.ChildA);
+		Assert.AreSame(original.ChildB, copy.ChildB);
+	}
+
+	[TestMethod]
+	public void CloneTest_Deep()
+	{
+		var original = new Base
+		{
+			Property0 = 10,
+			ChildA = new() { Property = 100, PropertyA1 = 110, PropertyAX = 120 },
+			ChildB = new() { Property = 200, PropertyB1 = 220, PropertyBX = 230 }
+		};
+
+		var copy = MetadataCache.Clone(original, CloneOptions.DeepClone);
+		Assert.IsNotNull(copy);
+		Assert.AreEqual(original.Property0, copy.Property0);
+
+		Assert.AreNotSame(original.ChildA, copy.ChildA);
+		Assert.AreEqual(original.ChildA.Property, copy.ChildA.Property);
+		Assert.AreEqual(original.ChildA.PropertyA1, copy.ChildA.PropertyA1);
+		Assert.AreEqual(original.ChildA.PropertyAX, copy.ChildA.PropertyAX);
+
+		Assert.AreNotSame(original.ChildB, copy.ChildB);
+		Assert.AreEqual(original.ChildB.Property, copy.ChildB.Property);
+		Assert.AreEqual(original.ChildB.PropertyB1, copy.ChildB.PropertyB1);
+		Assert.AreEqual(original.ChildB.PropertyBX, copy.ChildB.PropertyBX);
+	}
+
+
+	[TestMethod]
+	public void CloneTest_BypassProperties()
+	{
+		var original = new SimplePerson()
+		{
+			FirstName = "A",
+			LastName = "B"
+		};
+		original.Boss.FirstName = "Tom";
+		var copy = MetadataCache.Clone(original, CloneOptions.BypassProperties);
+		Assert.AreEqual(original.Boss.FirstName, copy.Boss.FirstName);
+		Assert.AreSame(original.Boss, copy.Boss);
+	}
+
+	[TestMethod]
+	public void CloneTest_BypassProperties_DeepClone()
+	{
+		var original = new SimplePerson()
+		{
+			FirstName = "A",
+			LastName = "B"
+		};
+		original.Boss.FirstName = "Tom";
+		var copy = MetadataCache.Clone(original, CloneOptions.BypassProperties | CloneOptions.DeepClone);
+		Assert.AreEqual(original.Boss.FirstName, copy.Boss.FirstName);
+		Assert.AreNotSame(original.Boss, copy.Boss);
+	}
+
+	[TestMethod]
+	public void CloneTest_DeepClone_ReadonlyProperties()
+	{
+		var original = new SimplePerson()
+		{
+			FirstName = "A",
+			LastName = "B"
+		};
+		original.Boss.FirstName = "Tom";
+		var copy = MetadataCache.Clone(original, CloneOptions.DeepClone, 1);
+		Assert.AreEqual(original.Boss.FirstName, copy.Boss.FirstName);
+
+
+	}
+
 	[TestMethod]
 	public void SkipRecordSpecialProperties()
 	{

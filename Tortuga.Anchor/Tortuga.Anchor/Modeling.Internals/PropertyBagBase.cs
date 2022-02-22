@@ -126,6 +126,8 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 		}
 	}
 
+
+
 #nullable restore
 
 	/// <summary>
@@ -221,6 +223,21 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 	/// </returns>
 
 	public abstract object? GetValue([CallerMemberName] string propertyName = "");
+
+
+	/// <summary>
+	/// Returns the internal values array.
+	/// </summary>
+	/// <returns></returns>
+	/// <remarks>Be extremely careful with this. Changes to this arrary will not trigger events.</remarks>
+	protected internal abstract object?[] GetInternalValues();
+
+	/// <summary>
+	/// Replaces the internal values array.
+	/// </summary>
+	/// <param name="valuesArray">Array to be copied into this property bag.</param>
+	/// <remarks>Be extremely careful with this. Changes to this arrary will not trigger events.</remarks>
+	protected internal abstract void SetInternalValues(object?[] valuesArray);
 
 	/// <summary>
 	/// This property indicates whether or not the associated property was created.
