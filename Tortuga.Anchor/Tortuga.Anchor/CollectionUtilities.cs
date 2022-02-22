@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using Tortuga.Anchor.Collections;
 
 namespace Tortuga.Anchor;
 
@@ -206,6 +207,37 @@ public static partial class CollectionUtilities
 					}
 					yield return chunk;
 				}
+			}
+		}
+	}
+
+
+	/// <summary>
+	/// Batches the specified enumeration into lightweight segments according to the indicated batch size.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="source">The source.</param>
+	/// <param name="batchSize">Size of the batch.</param>
+	/// <returns>IEnumerable&lt;List&lt;T&gt;&gt;.</returns>
+	/// <exception cref="ArgumentNullException">source</exception>
+	/// <exception cref="ArgumentOutOfRangeException">batchSize</exception>
+	public static IEnumerable<ReadOnlyListSegment<T>> BatchAsSegments<T>(this IReadOnlyList<T> source, int batchSize)
+	{
+		if (source == null)
+			throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+		if (batchSize <= 0)
+			throw new ArgumentOutOfRangeException(nameof(batchSize), batchSize, $"{batchSize} must be greater than 0");
+
+		return BatchAsListsCore();
+
+		IEnumerable<ReadOnlyListSegment<T>> BatchAsListsCore()
+		{
+			var currentStart = 0;
+			while (currentStart < source.Count)
+			{
+				var nextSize = Math.Min(batchSize, source.Count - currentStart);
+				yield return new ReadOnlyListSegment<T>(source, currentStart, nextSize);
+				currentStart += nextSize;
 			}
 		}
 	}

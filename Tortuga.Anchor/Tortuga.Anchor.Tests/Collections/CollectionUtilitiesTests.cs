@@ -313,6 +313,79 @@ public class CollectionUtilitiesTests
 		}
 	}
 
+	[TestMethod()]
+	public void BatchAsSegments_Test1()
+	{
+		var sourceList = Enumerable.Range(0, 1000).ToList();
+
+		var batches = sourceList.BatchAsSegments(250);
+		var offset = 0;
+		Assert.AreEqual(4, batches.Count());
+		foreach (var batch in batches)
+		{
+			Assert.AreEqual(250, batch.Count);
+			Assert.AreEqual(offset, batch.Min());
+			Assert.AreEqual(offset + 249, batch.Max());
+			offset += 250;
+		}
+	}
+
+	[TestMethod()]
+	public void BatchAsSegments_Test2()
+	{
+		var sourceList = Enumerable.Range(0, 1002).ToList();
+
+		var batches = sourceList.BatchAsSegments(250);
+		var offset = 0;
+		Assert.AreEqual(5, batches.Count());
+		foreach (var batch in batches.Take(4))
+		{
+			Assert.AreEqual(250, batch.Count);
+			Assert.AreEqual(offset, batch.Min());
+			Assert.AreEqual(offset + 249, batch.Max());
+			offset += 250;
+		}
+		{
+			var batch = batches.Skip(4).Single();
+			Assert.AreEqual(2, batch.Count);
+			Assert.AreEqual(offset, batch.Min());
+			Assert.AreEqual(offset + 1, batch.Max());
+			offset += 250;
+		}
+	}
+
+	[TestMethod()]
+	public void BatchAsSegments_Test3()
+	{
+		var sourceList = Enumerable.Range(0, 0).ToList();
+
+		var batches = sourceList.BatchAsSegments(250);
+
+		Assert.AreEqual(0, batches.Count());
+	}
+
+	[TestMethod()]
+	public void BatchAsSegments_Test4()
+	{
+		using (var verify = new Verify())
+		{
+			IReadOnlyList<int> sourceList = null!;
+			verify.ArgumentNullException("source", () => sourceList.BatchAsSegments(250));
+		}
+	}
+
+	[TestMethod()]
+	public void BatchAsSegments_Test5()
+	{
+		using (var verify = new Verify())
+		{
+			var sourceList = Enumerable.Range(0, 0).ToList();
+
+			verify.ArgumentOutOfRangeException("batchSize", 0, () => sourceList.BatchAsSegments(0));
+		}
+	}
+
+
 	[TestMethod]
 	public void IndexOf_Test1()
 	{
