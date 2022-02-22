@@ -937,7 +937,7 @@ public class MetadataCacheTests
 		original.ChildB = new() { Property = 200, PropertyB1 = 220, PropertyBX = 230 };
 
 		var copy = MetadataCache.Clone(original, CloneOptions.None);
-		Assert.IsNotNull(original);
+		Assert.IsNotNull(copy);
 		Assert.AreEqual(original.Property0, copy.Property0);
 		Assert.AreSame(original.ChildA, copy.ChildA);
 		Assert.AreSame(original.ChildB, copy.ChildB);
@@ -954,7 +954,7 @@ public class MetadataCacheTests
 		};
 
 		var copy = MetadataCache.Clone(original, CloneOptions.DeepClone);
-		Assert.IsNotNull(original);
+		Assert.IsNotNull(copy);
 		Assert.AreEqual(original.Property0, copy.Property0);
 
 		Assert.AreNotSame(original.ChildA, copy.ChildA);
