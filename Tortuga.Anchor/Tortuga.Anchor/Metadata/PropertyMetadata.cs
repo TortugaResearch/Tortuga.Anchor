@@ -105,15 +105,32 @@ public partial class PropertyMetadata
 	/// </summary>
 	public bool CanRead
 	{
-		get { return m_GetMethod?.IsPublic == true && !IsIndexed; }
+		get { return m_GetMethod?.IsPublic == true && m_GetMethod?.IsFamily == false && !IsIndexed; }
 	}
+
+	/// <summary>
+	/// Returns true if there is a getter and it is not an indexed property, even if that getter isn't public.
+	/// </summary>
+	public bool CanReadRestricted
+	{
+		get { return m_GetMethod != null && !IsIndexed; }
+	}
+
 
 	/// <summary>
 	/// Returns true if there is a public getter and it is an indexed property.
 	/// </summary>
 	public bool CanReadIndexed
 	{
-		get { return m_GetMethod?.IsPublic == true && IsIndexed; }
+		get { return m_GetMethod?.IsPublic == true && m_GetMethod?.IsFamily == false && IsIndexed; }
+	}
+
+	/// <summary>
+	/// Returns true if there is a getter and it is an indexed property, even if that getter isn't public.
+	/// </summary>
+	public bool CanReadIndexedAndRestricted
+	{
+		get { return m_GetMethod != null && IsIndexed; }
 	}
 
 	/// <summary>
@@ -121,15 +138,31 @@ public partial class PropertyMetadata
 	/// </summary>
 	public bool CanWrite
 	{
-		get { return m_SetMethod?.IsPublic == true && !IsIndexed; }
+		get { return m_SetMethod?.IsPublic == true && m_SetMethod?.IsFamily == false && !IsIndexed; }
 	}
 
 	/// <summary>
-	/// Returns true is there is a public setter and it is an indexed property.
+	/// Returns true is there is a setter and it is not an indexed property, even if that setter isn't public.
+	/// </summary>
+	public bool CanWriteRestricted
+	{
+		get { return m_SetMethod != null && !IsIndexed; }
+	}
+
+	/// <summary>
+	/// Returns true is there is a public setter and it is an indexed property
 	/// </summary>
 	public bool CanWriteIndexed
 	{
-		get { return m_SetMethod?.IsPublic == true && IsIndexed; }
+		get { return m_SetMethod?.IsPublic == true && m_SetMethod?.IsFamily == false && IsIndexed; }
+	}
+
+	/// <summary>
+	/// Returns true is there is a setter and and it is an indexed property, even if that setter isn't public.
+	/// </summary>
+	public bool CanWriteIndexedAndRestricted
+	{
+		get { return m_SetMethod != null && !IsIndexed; }
 	}
 
 	/// <summary>
@@ -285,10 +318,10 @@ public partial class PropertyMetadata
 	/// <param name="target">The target.</param>
 	/// <returns>System.Object.</returns>
 	/// <exception cref="ArgumentException">Error getting property " + Name</exception>
-	/// <exception cref="InvalidOperationException">CanRead is false on property {Name}.</exception>
+	/// <exception cref="InvalidOperationException">CanRead and CanReadRestricted is false on property {Name}.</exception>
 	public object? InvokeGet(object target)
 	{
-		if (CanRead)
+		if (CanRead || CanReadRestricted)
 		{
 			try
 			{
@@ -310,10 +343,10 @@ public partial class PropertyMetadata
 	/// <param name="index">The index.</param>
 	/// <returns>System.Object.</returns>
 	/// <exception cref="System.ArgumentException">Error getting property " + Name</exception>
-	/// <exception cref="System.InvalidOperationException">CanReadIndexed is false on property {Name}.</exception>
+	/// <exception cref="System.InvalidOperationException">CanReadIndexed and CanReadIndexedRestrictedis false on property {Name}.</exception>
 	public object? InvokeGet(object target, object? index)
 	{
-		if (CanReadIndexed)
+		if (CanReadIndexed || CanReadIndexedAndRestricted)
 		{
 			try
 			{
@@ -335,10 +368,10 @@ public partial class PropertyMetadata
 	/// <param name="value">The value.</param>
 	/// <returns>System.Object.</returns>
 	/// <exception cref="ArgumentException">Error setting property " + Name</exception>
-	/// <exception cref="InvalidOperationException">CanWrite is false for property {Name}</exception>
+	/// <exception cref="InvalidOperationException">CanWrite and CanWriteRestricted is false for property {Name}</exception>
 	public void InvokeSet(object target, object? value)
 	{
-		if (CanWrite)
+		if (CanWrite || CanWriteRestricted)
 		{
 			try
 			{
@@ -361,10 +394,10 @@ public partial class PropertyMetadata
 	/// <param name="value">The value.</param>
 	/// <returns>System.Object.</returns>
 	/// <exception cref="System.ArgumentException">Error setting property " + Name</exception>
-	/// <exception cref="System.InvalidOperationException">CanWriteIndexed is false for property {Name}</exception>
+	/// <exception cref="System.InvalidOperationException">CanWriteIndexed and CanWriteIndexedRestricted is false for property {Name}</exception>
 	public void InvokeSet(object target, object? index, object? value)
 	{
-		if (CanWriteIndexed)
+		if (CanWriteIndexed || CanWriteIndexedAndRestricted)
 		{
 			try
 			{

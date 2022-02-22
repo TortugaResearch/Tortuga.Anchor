@@ -1012,6 +1012,25 @@ public class MetadataCacheTests
 
 	}
 
+	[TestMethod]
+	public void SkipRecordSpecialProperties()
+	{
+		using (var verify = new Verify())
+		{
+			var result = MetadataCache.GetMetadata(typeof(BarRecord));
+
+			verify.AreEqual(2, result.Properties.Where(p => p.CanRead).Count(), "CanRead");
+			verify.AreEqual(2, result.Properties.Where(p => p.CanWrite).Count(), "CanWrite");
+			verify.AreEqual(2, result.ColumnsFor.Count(), "ColumnsFor");
+
+
+			verify.AreEqual(3, result.Properties.Where(p => p.CanReadRestricted).Count(), "CanReadRestricted");
+			verify.AreEqual(2, result.Properties.Where(p => p.CanWriteRestricted).Count(), "CanWriteRestricted");
+
+		}
+
+	}
+
 	public class AutoConstructor { }
 
 	public class DefaultConstructor
