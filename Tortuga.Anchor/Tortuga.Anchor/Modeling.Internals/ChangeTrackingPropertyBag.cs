@@ -345,4 +345,19 @@ public class ChangeTrackingPropertyBag : PropertyBagBase
 			else
 				changedNew.PropertyChanged += OnChildIsChangedPropertyChanged;
 	}
+
+	/// <inheritdoc/>
+	protected internal override object?[] GetInternalValues()
+	{
+		return Values;
+	}
+
+	/// <inheritdoc/>
+	protected internal override void SetInternalValues(object?[] valuesArray)
+	{
+		if (valuesArray == null)
+			throw new ArgumentNullException(nameof(valuesArray));
+		valuesArray.CopyTo(Values, 0);
+		valuesArray.CopyTo(m_OriginalValues, 0);
+	}
 }

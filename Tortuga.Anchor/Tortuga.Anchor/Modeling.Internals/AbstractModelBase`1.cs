@@ -14,7 +14,7 @@ namespace Tortuga.Anchor.Modeling.Internals;
 /// </summary>
 /// <typeparam name="TPropertyTracking">The type of property tracking desired.</typeparam>
 [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractModelBase, INotifyDataErrorInfo
+public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractModelBase, INotifyDataErrorInfo, IUsesPropertyTracking
 	where TPropertyTracking : PropertyBagBase
 {
 	/// <summary>
@@ -34,6 +34,8 @@ public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractMod
 	/// </summary>
 	[NotMapped]
 	protected TPropertyTracking Properties { get; private set; }
+
+	PropertyBagBase IUsesPropertyTracking.Properties => Properties;
 
 	/// <summary>
 	/// Gets the validation errors for a specified property or for the entire entity.

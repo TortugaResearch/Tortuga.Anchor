@@ -18,14 +18,14 @@
 		<AssemblyVersion>4.0.0</AssemblyVersion>
 		<Version>4.0.0</Version>
 		<FileVersion>4.0.0.0</FileVersion>
-
+		
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 
 		<Copyright>David Tomcik, Jonathan Allen 2016-2021</Copyright>
 
-		<PackageProjectUrl>https://github.com/docevaad/Anchor</PackageProjectUrl>
+		<PackageProjectUrl>https://github.com/TortugaResearch/Anchor</PackageProjectUrl>
 
-		<RepositoryUrl>https://github.com/docevaad/Anchor.git</RepositoryUrl>
+		<RepositoryUrl>https://github.com/TortugaResearch/Anchor.git</RepositoryUrl>
 
 		<RepositoryType>git</RepositoryType>
 		<Nullable>enable</Nullable>
@@ -40,10 +40,10 @@
 	</ItemGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net462'">
-		<DefineConstants>NULL_MISSING</DefineConstants>
+		<DefineConstants>NULL_MISSING;HASHCODE_MISSING</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<DefineConstants>NULL_MISSING</DefineConstants>
+		<DefineConstants>NULL_MISSING;HASHCODE_MISSING</DefineConstants>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
