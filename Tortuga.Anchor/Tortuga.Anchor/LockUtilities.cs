@@ -10,11 +10,8 @@ public static class LockUtilities
 	/// </summary>
 	/// <param name="semaphore">The semaphore.</param>
 	/// <returns>IDisposable.</returns>
-	public static IDisposable Acquire(this SemaphoreSlim semaphore)
+	public static IDisposable Acquire(this SemaphoreSlim semaphore!!)
 	{
-		if (semaphore == null)
-			throw new ArgumentNullException(nameof(semaphore), $"{nameof(semaphore)} is null.");
-
 		semaphore.Wait();
 		return new SemaphoreSlimToken(semaphore);
 	}
@@ -24,11 +21,8 @@ public static class LockUtilities
 	/// </summary>
 	/// <param name="semaphore">The semaphore.</param>
 	/// <returns>Task&lt;IDisposable&gt;.</returns>
-	public static async Task<IDisposable> AcquireAsync(this SemaphoreSlim semaphore)
+	public static async Task<IDisposable> AcquireAsync(this SemaphoreSlim semaphore!!)
 	{
-		if (semaphore == null)
-			throw new ArgumentNullException(nameof(semaphore), $"{nameof(semaphore)} is null.");
-
 		await semaphore.WaitAsync().ConfigureAwait(false);
 		return new SemaphoreSlimToken(semaphore);
 	}
@@ -38,11 +32,8 @@ public static class LockUtilities
 	/// </summary>
 	/// <param name="lock">The lock to be acquired.</param>
 	/// <remarks>To not use this in an environment where Thread Abort exceptions are possible, as it may lead to dead locks.</remarks>
-	public static IDisposable Read(this ReaderWriterLockSlim @lock)
+	public static IDisposable Read(this ReaderWriterLockSlim @lock!!)
 	{
-		if (@lock == null)
-			throw new ArgumentNullException(nameof(@lock), $"{nameof(@lock)} is null.");
-
 		return new ReaderWriterLockSlimReadToken(@lock);
 	}
 
@@ -51,11 +42,8 @@ public static class LockUtilities
 	/// </summary>
 	/// <param name="lock">The lock to be acquired.</param>
 	/// <remarks>To not use this in an environment where Thread Abort exceptions are possible, as it may lead to dead locks.</remarks>
-	public static IDisposable Write(this ReaderWriterLockSlim @lock)
+	public static IDisposable Write(this ReaderWriterLockSlim @lock!!)
 	{
-		if (@lock == null)
-			throw new ArgumentNullException(nameof(@lock), $"{nameof(@lock)} is null.");
-
 		return new ReaderWriterLockSlimWriteToken(@lock);
 	}
 
@@ -65,7 +53,7 @@ public static class LockUtilities
 
 		public ReaderWriterLockSlimReadToken(ReaderWriterLockSlim @lock)
 		{
-			m_Lock = @lock ?? throw new ArgumentNullException(nameof(@lock), $"{nameof(@lock)} is null.");
+			m_Lock = @lock;
 			m_Lock.EnterReadLock();
 		}
 
@@ -83,9 +71,9 @@ public static class LockUtilities
 	{
 		private ReaderWriterLockSlim? m_Lock;
 
-		public ReaderWriterLockSlimWriteToken(ReaderWriterLockSlim @lock)
+		public ReaderWriterLockSlimWriteToken(ReaderWriterLockSlim @lock!!)
 		{
-			m_Lock = @lock ?? throw new ArgumentNullException(nameof(@lock), $"{nameof(@lock)} is null.");
+			m_Lock = @lock;
 			m_Lock.EnterWriteLock();
 		}
 
@@ -103,9 +91,9 @@ public static class LockUtilities
 	{
 		private SemaphoreSlim? m_Semaphore;
 
-		public SemaphoreSlimToken(SemaphoreSlim semaphore)
+		public SemaphoreSlimToken(SemaphoreSlim semaphore!!)
 		{
-			m_Semaphore = semaphore ?? throw new ArgumentNullException(nameof(semaphore), $"{nameof(semaphore)} is null.");
+			m_Semaphore = semaphore;
 		}
 
 		public void Dispose()

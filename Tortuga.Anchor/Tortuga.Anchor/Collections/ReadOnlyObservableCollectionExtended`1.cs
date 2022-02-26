@@ -28,10 +28,10 @@ INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionChangedWeak, 
 	/// create this instance of the System.Collections.ObjectModel.ReadOnlyObservableCollection
 	/// class.
 	/// </param>
-	public ReadOnlyObservableCollectionExtended(ObservableCollectionExtended<T> list)
+	public ReadOnlyObservableCollectionExtended(ObservableCollectionExtended<T> list!!)
 		: base(list)
 	{
-		SourceList = list ?? throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
+		SourceList = list;
 
 		m_SourceCollectionChanged = new Listener<NotifyCollectionChangedEventArgs>(OnSourceCollectionChanged);
 		m_SourcePropertyChanged = new Listener<PropertyChangedEventArgs>(OnSourcePropertyChanged);
@@ -68,11 +68,8 @@ INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionChangedWeak, 
 	/// Adds a weak event handler
 	/// </summary>
 	/// <param name="eventHandler"></param>
-	public void AddHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
+	public void AddHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		if (m_CollectionChangeEventManager == null)
 			m_CollectionChangeEventManager = new CollectionChangedEventManager(this);
 
@@ -83,11 +80,8 @@ INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionChangedWeak, 
 	/// Adds a weak event handler
 	/// </summary>
 	/// <param name="eventHandler"></param>
-	public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler)
+	public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		if (m_PropertyChangedEventManager == null)
 			m_PropertyChangedEventManager = new PropertyChangedEventManager(this);
 
@@ -98,11 +92,8 @@ INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionChangedWeak, 
 	/// Removes a weak event handler
 	/// </summary>
 	/// <param name="eventHandler"></param>
-	public void RemoveHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
+	public void RemoveHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		m_CollectionChangeEventManager?.RemoveHandler(eventHandler);
 	}
 
@@ -110,11 +101,8 @@ INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionChangedWeak, 
 	/// Removes a weak event handler
 	/// </summary>
 	/// <param name="eventHandler"></param>
-	public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler)
+	public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		m_PropertyChangedEventManager?.RemoveHandler(eventHandler);
 	}
 

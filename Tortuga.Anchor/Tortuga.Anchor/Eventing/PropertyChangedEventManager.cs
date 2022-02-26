@@ -18,9 +18,9 @@ public class PropertyChangedEventManager : EventManager<PropertyChangedEventArgs
 	/// <param name="source">The source.</param>
 	/// <exception cref="ArgumentNullException">source</exception>
 
-	public PropertyChangedEventManager(INotifyPropertyChanged source)
+	public PropertyChangedEventManager(INotifyPropertyChanged source!!)
 	{
-		m_Source = source ?? throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+		m_Source = source;
 	}
 
 	/// <summary>

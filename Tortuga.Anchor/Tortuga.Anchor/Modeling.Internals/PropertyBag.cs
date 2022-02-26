@@ -104,17 +104,20 @@ public class PropertyBag : PropertyBagBase
 		return true;
 	}
 
-	/// <inheritdoc/>
+	/// <summary>Returns the internal values array.</summary>
+	/// <returns>System.Nullable&lt;System.Object&gt;[].</returns>
+	/// <remarks>Be extremely careful with this. Changes to this arrary will not trigger events.</remarks>
 	protected internal override object?[] GetInternalValues()
 	{
 		return m_Values;
 	}
 
-	/// <inheritdoc/>
-	protected internal override void SetInternalValues(object?[] valuesArray)
+	/// <summary>Replaces the internal values array.</summary>
+	/// <param name="valuesArray">Array to be copied into this property bag.</param>
+	/// <exception cref="System.ArgumentNullException">valuesArray</exception>
+	/// <remarks>Be extremely careful with this. Changes to this arrary will not trigger events.</remarks>
+	protected internal override void SetInternalValues(object?[] valuesArray!!)
 	{
-		if (valuesArray == null)
-			throw new ArgumentNullException(nameof(valuesArray));
 		valuesArray.CopyTo(m_Values, 0);
 	}
 }

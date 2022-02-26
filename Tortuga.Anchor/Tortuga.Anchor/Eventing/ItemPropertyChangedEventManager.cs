@@ -16,9 +16,9 @@ public sealed class ItemPropertyChangedEventManager : EventManager<RelayedEventA
 	/// Creates a new CollectionChangedEventManager.
 	/// </summary>
 	/// <param name="source"></param>
-	public ItemPropertyChangedEventManager(INotifyItemPropertyChanged source)
+	public ItemPropertyChangedEventManager(INotifyItemPropertyChanged source!!)
 	{
-		m_Source = source ?? throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+		m_Source = source;
 	}
 
 	/// <summary>

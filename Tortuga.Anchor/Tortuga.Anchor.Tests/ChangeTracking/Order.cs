@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
 using Tortuga.Anchor.Eventing;
 using Tortuga.Anchor.Modeling;
 
@@ -28,13 +29,13 @@ public class Order : ChangeTrackingModelBase
 		get { return Lines.Sum(line => line.Extended); }
 	}
 
-	void Lines_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+	void Lines_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
 	{
-		OnPropertyChanged("TotalOrderCost");
+		OnPropertyChanged(nameof(TotalOrderCost));
 	}
 
 	void Lines_ItemPropertyChanged(object? sender, RelayedEventArgs<PropertyChangedEventArgs> e)
 	{
-		OnPropertyChanged("TotalOrderCost");
+		OnPropertyChanged(nameof(TotalOrderCost));
 	}
 }

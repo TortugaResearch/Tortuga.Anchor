@@ -17,9 +17,9 @@ public sealed class CollectionChangedEventManager : EventManager<NotifyCollectio
 	/// </summary>
 	/// <param name="source">The source.</param>
 	/// <exception cref="ArgumentNullException">source</exception>
-	public CollectionChangedEventManager(INotifyCollectionChanged source)
+	public CollectionChangedEventManager(INotifyCollectionChanged source!!)
 	{
-		m_Source = source ?? throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+		m_Source = source;
 	}
 
 	/// <summary>

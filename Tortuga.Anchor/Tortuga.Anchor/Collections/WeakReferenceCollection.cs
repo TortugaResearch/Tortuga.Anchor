@@ -26,11 +26,8 @@ public sealed class WeakReferenceCollection<T> : ICollection<T>, IReadOnlyCollec
 	/// </summary>
 	/// <param name="item">The object to add to the <see cref="ICollection{T}" />.</param>
 	/// <exception cref="ArgumentNullException">item</exception>
-	public void Add(T item)
+	public void Add(T item!!)
 	{
-		if (item == null)
-			throw new ArgumentNullException(nameof(item), $"{nameof(item)} is null.");
-
 		m_Collection.Add(new WeakReference(item));
 	}
 
@@ -40,10 +37,8 @@ public sealed class WeakReferenceCollection<T> : ICollection<T>, IReadOnlyCollec
 	/// <param name="list">The list.</param>
 	/// <exception cref="ArgumentNullException">list</exception>
 	/// <exception cref="ArgumentException">list</exception>
-	public void AddRange(IEnumerable<T> list)
+	public void AddRange(IEnumerable<T> list!!)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 		if (list.Any(i => i == null))
 			throw new ArgumentException($"{nameof(list)} is not allowed to contain null items", nameof(list));
 
@@ -91,10 +86,8 @@ public sealed class WeakReferenceCollection<T> : ICollection<T>, IReadOnlyCollec
 	/// </exception>
 	/// <exception cref="ArgumentException">array</exception>
 
-	public void CopyTo(T[] array, int arrayIndex)
+	public void CopyTo(T[] array!!, int arrayIndex)
 	{
-		if (array == null)
-			throw new ArgumentNullException(nameof(array), "array is null");
 		if (arrayIndex < 0)
 			throw new ArgumentOutOfRangeException(nameof(arrayIndex), arrayIndex, $"{nameof(arrayIndex)} cannot be less than zero");
 		if (arrayIndex > array.Length)
@@ -126,11 +119,8 @@ public sealed class WeakReferenceCollection<T> : ICollection<T>, IReadOnlyCollec
 	/// <returns>Returns true if the collection previously contained the item</returns>
 	/// <exception cref="ArgumentNullException">item</exception>
 	/// <remarks>If an item appears more than once only the first instance will be removed.</remarks>
-	public bool Remove(T item)
+	public bool Remove(T item!!)
 	{
-		if (item == null)
-			throw new ArgumentNullException(nameof(item), $"{nameof(item)} is null.");
-
 		var result = Contains(item);
 		if (result)
 		{

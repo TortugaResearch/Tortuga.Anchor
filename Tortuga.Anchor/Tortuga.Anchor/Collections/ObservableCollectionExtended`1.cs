@@ -41,7 +41,7 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// Initializes a new instance of the ObservableCollectionExtended class that contains elements copied from the specified list.
 	/// </summary>
 	/// <param name="list"></param>
-	public ObservableCollectionExtended(List<T> list)
+	public ObservableCollectionExtended(List<T>? list)
 	{
 		if (list != null)
 			AddRange(list);
@@ -51,7 +51,7 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// Initializes a new instance of the ObservableCollectionExtended class that contains elements copied from the specified collection.
 	/// </summary>
 	/// <param name="collection"></param>
-	public ObservableCollectionExtended(IEnumerable<T> collection)
+	public ObservableCollectionExtended(IEnumerable<T>? collection)
 	{
 		if (collection != null)
 			AddRange(collection);
@@ -91,11 +91,7 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 		remove { base.PropertyChanged -= value; }
 	}
 
-#pragma warning disable IDE1006 // Naming Styles
-
 	event RelayedEventHandler<PropertyChangedEventArgs>? m_ItemPropertyChangedEvent;
-
-#pragma warning restore IDE1006 // Naming Styles
 
 	/// <summary>
 	/// Returns a read-only wrapper around this collection.
@@ -120,11 +116,8 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// </summary>
 	/// <param name="eventHandler">The event handler.</param>
 	/// <exception cref="ArgumentNullException">eventHandler</exception>
-	public void AddHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
+	public void AddHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		if (m_CollectionChangeEventManager == null)
 			m_CollectionChangeEventManager = new CollectionChangedEventManager(this);
 
@@ -135,11 +128,8 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// Adds a weak event handler
 	/// </summary>
 	/// <param name="eventHandler"></param>
-	public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler)
+	public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		if (m_PropertyChangedEventManager == null)
 			m_PropertyChangedEventManager = new PropertyChangedEventManager(this);
 
@@ -150,11 +140,8 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// Adds a weak event handler
 	/// </summary>
 	/// <param name="eventHandler"></param>
-	public void AddHandler(IListener<RelayedEventArgs<PropertyChangedEventArgs>> eventHandler)
+	public void AddHandler(IListener<RelayedEventArgs<PropertyChangedEventArgs>> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		if (m_ItemPropertyChangedEventManager == null)
 		{
 			m_ItemPropertyChangedEventManager = new ItemPropertyChangedEventManager(this);
@@ -168,11 +155,8 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// Adds a list of values to this collection
 	/// </summary>
 	/// <param name="list"></param>
-	public void AddRange(IEnumerable<T> list)
+	public void AddRange(IEnumerable<T> list!!)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-
 		foreach (var item in list)
 			Add(item);
 	}
@@ -182,11 +166,8 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// </summary>
 	/// <param name="match"> The System.Predicate`1 delegate that defines the conditions of the elements to remove.</param>
 	/// <returns>The number of elements removed.</returns>
-	public int RemoveAll(Predicate<T> match)
+	public int RemoveAll(Predicate<T> match!!)
 	{
-		if (match == null)
-			throw new ArgumentNullException(nameof(match), $"{nameof(match)} is null.");
-
 		var count = 0;
 		for (int i = Count - 1; i >= 0; i--)
 		{
@@ -203,11 +184,8 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// Removes a weak event handler
 	/// </summary>
 	/// <param name="eventHandler"></param>
-	public void RemoveHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler)
+	public void RemoveHandler(IListener<NotifyCollectionChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		if (m_CollectionChangeEventManager == null)
 			return;
 
@@ -218,11 +196,8 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// Removes a weak event handler
 	/// </summary>
 	/// <param name="eventHandler"></param>
-	public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler)
+	public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		m_PropertyChangedEventManager?.RemoveHandler(eventHandler);
 	}
 
@@ -230,11 +205,8 @@ public partial class ObservableCollectionExtended<T> : ObservableCollection<T>, 
 	/// Removes a weak event handler
 	/// </summary>
 	/// <param name="eventHandler"></param>
-	public void RemoveHandler(IListener<RelayedEventArgs<PropertyChangedEventArgs>> eventHandler)
+	public void RemoveHandler(IListener<RelayedEventArgs<PropertyChangedEventArgs>> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		m_ItemPropertyChangedEventManager?.RemoveHandler(eventHandler);
 	}
 

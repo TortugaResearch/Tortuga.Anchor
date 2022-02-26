@@ -14,9 +14,9 @@ public class EventPair<T> where T : EventArgs
 	/// </summary>
 	/// <param name="sender"></param>
 	/// <param name="eventArgs"></param>
-	public EventPair(object? sender, T eventArgs)
+	public EventPair(object? sender, T eventArgs!!)
 	{
-		m_EventArgs = eventArgs ?? throw new ArgumentNullException(nameof(eventArgs), "eventArgs is null.");
+		m_EventArgs = eventArgs;
 		m_Sender = sender;
 	}
 

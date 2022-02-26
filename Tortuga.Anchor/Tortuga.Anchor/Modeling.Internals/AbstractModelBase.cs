@@ -54,11 +54,8 @@ public abstract partial class AbstractModelBase : INotifyPropertyChanged, INotif
 	/// </summary>
 	/// <param name="eventHandler"></param>
 	/// <exception cref="ArgumentNullException">eventHandler;eventHandler is null.</exception>
-	public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler)
+	public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		m_PropertyChangedEventManager.AddHandler(eventHandler);
 	}
 
@@ -67,11 +64,8 @@ public abstract partial class AbstractModelBase : INotifyPropertyChanged, INotif
 	/// </summary>
 	/// <param name="eventHandler"></param>
 	/// <exception cref="ArgumentNullException">eventHandler;eventHandler is null.</exception>
-	public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler)
+	public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		m_PropertyChangedEventManager.RemoveHandler(eventHandler);
 	}
 

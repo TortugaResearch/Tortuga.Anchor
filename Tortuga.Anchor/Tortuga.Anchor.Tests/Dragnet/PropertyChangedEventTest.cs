@@ -13,10 +13,10 @@ public class PropertyChangedEventTest : EventTest<PropertyChangedEventArgs>
 	/// Creates a new INotifyPropertyChanged test
 	/// </summary>
 	/// <param name="source"></param>
-	public PropertyChangedEventTest(Verify verify, INotifyPropertyChanged source)
+	public PropertyChangedEventTest(Verify verify, INotifyPropertyChanged source!!)
 		: base(verify, source)
 	{
-		m_Source = source ?? throw new ArgumentNullException(nameof(source), "source is null.");
+		m_Source = source;
 		m_Source.PropertyChanged += SourceEventFired;
 	}
 

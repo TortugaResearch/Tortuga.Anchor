@@ -15,9 +15,9 @@ public class RelayedEventArgs<T> : EventArgs where T : EventArgs
 	/// <param name="originalSender">The original sender.</param>
 	/// <param name="eventArgs">The event arguments.</param>
 	/// <exception cref="ArgumentNullException">eventArgs</exception>
-	public RelayedEventArgs(object? originalSender, T eventArgs)
+	public RelayedEventArgs(object? originalSender, T eventArgs!!)
 	{
-		EventArgs = eventArgs ?? throw new ArgumentNullException(nameof(eventArgs), $"{nameof(eventArgs)} is null.");
+		EventArgs = eventArgs;
 		OriginalSender = originalSender;
 	}
 

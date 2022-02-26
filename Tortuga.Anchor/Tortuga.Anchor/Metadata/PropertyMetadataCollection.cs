@@ -118,10 +118,8 @@ sealed public class PropertyMetadataCollection : IList<PropertyMetadata>
 	/// cref="ICollection{T}"/>; otherwise, <see langword="false"/>.
 	/// </returns>
 	/// <exception cref="ArgumentNullException">item</exception>
-	public bool Contains(PropertyMetadata item)
+	public bool Contains(PropertyMetadata item!!)
 	{
-		if (item == null)
-			throw new ArgumentNullException(nameof(item), $"{nameof(item)} is null.");
 		if (Count == 0)
 			return false;
 		return Contains(item.Name);
@@ -151,10 +149,8 @@ sealed public class PropertyMetadataCollection : IList<PropertyMetadata>
 	/// <exception cref="ArgumentNullException">array</exception>
 	/// <exception cref="ArgumentOutOfRangeException">arrayIndex</exception>
 
-	public void CopyTo(PropertyMetadata[] array, int arrayIndex)
+	public void CopyTo(PropertyMetadata[] array!!, int arrayIndex)
 	{
-		if (array == null)
-			throw new ArgumentNullException(nameof(array), $"{nameof(array)} is null");
 		if (arrayIndex < 0)
 			throw new ArgumentOutOfRangeException(nameof(arrayIndex), $"{nameof(arrayIndex)} cannot be less than zero");
 		if (arrayIndex > array.Length)

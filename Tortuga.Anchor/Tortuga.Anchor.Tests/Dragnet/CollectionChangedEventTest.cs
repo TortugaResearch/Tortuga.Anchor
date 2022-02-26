@@ -14,12 +14,9 @@ public class CollectionChangedEventTest : EventTest<NotifyCollectionChangedEvent
 	/// Creates a new INotifyCollectionChanged assertion
 	/// </summary>
 	/// <param name="source"></param>
-	public CollectionChangedEventTest(Verify verify, INotifyCollectionChanged source)
+	public CollectionChangedEventTest(Verify verify, INotifyCollectionChanged source!!)
 		: base(verify, source)
 	{
-		if (source == null)
-			throw new ArgumentNullException("source", "source is null.");
-
 		m_Source = source;
 		m_Source.CollectionChanged += SourceEventFired;
 	}

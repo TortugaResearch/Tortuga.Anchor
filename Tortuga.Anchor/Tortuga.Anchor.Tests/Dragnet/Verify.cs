@@ -104,10 +104,8 @@ public class Verify : IDisposable
 			throw new AssertFailedException(ToString());
 	}
 
-	public TException Exception<TException>(Action body) where TException : Exception
+	public TException Exception<TException>(Action body!!) where TException : Exception
 	{
-		if (body == null)
-			throw new ArgumentNullException("body", "body is null.");
 		try
 		{
 			body();
@@ -125,10 +123,8 @@ public class Verify : IDisposable
 		throw new InvalidProgramException(); //this line can never be hit.
 	}
 
-	public TException Exception<TException>(Action body, string message) where TException : Exception
+	public TException Exception<TException>(Action body!!, string message) where TException : Exception
 	{
-		if (body == null)
-			throw new ArgumentNullException(nameof(body), "body is null.");
 		try
 		{
 			body();

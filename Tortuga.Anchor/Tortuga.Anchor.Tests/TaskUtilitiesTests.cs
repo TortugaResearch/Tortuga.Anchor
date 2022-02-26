@@ -67,7 +67,7 @@ public class TaskUtilitiesTests
 			timer.Stop();
 			verify.IsFalse(result, "WaitForCompleteOrCancel should have returned false");
 			verify.IsTrue(t.IsCanceled, "Task should have been canceled.");
-			verify.AreEqual(1.0, timer.Elapsed.TotalSeconds, 0.15, "Elapsed time was incorrect.");
+			verify.AreEqual(1.0, timer.Elapsed.TotalSeconds, 0.30, "Elapsed time was incorrect.");
 		}
 	}
 
@@ -338,7 +338,7 @@ public class TaskUtilitiesTests
 		verify.WriteLine("Before");
 		for (var i = 0; i < 10; i++)
 		{
-			await Task.Delay(1000);
+			await Task.Delay(1000, token);
 			token.ThrowIfCancellationRequested();
 		}
 		verify.WriteLine("After");

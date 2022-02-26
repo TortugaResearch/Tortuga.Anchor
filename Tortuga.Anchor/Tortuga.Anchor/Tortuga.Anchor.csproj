@@ -6,13 +6,13 @@
 		<Company>Tortuga Technologies</Company>
 		<Description>Commons and data modeling library for the Tortuga project.</Description>
 		<PackageTags>MVVM,Reflection</PackageTags>
-		<LangVersion>10.0</LangVersion>
 		<Deterministic>true</Deterministic>
 		<ImplicitUsings>true</ImplicitUsings>
 		<ProductName>Tortuga Anchor</ProductName>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<AnalysisLevel>latest</AnalysisLevel>
+		<LangVersion>preview</LangVersion>
 
 
 		<AssemblyVersion>4.0.0</AssemblyVersion>

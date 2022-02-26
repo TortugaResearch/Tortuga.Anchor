@@ -6,7 +6,7 @@
 		<IsPackable>false</IsPackable>
 		<CodeAnalysisRuleSet></CodeAnalysisRuleSet>
 		<Nullable>enable</Nullable>
-		<LangVersion>10.0</LangVersion>
+		<LangVersion>preview</LangVersion>
 		<ImplicitUsings>true</ImplicitUsings>
 		<RootNamespace>Tests</RootNamespace>
 	</PropertyGroup>

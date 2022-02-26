@@ -346,17 +346,25 @@ public class ChangeTrackingPropertyBag : PropertyBagBase
 				changedNew.PropertyChanged += OnChildIsChangedPropertyChanged;
 	}
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Returns the internal values array.
+	/// </summary>
+	/// <returns>System.Nullable&lt;System.Object&gt;[].</returns>
+	/// <remarks>Be extremely careful with this. Changes to this arrary will not trigger events.</remarks>
 	protected internal override object?[] GetInternalValues()
 	{
 		return Values;
 	}
 
-	/// <inheritdoc/>
-	protected internal override void SetInternalValues(object?[] valuesArray)
+	/// <summary>
+	///   <para>Replaces the internal values array.
+	/// </para>
+	/// </summary>
+	/// <param name="valuesArray">Array to be copied into this property bag.</param>
+	/// <exception cref="System.ArgumentNullException">valuesArray</exception>
+	/// <remarks>Be extremely careful with this. Changes to this arrary will not trigger events.</remarks>
+	protected internal override void SetInternalValues(object?[] valuesArray!!)
 	{
-		if (valuesArray == null)
-			throw new ArgumentNullException(nameof(valuesArray));
 		valuesArray.CopyTo(Values, 0);
 		valuesArray.CopyTo(m_OriginalValues, 0);
 	}

@@ -64,11 +64,9 @@ public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractMod
 	/// propertyChanged;propertyChanged is null.
 	/// </exception>
 	/// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-	public bool Set<T>(T value, PropertyChangedEventHandler propertyChanged, [CallerMemberName] string propertyName = "")
+	public bool Set<T>(T value, PropertyChangedEventHandler propertyChanged!!, [CallerMemberName] string propertyName = "")
 		where T : INotifyPropertyChanged
 	{
-		if (propertyChanged == null)
-			throw new ArgumentNullException(nameof(propertyChanged), $"{nameof(propertyChanged)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
@@ -179,10 +177,8 @@ public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractMod
 	/// <remarks>
 	/// Executing the default function will trigger validation but not a property-changed event.
 	/// </remarks>
-	protected T GetNew<T>(Func<T> creationFunction, [CallerMemberName] string propertyName = "")
+	protected T GetNew<T>(Func<T> creationFunction!!, [CallerMemberName] string propertyName = "")
 	{
-		if (creationFunction == null)
-			throw new ArgumentNullException(nameof(creationFunction), $"{nameof(creationFunction)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
@@ -219,10 +215,8 @@ public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractMod
 	/// </returns>
 	/// <exception cref="ArgumentNullException">propertyName;propertyName is null</exception>
 	/// <exception cref="ArgumentException">propertyName is null or empty.;propertyName</exception>
-	protected bool Set<T>(T value, ValueChanged<T> valueChanged, [CallerMemberName] string propertyName = "")
+	protected bool Set<T>(T value, ValueChanged<T> valueChanged!!, [CallerMemberName] string propertyName = "")
 	{
-		if (valueChanged == null)
-			throw new ArgumentNullException(nameof(valueChanged), $"{nameof(valueChanged)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
@@ -261,11 +255,9 @@ public abstract partial class AbstractModelBase<TPropertyTracking> : AbstractMod
 	/// or
 	/// collectionChanged;collectionChanged is null.</exception>
 	/// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-	protected bool Set<T>(T value, NotifyCollectionChangedEventHandler collectionChanged, [CallerMemberName] string propertyName = "")
+	protected bool Set<T>(T value, NotifyCollectionChangedEventHandler collectionChanged!!, [CallerMemberName] string propertyName = "")
 where T : INotifyCollectionChanged
 	{
-		if (collectionChanged == null)
-			throw new ArgumentNullException(nameof(collectionChanged), $"{nameof(collectionChanged)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 

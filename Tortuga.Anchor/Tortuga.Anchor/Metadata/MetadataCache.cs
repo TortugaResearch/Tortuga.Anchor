@@ -26,11 +26,8 @@ public static class MetadataCache
 	/// <param name="type">The type of interest</param>
 	/// <returns>A thread-safe copy of the class's metadata</returns>
 	/// <remarks>Actually fetching the metadata may require taking a lock. Therefore it is advisable to locally cache the metadata as well.</remarks>
-	public static ClassMetadata GetMetadata(Type type)
+	public static ClassMetadata GetMetadata(Type type!!)
 	{
-		if (type == null)
-			throw new ArgumentNullException(nameof(type), $"{nameof(type)} is null.");
-
 		if (s_ModelInfo.TryGetValue(type, out ClassMetadata? result))
 			return result;
 

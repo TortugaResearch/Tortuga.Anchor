@@ -8,7 +8,6 @@ namespace Tortuga.Anchor.Collections;
 /// This represents a segment of an IList.
 /// </summary>
 [SuppressMessage("Design", "CA1066:Type {0} should implement IEquatable<T> because it overrides Equals", Justification = "<Pending>")]
-[SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "<Pending>")]
 public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 {
 	private readonly IReadOnlyList<T>? m_List;
@@ -24,10 +23,8 @@ public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 	/// <param name="list">The array.</param>
 	/// <exception cref="ArgumentNullException">list</exception>
 	/// <exception cref="ArgumentException">list</exception>
-	public ReadOnlyListSegment(IReadOnlyList<T> list)
+	public ReadOnlyListSegment(IReadOnlyList<T> list!!)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 		if (list.Count == 0)
 			throw new ArgumentException($"{nameof(list)} is empty.", nameof(list));
 
@@ -49,10 +46,8 @@ public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 	/// or
 	/// count
 	/// </exception>
-	public ReadOnlyListSegment(IReadOnlyList<T> list, int offset, int count)
+	public ReadOnlyListSegment(IReadOnlyList<T> list!!, int offset, int count)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 		if (list.Count == 0)
 			throw new ArgumentException($"{nameof(list)} is empty.", nameof(list));
 
@@ -193,10 +188,10 @@ public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 		}
 	}
 
-		void CheckSource()
-		{
-			if (m_List == null)
-				throw new InvalidOperationException("The ReadOnlyListSegment is empty.");
+	void CheckSource()
+	{
+		if (m_List == null)
+			throw new InvalidOperationException("The ReadOnlyListSegment is empty.");
 
 		if (m_List.Count != m_InitialCount)
 			throw new InvalidOperationException("The size of the underlying list has been modified. This array segment is no longer valid.");
@@ -208,7 +203,7 @@ public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 	/// <param name="obj">The object to compare with the current instance.</param>
 	/// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
 	public override bool Equals(object? obj) =>
-		obj is ReadOnlyListSegment<T> && Equals((ReadOnlyListSegment<T>)obj);
+		obj is ReadOnlyListSegment<T> segment && Equals(segment);
 
 	/// <summary>
 	/// Returns true if both list segments refer to the same list at the same offset and count.

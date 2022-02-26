@@ -16,11 +16,8 @@ public abstract class EventManager<T> where T : EventArgs
 	/// </summary>
 	/// <param name="eventHandler">The event handler.</param>
 	/// <exception cref="ArgumentNullException">eventHandler</exception>
-	public void AddHandler(IListener<T> eventHandler)
+	public void AddHandler(IListener<T> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		m_Targets.Add(eventHandler);
 		if (!m_Listening)
 		{
@@ -34,11 +31,8 @@ public abstract class EventManager<T> where T : EventArgs
 	/// </summary>
 	/// <param name="eventHandler">The event handler.</param>
 	/// <exception cref="ArgumentNullException">eventHandler</exception>
-	public void RemoveHandler(IListener<T> eventHandler)
+	public void RemoveHandler(IListener<T> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
-
 		m_Targets.Remove(eventHandler);
 		m_Targets.CleanUp();
 

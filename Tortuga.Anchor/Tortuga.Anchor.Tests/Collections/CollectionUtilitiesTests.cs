@@ -278,7 +278,6 @@ public class CollectionUtilitiesTests
 			Assert.AreEqual(2, batch.Count);
 			Assert.AreEqual(offset, batch.Min());
 			Assert.AreEqual(offset + 1, batch.Max());
-			offset += 250;
 		}
 	}
 
@@ -350,7 +349,6 @@ public class CollectionUtilitiesTests
 			Assert.AreEqual(2, batch.Count);
 			Assert.AreEqual(offset, batch.Min());
 			Assert.AreEqual(offset + 1, batch.Max());
-			offset += 250;
 		}
 	}
 

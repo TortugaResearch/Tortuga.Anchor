@@ -17,14 +17,10 @@ public static partial class CollectionUtilities
 	/// <typeparam name="T"></typeparam>
 	/// <param name="target"></param>
 	/// <param name="list"></param>
-	public static void AddRange<T>(this ICollection<T> target, List<T> list)
+	public static void AddRange<T>(this ICollection<T> target!!, List<T> list!!)
 	{
-		if (target == null)
-			throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
 		if (target.IsReadOnly)
 			throw new ArgumentException($"{nameof(target)}.IsReadOnly must be false", nameof(target));
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
 		foreach (var item in list)
 			target.Add(item);
@@ -36,14 +32,10 @@ public static partial class CollectionUtilities
 	/// <typeparam name="T"></typeparam>
 	/// <param name="target"></param>
 	/// <param name="list"></param>
-	public static void AddRange<T>(this ICollection<T> target, IEnumerable<T> list)
+	public static void AddRange<T>(this ICollection<T> target!!, IEnumerable<T> list!!)
 	{
-		if (target == null)
-			throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
 		if (target.IsReadOnly)
 			throw new ArgumentException($"{nameof(target)}.IsReadOnly must be false", nameof(target));
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
 		if (list is List<T> typedList)
 			foreach (var item in typedList) //switch to fast path
@@ -59,14 +51,10 @@ public static partial class CollectionUtilities
 	/// <typeparam name="T"></typeparam>
 	/// <param name="target"></param>
 	/// <param name="list"></param>
-	public static void AddRange<T>(this ICollection<T> target, params T[] list)
+	public static void AddRange<T>(this ICollection<T> target!!, params T[] list!!)
 	{
-		if (target == null)
-			throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
 		if (target.IsReadOnly)
 			throw new ArgumentException($"{nameof(target)}.IsReadOnly must be false", nameof(target));
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
 		foreach (var item in list)
 			target.Add(item);
@@ -78,13 +66,8 @@ public static partial class CollectionUtilities
 	/// <typeparam name="T"></typeparam>
 	/// <param name="target">The target collection to be added to.</param>
 	/// <param name="list">The list.</param>
-	public static async Task AddRange<T>(this ICollection<T> target, IEnumerable<Task<T>> list)
+	public static async Task AddRange<T>(this ICollection<T> target!!, IEnumerable<Task<T>> list!!)
 	{
-		if (target == null)
-			throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-
 		foreach (var item in list)
 			target.Add(await item.ConfigureAwait(false));
 	}
@@ -153,24 +136,6 @@ public static partial class CollectionUtilities
 		return new ReadOnlyCollection<T>(source.ToList());
 	}
 
-	///// <summary>
-	///// Creates a read-only list from an System.Collections.Generic.IEnumerable`1.
-	///// </summary>
-	///// <typeparam name="T"></typeparam>
-	///// <param name="source">The source.</param>
-	///// <returns>IReadOnlyList&lt;T&gt;.</returns>
-	///// <exception cref="ArgumentNullException">source</exception>
-	///// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
-	//public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
-	//{
-	//    if (source == null)
-	//        throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
-
-	//    if (source is IList<T> list)
-	//        return new ReadOnlyCollection<T>(list);
-	//    else
-	//        return new ReadOnlyCollection<T>(source.ToList());
-	//}
 
 	/// <summary>
 	/// Batches the specified enumeration into lists according to the indicated batch size.
@@ -181,10 +146,8 @@ public static partial class CollectionUtilities
 	/// <returns>IEnumerable&lt;List&lt;T&gt;&gt;.</returns>
 	/// <exception cref="ArgumentNullException">source</exception>
 	/// <exception cref="ArgumentOutOfRangeException">batchSize</exception>
-	public static IEnumerable<List<T>> BatchAsLists<T>(this IEnumerable<T> source, int batchSize)
+	public static IEnumerable<List<T>> BatchAsLists<T>(this IEnumerable<T> source!!, int batchSize)
 	{
-		if (source == null)
-			throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
 		if (batchSize <= 0)
 			throw new ArgumentOutOfRangeException(nameof(batchSize), batchSize, $"{batchSize} must be greater than 0");
 
@@ -221,10 +184,8 @@ public static partial class CollectionUtilities
 	/// <returns>IEnumerable&lt;List&lt;T&gt;&gt;.</returns>
 	/// <exception cref="ArgumentNullException">source</exception>
 	/// <exception cref="ArgumentOutOfRangeException">batchSize</exception>
-	public static IEnumerable<ReadOnlyListSegment<T>> BatchAsSegments<T>(this IReadOnlyList<T> source, int batchSize)
+	public static IEnumerable<ReadOnlyListSegment<T>> BatchAsSegments<T>(this IReadOnlyList<T> source!!, int batchSize)
 	{
-		if (source == null)
-			throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
 		if (batchSize <= 0)
 			throw new ArgumentOutOfRangeException(nameof(batchSize), batchSize, $"{batchSize} must be greater than 0");
 
@@ -252,19 +213,11 @@ public static partial class CollectionUtilities
 	/// An System.Collections.Generic.IEnumerable&lt;T&gt; that contains the concatenated
 	/// elements of the two input sequences.
 	/// </returns>
-	public static IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> list, TSource item)
+	public static IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> list!!, TSource item)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-
-		return ConcatCore();
-
-		IEnumerable<TSource> ConcatCore()
-		{
-			foreach (var element in list)
-				yield return element;
-			yield return item;
-		}
+		foreach (var element in list)
+			yield return element;
+		yield return item;
 	}
 
 	/// <summary>
@@ -275,11 +228,9 @@ public static partial class CollectionUtilities
 	/// <param name="dictionary">The dictionary.</param>
 	/// <returns></returns>
 	/// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
-	public static ReadOnlyCollection<TKey> GetKeys<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+	public static ReadOnlyCollection<TKey> GetKeys<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary!!)
 		where TKey : notnull
 	{
-		if (dictionary == null)
-			throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");
 		return (ReadOnlyCollection<TKey>)dictionary.Keys;
 	}
 
@@ -291,11 +242,9 @@ public static partial class CollectionUtilities
 	/// <param name="dictionary">The dictionary.</param>
 	/// <returns></returns>
 	/// <remarks>This is just a cast. It accounts for an API bug in ConcurrentDictionary.</remarks>
-	public static ReadOnlyCollection<TValue> GetValues<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary)
+	public static ReadOnlyCollection<TValue> GetValues<TKey, TValue>(this ConcurrentDictionary<TKey, TValue> dictionary!!)
 		where TKey : notnull
 	{
-		if (dictionary == null)
-			throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null ");
 		return (ReadOnlyCollection<TValue>)dictionary.Values;
 	}
 
@@ -307,11 +256,8 @@ public static partial class CollectionUtilities
 	/// <param name="item">The item.</param>
 	/// <returns>System.Int32.</returns>
 	/// <exception cref="ArgumentNullException">list</exception>
-	public static int IndexOf<T>(this IReadOnlyList<T> list, T item)
+	public static int IndexOf<T>(this IReadOnlyList<T> list!!, T item)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null ");
-
 		for (var i = 0; i < list.Count; i++)
 		{
 			var value = list[i];
@@ -334,14 +280,10 @@ public static partial class CollectionUtilities
 	/// <param name="startingIndex"></param>
 	/// <param name="list"></param>
 	/// <remarks>This isn't as fast as a real InsertRange, it just adds one item at a time.</remarks>
-	public static void InsertRange<T>(this IList<T> target, int startingIndex, IEnumerable<T> list)
+	public static void InsertRange<T>(this IList<T> target!!, int startingIndex, IEnumerable<T> list!!)
 	{
-		if (target == null)
-			throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
 		if (target.IsReadOnly)
 			throw new ArgumentException($"{nameof(target)}.IsReadOnly must be false", nameof(target));
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 
 		if (startingIndex < 0)
 			throw new ArgumentOutOfRangeException(nameof(startingIndex), startingIndex, $"{nameof(startingIndex)} must be >= 0");
@@ -366,10 +308,8 @@ public static partial class CollectionUtilities
 	/// <remarks>
 	/// This isn't as fast as a real RemoveRange, it just removes one item at a time.
 	/// </remarks>
-	public static void RemoveRange<T>(this IList<T> list, int startingIndex, int count)
+	public static void RemoveRange<T>(this IList<T> list!!, int startingIndex, int count)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
 		if (list.IsReadOnly)
 			throw new ArgumentException("list.IsReadOnly must be false", nameof(list));
 		if (startingIndex < 0)
@@ -387,11 +327,8 @@ public static partial class CollectionUtilities
 	/// <typeparam name="T">Type of item in the list</typeparam>
 	/// <param name="list">The list to sort.</param>
 	/// <exception cref="ArgumentNullException">list or comparer</exception>
-	public static void Sort<T>(this IList<T> list) where T : IComparable<T>
+	public static void Sort<T>(this IList<T> list!!) where T : IComparable<T>
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-
 		if (list.Count == 0)
 			return;
 
@@ -406,13 +343,8 @@ public static partial class CollectionUtilities
 	/// <param name="list">The list to sort.</param>
 	/// <param name="comparer">The comparer to use when sorting.</param>
 	/// <exception cref="ArgumentNullException">list or comparer</exception>
-	public static void Sort<T>(this IList<T> list, IComparer<T> comparer)
+	public static void Sort<T>(this IList<T> list!!, IComparer<T> comparer!!)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-		if (comparer == null)
-			throw new ArgumentNullException(nameof(comparer), $"{nameof(comparer)} is null.");
-
 		if (list.Count == 0)
 			return;
 
@@ -428,12 +360,8 @@ public static partial class CollectionUtilities
 	/// <param name="count">The count.</param>
 	/// <param name="comparer">The comparer to use when sorting.</param>
 	/// <exception cref="ArgumentNullException">list or comparer</exception>
-	public static void Sort<T>(this IList<T> list, int startIndex, int count, IComparer<T> comparer)
+	public static void Sort<T>(this IList<T> list!!, int startIndex, int count, IComparer<T> comparer!!)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-		if (comparer == null)
-			throw new ArgumentNullException(nameof(comparer), $"{nameof(comparer)} is null.");
 		if (startIndex >= list.Count)
 			throw new ArgumentOutOfRangeException(nameof(startIndex), startIndex, $"{nameof(startIndex)} must be less than {nameof(list.Count)}");
 		if (startIndex < 0)
@@ -454,13 +382,8 @@ public static partial class CollectionUtilities
 	/// <param name="list">The list to sort.</param>
 	/// <param name="comparison">The comparison function to use when sorting.</param>
 	/// <exception cref="ArgumentNullException">list or comparer</exception>
-	public static void Sort<T>(this IList<T> list, Comparison<T> comparison)
+	public static void Sort<T>(this IList<T> list!!, Comparison<T> comparison!!)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-		if (comparison == null)
-			throw new ArgumentNullException(nameof(comparison), $"{nameof(comparison)} is null.");
-
 		if (list.Count == 0)
 			return;
 

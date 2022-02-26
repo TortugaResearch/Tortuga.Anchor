@@ -16,9 +16,9 @@ public class Listener<T> : IListener<T> where T : EventArgs
 	/// <param name="eventHandler">The event handler.</param>
 	/// <exception cref="ArgumentNullException">eventHandler</exception>
 
-	public Listener(Action<object?, T> eventHandler)
+	public Listener(Action<object?, T> eventHandler!!)
 	{
-		m_EventHandler = eventHandler ?? throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
+		m_EventHandler = eventHandler;
 	}
 
 	/// <summary>

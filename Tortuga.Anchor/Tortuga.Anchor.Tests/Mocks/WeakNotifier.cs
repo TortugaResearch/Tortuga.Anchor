@@ -11,19 +11,13 @@ public class WeakNotifier : Notifier, INotifyPropertyChangedWeak
 		m_Manager = new PropertyChangedEventManager(this);
 	}
 
-	public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler)
+	public void AddHandler(IListener<PropertyChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException("eventHandler", "eventHandler is null.");
-
 		m_Manager.AddHandler(eventHandler);
 	}
 
-	public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler)
+	public void RemoveHandler(IListener<PropertyChangedEventArgs> eventHandler!!)
 	{
-		if (eventHandler == null)
-			throw new ArgumentNullException("eventHandler", "eventHandler is null.");
-
 		m_Manager.RemoveHandler(eventHandler);
 	}
 

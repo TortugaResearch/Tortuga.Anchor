@@ -201,11 +201,8 @@ public static class TaskUtilities
 	/// <returns>A Task that is completed when all actions are complete</returns>
 	/// <exception cref="ArgumentNullException">actions</exception>
 	/// <exception cref="ArgumentException">actions</exception>
-	public static Task ForEachAsync(this IReadOnlyCollection<Func<Task>> actions)
+	public static Task ForEachAsync(this IReadOnlyCollection<Func<Task>> actions!!)
 	{
-		if (actions == null)
-			throw new ArgumentNullException(nameof(actions), $"{nameof(actions)} is null.");
-
 		var tasks = new Task[actions.Count];
 		var i = 0;
 		foreach (var action in actions)
@@ -242,13 +239,8 @@ public static class TaskUtilities
 	/// or
 	/// action
 	/// </exception>
-	public static Task ForEachAsync<T>(this IReadOnlyCollection<T> list, Func<T, Task> action)
+	public static Task ForEachAsync<T>(this IReadOnlyCollection<T> list!!, Func<T, Task> action!!)
 	{
-		if (list == null)
-			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-		if (action == null)
-			throw new ArgumentNullException(nameof(action), $"{nameof(action)} is null.");
-
 		var tcs = new TaskCompletionSource<object?>();
 
 		Task.Run(() =>
@@ -275,11 +267,8 @@ public static class TaskUtilities
 	/// <param name="task">The task to run.</param>
 	/// <exception cref="ArgumentNullException">task</exception>
 	/// <remarks>This is usually used to avoid warning messages about not waiting for the task to complete.</remarks>
-	public static void RunConcurrently(this Task task)
+	public static void RunConcurrently(this Task task!!)
 	{
-		if (task == null)
-			throw new ArgumentNullException(nameof(task), $"{nameof(task)} is null.");
-
 		if (task.Status == TaskStatus.Created)
 			task.Start();
 	}
@@ -290,11 +279,8 @@ public static class TaskUtilities
 	/// <param name="task">The task.</param>
 	/// <returns><c>true</c> if the task ran to completion, <c>false</c> if the task was canceled.</returns>
 	/// <exception cref="ArgumentNullException">task;task is null.</exception>
-	public static bool WaitForCompleteOrCancel(this Task task)
+	public static bool WaitForCompleteOrCancel(this Task task!!)
 	{
-		if (task == null)
-			throw new ArgumentNullException(nameof(task), $"{nameof(task)} is null.");
-
 		try
 		{
 			task.Wait();
@@ -311,11 +297,8 @@ public static class TaskUtilities
 	/// </summary>
 	/// <param name="tasks">The tasks to wait for.</param>
 	/// <param name="cancellationToken">The cancellation token.</param>
-	public static async Task WhenAll(this IEnumerable<Task> tasks, CancellationToken cancellationToken)
+	public static async Task WhenAll(this IEnumerable<Task> tasks!!, CancellationToken cancellationToken)
 	{
-		if (tasks == null)
-			throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
-
 		await Task.WhenAny(Task.WhenAll(tasks), cancellationToken.AsTask()).ConfigureAwait(false);
 		cancellationToken.ThrowIfCancellationRequested();
 	}
@@ -326,11 +309,8 @@ public static class TaskUtilities
 	/// <param name="tasks">The tasks to wait for.</param>
 	/// <returns>Task.</returns>
 	/// <exception cref="ArgumentNullException">tasks</exception>
-	public static Task WhenAll(this IEnumerable<Task> tasks)
+	public static Task WhenAll(this IEnumerable<Task> tasks!!)
 	{
-		if (tasks == null)
-			throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
-
 		return Task.WhenAll(tasks);
 	}
 
@@ -339,11 +319,8 @@ public static class TaskUtilities
 	/// </summary>
 	/// <param name="tasks">The tasks to wait for.</param>
 	/// <param name="cancellationToken">The cancellation token.</param>
-	public static async Task WhenAny(this IEnumerable<Task> tasks, CancellationToken cancellationToken)
+	public static async Task WhenAny(this IEnumerable<Task> tasks!!, CancellationToken cancellationToken)
 	{
-		if (tasks == null)
-			throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
-
 		await Task.WhenAny(tasks.Concat(cancellationToken.AsTask())).ConfigureAwait(false);
 		cancellationToken.ThrowIfCancellationRequested();
 	}
@@ -354,11 +331,8 @@ public static class TaskUtilities
 	/// <param name="tasks">The tasks to wait for.</param>
 	/// <returns>Task.</returns>
 	/// <exception cref="ArgumentNullException">tasks</exception>
-	public static Task WhenAny(this IEnumerable<Task> tasks)
+	public static Task WhenAny(this IEnumerable<Task> tasks!!)
 	{
-		if (tasks == null)
-			throw new ArgumentNullException(nameof(tasks), $"{nameof(tasks)} is null.");
-
 		return Task.WhenAny(tasks);
 	}
 }

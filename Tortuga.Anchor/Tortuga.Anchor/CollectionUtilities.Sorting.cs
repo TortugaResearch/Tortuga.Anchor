@@ -157,23 +157,12 @@ static partial class CollectionUtilities
 	private static void Swap<T>(IList<T> a, int i, int j)
 	{
 		if (i != j)
-		{
-			T t = a[i];
-			a[i] = a[j];
-			a[j] = t;
-		}
+			(a[i], a[j]) = (a[j], a[i]);
 	}
 
 	static void SwapIfGreater<T>(IList<T> keys, Comparison<T> comparison, int a, int b)
 	{
-		if (a != b)
-		{
-			if (comparison(keys[a], keys[b]) > 0)
-			{
-				T key = keys[a];
-				keys[a] = keys[b];
-				keys[b] = key;
-			}
-		}
+		if ((a != b) && (comparison(keys[a], keys[b]) > 0))
+			(keys[a], keys[b]) = (keys[b], keys[a]);
 	}
 }

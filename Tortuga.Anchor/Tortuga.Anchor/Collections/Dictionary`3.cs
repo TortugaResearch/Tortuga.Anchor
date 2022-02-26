@@ -29,12 +29,9 @@ public class Dictionary<TKey1, TKey2, TValue> : IDictionary<ValueTuple<TKey1, TK
 	/// </summary>
 	/// <param name="dictionary">The dictionary to copy.</param>
 	/// <exception cref="ArgumentNullException"></exception>
-	public Dictionary(IDictionary<ValueTuple<TKey1, TKey2>, TValue> dictionary)
+	public Dictionary(IDictionary<ValueTuple<TKey1, TKey2>, TValue> dictionary!!)
 		: this()
 	{
-		if (dictionary == null)
-			throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null.");
-
 		foreach (var item in dictionary)
 			m_Interface.Add(item);
 	}
@@ -44,12 +41,9 @@ public class Dictionary<TKey1, TKey2, TValue> : IDictionary<ValueTuple<TKey1, TK
 	/// </summary>
 	/// <param name="dictionary">The dictionary to copy.</param>
 	/// <exception cref="ArgumentNullException"></exception>
-	public Dictionary(Dictionary<ValueTuple<TKey1, TKey2>, TValue> dictionary)
+	public Dictionary(Dictionary<ValueTuple<TKey1, TKey2>, TValue> dictionary!!)
 		: this()
 	{
-		if (dictionary == null)
-			throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null.");
-
 		foreach (var item in dictionary)
 			m_Interface.Add(item);
 	}
@@ -59,11 +53,8 @@ public class Dictionary<TKey1, TKey2, TValue> : IDictionary<ValueTuple<TKey1, TK
 	/// </summary>
 	/// <param name="comparer">The comparer.</param>
 	/// <exception cref="ArgumentNullException"></exception>
-	public Dictionary(IEqualityComparer<ValueTuple<TKey1, TKey2>> comparer)
+	public Dictionary(IEqualityComparer<ValueTuple<TKey1, TKey2>> comparer!!)
 	{
-		if (comparer == null)
-			throw new ArgumentNullException(nameof(comparer), $"{nameof(comparer)} is null.");
-
 		m_Base = new Dictionary<ValueTuple<TKey1, TKey2>, TValue>(comparer);
 		m_Interface = m_Base;
 	}
@@ -89,13 +80,8 @@ public class Dictionary<TKey1, TKey2, TValue> : IDictionary<ValueTuple<TKey1, TK
 	/// <param name="comparer">The comparer.</param>
 	/// <exception cref="ArgumentNullException">
 	/// </exception>
-	public Dictionary(IDictionary<ValueTuple<TKey1, TKey2>, TValue> dictionary, IEqualityComparer<ValueTuple<TKey1, TKey2>> comparer)
+	public Dictionary(IDictionary<ValueTuple<TKey1, TKey2>, TValue> dictionary!!, IEqualityComparer<ValueTuple<TKey1, TKey2>> comparer!!)
 	{
-		if (dictionary == null)
-			throw new ArgumentNullException(nameof(dictionary), $"{nameof(dictionary)} is null.");
-		if (comparer == null)
-			throw new ArgumentNullException(nameof(comparer), $"{nameof(comparer)} is null.");
-
 		m_Base = new Dictionary<ValueTuple<TKey1, TKey2>, TValue>(dictionary.Count, comparer);
 		m_Interface = m_Base;
 
@@ -110,12 +96,10 @@ public class Dictionary<TKey1, TKey2, TValue> : IDictionary<ValueTuple<TKey1, TK
 	/// <param name="comparer">The comparer.</param>
 	/// <exception cref="ArgumentOutOfRangeException"></exception>
 	/// <exception cref="ArgumentNullException"></exception>
-	public Dictionary(int capacity, IEqualityComparer<ValueTuple<TKey1, TKey2>> comparer)
+	public Dictionary(int capacity, IEqualityComparer<ValueTuple<TKey1, TKey2>> comparer!!)
 	{
 		if (capacity < 0)
 			throw new ArgumentOutOfRangeException(nameof(capacity), capacity, $"{nameof(capacity)} cannot be less than zero");
-		if (comparer == null)
-			throw new ArgumentNullException(nameof(comparer), $"{nameof(comparer)} is null.");
 
 		m_Base = new Dictionary<ValueTuple<TKey1, TKey2>, TValue>(capacity, comparer);
 		m_Interface = m_Base;
@@ -268,6 +252,19 @@ public class Dictionary<TKey1, TKey2, TValue> : IDictionary<ValueTuple<TKey1, TK
 	/// <paramref name="arrayIndex" /> is less than 0.</exception>
 	/// <exception cref="ArgumentException">The number of elements in the source <see cref="ICollection{T}" /> is greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />.</exception>
 	public void CopyTo(KeyValuePair<ValueTuple<TKey1, TKey2>, TValue>[] array, int arrayIndex) => m_Interface.CopyTo(array, arrayIndex);
+
+#if NET6_0_OR_GREATER
+	/// <summary>
+	/// Ensures that the dictionary can hold up to a specified number of entries without any further expansion of its backing storage.
+	/// </summary>
+	/// <param name="capacity">The number of entries.</param>
+	/// <returns>The current capacity of the System.Collections.Generic.Dictionary`2.</returns>
+	/// <example>test</example>
+	public int EnsureCapacity(int capacity)
+	{
+		return m_Base.EnsureCapacity(capacity);
+	}
+#endif
 
 	/// <summary>
 	/// Returns an enumerator that iterates through the collection.

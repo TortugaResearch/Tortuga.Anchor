@@ -16,10 +16,10 @@ public abstract class EventTest<TEventArgs> where TEventArgs : EventArgs
 	/// This us used for tracking the expected source of an event.
 	/// </summary>
 	/// <param name="source"></param>
-	protected EventTest(Verify verify, object source)
+	protected EventTest(Verify verify!!, object source!!)
 	{
-		m_Verify = verify ?? throw new ArgumentNullException(nameof(verify), "verify is null.");
-		m_Source = source ?? throw new ArgumentNullException(nameof(source), "source is null.");
+		m_Verify = verify;
+		m_Source = source;
 	}
 
 	/// <summary>

@@ -51,11 +51,8 @@ public sealed class ConstructorMetadataCollection : ICollection<ConstructorMetad
 	/// </summary>
 	/// <param name="item">The object to locate in the <see cref="System.Collections.Generic.ICollection{T}" />.</param>
 	/// <returns>true if <paramref name="item" /> is found in the <see cref="ICollection{T}" />; otherwise, false.</returns>
-	public bool Contains(ConstructorMetadata item)
+	public bool Contains(ConstructorMetadata item!!)
 	{
-		if (item == null)
-			throw new ArgumentNullException(nameof(item), $"{nameof(item)} is null.");
-
 		return m_Constructors.Contains(item);
 	}
 
@@ -64,11 +61,8 @@ public sealed class ConstructorMetadataCollection : ICollection<ConstructorMetad
 	/// </summary>
 	/// <param name="signature">The signature.</param>
 	/// <returns><c>true</c> if [contains] [the specified signature]; otherwise, <c>false</c>.</returns>
-	public bool Contains(IReadOnlyList<Type> signature)
+	public bool Contains(IReadOnlyList<Type> signature!!)
 	{
-		if (signature == null)
-			throw new ArgumentNullException(nameof(signature), $"{nameof(signature)} is null");
-
 		return Find(signature) != null;
 	}
 
@@ -87,11 +81,8 @@ public sealed class ConstructorMetadataCollection : ICollection<ConstructorMetad
 	/// </summary>
 	/// <param name="array">The one-dimensional <see cref="Array" /> that is the destination of the elements copied from <see cref="ICollection{T}" />. The <see cref="Array" /> must have zero-based indexing.</param>
 	/// <param name="arrayIndex">The zero-based index in <paramref name="array" /> at which copying begins.</param>
-	public void CopyTo(ConstructorMetadata[] array, int arrayIndex)
+	public void CopyTo(ConstructorMetadata[] array!!, int arrayIndex)
 	{
-		if (array == null)
-			throw new ArgumentNullException(nameof(array), $"{nameof(array)} is null");
-
 		m_Constructors.CopyTo(array, arrayIndex);
 	}
 
@@ -100,11 +91,8 @@ public sealed class ConstructorMetadataCollection : ICollection<ConstructorMetad
 	/// </summary>
 	/// <param name="signature">The signature.</param>
 	/// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-	public ConstructorMetadata? Find(IReadOnlyList<Type> signature)
+	public ConstructorMetadata? Find(IReadOnlyList<Type> signature!!)
 	{
-		if (signature == null)
-			throw new ArgumentNullException(nameof(signature), $"{nameof(signature)} is null");
-
 		foreach (var item in m_Constructors)
 		{
 			if (item.Signature.Length != signature.Count)
@@ -129,11 +117,8 @@ public sealed class ConstructorMetadataCollection : ICollection<ConstructorMetad
 	/// Attempts to find the specified constructor. Returns null if no match was found.
 	/// </summary>
 	/// <param name="signature">The signature.</param>
-	public ConstructorMetadata? Find(params Type[] signature)
+	public ConstructorMetadata? Find(params Type[] signature!!)
 	{
-		if (signature == null)
-			throw new ArgumentNullException(nameof(signature), $"{nameof(signature)} is null");
-
 		foreach (var item in m_Constructors)
 		{
 			if (item.Signature.Length != signature.Length)

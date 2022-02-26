@@ -244,10 +244,8 @@ public abstract partial class AbstractModelCollection<T, TPropertyTracking> : Ob
 	/// <remarks>
 	/// Executing the default function will trigger validation but not a property-changed event.
 	/// </remarks>
-	protected TValue GetNew<TValue>(Func<TValue> creationFunction, [CallerMemberName] string propertyName = "")
+	protected TValue GetNew<TValue>(Func<TValue> creationFunction!!, [CallerMemberName] string propertyName = "")
 	{
-		if (creationFunction == null)
-			throw new ArgumentNullException(nameof(creationFunction), $"{nameof(creationFunction)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
@@ -342,11 +340,9 @@ public abstract partial class AbstractModelCollection<T, TPropertyTracking> : Ob
 	/// propertyChanged;propertyChanged is null.
 	/// </exception>
 	/// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-	public bool Set<TValue>(TValue value, PropertyChangedEventHandler propertyChanged, [CallerMemberName] string propertyName = "")
+	public bool Set<TValue>(TValue value, PropertyChangedEventHandler propertyChanged!!, [CallerMemberName] string propertyName = "")
 		where TValue : INotifyPropertyChanged
 	{
-		if (propertyChanged == null)
-			throw new ArgumentNullException(nameof(propertyChanged), $"{nameof(propertyChanged)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
@@ -366,11 +362,9 @@ public abstract partial class AbstractModelCollection<T, TPropertyTracking> : Ob
 	/// or
 	/// collectionChanged;collectionChanged is null.</exception>
 	/// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-	protected bool Set<TValue>(TValue value, NotifyCollectionChangedEventHandler collectionChanged, [CallerMemberName] string propertyName = "")
+	protected bool Set<TValue>(TValue value, NotifyCollectionChangedEventHandler collectionChanged!!, [CallerMemberName] string propertyName = "")
 where TValue : INotifyCollectionChanged
 	{
-		if (collectionChanged == null)
-			throw new ArgumentNullException(nameof(collectionChanged), $"{nameof(collectionChanged)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 

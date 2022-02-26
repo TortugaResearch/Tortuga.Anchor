@@ -15,11 +15,8 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 	/// </summary>
 	/// <param name="owner">Owning model, used to fetch metadata</param>
 	/// <exception cref="ArgumentNullException">owner;owner is null.</exception>
-	protected PropertyBagBase(object owner)
+	protected PropertyBagBase(object owner!!)
 	{
-		if (owner == null)
-			throw new ArgumentNullException(nameof(owner), $"{nameof(owner)} is null.");
-
 		Metadata = MetadataCache.GetMetadata(owner.GetType());
 	}
 
@@ -149,10 +146,8 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 	/// </remarks>
 #nullable disable
 
-	public T GetNew<T>(Func<T> creationFunction, [CallerMemberName] string propertyName = "")
+	public T GetNew<T>(Func<T> creationFunction!!, [CallerMemberName] string propertyName = "")
 	{
-		if (creationFunction == null)
-			throw new ArgumentNullException(nameof(creationFunction), $"{nameof(creationFunction)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
@@ -323,10 +318,8 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 	/// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
 #nullable disable
 
-	public bool Set<T>(T value, ValueChanged<T> valueChanged, [CallerMemberName] string propertyName = "")
+	public bool Set<T>(T value, ValueChanged<T> valueChanged!!, [CallerMemberName] string propertyName = "")
 	{
-		if (valueChanged == null)
-			throw new ArgumentNullException(nameof(valueChanged), $"{nameof(valueChanged)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
@@ -356,11 +349,9 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 	/// propertyChanged;propertyChanged is null.
 	/// </exception>
 	/// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-	public bool Set<T>(T value, PropertyChangedEventHandler propertyChanged, [CallerMemberName] string propertyName = "")
+	public bool Set<T>(T value, PropertyChangedEventHandler propertyChanged!!, [CallerMemberName] string propertyName = "")
 		where T : INotifyPropertyChanged
 	{
-		if (propertyChanged == null)
-			throw new ArgumentNullException(nameof(propertyChanged), $"{nameof(propertyChanged)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
@@ -390,11 +381,9 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 	/// collectionChanged;collectionChanged is null.
 	/// </exception>
 	/// <exception cref="ArgumentException">propertyName is empty.;propertyName</exception>
-	public bool Set<T>(T value, NotifyCollectionChangedEventHandler collectionChanged, [CallerMemberName] string propertyName = "")
+	public bool Set<T>(T value, NotifyCollectionChangedEventHandler collectionChanged!!, [CallerMemberName] string propertyName = "")
 		where T : INotifyCollectionChanged
 	{
-		if (collectionChanged == null)
-			throw new ArgumentNullException(nameof(collectionChanged), $"{nameof(collectionChanged)} is null.");
 		if (string.IsNullOrEmpty(propertyName))
 			throw new ArgumentException($"{nameof(propertyName)} is null or empty.", nameof(propertyName));
 
@@ -416,11 +405,8 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 	/// </summary>
 	/// <param name="property">The property.</param>
 	/// <exception cref="ArgumentNullException">property;property is null.</exception>
-	protected internal void OnPropertyChanged(PropertyMetadata property)
+	protected internal void OnPropertyChanged(PropertyMetadata property!!)
 	{
-		if (property == null)
-			throw new ArgumentNullException(nameof(property), $"{nameof(property)} is null.");
-
 		if (PropertyChanged == null)
 			return;
 
@@ -450,11 +436,8 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 	/// </summary>
 	/// <param name="property">The property.</param>
 	/// <exception cref="ArgumentNullException">property;property is null.</exception>
-	protected internal void OnPropertyChanging(PropertyMetadata property)
+	protected internal void OnPropertyChanging(PropertyMetadata property!!)
 	{
-		if (property == null)
-			throw new ArgumentNullException(nameof(property), $"{nameof(property)} is null.");
-
 		if (PropertyChanging == null)
 			return;
 
@@ -492,11 +475,8 @@ public abstract class PropertyBagBase : INotifyPropertyChanged
 	/// </summary>
 	/// <param name="property">The property.</param>
 	/// <exception cref="ArgumentNullException">property;property is null.</exception>
-	protected void OnRevalidateProperty(PropertyMetadata property)
+	protected void OnRevalidateProperty(PropertyMetadata property!!)
 	{
-		if (property == null)
-			throw new ArgumentNullException(nameof(property), $"{nameof(property)} is null.");
-
 		RevalidateProperty?.Invoke(this, property.PropertyChangedEventArgs);
 	}
 

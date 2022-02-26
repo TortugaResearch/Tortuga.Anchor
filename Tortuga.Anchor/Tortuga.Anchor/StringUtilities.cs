@@ -67,11 +67,8 @@ public static class StringUtilities
 	/// <param name="option">The option.</param>
 	/// <returns>System.String.</returns>
 	/// <exception cref="ArgumentNullException">values</exception>
-	public static string Join<T>(this IEnumerable<T> values, string separator, StringJoinOption option = StringJoinOption.None)
+	public static string Join<T>(this IEnumerable<T> values!!, string separator, StringJoinOption option = StringJoinOption.None)
 	{
-		if (values == null)
-			throw new ArgumentNullException(nameof(values));
-
 		if (!Enum.IsDefined(typeof(StringJoinOption), option))
 			throw new ArgumentOutOfRangeException(nameof(option), option, "Option is not defined.");
 
@@ -147,11 +144,8 @@ public static class StringUtilities
 	/// <param name="option">The option.</param>
 	/// <returns>System.String.</returns>
 	/// <exception cref="ArgumentNullException">values</exception>
-	public static string Join(this IEnumerable<string> values, string separator, StringJoinOption option = StringJoinOption.None)
+	public static string Join(this IEnumerable<string> values!!, string separator, StringJoinOption option = StringJoinOption.None)
 	{
-		if (values == null)
-			throw new ArgumentNullException(nameof(values));
-
 		if (!Enum.IsDefined(typeof(StringJoinOption), option))
 			throw new ArgumentOutOfRangeException(nameof(option), option, "Option is not defined.");
 
@@ -234,11 +228,8 @@ public static class StringUtilities
 	/// <param name="stringBuilder">The string builder to release. Once released, it can no longer be used until re-acquired.</param>
 	/// <returns>Contents of the string builder.</returns>
 	/// <remarks>Though not strictly required, it is preferable to release a string builder onto the same thread that acquired it.</remarks>
-	public static string Release(this StringBuilder stringBuilder)
+	public static string Release(this StringBuilder stringBuilder!!)
 	{
-		if (stringBuilder == null)
-			throw new ArgumentNullException(nameof(stringBuilder), $"{nameof(stringBuilder)} is null.");
-
 		var result = stringBuilder.ToString();
 
 		stringBuilder.Clear(); //Though not strictly necessary, this will make accidental reuse after release more visible.
