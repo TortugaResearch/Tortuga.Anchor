@@ -29,15 +29,20 @@ public class ClassMetadata
 			MappedTableName = table.Name;
 			MappedSchemaName = table.Schema;
 
+#pragma warning disable CS0618 // Type or member is obsolete. Legacy support.
 			if (table is TableAndViewAttribute tav)
 			{
 				MappedViewName = tav.ViewName;
-				/* TASK-47: Reserved for future work
-				   MappedInsertFunctionName = tav.InsertFunctionName;
-				   MappedUpdateFunctionName = tav.UpdateFunctionName;
-				   MappedDeleteFunctionName = tav.DeleteFunctionName;
-				 */
+				MappedViewSchemaName = table.Schema;
 			}
+#pragma warning restore CS0618 // Type or member is obsolete
+		}
+
+		var view = (ViewAttribute?)typeInfo.GetCustomAttributes(typeof(ViewAttribute), true).SingleOrDefault();
+		if (view != null)
+		{
+			MappedViewName = view.Name;
+			MappedViewSchemaName = view.Schema;
 		}
 
 		List<PropertyInfo> shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
@@ -142,27 +147,17 @@ public class ClassMetadata
 	public string? MappedSchemaName { get; }
 
 	/// <summary>
-	/// View referred to by TableAndViewAttribute.
+	/// View referred to by ViewAttribute.
 	/// </summary>
 	/// <remarks>This is only used for SELECT operations.</remarks>
 	public string? MappedViewName { get; }
 
-	/* TASK-47: Reserved for future work
-	/// <summary>
-	/// The name of the insert function or stored procedure.
-	/// </summary>
-	public string? MappedInsertFunctionName { get; }
 
 	/// <summary>
-	/// The name of the update function or stored procedure.
+	/// Schema referred to by ViewAttribute.
 	/// </summary>
-	public string? MappedUpdateFunctionName { get; }
-
-	/// <summary>
-	/// The name of the delete function or stored procedure.
-	/// </summary>
-	public string? MappedDeleteFunctionName { get; }
-	*/
+	/// <remarks>This is only used for SELECT operations.</remarks>
+	public string? MappedViewSchemaName { get; }
 
 	/// <summary>
 	/// Table referred to by TableAttribute.
