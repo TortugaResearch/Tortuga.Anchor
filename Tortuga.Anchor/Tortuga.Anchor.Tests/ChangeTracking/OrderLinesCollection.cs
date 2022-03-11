@@ -1,8 +1,7 @@
 using Tortuga.Anchor.Modeling;
 
-namespace Tests.ChangeTracking
+namespace Tests.ChangeTracking;
+
+public class OrderLinesCollection : ChangeTrackingModelCollection<OrderLine>
 {
-    public class OrderLinesCollection : ChangeTrackingModelCollection<OrderLine>
-    {
-    }
 }
