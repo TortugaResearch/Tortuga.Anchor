@@ -1,4 +1,4 @@
-﻿#if !ORDINAL_STRINGS && !NET5_0_OR_GREATER
+﻿#if !NETCOREAPP3_1_OR_GREATER
 namespace Tortuga.Anchor;
 
 static class LegacyUtilities

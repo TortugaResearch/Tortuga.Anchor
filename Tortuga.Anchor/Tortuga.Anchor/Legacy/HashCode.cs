@@ -1,10 +1,4 @@
-﻿#if HASHCODE_MISSING
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#if !NETCOREAPP3_1_OR_GREATER
 
 namespace System
 {
@@ -18,5 +12,4 @@ namespace System
         }
     }
 }
-
 #endif

@@ -39,16 +39,6 @@
 		<Using Remove="System.Net.Http" />
 	</ItemGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net462'">
-		<DefineConstants>NULL_MISSING;HASHCODE_MISSING</DefineConstants>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<DefineConstants>NULL_MISSING;HASHCODE_MISSING</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-		<DefineConstants>ORDINAL_STRINGS</DefineConstants>
-	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="System.Collections.Immutable" Version="6.0.0" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
