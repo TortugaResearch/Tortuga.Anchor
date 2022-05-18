@@ -11,10 +11,13 @@ Data Modeling Library in .NET
 
 Some entity base classes are literally just this.
 
-    public class BaseEntity : IEntity
-    {
-        public int Id { get; set; }
-    }
+````csharp
+public class BaseEntity : IEntity
+{
+    public int Id { get; set; }
+}
+
+````
 
 Besides locking down the name of your primary key (which you probably don't want anyways), that's not very helpful. So what should a base class do for you? Well, here's a short list.
 
@@ -27,27 +30,25 @@ Besides locking down the name of your primary key (which you probably don't want
 Tortuga Anchor does all of this, and at a very low cost.
 
 **Normal DTO**
+````csharp
+public class Person
+{
+    public string FirstName { get; set; }
+}
 
-    public class Person 
-    { 
-        public string FirstName 
-        { 
-             get; 
-             set; 
-         }
-    }
-
+````
 **Tortuga.Anchor Model**
 
-    public class Person : ModelBase     
-    { 
-        public string FirstName 
-        { 
-             get { return Get<string>(); } 
-             set { Set(value); } 
-         }
+````csharp
+public class Person : ModelBase
+{
+    public string FirstName
+    {
+        get { return Get<string>(); }
+        set { Set(value); }
     }
-
+}
+````
 Just the slight change in how you write your properties is all you need to enable validation and property change notification. To add change tracking, change the base class to `ChangeTrackingModelBase`. If you want a second level of undo, then use `EditableObjectModelBase`. 
 
 And since all of the functionality is exposed through standard .NET interfaces, your existing frameworks and libraries will just work, including serializers and ORMs.
