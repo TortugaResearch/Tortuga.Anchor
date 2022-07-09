@@ -73,6 +73,16 @@ public class Generic<T>
 public class MetadataCacheTests
 {
     [TestMethod]
+    public void AttributeInheritanceForProperties()
+    {
+        var metaBase = MetadataCache.GetMetadata<BaseClass>();
+        var metaSub = MetadataCache.GetMetadata<SubClass>();
+
+        Assert.IsTrue(metaBase.Properties["Name"].Validators.Length == 1, "Base class is missing its validation attribute.");
+        Assert.IsTrue(metaSub.Properties["Name"].Validators.Length == 1, "Subclass didn't inherit its validation attribute.");
+    }
+
+    [TestMethod]
     public void TableAttribute()
     {
         var meta = MetadataCache.GetMetadata<Base>();
