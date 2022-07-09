@@ -246,7 +246,7 @@ public partial class PropertyMetadata
     /// <summary>
     /// Cached PropertyInfo for the property.
     /// </summary>
-    internal PropertyInfo PropertyInfo { get; }
+    public PropertyInfo PropertyInfo { get; }
 
     /// <summary>Creates the delegate setter.</summary>
     /// <typeparam name="TTarget">The type of the target object.</typeparam>
@@ -418,11 +418,18 @@ public partial class PropertyMetadata
     /// Adds a property to the list of calculated values watching this property.
     /// </summary>
     /// <param name="affectedProperty"></param>
+    /// <remarks>This must not be called after EndInit is called.</remarks>
     internal void AddCalculatedField(PropertyMetadata affectedProperty)
     {
+        if (CalculatedFields != null)
+            throw new InvalidOperationException("EndInit was previosuly called. No further changes are allowed.");
+
         m_CalculatedFieldsBuilder.Add(affectedProperty);
     }
 
+    /// <summary>
+    /// This freezes the object, preventing further changes.
+    /// </summary>
     internal void EndInit()
     {
         CalculatedFields = ImmutableArray.CreateRange(m_CalculatedFieldsBuilder);
