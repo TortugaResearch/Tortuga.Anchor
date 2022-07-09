@@ -25,7 +25,9 @@ public partial class PropertyMetadata
         PropertyInfo = info;
         PropertyIndex = propertyIndex;
 
-        Validators = ImmutableArray.CreateRange(info.GetCustomAttributes(typeof(ValidationAttribute), true).OfType<ValidationAttribute>());
+        Attributes = ImmutableArray.CreateRange(Attribute.GetCustomAttributes(PropertyInfo, true));
+
+        Validators = ImmutableArray.CreateRange(Attributes.OfType<ValidationAttribute>());
 
         IsIndexed = info.GetIndexParameters().Length > 0;
 
@@ -89,10 +91,7 @@ public partial class PropertyMetadata
     /// <summary>
     /// Returns true of this property needs to trigger updates to calculated fields
     /// </summary>
-    public bool AffectsCalculatedFields
-    {
-        get { return m_CalculatedFieldsBuilder.Count > 0; }
-    }
+    public bool AffectsCalculatedFields => m_CalculatedFieldsBuilder.Count > 0;
 
     /// <summary>
     /// This returns a list of calculated fields that need to be updated when this property is changed.
@@ -240,6 +239,11 @@ public partial class PropertyMetadata
     public ImmutableArray<ValidationAttribute> Validators { get; }
 
     /// <summary>
+    /// Complete list of attributes that apply to the property
+    /// </summary>
+    public ImmutableArray<Attribute> Attributes { get; }
+
+    /// <summary>
     /// Cached PropertyInfo for the property.
     /// </summary>
     public PropertyInfo PropertyInfo { get; }
@@ -253,7 +257,9 @@ public partial class PropertyMetadata
     public Func<TTarget, TProperty> CreateDelegateGetter<TTarget, TProperty>()
     {
         if (CanRead)
+        {
             return (Func<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TProperty>), m_GetMethod!);
+        }
         else
             throw new InvalidOperationException($"CanRead is false for property {Name}");
     }
@@ -268,7 +274,9 @@ public partial class PropertyMetadata
     public Func<TTarget, TIndex, TProperty> CreateDelegateGetter<TTarget, TIndex, TProperty>()
     {
         if (CanReadIndexed)
+        {
             return (Func<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Func<TTarget, TIndex, TProperty>), m_GetMethod!);
+        }
         else
             throw new InvalidOperationException($"CanReadIndexed is false for property {Name}");
     }
@@ -282,7 +290,9 @@ public partial class PropertyMetadata
     public Action<TTarget, TProperty> CreateDelegateSetter<TTarget, TProperty>()
     {
         if (CanWrite)
+        {
             return (Action<TTarget, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TProperty>), m_SetMethod!);
+        }
         else
             throw new InvalidOperationException($"CanWrite is false for property {Name}");
     }
@@ -297,7 +307,9 @@ public partial class PropertyMetadata
     public Action<TTarget, TIndex, TProperty> CreateDelegateSetter<TTarget, TIndex, TProperty>()
     {
         if (CanWriteIndexed)
+        {
             return (Action<TTarget, TIndex, TProperty>)Delegate.CreateDelegate(typeof(Action<TTarget, TIndex, TProperty>), m_SetMethod!);
+        }
         else
             throw new InvalidOperationException($"CanWriteIndexed is false for property {Name}");
     }
