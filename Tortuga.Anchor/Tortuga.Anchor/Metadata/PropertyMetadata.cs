@@ -51,20 +51,20 @@ public partial class PropertyMetadata
 
         IsKey = info.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0;
 
-        var doNotMap = info.GetCustomAttributes(typeof(NotMappedAttribute), true).Length > 0;
-        if (!doNotMap)
-        {
-            var column = (ColumnAttribute?)info.GetCustomAttributes(typeof(ColumnAttribute), true).SingleOrDefault();
-            MappedColumnName = column != null ? column.Name : Name;
-        }
-        var decomposeAttribute = (DecomposeAttribute?)(info.GetCustomAttributes(typeof(DecomposeAttribute), true).FirstOrDefault());
-        if (decomposeAttribute != null)
-        {
-            Decompose = true;
-            DecompositionPrefix = decomposeAttribute.Prefix;
-        }
-        IgnoreOnInsert = info.GetCustomAttributes(typeof(IgnoreOnInsertAttribute), true).Length > 0;
-        IgnoreOnUpdate = info.GetCustomAttributes(typeof(IgnoreOnUpdateAttribute), true).Length > 0;
+		var doNotMap = info.GetCustomAttributes(typeof(NotMappedAttribute), true).Length > 0;
+		if (!doNotMap)
+		{
+			var column = (ColumnAttribute?)info.GetCustomAttributes(typeof(ColumnAttribute), true).SingleOrDefault();
+			MappedColumnName = (column != null && !column.Name.IsNullOrEmpty()) ? column.Name : Name;
+		}
+		var decomposeAttribute = (DecomposeAttribute?)(info.GetCustomAttributes(typeof(DecomposeAttribute), true).FirstOrDefault());
+		if (decomposeAttribute != null)
+		{
+			Decompose = true;
+			DecompositionPrefix = decomposeAttribute.Prefix;
+		}
+		IgnoreOnInsert = info.GetCustomAttributes(typeof(IgnoreOnInsertAttribute), true).Length > 0;
+		IgnoreOnUpdate = info.GetCustomAttributes(typeof(IgnoreOnUpdateAttribute), true).Length > 0;
 
         if (!PropertyType.IsValueType)
         {

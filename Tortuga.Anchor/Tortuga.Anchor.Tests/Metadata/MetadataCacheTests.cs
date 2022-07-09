@@ -20,6 +20,12 @@ public class NullTestsA
 #nullable enable
 }
 
+public class EmptyColumn
+{
+    [Column(TypeName = "money")]
+    public int Property0 { get; set; }
+}
+
 [Table("TableBase")]
 public class Base
 {
@@ -796,6 +802,16 @@ public class MetadataCacheTests
             verify.AreEqual("Property0", result[2], "");
             verify.AreEqual("PropertyA1", result[3], "");
             verify.AreEqual("PropertyA2", result[4], "");
+        }
+    }
+
+    [TestMethod]
+    public void MetadataCache_Test33()
+    {
+        using (var verify = new Verify())
+        {
+            var result = MetadataCache.GetMetadata(typeof(EmptyColumn));
+            verify.AreEqual("Property0", result.Properties["Property0"].MappedColumnName, "Column wasn't mapped correctly.");
         }
     }
 
