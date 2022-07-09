@@ -150,6 +150,7 @@
   <HelpKINode Title="AttachToEvent method" Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.AttachToEvent.htm" />
   <HelpKINode Title="AttachToEvent method" Url="html/M-Tortuga.Anchor.Eventing.ItemPropertyChangedEventManager.AttachToEvent.htm" />
   <HelpKINode Title="AttachToEvent method" Url="html/M-Tortuga.Anchor.Eventing.PropertyChangedEventManager.AttachToEvent.htm" />
+  <HelpKINode Title="Attributes property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.Attributes.htm" />
   <HelpKINode Title="AutoCancelingTask method" Url="html/Overload-Tortuga.Anchor.TaskUtilities.AutoCancelingTask-.htm" />
   <HelpKINode Title="AutoCancelingToken method" Url="html/Overload-Tortuga.Anchor.TaskUtilities.AutoCancelingToken.htm" />
   <HelpKINode Title="AutoCompletingTask method" Url="html/Overload-Tortuga.Anchor.TaskUtilities.AutoCompletingTask-.htm" />
@@ -371,10 +372,13 @@
   <HelpKINode Title="ConstructorMetadataCollection.Contains method" Url="html/Overload-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Contains.htm" />
   <HelpKINode Title="ConstructorMetadataCollection.CopyTo method" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.CopyTo.htm" />
   <HelpKINode Title="ConstructorMetadataCollection.Count property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Count.htm" />
+  <HelpKINode Title="ConstructorMetadataCollection.DefaultConstructor property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.DefaultConstructor.htm" />
   <HelpKINode Title="ConstructorMetadataCollection.Find method" Url="html/Overload-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Find.htm" />
   <HelpKINode Title="ConstructorMetadataCollection.GetEnumerator method" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.GetEnumerator.htm" />
   <HelpKINode Title="ConstructorMetadataCollection.HasDefaultConstructor property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.HasDefaultConstructor.htm" />
+  <HelpKINode Title="ConstructorMetadataCollection.IndexOf method" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.IndexOf.htm" />
   <HelpKINode Title="ConstructorMetadataCollection.IsReadOnly property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.IsReadOnly.htm" />
+  <HelpKINode Title="ConstructorMetadataCollection.Item property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Item-System.Int32-.htm" />
   <HelpKINode Title="Constructors property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.Constructors.htm" />
   <HelpKINode Title="Contains method" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyListSegment-1.Contains.htm" />
   <HelpKINode Title="Contains method" Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.Contains.htm" />
@@ -410,6 +414,7 @@
   <HelpKINode Title="DeepClone enumeration member" Url="html/T-Tortuga.Anchor.Metadata.CloneOptions.htm" />
   <HelpKINode Title="DeepClone field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.DeepClone.htm" />
   <HelpKINode Title="Default field" Url="html/F-Tortuga.Anchor.Modeling.Internals.ValidationResultEqualityComparer.Default.htm" />
+  <HelpKINode Title="DefaultConstructor property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.DefaultConstructor.htm" />
   <HelpKINode Title="DelaySafe method" Url="html/Overload-Tortuga.Anchor.TaskUtilities.DelaySafe.htm" />
   <HelpKINode Title="DetachFromEvent method" Url="html/M-Tortuga.Anchor.Eventing.CollectionChangedEventManager.DetachFromEvent.htm" />
   <HelpKINode Title="DetachFromEvent method" Url="html/M-Tortuga.Anchor.Eventing.EventManager-1.DetachFromEvent.htm" />
@@ -665,6 +670,7 @@
     <HelpKINode Title="about IListener&lt;T&gt; interface" Url="html/T-Tortuga.Anchor.Eventing.IListener-1.htm" />
   </HelpKINode>
   <HelpKINode Title="IListener&lt;T&gt;.Invoke method" Url="html/M-Tortuga.Anchor.Eventing.IListener-1.Invoke.htm" />
+  <HelpKINode Title="IndexOf method" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.IndexOf.htm" />
   <HelpKINode Title="IndexOf(Of T) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.IndexOf--1.htm" />
   <HelpKINode Title="IndexOf&lt;T&gt; method" Url="html/M-Tortuga.Anchor.CollectionUtilities.IndexOf--1.htm" />
   <HelpKINode Title="Inequality operator" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyListSegment-1.op_Inequality.htm" />
@@ -760,6 +766,7 @@
   <HelpKINode Title="Item property" Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Item-ValueTuple--0, -1--.htm" />
   <HelpKINode Title="Item property" Url="html/P-Tortuga.Anchor.Collections.ReadOnlyListSegment-1.Item-System.Int32-.htm" />
   <HelpKINode Title="Item property" Url="html/P-Tortuga.Anchor.ComponentModel.ItemEventArgs-1.Item.htm" />
+  <HelpKINode Title="Item property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.Item-System.Int32-.htm" />
   <HelpKINode Title="Item property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Item-System.Int32-.htm" />
   <HelpKINode Title="Item property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadataCollection.Item-System.String-.htm" />
   <HelpKINode Title="ItemAdded event" Url="html/E-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.ItemAdded.htm" />
@@ -1081,6 +1088,7 @@
   <HelpKINode Title="PropertyChanging event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.PropertyChanging.htm" />
   <HelpKINode Title="PropertyChangingEventArgs property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangingEventArgs.htm" />
   <HelpKINode Title="PropertyIndex property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyIndex.htm" />
+  <HelpKINode Title="PropertyInfo property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyInfo.htm" />
   <HelpKINode Title="PropertyMetadata class" Url="html/AllMembers.T-Tortuga.Anchor.Metadata.PropertyMetadata.htm" />
   <HelpKINode Title="PropertyMetadata class" Url="html/T-Tortuga.Anchor.Metadata.PropertyMetadata.htm" />
   <HelpKINode Title="PropertyMetadata class">
@@ -1090,6 +1098,7 @@
     <HelpKINode Title="properties" Url="html/Properties.T-Tortuga.Anchor.Metadata.PropertyMetadata.htm" />
   </HelpKINode>
   <HelpKINode Title="PropertyMetadata.AffectsCalculatedFields property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.AffectsCalculatedFields.htm" />
+  <HelpKINode Title="PropertyMetadata.Attributes property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.Attributes.htm" />
   <HelpKINode Title="PropertyMetadata.CalculatedFields property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.CalculatedFields.htm" />
   <HelpKINode Title="PropertyMetadata.CanRead property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.CanRead.htm" />
   <HelpKINode Title="PropertyMetadata.CanReadIndexed property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.CanReadIndexed.htm" />
@@ -1114,6 +1123,7 @@
   <HelpKINode Title="PropertyMetadata.PropertyChangedEventArgs property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangedEventArgs.htm" />
   <HelpKINode Title="PropertyMetadata.PropertyChangingEventArgs property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyChangingEventArgs.htm" />
   <HelpKINode Title="PropertyMetadata.PropertyIndex property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyIndex.htm" />
+  <HelpKINode Title="PropertyMetadata.PropertyInfo property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyInfo.htm" />
   <HelpKINode Title="PropertyMetadata.PropertyType property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.PropertyType.htm" />
   <HelpKINode Title="PropertyMetadata.Validators property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.Validators.htm" />
   <HelpKINode Title="PropertyMetadataCollection class" Url="html/AllMembers.T-Tortuga.Anchor.Metadata.PropertyMetadataCollection.htm" />

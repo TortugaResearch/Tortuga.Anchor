@@ -1,11 +1,12 @@
 # Tortuga Anchor
-Data Modeling Library in .NET
+Data Modeling Library for .NET
 
 ## Documentation
 
-* [Documentation Website](https://tortugaresearch.github.io/Anchor/)
-* [API Reference](http://tortugaresearch.github.io/Anchor/API/Index.html)
-* [Anchor Wiki](https://github.com/tortugaresearch/Anchor/wiki)
+* [Documentation Website](https://tortugaresearch.github.io/Tortuga.Anchor/)
+* [API Reference](http://tortugaresearch.github.io/Tortuga.Anchor/API/Index.html)
+* [Anchor Wiki](https://github.com/TortugaResearch/Tortuga.Anchor/wiki)
+* The [change log](Tortuga.Anchor/Changelog.md) starts with version 4.0. 
 
 ## What does your entity base class really give you?
 
