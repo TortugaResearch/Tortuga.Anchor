@@ -1,3 +1,11 @@
+## Version 4.2
+
+
+### Technical Debt
+
+Removed unnecessary compiler constants.
+
+
 ## Version 4.1
 
 
