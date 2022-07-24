@@ -35,6 +35,11 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+	
+	<ItemGroup>
+		<!-- This is only needed by .NET Core 3.1. But due to a compiler bug, we need to add it to all versions.-->
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
@@ -55,6 +60,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+
 
 
 	<ItemGroup>
