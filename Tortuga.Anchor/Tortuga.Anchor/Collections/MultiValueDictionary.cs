@@ -8,8 +8,8 @@ namespace Tortuga.Anchor.Collections;
 /// This collection allows muiltuiple values to be associated with eack key.
 /// Implements the <see cref="IReadOnlyDictionary{TKey, TValue}" />
 /// </summary>
-/// <typeparam name="TKey">The type of the t key.</typeparam>
-/// <typeparam name="TValue">The type of the t value.</typeparam>
+/// <typeparam name="TKey">The type of the key.</typeparam>
+/// <typeparam name="TValue">The type of the value.</typeparam>
 /// <seealso cref="IReadOnlyDictionary{TKey, TValue}" />
 public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, ReadOnlyCollection<TValue>>
 	where TKey : notnull
@@ -22,6 +22,8 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	int m_Count;
 
 	IReadOnlyCollection<KeyValuePair<TKey, TValue>>? m_FlatWrapper;
+
+	ReadOnlyMultiValueDictionary<TKey, TValue>? m_ReadOnlyWrapper;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="MultiValueDictionary{TKey, TValue}"/> class.
@@ -85,6 +87,24 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// </summary>
 	/// <value>The keys.</value>
 	public IEnumerable<TKey> Keys => m_Dictionary.Keys;
+
+	/// <summary>
+	/// Returns a read-only wrapper around this collection.
+	/// </summary>
+	/// <remarks>
+	/// If sub classing this class then it may be useful to shadow ReadOnlyWrapper method
+	/// with one that returns a subclass of ReadOnlyObservableCollectionExtended.
+	/// </remarks>
+	public ReadOnlyMultiValueDictionary<TKey, TValue> ReadOnlyWrapper
+	{
+		get
+		{
+			if (m_ReadOnlyWrapper == null)
+				m_ReadOnlyWrapper = new(this);
+
+			return m_ReadOnlyWrapper;
+		}
+	}
 
 	/// <summary>
 	/// Gets an enumerable collection that contains the values in the read-only dictionary.
