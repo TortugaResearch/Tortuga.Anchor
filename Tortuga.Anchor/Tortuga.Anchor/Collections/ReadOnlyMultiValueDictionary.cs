@@ -35,7 +35,7 @@ public class ReadOnlyMultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TK
 	/// Returns a flattened view of the MultiValueDictionary.
 	/// </summary>
 	/// <value>This object as a IReadOnlyCollectionas of key-value pairs.</value>
-	public IReadOnlyCollection<KeyValuePair<TKey, TValue>> Flatten => m_Dictionary.Flatten;
+	public MultiValueDictionary<TKey, TValue>.FlattenedMultiValueDictionary Flatten => m_Dictionary.Flatten;
 
 	/// <summary>
 	/// Gets an enumerable collection that contains the keys in the read-only dictionary.

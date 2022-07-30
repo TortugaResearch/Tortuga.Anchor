@@ -21,7 +21,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// </summary>
 	int m_Count;
 
-	IReadOnlyCollection<KeyValuePair<TKey, TValue>>? m_FlatWrapper;
+	FlattenedMultiValueDictionary? m_FlatWrapper;
 
 	ReadOnlyMultiValueDictionary<TKey, TValue>? m_ReadOnlyWrapper;
 
@@ -71,12 +71,12 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// Returns a flattened view of the MultiValueDictionary.
 	/// </summary>
 	/// <value>This object as a IReadOnlyCollectionas of key-value pairs.</value>
-	public IReadOnlyCollection<KeyValuePair<TKey, TValue>> Flatten
+	public FlattenedMultiValueDictionary Flatten
 	{
 		get
 		{
 			if (m_FlatWrapper == null)
-				m_FlatWrapper = new FlatWrapper(this);
+				m_FlatWrapper = new FlattenedMultiValueDictionary(this);
 
 			return m_FlatWrapper;
 		}
@@ -269,23 +269,43 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 		return result;
 	}
 
-	class FlatWrapper : IReadOnlyCollection<KeyValuePair<TKey, TValue>>
+	/// <summary>
+	/// A flattened representation of a MultiValueDictionary.
+	/// Implements the <see cref="IReadOnlyCollection{T}" />
+	/// </summary>
+	/// <seealso cref="IReadOnlyCollection{T}" />
+#pragma warning disable CA1034 // Nested types should not be visible
+
+	public class FlattenedMultiValueDictionary : IReadOnlyCollection<KeyValuePair<TKey, TValue>>
+#pragma warning restore CA1034 // Nested types should not be visible
 	{
 		readonly MultiValueDictionary<TKey, TValue> m_Parent;
 
-		public FlatWrapper(MultiValueDictionary<TKey, TValue> parent)
+		internal FlattenedMultiValueDictionary(MultiValueDictionary<TKey, TValue> parent)
 		{
 			m_Parent = parent;
 		}
 
+		/// <summary>
+		/// Gets the number of values in the dictionary.
+		/// </summary>
 		public int Count => m_Parent.m_Count;
 
+		/// <summary>
+		/// Returns an enumerator that iterates through the collection.
+		/// </summary>
+		/// <returns>An enumerator that can be used to iterate through the collection.</returns>
 		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
 		{
 			foreach (var item in m_Parent.m_Dictionary)
 				foreach (var value in item.Value)
 					yield return new KeyValuePair<TKey, TValue>(item.Key, value);
 		}
+
+		/// <summary>
+		/// Gets the values across all keys.
+		/// </summary>
+		public IEnumerable<TValue> Values => m_Parent.SelectMany(x => x.Value, (a, b) => b);
 
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 	}
