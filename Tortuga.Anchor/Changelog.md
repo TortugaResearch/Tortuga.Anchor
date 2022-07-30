@@ -1,5 +1,10 @@
 ## Version 4.2
 
+### Features
+
+[#93 Cache all Attributes at the class level](https://github.com/TortugaResearch/Tortuga.Anchor/issues/93)
+
+Adds the property `ClassMetadata.Attributes`.
 
 ### Bugs
 
