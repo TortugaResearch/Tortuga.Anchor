@@ -1,5 +1,10 @@
 ## Version 4.2
 
+## Features
+
+[#65 Preferred Constructor Attribute](https://github.com/TortugaResearch/Tortuga.Anchor/issues/65)
+
+If a class has multiple constructors, one can be marked as preferred. This is meant to be used by a future version of the Chain ORM.
 
 ### Technical Debt
 
