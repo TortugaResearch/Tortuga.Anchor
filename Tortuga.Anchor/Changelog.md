@@ -1,6 +1,12 @@
 ## Version 4.2
 
 
+### Bugs
+
+[#88 PropertyMetadata is not reading attributes correctly](https://github.com/TortugaResearch/Tortuga.Anchor/issues/88)
+
+There were still places that were not using Attribute.GetCustomAttributes to ensure attributes on overriden properties were being detected.
+
 ### Technical Debt
 
 Removed unnecessary compiler constants.
