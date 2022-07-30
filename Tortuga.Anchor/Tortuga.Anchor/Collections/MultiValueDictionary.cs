@@ -14,7 +14,7 @@ namespace Tortuga.Anchor.Collections;
 public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, ReadOnlyCollection<TValue>>
 	where TKey : notnull
 {
-	readonly Dictionary<TKey, ListWithWrapper<TValue>> m_Dictionary = new();
+	readonly Dictionary<TKey, ListWithWrapper<TValue>> m_Dictionary;
 
 	/// <summary>
 	/// The count of indiviaul values.
@@ -22,6 +22,42 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	int m_Count;
 
 	IReadOnlyCollection<KeyValuePair<TKey, TValue>>? m_FlatWrapper;
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="MultiValueDictionary{TKey, TValue}"/> class.
+	/// </summary>
+	public MultiValueDictionary()
+	{
+		m_Dictionary = new();
+	}
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="MultiValueDictionary{TKey, TValue}"/> class.
+	/// </summary>
+	/// <param name="capacity">The initial capacity.</param>
+	public MultiValueDictionary(int capacity)
+	{
+		m_Dictionary = new(capacity);
+	}
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="MultiValueDictionary{TKey, TValue}"/> class.
+	/// </summary>
+	/// <param name="comparer">The comparer to use when comparing keys.</param>
+	public MultiValueDictionary(IEqualityComparer<TKey> comparer)
+	{
+		m_Dictionary = new(comparer);
+	}
+
+	/// <summary>
+	/// Initializes a new instance of the <see cref="MultiValueDictionary{TKey, TValue}"/> class.
+	/// </summary>
+	/// <param name="capacity">The initial capacity.</param>
+	/// <param name="comparer">The comparer to use when comparing keys.</param>
+	public MultiValueDictionary(int capacity, IEqualityComparer<TKey> comparer)
+	{
+		m_Dictionary = new(capacity, comparer);
+	}
 
 	/// <summary>
 	/// Gets the number of elements in the collection.
@@ -93,8 +129,8 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// </summary>
 	/// <param name="key">The key.</param>
 	/// <param name="values">The values.</param>
-	/// <exception cref="System.ArgumentNullException">key</exception>
-	/// <exception cref="System.ArgumentNullException">values</exception>
+	/// <exception cref="ArgumentNullException">key</exception>
+	/// <exception cref="ArgumentNullException">values</exception>
 	public void AddRange(TKey key, IEnumerable<TValue> values)
 	{
 		if (key == null)
@@ -111,6 +147,18 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 		var oldCount = list.Count;
 		list.AddRange(values);
 		m_Count += list.Count - oldCount;
+	}
+
+	/// <summary>
+	/// Adds the range of values to the specified key.
+	/// </summary>
+	/// <param name="key">The key.</param>
+	/// <param name="values">The values.</param>
+	/// <exception cref="ArgumentNullException">key</exception>
+	/// <exception cref="ArgumentNullException">values</exception>
+	public void AddRange(TKey key, params TValue[] values)
+	{
+		AddRange(key, (IEnumerable<TValue>)values);
 	}
 
 	/// <summary>

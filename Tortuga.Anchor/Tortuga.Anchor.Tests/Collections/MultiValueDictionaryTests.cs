@@ -199,6 +199,32 @@ public class MultiValueDictionaryTests
 	}
 
 	[TestMethod()]
+	public void InitializerTests_1()
+	{
+		var target = new MultiValueDictionary<string, int>() {
+			new("A", 1),
+			new("A", 10),
+			new("C", 15)
+		};
+
+		Assert.AreEqual(2, target.Count, "Key count is wrong");
+		Assert.AreEqual(3, target.Flatten.Count, "Value count is wrong");
+	}
+
+	[TestMethod()]
+	public void InitializerTests_2()
+	{
+		var target = new MultiValueDictionary<string, int>() {
+			{"A", 1},
+			{"A", 10},
+			{"C", 15}
+		};
+
+		Assert.AreEqual(2, target.Count, "Key count is wrong");
+		Assert.AreEqual(3, target.Flatten.Count, "Value count is wrong");
+	}
+
+	[TestMethod()]
 	public void Keys()
 	{
 		var target = new MultiValueDictionary<string, int>();
