@@ -1,5 +1,10 @@
 ## Version 4.2
 
+### Features
+
+[#83 Culture Aware (including case insensitive) dynamic objects](https://github.com/TortugaResearch/Tortuga.Anchor/issues/83)
+
+The new `CultureAwareDynamicObject` allows you to supply culture information using a `StringComparer`. This allows for case-insensitive property names.
 
 ### Technical Debt
 
