@@ -1,5 +1,10 @@
 ## Version 4.2
 
+### Features
+
+[#85 MultiValueDictionary Class](https://github.com/TortugaResearch/Tortuga.Anchor/issues/85)
+
+The new `MultiValueDictionary` class is a dictionary that allows multiple values to be associated with a single key.
 
 ### Technical Debt
 
