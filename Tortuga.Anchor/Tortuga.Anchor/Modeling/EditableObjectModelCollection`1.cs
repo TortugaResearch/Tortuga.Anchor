@@ -14,8 +14,8 @@ namespace Tortuga.Anchor.Modeling;
 [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
 public class EditableObjectModelCollection<TModelType> : AbstractModelCollection<TModelType, EditableObjectPropertyBag>, IRevertibleChangeTracking, IEditableObject
 {
-	readonly List<TModelType> m_CheckpointItems = new();
-	readonly List<TModelType> m_OriginalList = new();
+	readonly List<TModelType> m_CheckpointItems = [];
+	readonly List<TModelType> m_OriginalList = [];
 	bool m_AllowIsChangedEvents;
 	bool m_CollectionChanged;
 
@@ -205,6 +205,9 @@ public class EditableObjectModelCollection<TModelType> : AbstractModelCollection
 			UpdateCollectionChanged();
 	}
 
+	[OnDeserialized]
+	void OnDeserialized(StreamingContext context) => AcceptChanges();
+
 	void UpdateCollectionChanged()
 	{
 		var previousFlag = m_CollectionChanged;
@@ -228,7 +231,4 @@ public class EditableObjectModelCollection<TModelType> : AbstractModelCollection
 			OnPropertyChanged(CommonProperties.IsChangedProperty);
 		}
 	}
-
-	[OnDeserialized]
-	void OnDeserialized(StreamingContext context) => AcceptChanges();
 }

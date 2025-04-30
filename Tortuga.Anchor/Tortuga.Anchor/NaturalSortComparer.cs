@@ -10,7 +10,7 @@ public class NaturalSortComparer : IComparer<string?>
 {
 	readonly bool m_IgnoreCase;
 	readonly CultureInfo m_Culture;
-	readonly ConcurrentDictionary<string, SortKey> m_Cache = new();
+	readonly ConcurrentDictionary<string, SortKey> m_Cache = [];
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="NaturalSortComparer" /> class using InvariantCulture.
@@ -113,8 +113,8 @@ public class NaturalSortComparer : IComparer<string?>
 
 	sealed class SortKey
 	{
-		static readonly char[] s_SplitCharacters = new[] { ' ', '\t', '-', '=', '/', '\\', ':', '\r', '\n', '(', ')'
-			, '[', ']', '{', '}', '|', '_'};
+		static readonly char[] s_SplitCharacters =
+			[' ', '\t', '-', '=', '/', '\\', ':', '\r', '\n', '(', ')', '[', ']', '{', '}', '|', '_'];
 
 		readonly Fragment[] m_Fragments;
 		readonly string? m_Value;
@@ -123,9 +123,9 @@ public class NaturalSortComparer : IComparer<string?>
 		{
 			m_Value = value;
 			if (value.IsNullOrEmpty())
-				m_Fragments = Array.Empty<Fragment>();
+				m_Fragments = [];
 			else
-				m_Fragments = value.Split(s_SplitCharacters).Select(f => new Fragment(f, culture)).ToArray();
+				m_Fragments = [.. value.Split(s_SplitCharacters).Select(f => new Fragment(f, culture))];
 		}
 
 		public static int Compare(SortKey x, SortKey y, bool ignoreCase, CultureInfo culture)

@@ -11,12 +11,12 @@ namespace Tortuga.Anchor.Collections;
 [SuppressMessage("Naming", "CA1710:Identifiers should have correct suffix", Justification = "<Pending>")]
 public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 {
-	private readonly IReadOnlyList<T>? m_List;
-
 	/// <summary>
 	/// Used to detect if the underlying list has been modified.
 	/// </summary>
 	private readonly int m_InitialCount;
+
+	private readonly IReadOnlyList<T>? m_List;
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="ReadOnlyListSegment{T}" /> struct.
@@ -193,22 +193,13 @@ public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 		}
 	}
 
-		void CheckSource()
-		{
-			if (m_List == null)
-				throw new InvalidOperationException("The ReadOnlyListSegment is empty.");
-
-		if (m_List.Count != m_InitialCount)
-			throw new InvalidOperationException("The size of the underlying list has been modified. This array segment is no longer valid.");
-	}
-
 	/// <summary>
 	/// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
 	/// </summary>
 	/// <param name="obj">The object to compare with the current instance.</param>
 	/// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
 	public override bool Equals(object? obj) =>
-		obj is ReadOnlyListSegment<T> && Equals((ReadOnlyListSegment<T>)obj);
+		obj is ReadOnlyListSegment<T> segment && Equals(segment);
 
 	/// <summary>
 	/// Returns true if both list segments refer to the same list at the same offset and count.
@@ -279,6 +270,15 @@ public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 		return new ReadOnlyListSegment<T>(List, Offset + index, count);
 	}
 
+	void CheckSource()
+	{
+		if (m_List == null)
+			throw new InvalidOperationException("The ReadOnlyListSegment is empty.");
+
+		if (m_List.Count != m_InitialCount)
+			throw new InvalidOperationException("The size of the underlying list has been modified. This array segment is no longer valid.");
+	}
+
 	/// <summary>
 	/// Enumerator for a ReadOnlyListSegment
 	/// Implements the <see cref="System.Collections.Generic.IEnumerator{T}" /></summary>
@@ -301,7 +301,7 @@ public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 		/// <summary>
 		/// Gets the element in the collection at the current position of the enumerator.
 		/// </summary>
-		public T Current
+		public readonly T Current
 		{
 			get
 			{
@@ -313,12 +313,12 @@ public readonly struct ReadOnlyListSegment<T> : IList<T>, IReadOnlyList<T>
 			}
 		}
 
-		object? IEnumerator.Current => Current;
+		readonly object? IEnumerator.Current => Current;
 
 		/// <summary>
 		/// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
 		/// </summary>
-		public void Dispose() { }
+		public readonly void Dispose() { }
 
 		/// <summary>
 		/// Advances the enumerator to the next element of the collection.

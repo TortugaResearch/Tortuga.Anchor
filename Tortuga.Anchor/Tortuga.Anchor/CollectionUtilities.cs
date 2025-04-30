@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using Tortuga.Anchor.Collections;
@@ -78,7 +77,7 @@ public static partial class CollectionUtilities
 	/// <typeparam name="T"></typeparam>
 	/// <param name="target">The target collection to be added to.</param>
 	/// <param name="list">The list.</param>
-	public static async Task AddRange<T>(this ICollection<T> target, IEnumerable<Task<T>> list)
+	public static async Task AddRangeAsync<T>(this ICollection<T> target, IEnumerable<Task<T>> list)
 	{
 		if (target == null)
 			throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
@@ -100,14 +99,14 @@ public static partial class CollectionUtilities
 	/// This is primarily meant to be used with poorly designed interfaces that return lists
 	/// disguised as IEnumerable.
 	/// </remarks>
-	[return: NotNullIfNotNull("source")]
+	[return: NotNullIfNotNull(nameof(source))]
 	public static IList<T>? AsList<T>(this IEnumerable<T>? source)
 	{
 		if (source == null)
 			return null;
 		if (source is IList<T> lists)
 			return lists;
-		return source.ToList();
+		return [.. source];
 	}
 
 	/// <summary>
@@ -118,7 +117,7 @@ public static partial class CollectionUtilities
 	/// <param name="source">The source. If the source is null, the result will be null.</param>
 	/// <returns>IReadOnlyList&lt;T&gt;.</returns>
 	/// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyCollection&lt;T&gt;.</remarks>
-	[return: NotNullIfNotNull("source")]
+	[return: NotNullIfNotNull(nameof(source))]
 	public static IReadOnlyCollection<T>? AsReadOnlyCollection<T>(this IEnumerable<T>? source)
 	{
 		if (source == null)
@@ -127,7 +126,7 @@ public static partial class CollectionUtilities
 		if (source is IReadOnlyCollection<T> result)
 			return result;
 
-		return new SimpleReadOnlyCollection<T>(source);
+		return [.. source];
 	}
 
 	/// <summary>
@@ -138,7 +137,7 @@ public static partial class CollectionUtilities
 	/// <param name="source">The source. If the source is null, the result will be null.</param>
 	/// <returns>IReadOnlyList&lt;T&gt;.</returns>
 	/// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
-	[return: NotNullIfNotNull("source")]
+	[return: NotNullIfNotNull(nameof(source))]
 	public static IReadOnlyList<T>? AsReadOnlyList<T>(this IEnumerable<T>? source)
 	{
 		if (source == null)
@@ -150,7 +149,7 @@ public static partial class CollectionUtilities
 		if (source is IList<T> list)
 			return new ReadOnlyCollection<T>(list);
 
-		return new ReadOnlyCollection<T>(source.ToList());
+		return [.. source];
 	}
 
 	/// <summary>
@@ -519,28 +518,23 @@ public static partial class CollectionUtilities
 		IntrospectiveSort(list, 0, list.Count, comparison);
 	}
 
-	sealed class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
-	{
-		readonly IEnumerable<T> m_List;
+	//sealed class SimpleReadOnlyCollection<T>(IEnumerable<T> list) : IReadOnlyCollection<T>
+	//{
+	//	readonly IEnumerable<T> m_List = list;
 
-		public SimpleReadOnlyCollection(IEnumerable<T> list)
-		{
-			m_List = list;
-		}
+	//	public int Count
+	//	{
+	//		get { return m_List.Count(); }
+	//	}
 
-		public int Count
-		{
-			get { return m_List.Count(); }
-		}
+	//	public IEnumerator<T> GetEnumerator()
+	//	{
+	//		return m_List.GetEnumerator();
+	//	}
 
-		public IEnumerator<T> GetEnumerator()
-		{
-			return m_List.GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return m_List.GetEnumerator();
-		}
-	}
+	//	IEnumerator IEnumerable.GetEnumerator()
+	//	{
+	//		return m_List.GetEnumerator();
+	//	}
+	//}
 }

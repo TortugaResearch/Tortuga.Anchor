@@ -6,8 +6,6 @@ using Tortuga.Anchor.Collections;
 
 namespace Tortuga.Anchor.Metadata;
 
-#pragma warning disable CA1033 // Interface methods should be callable by child types
-
 /// <summary>
 /// Class MethodMetadataCollection.
 /// Implements the <see cref="IList{MethodMetadata}" />
@@ -25,9 +23,9 @@ public class MethodMetadataCollection : IList<MethodMetadata>, IReadOnlyList<Met
 		foreach (var item in methods.Where(x => !x.IsSpecialName))
 			m_Methods.Add(item.Name, new MethodMetadata(item));
 
-		m_QuickList = m_Methods.Flatten.Values.ToImmutableArray();
-		PublicMethods = m_QuickList.Where(x => x.IsPublic).ToImmutableArray();
-		ProtectedMethods = m_QuickList.Where(x => x.IsProtected).ToImmutableArray();
+		m_QuickList = [.. m_Methods.Flatten.Values];
+		PublicMethods = [.. m_QuickList.Where(x => x.IsPublic)];
+		ProtectedMethods = [.. m_QuickList.Where(x => x.IsProtected)];
 	}
 
 	/// <summary>
@@ -36,6 +34,7 @@ public class MethodMetadataCollection : IList<MethodMetadata>, IReadOnlyList<Met
 	/// <value>The count.</value>
 	public int Count => m_QuickList.Length;
 
+#pragma warning disable CA1033 // Interface methods should be callable by child types
 	bool ICollection<MethodMetadata>.IsReadOnly => true;
 #pragma warning restore CA1033 // Interface methods should be callable by child types
 

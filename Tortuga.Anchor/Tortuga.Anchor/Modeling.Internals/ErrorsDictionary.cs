@@ -28,12 +28,12 @@ sealed internal class ErrorsDictionary
 	/// </summary>
 	public ReadOnlyCollection<ValidationResult> GetAllErrors()
 	{
-		List<ValidationResult> errors = new();
+		List<ValidationResult> errors = [];
 
 		foreach (var item in m_Errors)
 			errors.AddRange(item.Value);
 
-		return new ReadOnlyCollection<ValidationResult>(errors.Distinct().ToList());
+		return new ReadOnlyCollection<ValidationResult>([.. errors.Distinct()]);
 	}
 
 	public bool HasErrors()

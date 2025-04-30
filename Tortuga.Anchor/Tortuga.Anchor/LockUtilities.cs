@@ -23,13 +23,14 @@ public static class LockUtilities
 	/// Acquires a semaphore as an asynchronous operation. When this is disposed, the semaphore will be released.
 	/// </summary>
 	/// <param name="semaphore">The semaphore.</param>
+	/// <param name="cancellationToken"></param>
 	/// <returns>Task&lt;IDisposable&gt;.</returns>
-	public static async Task<IDisposable> AcquireAsync(this SemaphoreSlim semaphore)
+	public static async Task<IDisposable> AcquireAsync(this SemaphoreSlim semaphore, CancellationToken cancellationToken = default)
 	{
 		if (semaphore == null)
 			throw new ArgumentNullException(nameof(semaphore), $"{nameof(semaphore)} is null.");
 
-		await semaphore.WaitAsync().ConfigureAwait(false);
+		await semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
 		return new SemaphoreSlimToken(semaphore);
 	}
 

@@ -22,7 +22,7 @@ public class ClassMetadata
 	{
 		TypeInfo = typeInfo;
 
-		Attributes = ImmutableArray.CreateRange(Attribute.GetCustomAttributes(typeInfo, true));
+		Attributes = [.. Attribute.GetCustomAttributes(typeInfo, true)];
 
 		var table = Attributes.OfType<TableAttribute>().SingleOrDefault();
 		if (table != null)
@@ -46,10 +46,11 @@ public class ClassMetadata
 			MappedViewSchemaName = view.Schema;
 		}
 
-		List<PropertyInfo> shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
+		var shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
 		var propertyList = typeInfo.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
-		bool IsHidden(PropertyInfo propertyInfo) => !shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => string.CompareOrdinal(p.Name, propertyInfo.Name) == 0);
+		bool IsHidden(PropertyInfo propertyInfo) =>
+			!shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => string.CompareOrdinal(p.Name, propertyInfo.Name) == 0);
 
 		Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select((p, i) => new PropertyMetadata(p, i)));
 
@@ -84,8 +85,7 @@ public class ClassMetadata
 	{
 		get
 		{
-			if (m_ColumnMap == null)
-				m_ColumnMap = ImmutableArray.CreateRange(MetadataCache.GetColumnsFor(this, null));
+			m_ColumnMap ??= [.. MetadataCache.GetColumnsFor(this, null)];
 			return m_ColumnMap.Value;
 		}
 	}
@@ -107,8 +107,7 @@ public class ClassMetadata
 	{
 		get
 		{
-			if (m_CSharpFullName == null)
-				m_CSharpFullName = TypeInfo.CSharpFullName();
+			m_CSharpFullName ??= TypeInfo.CSharpFullName();
 
 			return m_CSharpFullName;
 		}
@@ -121,8 +120,7 @@ public class ClassMetadata
 	{
 		get
 		{
-			if (m_FSharpFullName == null)
-				m_FSharpFullName = TypeInfo.FSharpFullName();
+			m_FSharpFullName ??= TypeInfo.FSharpFullName();
 
 			return m_FSharpFullName;
 		}
@@ -138,8 +136,7 @@ public class ClassMetadata
 	{
 		get
 		{
-			if (m_IsNullable == null)
-				m_IsNullable = !TypeInfo.IsValueType || (TypeInfo.IsGenericType && (TypeInfo.GetGenericTypeDefinition() == typeof(Nullable<>)));
+			m_IsNullable ??= !TypeInfo.IsValueType || (TypeInfo.IsGenericType && (TypeInfo.GetGenericTypeDefinition() == typeof(Nullable<>)));
 
 			return m_IsNullable.Value;
 		}
@@ -184,8 +181,7 @@ public class ClassMetadata
 	{
 		get
 		{
-			if (m_VisualBasicFullName == null)
-				m_VisualBasicFullName = TypeInfo.VisualBasicFullName();
+			m_VisualBasicFullName ??= TypeInfo.VisualBasicFullName();
 
 			return m_VisualBasicFullName;
 		}
@@ -210,7 +206,7 @@ public class ClassMetadata
 	public ClassMetadata MakeNullable()
 	{
 		if (TypeInfo.IsValueType && !IsNullable)
-			return MetadataCache.GetMetadata(typeof(Nullable<>).MakeGenericType(new[] { TypeInfo }));
+			return MetadataCache.GetMetadata(typeof(Nullable<>).MakeGenericType([TypeInfo]));
 
 		return this;
 	}

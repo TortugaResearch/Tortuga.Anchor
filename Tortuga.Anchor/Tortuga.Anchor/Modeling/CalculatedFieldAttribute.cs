@@ -21,7 +21,7 @@ public sealed class CalculatedFieldAttribute : Attribute
 			throw new ArgumentException($"{nameof(sources)} is null or empty.", nameof(sources));
 
 		Sources = sources;
-		SourceProperties = new ReadOnlyCollection<string>((from s in sources.Split(',') select s.Trim()).ToArray());
+		SourceProperties = new ReadOnlyCollection<string>([.. (from s in sources.Split(',') select s.Trim())]);
 	}
 
 	/// <summary>

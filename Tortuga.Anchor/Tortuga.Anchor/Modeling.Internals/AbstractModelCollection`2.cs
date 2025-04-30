@@ -107,7 +107,6 @@ public abstract partial class AbstractModelCollection<T, TPropertyTracking> : Ob
 
 	PropertyBagBase IUsesPropertyTracking.Properties => Properties;
 
-
 	/// <summary>
 	/// Returns a collection of all errors (object and property level).
 	/// </summary>
@@ -453,7 +452,7 @@ partial class AbstractModelCollection<T, TPropertyTracking>
 #pragma warning restore CA1033 // Interface methods should be callable by child types
 		{
 			var errors = from e in GetErrors("") select e.ToString();
-			return string.Join("\n", errors.ToArray());
+			return string.Join("\n", errors);
 		}
 	}
 
@@ -467,7 +466,7 @@ partial class AbstractModelCollection<T, TPropertyTracking>
 		get
 		{
 			var errors = from e in GetErrors(columnName) select e.ToString();
-			return string.Join("\n", errors.ToArray());
+			return string.Join("\n", errors);
 		}
 	}
 }

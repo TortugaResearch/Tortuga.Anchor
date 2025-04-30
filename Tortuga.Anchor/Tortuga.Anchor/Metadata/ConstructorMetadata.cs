@@ -17,10 +17,10 @@ public sealed class ConstructorMetadata
 	{
 		ConstructorInfo = constructorInfo;
 
-		Signature = constructorInfo.GetParameters().Select(p => p.ParameterType).ToImmutableArray();
-		ParameterNames = constructorInfo.GetParameters().Select(p => p.Name).Cast<string>().ToImmutableArray();
+		Signature = [.. constructorInfo.GetParameters().Select(p => p.ParameterType)];
+		ParameterNames = [.. constructorInfo.GetParameters().Select(p => p.Name).Cast<string>()];
 
-		Attributes = ImmutableArray.CreateRange(Attribute.GetCustomAttributes(constructorInfo, true));
+		Attributes = [.. Attribute.GetCustomAttributes(constructorInfo, true)];
 
 		IsPreferred = Attributes.OfType<PreferredConstructorAttribute>().Any();
 	}

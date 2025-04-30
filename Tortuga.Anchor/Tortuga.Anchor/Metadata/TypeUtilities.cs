@@ -55,8 +55,7 @@ static class TypeUtilities
 		var localTypeParamCount = typeInfo.GetTypeInfo().GenericTypeParameters.Length;
 		var localTypeArgCount = typeInfo.GetTypeInfo().GenericTypeArguments.Length;
 
-		if (typeArgs == null)
-			typeArgs = new List<Type>(typeInfo.GetTypeInfo().GenericTypeArguments);
+		typeArgs ??= [.. typeInfo.GetTypeInfo().GenericTypeArguments];
 
 		if (typeInfo.IsNested)
 			BuildFullName(typeInfo.DeclaringType!, typeArgs, result, genericOpen, genericSeparator, genericClose);

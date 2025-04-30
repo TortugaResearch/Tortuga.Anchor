@@ -14,7 +14,7 @@ namespace Tortuga.Anchor.Modeling;
 [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
 public class ChangeTrackingModelCollection<TModelType> : AbstractModelCollection<TModelType, ChangeTrackingPropertyBag>, IRevertibleChangeTracking
 {
-	readonly List<TModelType> m_OriginalList = new();
+	readonly List<TModelType> m_OriginalList = [];
 	bool m_AllowIsChangedEvents;
 	bool m_CollectionChanged;
 
@@ -158,6 +158,11 @@ public class ChangeTrackingModelCollection<TModelType> : AbstractModelCollection
 		m_AllowIsChangedEvents = true;
 	}
 
+	/// <summary>Called after the object is deserialized.</summary>
+	/// <param name="context">The context.</param>
+	[OnDeserialized]
+	void OnDeserialized(StreamingContext context) => AcceptChanges();
+
 	void UpdateCollectionChanged()
 	{
 		var previousFlag = m_CollectionChanged;
@@ -181,9 +186,4 @@ public class ChangeTrackingModelCollection<TModelType> : AbstractModelCollection
 			OnPropertyChanged(CommonProperties.IsChangedProperty);
 		}
 	}
-
-	/// <summary>Called after the object is deserialized.</summary>
-	/// <param name="context">The context.</param>
-	[OnDeserialized]
-	void OnDeserialized(StreamingContext context) => AcceptChanges();
 }

@@ -7,16 +7,12 @@ using Tortuga.Anchor.Modeling;
 
 namespace Tortuga.Anchor.Metadata;
 
-#if NETCOREAPP
-#pragma warning disable IDE0057 // Use range operator
-#endif
-
 /// <summary>
 /// This is a cache of metadata about a specific property.
 /// </summary>
 public partial class PropertyMetadata
 {
-	readonly List<PropertyMetadata> m_CalculatedFieldsBuilder = new();
+	readonly List<PropertyMetadata> m_CalculatedFieldsBuilder = [];
 	readonly MethodInfo? m_GetMethod;
 	readonly MethodInfo? m_SetMethod;
 
@@ -25,9 +21,9 @@ public partial class PropertyMetadata
 		PropertyInfo = info;
 		PropertyIndex = propertyIndex;
 
-		Attributes = ImmutableArray.CreateRange(Attribute.GetCustomAttributes(PropertyInfo, true));
+		Attributes = [.. Attribute.GetCustomAttributes(PropertyInfo, true)];
 
-		Validators = ImmutableArray.CreateRange(Attributes.OfType<ValidationAttribute>());
+		Validators = [.. Attributes.OfType<ValidationAttribute>()];
 
 		IsIndexed = info.GetIndexParameters().Length > 0;
 
@@ -40,14 +36,15 @@ public partial class PropertyMetadata
 		Name = name.Substring(name.IndexOf(' ', StringComparison.Ordinal) + 1);
 
 		if (IsIndexed)
+		{
 			PropertyChangedEventArgs = new PropertyChangedEventArgs(info.Name + "[]");
-		else
-			PropertyChangedEventArgs = new PropertyChangedEventArgs(info.Name);
-
-		if (IsIndexed)
 			PropertyChangingEventArgs = new PropertyChangingEventArgs(info.Name + "[]");
+		}
 		else
+		{
+			PropertyChangedEventArgs = new PropertyChangedEventArgs(info.Name);
 			PropertyChangingEventArgs = new PropertyChangingEventArgs(info.Name);
+		}
 
 		IsKey = Attributes.OfType<KeyAttribute>().Any();
 
@@ -94,6 +91,11 @@ public partial class PropertyMetadata
 	public bool AffectsCalculatedFields => m_CalculatedFieldsBuilder.Count > 0;
 
 	/// <summary>
+	/// Complete list of attributes that apply to the property
+	/// </summary>
+	public ImmutableArray<Attribute> Attributes { get; }
+
+	/// <summary>
 	/// This returns a list of calculated fields that need to be updated when this property is changed.
 	/// </summary>
 	public ImmutableArray<PropertyMetadata> CalculatedFields { get; private set; }
@@ -104,14 +106,6 @@ public partial class PropertyMetadata
 	public bool CanRead
 	{
 		get { return m_GetMethod?.IsPublic == true && m_GetMethod?.IsFamily == false && !IsIndexed; }
-	}
-
-	/// <summary>
-	/// Returns true if there is a getter and it is not an indexed property, even if that getter isn't public.
-	/// </summary>
-	public bool CanReadRestricted
-	{
-		get { return m_GetMethod != null && !IsIndexed; }
 	}
 
 	/// <summary>
@@ -131,19 +125,19 @@ public partial class PropertyMetadata
 	}
 
 	/// <summary>
+	/// Returns true if there is a getter and it is not an indexed property, even if that getter isn't public.
+	/// </summary>
+	public bool CanReadRestricted
+	{
+		get { return m_GetMethod != null && !IsIndexed; }
+	}
+
+	/// <summary>
 	/// Returns true is there is a public setter and it is not an indexed property.
 	/// </summary>
 	public bool CanWrite
 	{
 		get { return m_SetMethod?.IsPublic == true && m_SetMethod?.IsFamily == false && !IsIndexed; }
-	}
-
-	/// <summary>
-	/// Returns true is there is a setter and it is not an indexed property, even if that setter isn't public.
-	/// </summary>
-	public bool CanWriteRestricted
-	{
-		get { return m_SetMethod != null && !IsIndexed; }
 	}
 
 	/// <summary>
@@ -158,6 +152,14 @@ public partial class PropertyMetadata
 	/// Returns true is there is a setter and and it is an indexed property, even if that setter isn't public.
 	/// </summary>
 	public bool CanWriteIndexedAndRestricted
+	{
+		get { return m_SetMethod != null && !IsIndexed; }
+	}
+
+	/// <summary>
+	/// Returns true is there is a setter and it is not an indexed property, even if that setter isn't public.
+	/// </summary>
+	public bool CanWriteRestricted
 	{
 		get { return m_SetMethod != null && !IsIndexed; }
 	}
@@ -229,6 +231,18 @@ public partial class PropertyMetadata
 	public PropertyChangingEventArgs PropertyChangingEventArgs { get; }
 
 	/// <summary>
+	/// Gets or sets the index of the property.
+	/// </summary>
+	/// <value>The index of the property.</value>
+	/// <remarks>Used by property bags and other things that need to store property values in arrays.</remarks>
+	public int PropertyIndex { get; }
+
+	/// <summary>
+	/// Cached PropertyInfo for the property.
+	/// </summary>
+	public PropertyInfo PropertyInfo { get; }
+
+	/// <summary>
 	/// Gets the type of this property.
 	/// </summary>
 	public Type PropertyType { get; }
@@ -237,16 +251,6 @@ public partial class PropertyMetadata
 	/// List of validators that apply to the property
 	/// </summary>
 	public ImmutableArray<ValidationAttribute> Validators { get; }
-
-	/// <summary>
-	/// Complete list of attributes that apply to the property
-	/// </summary>
-	public ImmutableArray<Attribute> Attributes { get; }
-
-	/// <summary>
-	/// Cached PropertyInfo for the property.
-	/// </summary>
-	public PropertyInfo PropertyInfo { get; }
 
 	/// <summary>Creates the delegate setter.</summary>
 	/// <typeparam name="TTarget">The type of the target object.</typeparam>
@@ -352,7 +356,7 @@ public partial class PropertyMetadata
 		{
 			try
 			{
-				return m_GetMethod!.Invoke(target, new object?[] { index });
+				return m_GetMethod!.Invoke(target, [index]);
 			}
 			catch (ArgumentException ex)
 			{
@@ -377,7 +381,7 @@ public partial class PropertyMetadata
 		{
 			try
 			{
-				m_SetMethod!.Invoke(target, new object?[] { value });
+				m_SetMethod!.Invoke(target, [value]);
 			}
 			catch (ArgumentException ex)
 			{
@@ -403,7 +407,7 @@ public partial class PropertyMetadata
 		{
 			try
 			{
-				m_SetMethod!.Invoke(target, new object?[] { index, value });
+				m_SetMethod!.Invoke(target, [index, value]);
 			}
 			catch (ArgumentException ex)
 			{
@@ -432,13 +436,6 @@ public partial class PropertyMetadata
 	/// </summary>
 	internal void EndInit()
 	{
-		CalculatedFields = ImmutableArray.CreateRange(m_CalculatedFieldsBuilder);
+		CalculatedFields = [.. m_CalculatedFieldsBuilder];
 	}
-
-	/// <summary>
-	/// Gets or sets the index of the property.
-	/// </summary>
-	/// <value>The index of the property.</value>
-	/// <remarks>Used by property bags and other things that need to store property values in arrays.</remarks>
-	public int PropertyIndex { get; }
 }

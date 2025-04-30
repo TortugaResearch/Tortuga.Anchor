@@ -12,11 +12,11 @@ public class MethodMetadata
 	internal MethodMetadata(MethodInfo info)
 	{
 		MethodInfo = info ?? throw new ArgumentNullException(nameof(info), $"{nameof(info)} is null.");
-		Attributes = ImmutableArray.CreateRange(Attribute.GetCustomAttributes(info, true));
+		Attributes = [.. Attribute.GetCustomAttributes(info, true)];
 
 		Name = info.Name;
-		Signature = info.GetParameters().Select(p => p.ParameterType).ToImmutableArray();
-		ParameterNames = info.GetParameters().Select(p => p.Name).Cast<string>().ToImmutableArray();
+		Signature = [.. info.GetParameters().Select(p => p.ParameterType)];
+		ParameterNames = [.. info.GetParameters().Select(p => p.Name).Cast<string>()];
 		ReturnType = info.ReturnType;
 
 		IsStatic = info.IsStatic;

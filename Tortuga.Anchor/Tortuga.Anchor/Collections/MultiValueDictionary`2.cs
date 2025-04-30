@@ -14,15 +14,7 @@ namespace Tortuga.Anchor.Collections;
 public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, ReadOnlyCollection<TValue>>
 	where TKey : notnull
 {
-	readonly Dictionary<TKey, ListWithWrapper<TValue>> m_Dictionary;
-
-	/// <summary>
-	/// The count of indiviaul values.
-	/// </summary>
-	int m_Count;
-
-	FlattenedMultiValueDictionary? m_FlatWrapper;
-
+	FlattenedMultiValueDictionary<TKey, TValue>? m_FlatWrapper;
 	ReadOnlyMultiValueDictionary<TKey, TValue>? m_ReadOnlyWrapper;
 
 	/// <summary>
@@ -30,7 +22,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// </summary>
 	public MultiValueDictionary()
 	{
-		m_Dictionary = new();
+		InternalDictionary = [];
 	}
 
 	/// <summary>
@@ -39,7 +31,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// <param name="capacity">The initial capacity.</param>
 	public MultiValueDictionary(int capacity)
 	{
-		m_Dictionary = new(capacity);
+		InternalDictionary = new(capacity);
 	}
 
 	/// <summary>
@@ -48,7 +40,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// <param name="comparer">The comparer to use when comparing keys.</param>
 	public MultiValueDictionary(IEqualityComparer<TKey> comparer)
 	{
-		m_Dictionary = new(comparer);
+		InternalDictionary = new(comparer);
 	}
 
 	/// <summary>
@@ -58,25 +50,24 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// <param name="comparer">The comparer to use when comparing keys.</param>
 	public MultiValueDictionary(int capacity, IEqualityComparer<TKey> comparer)
 	{
-		m_Dictionary = new(capacity, comparer);
+		InternalDictionary = new(capacity, comparer);
 	}
 
 	/// <summary>
 	/// Gets the number of elements in the collection.
 	/// </summary>
 	/// <value>The count.</value>
-	public int Count => m_Dictionary.Count;
+	public int Count => InternalDictionary.Count;
 
 	/// <summary>
 	/// Returns a flattened view of the MultiValueDictionary.
 	/// </summary>
 	/// <value>This object as a IReadOnlyCollectionas of key-value pairs.</value>
-	public FlattenedMultiValueDictionary Flatten
+	public FlattenedMultiValueDictionary<TKey, TValue> Flatten
 	{
 		get
 		{
-			if (m_FlatWrapper == null)
-				m_FlatWrapper = new FlattenedMultiValueDictionary(this);
+			m_FlatWrapper ??= new FlattenedMultiValueDictionary<TKey, TValue>(this);
 
 			return m_FlatWrapper;
 		}
@@ -86,7 +77,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// Gets an enumerable collection that contains the keys in the read-only dictionary.
 	/// </summary>
 	/// <value>The keys.</value>
-	public IEnumerable<TKey> Keys => m_Dictionary.Keys;
+	public IEnumerable<TKey> Keys => InternalDictionary.Keys;
 
 	/// <summary>
 	/// Returns a read-only wrapper around this collection.
@@ -99,8 +90,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	{
 		get
 		{
-			if (m_ReadOnlyWrapper == null)
-				m_ReadOnlyWrapper = new(this);
+			m_ReadOnlyWrapper ??= new(this);
 
 			return m_ReadOnlyWrapper;
 		}
@@ -110,14 +100,21 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// Gets an enumerable collection that contains the values in the read-only dictionary.
 	/// </summary>
 	/// <value>The values.</value>
-	public IEnumerable<ReadOnlyCollection<TValue>> Values => m_Dictionary.Values.Select(x => x.ReadOnlyWrapper);
+	public IEnumerable<ReadOnlyCollection<TValue>> Values => InternalDictionary.Values.Select(x => x.ReadOnlyWrapper);
+
+	internal Dictionary<TKey, ListWithWrapper<TValue>> InternalDictionary { get; init; }
+
+	/// <summary>
+	/// The count of individual values.
+	/// </summary>
+	internal int ItemCount { get; private set; }
 
 	/// <summary>
 	/// Gets the <see cref="ReadOnlyCollection{TValue}"/> with the specified key.
 	/// </summary>
 	/// <param name="key">The key.</param>
 	/// <returns>ReadOnlyCollection&lt;TValue&gt;.</returns>
-	public ReadOnlyCollection<TValue> this[TKey key] => m_Dictionary[key].ReadOnlyWrapper;
+	public ReadOnlyCollection<TValue> this[TKey key] => InternalDictionary[key].ReadOnlyWrapper;
 
 	/// <summary>
 	/// Adds the value to the specified key.
@@ -129,13 +126,13 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 		if (key == null)
 			throw new ArgumentNullException(nameof(key), $"{nameof(key)} is null.");
 
-		if (!m_Dictionary.TryGetValue(key, out var list))
+		if (!InternalDictionary.TryGetValue(key, out var list))
 		{
-			list = new();
-			m_Dictionary[key] = list;
+			list = [];
+			InternalDictionary[key] = list;
 		}
 		list.Add(value);
-		m_Count += 1;
+		ItemCount += 1;
 	}
 
 	/// <summary>
@@ -159,14 +156,14 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 		if (values == null)
 			throw new ArgumentNullException(nameof(values), $"{nameof(values)} is null.");
 
-		if (!m_Dictionary.TryGetValue(key, out var list))
+		if (!InternalDictionary.TryGetValue(key, out var list))
 		{
-			list = new();
-			m_Dictionary[key] = list;
+			list = [];
+			InternalDictionary[key] = list;
 		}
 		var oldCount = list.Count;
 		list.AddRange(values);
-		m_Count += list.Count - oldCount;
+		ItemCount += list.Count - oldCount;
 	}
 
 	/// <summary>
@@ -187,8 +184,8 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// <exception cref="System.NotImplementedException"></exception>
 	public void Clear()
 	{
-		m_Dictionary.Clear();
-		m_Count = 0;
+		InternalDictionary.Clear();
+		ItemCount = 0;
 	}
 
 	/// <summary>
@@ -216,7 +213,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// </summary>
 	/// <param name="key">The key to locate.</param>
 	/// <returns>true if the read-only dictionary contains an element that has the specified key; otherwise, false.</returns>
-	public bool ContainsKey(TKey key) => m_Dictionary.ContainsKey(key);
+	public bool ContainsKey(TKey key) => InternalDictionary.ContainsKey(key);
 
 	/// <summary>
 	/// Returns an enumerator that iterates through the collection.
@@ -224,7 +221,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// <returns>An enumerator that can be used to iterate through the collection.</returns>
 	public IEnumerator<KeyValuePair<TKey, ReadOnlyCollection<TValue>>> GetEnumerator()
 	{
-		foreach (var item in m_Dictionary)
+		foreach (var item in InternalDictionary)
 			yield return new(item.Key, item.Value.ReadOnlyWrapper);
 	}
 
@@ -238,13 +235,13 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	/// <returns><c>true</c> if the value was found and removed, <c>false</c> otherwise.</returns>
 	public bool Remove(TKey key, TValue value)
 	{
-		if (!m_Dictionary.TryGetValue(key, out var temp))
+		if (!InternalDictionary.TryGetValue(key, out var temp))
 			return false;
 		var result = temp.Remove(value);
 		if (temp.Count == 0)
-			m_Dictionary.Remove(key);
+			InternalDictionary.Remove(key);
 		if (result)
-			m_Count -= 1;
+			ItemCount -= 1;
 		return result;
 	}
 
@@ -264,53 +261,12 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 	public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out ReadOnlyCollection<TValue> value)
 
 	{
-		var result = m_Dictionary.TryGetValue(key, out var temp);
+		var result = InternalDictionary.TryGetValue(key, out var temp);
 		value = temp?.ReadOnlyWrapper!; //null is allowed here.
 		return result;
 	}
 
-	/// <summary>
-	/// A flattened representation of a MultiValueDictionary.
-	/// Implements the <see cref="IReadOnlyCollection{T}" />
-	/// </summary>
-	/// <seealso cref="IReadOnlyCollection{T}" />
-#pragma warning disable CA1034 // Nested types should not be visible
-
-	public class FlattenedMultiValueDictionary : IReadOnlyCollection<KeyValuePair<TKey, TValue>>
-#pragma warning restore CA1034 // Nested types should not be visible
-	{
-		readonly MultiValueDictionary<TKey, TValue> m_Parent;
-
-		internal FlattenedMultiValueDictionary(MultiValueDictionary<TKey, TValue> parent)
-		{
-			m_Parent = parent;
-		}
-
-		/// <summary>
-		/// Gets the number of values in the dictionary.
-		/// </summary>
-		public int Count => m_Parent.m_Count;
-
-		/// <summary>
-		/// Returns an enumerator that iterates through the collection.
-		/// </summary>
-		/// <returns>An enumerator that can be used to iterate through the collection.</returns>
-		public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
-		{
-			foreach (var item in m_Parent.m_Dictionary)
-				foreach (var value in item.Value)
-					yield return new KeyValuePair<TKey, TValue>(item.Key, value);
-		}
-
-		/// <summary>
-		/// Gets the values across all keys.
-		/// </summary>
-		public IEnumerable<TValue> Values => m_Parent.SelectMany(x => x.Value, (a, b) => b);
-
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-	}
-
-	sealed class ListWithWrapper<T> : List<T>
+	internal sealed class ListWithWrapper<T> : List<T>
 	{
 		ReadOnlyCollection<T>? m_ReadOnlyWrapper;
 
@@ -318,8 +274,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 		{
 			get
 			{
-				if (m_ReadOnlyWrapper == null)
-					m_ReadOnlyWrapper = new ReadOnlyCollection<T>(this);
+				m_ReadOnlyWrapper ??= new ReadOnlyCollection<T>(this);
 
 				return m_ReadOnlyWrapper;
 			}

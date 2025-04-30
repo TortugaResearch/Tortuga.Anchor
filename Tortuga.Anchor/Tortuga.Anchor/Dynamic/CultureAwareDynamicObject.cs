@@ -50,10 +50,10 @@ public sealed class CultureAwareDynamicObject : DynamicObject, IDictionary<strin
 	/// <returns>System.Nullable&lt;System.Object&gt;.</returns>
 	public object? this[string key]
 	{
-		get => ((IDictionary<string, object?>)m_Dictionary)[key];
+		get => m_Dictionary[key];
 		set
 		{
-			((IDictionary<string, object?>)m_Dictionary)[key] = value;
+			m_Dictionary[key] = value;
 			OnPropertyChanged(key);
 		}
 	}
@@ -62,13 +62,13 @@ public sealed class CultureAwareDynamicObject : DynamicObject, IDictionary<strin
 	/// Gets an <see cref="ICollection{String}" /> containing the keys of the <see cref="IDictionary{String, Object}" />.
 	/// </summary>
 	/// <value>The keys.</value>
-	public ICollection<string> Keys => ((IDictionary<string, object?>)m_Dictionary).Keys;
+	public ICollection<string> Keys => m_Dictionary.Keys;
 
 	/// <summary>
 	/// Gets an <see cref="ICollection{Object}" /> containing the values in the <see cref="IDictionary{String, Object}" />.
 	/// </summary>
 	/// <value>The values.</value>
-	public ICollection<object?> Values => ((IDictionary<string, object?>)m_Dictionary).Values;
+	public ICollection<object?> Values => m_Dictionary.Values;
 
 	/// <summary>
 	/// Gets the number of elements contained in the <see cref="ICollection{T}" />.
@@ -94,7 +94,7 @@ public sealed class CultureAwareDynamicObject : DynamicObject, IDictionary<strin
 	/// <param name="value">The object to use as the value of the element to add.</param>
 	public void Add(string key, object? value)
 	{
-		((IDictionary<string, object?>)m_Dictionary).Add(key, value);
+		m_Dictionary.Add(key, value);
 		OnPropertyChanged(key);
 	}
 
@@ -124,7 +124,7 @@ public sealed class CultureAwareDynamicObject : DynamicObject, IDictionary<strin
 	/// <returns>true if <paramref name="item" /> is found in the <see cref="ICollection{T}" />; otherwise, false.</returns>
 	public bool Contains(KeyValuePair<string, object?> item)
 	{
-		return ((ICollection<KeyValuePair<string, object?>>)m_Dictionary).Contains(item);
+		return m_Dictionary.ContainsValue(item);
 	}
 
 	/// <summary>
@@ -134,7 +134,7 @@ public sealed class CultureAwareDynamicObject : DynamicObject, IDictionary<strin
 	/// <returns>true if the <see cref="IDictionary{String, Object}" /> contains an element with the key; otherwise, false.</returns>
 	public bool ContainsKey(string key)
 	{
-		return ((IDictionary<string, object?>)m_Dictionary).ContainsKey(key);
+		return m_Dictionary.ContainsKey(key);
 	}
 
 	/// <summary>
@@ -163,7 +163,7 @@ public sealed class CultureAwareDynamicObject : DynamicObject, IDictionary<strin
 	/// <returns>true if the element is successfully removed; otherwise, false.  This method also returns false if <paramref name="key" /> was not found in the original <see cref="IDictionary{String, Object}" />.</returns>
 	public bool Remove(string key)
 	{
-		bool result = ((IDictionary<string, object?>)m_Dictionary).Remove(key);
+		bool result = m_Dictionary.Remove(key);
 		OnPropertyChanged(null);
 		return result;
 	}
@@ -203,7 +203,7 @@ public sealed class CultureAwareDynamicObject : DynamicObject, IDictionary<strin
 	/// <returns>true if the object that implements <see cref="IDictionary{String, Object}" /> contains an element with the specified key; otherwise, false.</returns>
 	public bool TryGetValue(string key, out object? value)
 	{
-		return ((IDictionary<string, object?>)m_Dictionary).TryGetValue(key, out value);
+		return m_Dictionary.TryGetValue(key, out value);
 	}
 
 	/// <summary>
@@ -227,14 +227,10 @@ public sealed class CultureAwareDynamicObject : DynamicObject, IDictionary<strin
 	/// Returns an enumerator that iterates through a collection.
 	/// </summary>
 	/// <returns>An <see cref="IEnumerator" /> object that can be used to iterate through the collection.</returns>
-	IEnumerator IEnumerable.GetEnumerator()
-	{
-		return ((IEnumerable)m_Dictionary).GetEnumerator();
-	}
+	IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)m_Dictionary).GetEnumerator();
 
 	void OnPropertyChanged(string? key)
 	{
-		if (PropertyChanged != null)
-			PropertyChanged(this, new PropertyChangedEventArgs(key));
+		PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(key));
 	}
 }

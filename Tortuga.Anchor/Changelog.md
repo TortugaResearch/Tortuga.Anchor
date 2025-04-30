@@ -6,6 +6,10 @@
 * End support for .NET Standard 2.0
 * End support for .NET 6.0
 
+
+`CollectionUtilities.AddRange<T>(ICollection<T>, IEnumerable<Task<T>>)` was renamed `AddRangeAsync`.
+
+
 ### Features
 
 [#83 Culture Aware (including case insensitive) dynamic objects](https://github.com/TortugaResearch/Tortuga.Anchor/issues/83)

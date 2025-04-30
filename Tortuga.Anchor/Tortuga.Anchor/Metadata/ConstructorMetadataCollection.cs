@@ -14,7 +14,7 @@ public sealed class ConstructorMetadataCollection : IList<ConstructorMetadata>, 
 
 	internal ConstructorMetadataCollection(IEnumerable<ConstructorInfo> constructors)
 	{
-		m_Constructors = ImmutableArray.CreateRange(constructors.Where(c => c.IsPublic).Select(c => new ConstructorMetadata(c)));
+		m_Constructors = [.. constructors.Where(c => c.IsPublic).Select(c => new ConstructorMetadata(c))];
 		DefaultConstructor = m_Constructors.SingleOrDefault(c => c.Signature.Length == 0);
 		try
 		{
