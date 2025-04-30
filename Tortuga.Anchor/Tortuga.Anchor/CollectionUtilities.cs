@@ -111,7 +111,7 @@ public static partial class CollectionUtilities
 	}
 
 	/// <summary>
-	/// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
+	/// Casts an IList&lt;T&gt; into a AsReadOnlyCollection&lt;T&gt;. If the cast fails, the list is
 	/// wrapped in an adapter.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
@@ -153,25 +153,6 @@ public static partial class CollectionUtilities
 		return new ReadOnlyCollection<T>(source.ToList());
 	}
 
-	///// <summary>
-	///// Creates a read-only list from an System.Collections.Generic.IEnumerable`1.
-	///// </summary>
-	///// <typeparam name="T"></typeparam>
-	///// <param name="source">The source.</param>
-	///// <returns>IReadOnlyList&lt;T&gt;.</returns>
-	///// <exception cref="ArgumentNullException">source</exception>
-	///// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
-	//public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
-	//{
-	//    if (source == null)
-	//        throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
-
-	//    if (source is IList<T> list)
-	//        return new ReadOnlyCollection<T>(list);
-	//    else
-	//        return new ReadOnlyCollection<T>(source.ToList());
-	//}
-
 	/// <summary>
 	/// Batches the specified enumeration into lists according to the indicated batch size.
 	/// </summary>
@@ -211,7 +192,11 @@ public static partial class CollectionUtilities
 		}
 	}
 
-
+	//    if (source is IList<T> list)
+	//        return new ReadOnlyCollection<T>(list);
+	//    else
+	//        return new ReadOnlyCollection<T>(source.ToList());
+	//}
 	/// <summary>
 	/// Batches the specified enumeration into lightweight segments according to the indicated batch size.
 	/// </summary>
@@ -242,6 +227,18 @@ public static partial class CollectionUtilities
 		}
 	}
 
+	///// <summary>
+	///// Creates a read-only list from an System.Collections.Generic.IEnumerable`1.
+	///// </summary>
+	///// <typeparam name="T"></typeparam>
+	///// <param name="source">The source.</param>
+	///// <returns>IReadOnlyList&lt;T&gt;.</returns>
+	///// <exception cref="ArgumentNullException">source</exception>
+	///// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
+	//public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
+	//{
+	//    if (source == null)
+	//        throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
 	/// <summary>
 	/// Concatenates an item onto the emd of an enumeration.
 	/// </summary>
@@ -265,6 +262,61 @@ public static partial class CollectionUtilities
 				yield return element;
 			yield return item;
 		}
+	}
+
+	/// <summary>
+	/// Determines whether the source contains all of the specified values.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="source">The source to be checked.</param>
+	/// <param name="values">The values.</param>
+	/// <returns><c>true</c> if the source contains all of the specified values; otherwise, <c>false</c>.</returns>
+	/// <remarks>Duplicates in either collection will be ignored.</remarks>
+	public static bool ContainsAllOf<T>(this IEnumerable<T> source, params T[] values)
+	{
+		if (source == null)
+			throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+
+		if (values == null)
+			throw new ArgumentNullException(nameof(values), $"{nameof(values)} is null.");
+
+		var list = source.AsList();
+
+		foreach (var item in values)
+			if (!list.Contains(item))
+				return false;
+
+		return true;
+	}
+
+	/// <summary>
+	/// Determines whether the source contains all of the specified values and nothing else.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="source">The source to be checked.</param>
+	/// <param name="values">The values.</param>
+	/// <returns><c>true</c> if the source contains all of the specified values and nothing else; otherwise, <c>false</c>.</returns>
+	/// <remarks>Duplicates in either collection will be ignored.</remarks>
+	public static bool ContainsOnly<T>(this IEnumerable<T> source, params T[] values)
+	{
+		if (source == null)
+			throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+
+		if (values == null)
+			throw new ArgumentNullException(nameof(values), $"{nameof(values)} is null.");
+
+		var list = source.AsList();
+
+		foreach (var item in values)
+			if (!list.Contains(item))
+				return false;
+
+		//We can't just compare counts because there may be duplicates
+		foreach (var item in source)
+			if (!values.Contains(item))
+				return false;
+
+		return true;
 	}
 
 	/// <summary>
@@ -466,6 +518,24 @@ public static partial class CollectionUtilities
 
 		IntrospectiveSort(list, 0, list.Count, comparison);
 	}
+
+	///// <summary>
+	///// Copies an enumerator into a list, disposing it afterwards.
+	///// </summary>
+	///// <typeparam name="T"></typeparam>
+	///// <param name="source">The source.</param>
+	///// <remarks>The source will be disposed is applicable..</remarks>
+	//public static IList<T> ToList<T>(this IEnumerator<T> source)
+	//{
+	//	if (source == null)
+	//		throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+
+	//	var result = new List<T>();
+	//	while (source.MoveNext())
+	//		result.Add(source.Current);
+	//	source.Dispose();
+	//	return result;
+	//}
 
 	class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
 	{
