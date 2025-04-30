@@ -1,10 +1,30 @@
 ## Version 4.2
 
+
 ## Features
 
 [#65 Preferred Constructor Attribute](https://github.com/TortugaResearch/Tortuga.Anchor/issues/65)
 
 If a class has multiple constructors, one can be marked as preferred. This is meant to be used by a future version of the Chain ORM.
+
+[#85 MultiValueDictionary Class](https://github.com/TortugaResearch/Tortuga.Anchor/issues/85)
+
+The new `MultiValueDictionary` class is a dictionary that allows multiple values to be associated with a single key.
+
+[#91 ReadonlyMultiValueDictionary](https://github.com/TortugaResearch/Tortuga.Anchor/issues/91)
+
+The new `ReadonlyMultiValueDictionary` class is a read-only wrapper around a `MultiValueDictionary`.
+
+[#93 Cache all Attributes at the class level](https://github.com/TortugaResearch/Tortuga.Anchor/issues/93)
+
+Adds the property `ClassMetadata.Attributes`.
+
+### Bugs
+
+[#88 PropertyMetadata is not reading attributes correctly](https://github.com/TortugaResearch/Tortuga.Anchor/issues/88)
+
+There were still places that were not using Attribute.GetCustomAttributes to ensure attributes on overriden properties were being detected.
+
 
 ### Technical Debt
 
