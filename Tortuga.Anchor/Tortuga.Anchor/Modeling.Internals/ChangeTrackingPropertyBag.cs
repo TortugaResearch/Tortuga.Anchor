@@ -12,12 +12,11 @@ namespace Tortuga.Anchor.Modeling.Internals;
 /// </summary>
 public class ChangeTrackingPropertyBag : PropertyBagBase
 {
+	readonly BitArray m_ChangedValues;
 	readonly IListener<PropertyChangedEventArgs> m_ChildIsChangedPropertyListener;
 
 	//readonly Dictionary<string, object?> m_OriginalValues = new Dictionary<string, object?>(StringComparer.Ordinal);
 	readonly object?[] m_OriginalValues;
-
-	readonly BitArray m_ChangedValues;
 
 	bool m_IsChangedLocal;
 
@@ -279,29 +278,18 @@ public class ChangeTrackingPropertyBag : PropertyBagBase
 		return true;
 	}
 
-	void UpdateIsChangedLocal(int propertyIndex)
+	/// <inheritdoc/>
+	protected internal override object?[] GetInternalValues()
 	{
-		var currentFlag = m_ChangedValues[propertyIndex];
-		var newFlag = !Equals(m_OriginalValues[propertyIndex], Values[propertyIndex]);
+		return Values;
+	}
 
-		if (currentFlag == newFlag) //nothing changed
-			return;
-
-		m_ChangedValues[propertyIndex] = newFlag;
-
-		if (IsChangedLocal == newFlag) //No need to recalculate IsChangedLocal
-			return;
-
-		var count = Metadata.Properties.Count;
-		for (var i = 0; i < count; i++)
-		{
-			if (m_ChangedValues[i])
-			{
-				IsChangedLocal = true;
-				return;
-			}
-		}
-		IsChangedLocal = false;
+	/// <inheritdoc/>
+	protected internal override void SetInternalValues(object?[] valuesArray)
+	{
+		ArgumentNullException.ThrowIfNull(valuesArray);
+		valuesArray.CopyTo(Values, 0);
+		valuesArray.CopyTo(m_OriginalValues, 0);
 	}
 
 	/// <summary>
@@ -346,18 +334,28 @@ public class ChangeTrackingPropertyBag : PropertyBagBase
 				changedNew.PropertyChanged += OnChildIsChangedPropertyChanged;
 	}
 
-	/// <inheritdoc/>
-	protected internal override object?[] GetInternalValues()
+	void UpdateIsChangedLocal(int propertyIndex)
 	{
-		return Values;
-	}
+		var currentFlag = m_ChangedValues[propertyIndex];
+		var newFlag = !Equals(m_OriginalValues[propertyIndex], Values[propertyIndex]);
 
-	/// <inheritdoc/>
-	protected internal override void SetInternalValues(object?[] valuesArray)
-	{
-		if (valuesArray == null)
-			throw new ArgumentNullException(nameof(valuesArray));
-		valuesArray.CopyTo(Values, 0);
-		valuesArray.CopyTo(m_OriginalValues, 0);
+		if (currentFlag == newFlag) //nothing changed
+			return;
+
+		m_ChangedValues[propertyIndex] = newFlag;
+
+		if (IsChangedLocal == newFlag) //No need to recalculate IsChangedLocal
+			return;
+
+		var count = Metadata.Properties.Count;
+		for (var i = 0; i < count; i++)
+		{
+			if (m_ChangedValues[i])
+			{
+				IsChangedLocal = true;
+				return;
+			}
+		}
+		IsChangedLocal = false;
 	}
 }

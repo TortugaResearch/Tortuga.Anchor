@@ -11,7 +11,6 @@ public static class StringUtilities
 	[ThreadStatic]
 	private static StringBuilder? ts_CachedStringBuilder;
 
-
 	/// <summary>
 	/// The maximum size of a string builder this will cache.
 	/// </summary>
@@ -69,10 +68,9 @@ public static class StringUtilities
 	/// <exception cref="ArgumentNullException">values</exception>
 	public static string Join<T>(this IEnumerable<T> values, string separator, StringJoinOption option = StringJoinOption.None)
 	{
-		if (values == null)
-			throw new ArgumentNullException(nameof(values));
+		ArgumentNullException.ThrowIfNull(values);
 
-		if (!Enum.IsDefined(typeof(StringJoinOption), option))
+		if (!Enum.IsDefined(option))
 			throw new ArgumentOutOfRangeException(nameof(option), option, "Option is not defined.");
 
 		if (option == StringJoinOption.None) //no options means we can use the built-in version
@@ -149,10 +147,9 @@ public static class StringUtilities
 	/// <exception cref="ArgumentNullException">values</exception>
 	public static string Join(this IEnumerable<string> values, string separator, StringJoinOption option = StringJoinOption.None)
 	{
-		if (values == null)
-			throw new ArgumentNullException(nameof(values));
+		ArgumentNullException.ThrowIfNull(values);
 
-		if (!Enum.IsDefined(typeof(StringJoinOption), option))
+		if (!Enum.IsDefined(option))
 			throw new ArgumentOutOfRangeException(nameof(option), option, "Option is not defined.");
 
 		if (option == StringJoinOption.None) //no options means we can use the built-in version

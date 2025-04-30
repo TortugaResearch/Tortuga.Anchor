@@ -519,25 +519,7 @@ public static partial class CollectionUtilities
 		IntrospectiveSort(list, 0, list.Count, comparison);
 	}
 
-	///// <summary>
-	///// Copies an enumerator into a list, disposing it afterwards.
-	///// </summary>
-	///// <typeparam name="T"></typeparam>
-	///// <param name="source">The source.</param>
-	///// <remarks>The source will be disposed is applicable..</remarks>
-	//public static IList<T> ToList<T>(this IEnumerator<T> source)
-	//{
-	//	if (source == null)
-	//		throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
-
-	//	var result = new List<T>();
-	//	while (source.MoveNext())
-	//		result.Add(source.Current);
-	//	source.Dispose();
-	//	return result;
-	//}
-
-	class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
+	sealed class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
 	{
 		readonly IEnumerable<T> m_List;
 

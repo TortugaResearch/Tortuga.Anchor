@@ -111,10 +111,11 @@ public class NaturalSortComparer : IComparer<string?>
 		}
 	}
 
-	class SortKey
+	sealed class SortKey
 	{
 		static readonly char[] s_SplitCharacters = new[] { ' ', '\t', '-', '=', '/', '\\', ':', '\r', '\n', '(', ')'
 			, '[', ']', '{', '}', '|', '_'};
+
 		readonly Fragment[] m_Fragments;
 		readonly string? m_Value;
 

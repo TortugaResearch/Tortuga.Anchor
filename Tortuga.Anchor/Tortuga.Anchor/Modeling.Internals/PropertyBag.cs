@@ -113,8 +113,7 @@ public class PropertyBag : PropertyBagBase
 	/// <inheritdoc/>
 	protected internal override void SetInternalValues(object?[] valuesArray)
 	{
-		if (valuesArray == null)
-			throw new ArgumentNullException(nameof(valuesArray));
+		ArgumentNullException.ThrowIfNull(valuesArray);
 		valuesArray.CopyTo(m_Values, 0);
 	}
 }

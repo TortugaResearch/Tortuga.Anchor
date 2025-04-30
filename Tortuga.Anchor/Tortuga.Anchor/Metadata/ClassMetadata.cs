@@ -2,7 +2,6 @@ using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Reflection;
-using System.Text;
 using Tortuga.Anchor.Modeling;
 
 namespace Tortuga.Anchor.Metadata;
@@ -67,6 +66,7 @@ public class ClassMetadata
 			property.EndInit();
 
 		Constructors = new ConstructorMetadataCollection(typeInfo.DeclaredConstructors);
+		Methods = new MethodMetadataCollection(typeInfo.GetRuntimeMethods());
 	}
 
 	/// <summary>
@@ -89,6 +89,11 @@ public class ClassMetadata
 	public ConstructorMetadataCollection Constructors { get; }
 
 	/// <summary>
+	/// Methods on the indicated class.
+	/// </summary>
+	public MethodMetadataCollection Methods { get; }
+
+	/// <summary>
 	/// Gets the fully quantified name in C# format.
 	/// </summary>
 	public string CSharpFullName
@@ -96,12 +101,8 @@ public class ClassMetadata
 		get
 		{
 			if (m_CSharpFullName == null)
-			{
-				var result = new StringBuilder(TypeInfo.ToString().Length);
-				BuildFullName(TypeInfo.AsType(), null, result, "<", ", ", ">");
+				m_CSharpFullName = TypeInfo.CSharpFullName();
 
-				m_CSharpFullName = result.ToString();
-			}
 			return m_CSharpFullName;
 		}
 	}
@@ -114,12 +115,8 @@ public class ClassMetadata
 		get
 		{
 			if (m_FSharpFullName == null)
-			{
-				var result = new StringBuilder(TypeInfo.ToString().Length);
-				BuildFullName(TypeInfo.AsType(), null, result, "<'", ", '", ">");
+				m_FSharpFullName = TypeInfo.FSharpFullName();
 
-				m_FSharpFullName = result.ToString();
-			}
 			return m_FSharpFullName;
 		}
 	}
@@ -152,7 +149,6 @@ public class ClassMetadata
 	/// <remarks>This is only used for SELECT operations.</remarks>
 	public string? MappedViewName { get; }
 
-
 	/// <summary>
 	/// Schema referred to by ViewAttribute.
 	/// </summary>
@@ -182,12 +178,8 @@ public class ClassMetadata
 		get
 		{
 			if (m_VisualBasicFullName == null)
-			{
-				var result = new StringBuilder(TypeInfo.ToString().Length);
-				BuildFullName(TypeInfo.AsType(), null, result, "(Of ", ", ", ")");
+				m_VisualBasicFullName = TypeInfo.VisualBasicFullName();
 
-				m_VisualBasicFullName = result.ToString();
-			}
 			return m_VisualBasicFullName;
 		}
 	}
@@ -223,55 +215,6 @@ public class ClassMetadata
 	/// A string that represents the current object.
 	/// </returns>
 	public override string ToString() => TypeInfo.ToString();
-
-	static void BuildFullName(Type typeInfo, List<Type>? typeArgs, StringBuilder result, string genericOpen, string genericSeparator, string genericClose)
-	{
-		var localTypeParamCount = typeInfo.GetTypeInfo().GenericTypeParameters.Length;
-		var localTypeArgCount = typeInfo.GetTypeInfo().GenericTypeArguments.Length;
-
-		if (typeArgs == null)
-			typeArgs = new List<Type>(typeInfo.GetTypeInfo().GenericTypeArguments);
-
-		if (typeInfo.IsNested)
-			BuildFullName(typeInfo.DeclaringType!, typeArgs, result, genericOpen, genericSeparator, genericClose);
-		else
-			result.Append(typeInfo.Namespace);
-
-		result.Append('.');
-		foreach (var c in typeInfo.Name)
-		{
-			if (c == '`') //we found a generic
-				break;
-			result.Append(c);
-		}
-
-		if (localTypeParamCount > 0)
-		{
-			result.Append(genericOpen);
-
-			for (int i = 0; i < localTypeParamCount; i++)
-			{
-				if (i > 0)
-					result.Append(genericSeparator);
-				BuildFullName(typeArgs[i], null, result, genericOpen, genericSeparator, genericClose); //note that we are "eating" the typeArgs that we passed to us from the nested type.
-			}
-			typeArgs.RemoveRange(0, localTypeParamCount); //remove the used args
-
-			result.Append(genericClose);
-		}
-		else if (localTypeArgCount > 0 && typeArgs.Count > 0)
-		{
-			result.Append(genericOpen);
-
-			for (int i = 0; i < Math.Min(localTypeArgCount, typeArgs.Count); i++)
-			{
-				if (i > 0)
-					result.Append(genericSeparator);
-				BuildFullName(typeArgs[i], null, result, genericOpen, genericSeparator, genericClose);
-			}
-			result.Append(genericClose);
-		}
-	}
 
 	static bool IsHidingMember(PropertyInfo propertyInfo)
 	{

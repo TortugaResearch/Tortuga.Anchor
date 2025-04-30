@@ -310,7 +310,7 @@ public class MultiValueDictionary<TKey, TValue> : IReadOnlyDictionary<TKey, Read
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 	}
 
-	class ListWithWrapper<T> : List<T>
+	sealed class ListWithWrapper<T> : List<T>
 	{
 		ReadOnlyCollection<T>? m_ReadOnlyWrapper;
 
