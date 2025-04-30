@@ -1,6 +1,11 @@
 ## Version 4.2
 
-### Features
+
+## Features
+
+[#65 Preferred Constructor Attribute](https://github.com/TortugaResearch/Tortuga.Anchor/issues/65)
+
+If a class has multiple constructors, one can be marked as preferred. This is meant to be used by a future version of the Chain ORM.
 
 [#85 MultiValueDictionary Class](https://github.com/TortugaResearch/Tortuga.Anchor/issues/85)
 
@@ -19,6 +24,7 @@ Adds the property `ClassMetadata.Attributes`.
 [#88 PropertyMetadata is not reading attributes correctly](https://github.com/TortugaResearch/Tortuga.Anchor/issues/88)
 
 There were still places that were not using Attribute.GetCustomAttributes to ensure attributes on overriden properties were being detected.
+
 
 ### Technical Debt
 
