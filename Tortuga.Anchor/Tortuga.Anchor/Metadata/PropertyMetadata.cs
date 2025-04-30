@@ -7,6 +7,10 @@ using Tortuga.Anchor.Modeling;
 
 namespace Tortuga.Anchor.Metadata;
 
+#if NETCOREAPP
+#pragma warning disable IDE0057 // Use range operator
+#endif
+
 /// <summary>
 /// This is a cache of metadata about a specific property.
 /// </summary>
@@ -45,26 +49,26 @@ public partial class PropertyMetadata
 		else
 			PropertyChangingEventArgs = new PropertyChangingEventArgs(info.Name);
 
-		IsKey = info.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0;
+		IsKey = Attributes.OfType<KeyAttribute>().Any();
 
-		var doNotMap = info.GetCustomAttributes(typeof(NotMappedAttribute), true).Length > 0;
+		var doNotMap = Attributes.OfType<NotMappedAttribute>().Any();
 		if (!doNotMap)
 		{
-			var column = (ColumnAttribute?)info.GetCustomAttributes(typeof(ColumnAttribute), true).SingleOrDefault();
+			var column = Attributes.OfType<ColumnAttribute>().SingleOrDefault();
 			MappedColumnName = (column != null && !column.Name.IsNullOrEmpty()) ? column.Name : Name;
 		}
-		var decomposeAttribute = (DecomposeAttribute?)(info.GetCustomAttributes(typeof(DecomposeAttribute), true).FirstOrDefault());
+		var decomposeAttribute = Attributes.OfType<DecomposeAttribute>().SingleOrDefault();
 		if (decomposeAttribute != null)
 		{
 			Decompose = true;
 			DecompositionPrefix = decomposeAttribute.Prefix;
 		}
-		IgnoreOnInsert = info.GetCustomAttributes(typeof(IgnoreOnInsertAttribute), true).Length > 0;
-		IgnoreOnUpdate = info.GetCustomAttributes(typeof(IgnoreOnUpdateAttribute), true).Length > 0;
+		IgnoreOnInsert = Attributes.OfType<IgnoreOnInsertAttribute>().Any();
+		IgnoreOnUpdate = Attributes.OfType<IgnoreOnUpdateAttribute>().Any();
 
 		if (!PropertyType.IsValueType)
 		{
-			var nullableAttribute = info.GetCustomAttributes().Where(a => a.GetType().FullName == "System.Runtime.CompilerServices.NullableAttribute").FirstOrDefault();
+			var nullableAttribute = Attributes.Where(a => a.GetType().FullName == "System.Runtime.CompilerServices.NullableAttribute").FirstOrDefault();
 
 			if (nullableAttribute != null)
 			{
@@ -90,11 +94,6 @@ public partial class PropertyMetadata
 	public bool AffectsCalculatedFields => m_CalculatedFieldsBuilder.Count > 0;
 
 	/// <summary>
-	/// Complete list of attributes that apply to the property
-	/// </summary>
-	public ImmutableArray<Attribute> Attributes { get; }
-
-	/// <summary>
 	/// This returns a list of calculated fields that need to be updated when this property is changed.
 	/// </summary>
 	public ImmutableArray<PropertyMetadata> CalculatedFields { get; private set; }
@@ -105,6 +104,14 @@ public partial class PropertyMetadata
 	public bool CanRead
 	{
 		get { return m_GetMethod?.IsPublic == true && m_GetMethod?.IsFamily == false && !IsIndexed; }
+	}
+
+	/// <summary>
+	/// Returns true if there is a getter and it is not an indexed property, even if that getter isn't public.
+	/// </summary>
+	public bool CanReadRestricted
+	{
+		get { return m_GetMethod != null && !IsIndexed; }
 	}
 
 	/// <summary>
@@ -124,19 +131,19 @@ public partial class PropertyMetadata
 	}
 
 	/// <summary>
-	/// Returns true if there is a getter and it is not an indexed property, even if that getter isn't public.
-	/// </summary>
-	public bool CanReadRestricted
-	{
-		get { return m_GetMethod != null && !IsIndexed; }
-	}
-
-	/// <summary>
 	/// Returns true is there is a public setter and it is not an indexed property.
 	/// </summary>
 	public bool CanWrite
 	{
 		get { return m_SetMethod?.IsPublic == true && m_SetMethod?.IsFamily == false && !IsIndexed; }
+	}
+
+	/// <summary>
+	/// Returns true is there is a setter and it is not an indexed property, even if that setter isn't public.
+	/// </summary>
+	public bool CanWriteRestricted
+	{
+		get { return m_SetMethod != null && !IsIndexed; }
 	}
 
 	/// <summary>
@@ -151,14 +158,6 @@ public partial class PropertyMetadata
 	/// Returns true is there is a setter and and it is an indexed property, even if that setter isn't public.
 	/// </summary>
 	public bool CanWriteIndexedAndRestricted
-	{
-		get { return m_SetMethod != null && !IsIndexed; }
-	}
-
-	/// <summary>
-	/// Returns true is there is a setter and it is not an indexed property, even if that setter isn't public.
-	/// </summary>
-	public bool CanWriteRestricted
 	{
 		get { return m_SetMethod != null && !IsIndexed; }
 	}
@@ -230,18 +229,6 @@ public partial class PropertyMetadata
 	public PropertyChangingEventArgs PropertyChangingEventArgs { get; }
 
 	/// <summary>
-	/// Gets or sets the index of the property.
-	/// </summary>
-	/// <value>The index of the property.</value>
-	/// <remarks>Used by property bags and other things that need to store property values in arrays.</remarks>
-	public int PropertyIndex { get; }
-
-	/// <summary>
-	/// Cached PropertyInfo for the property.
-	/// </summary>
-	public PropertyInfo PropertyInfo { get; }
-
-	/// <summary>
 	/// Gets the type of this property.
 	/// </summary>
 	public Type PropertyType { get; }
@@ -250,6 +237,16 @@ public partial class PropertyMetadata
 	/// List of validators that apply to the property
 	/// </summary>
 	public ImmutableArray<ValidationAttribute> Validators { get; }
+
+	/// <summary>
+	/// Complete list of attributes that apply to the property
+	/// </summary>
+	public ImmutableArray<Attribute> Attributes { get; }
+
+	/// <summary>
+	/// Cached PropertyInfo for the property.
+	/// </summary>
+	public PropertyInfo PropertyInfo { get; }
 
 	/// <summary>Creates the delegate setter.</summary>
 	/// <typeparam name="TTarget">The type of the target object.</typeparam>
@@ -437,4 +434,11 @@ public partial class PropertyMetadata
 	{
 		CalculatedFields = ImmutableArray.CreateRange(m_CalculatedFieldsBuilder);
 	}
+
+	/// <summary>
+	/// Gets or sets the index of the property.
+	/// </summary>
+	/// <value>The index of the property.</value>
+	/// <remarks>Used by property bags and other things that need to store property values in arrays.</remarks>
+	public int PropertyIndex { get; }
 }

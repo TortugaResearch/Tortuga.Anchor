@@ -69,9 +69,94 @@ public class Generic<T>
 	public class NestedInGeneric { }
 }
 
+public class OneConstructor
+{
+	public OneConstructor(int a)
+	{
+	}
+}
+
+public class OneConstructorPerferred
+{
+	[PreferredConstructor]
+	public OneConstructorPerferred(int a) { }
+}
+
+public class TwoConstructorsOnePerferred
+{
+	[PreferredConstructor]
+	public TwoConstructorsOnePerferred(int a) { }
+
+	public TwoConstructorsOnePerferred(int a, int b)
+	{
+	}
+}
+
+public class TwoConstructorsNonePerferred
+{
+	public TwoConstructorsNonePerferred(int a)
+	{
+	}
+
+	public TwoConstructorsNonePerferred(int a, int b)
+	{
+	}
+}
+
+public class TwoConstructorsTwoPerferred
+{
+	[PreferredConstructor]
+	public TwoConstructorsTwoPerferred(int a) { }
+
+	[PreferredConstructor]
+	public TwoConstructorsTwoPerferred(int a, int b) { }
+}
+
 [TestClass]
 public class MetadataCacheTests
 {
+	[TestMethod]
+	public void OneConstructor()
+	{
+		var metadata = MetadataCache.GetMetadata<OneConstructor>();
+		Assert.IsNull(metadata.Constructors.PreferredConstructor);
+	}
+
+	[TestMethod]
+	public void OneConstructorPerferred()
+	{
+		var metadata = MetadataCache.GetMetadata<OneConstructorPerferred>();
+		Assert.IsNotNull(metadata.Constructors.PreferredConstructor);
+	}
+
+	[TestMethod]
+	public void TwoConstructorsOnePerferred()
+	{
+		var metadata = MetadataCache.GetMetadata<TwoConstructorsOnePerferred>();
+		Assert.IsNotNull(metadata.Constructors.PreferredConstructor);
+	}
+
+	[TestMethod]
+	public void TwoConstructorsNonePerferred()
+	{
+		var metadata = MetadataCache.GetMetadata<TwoConstructorsNonePerferred>();
+		Assert.IsNull(metadata.Constructors.PreferredConstructor);
+	}
+
+	[TestMethod]
+	public void TwoConstructorsTwoPerferred()
+	{
+		try
+		{
+			var metadata = MetadataCache.GetMetadata<TwoConstructorsTwoPerferred>();
+			Assert.Fail();
+		}
+		catch (InvalidOperationException)
+		{
+			//Expected
+		}
+	}
+
 	[TestMethod]
 	public void AttributeInheritanceForProperties()
 	{
@@ -1048,16 +1133,6 @@ public class MetadataCacheTests
 
 			verify.AreEqual(3, result.Properties.Where(p => p.CanReadRestricted).Count(), "CanReadRestricted");
 			verify.AreEqual(2, result.Properties.Where(p => p.CanWriteRestricted).Count(), "CanWriteRestricted");
-		}
-	}
-
-	[TestMethod]
-	public void ReadAllTypes()
-	{
-		var types = Assembly.GetAssembly(typeof(MetadataCache))!.GetTypes();
-		foreach (var type in types)
-		{
-			var metaData = MetadataCache.GetMetadata(type);
 		}
 	}
 

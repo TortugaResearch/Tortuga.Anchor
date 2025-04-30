@@ -1,6 +1,20 @@
-## Version 4.2
+## Version 5.0
+
+### Breaking Changes
+
+* End support for .NET Framework.
+* End support for .NET Standard 2.0
+* End support for .NET 6.0
 
 ### Features
+
+[#83 Culture Aware (including case insensitive) dynamic objects](https://github.com/TortugaResearch/Tortuga.Anchor/issues/83)
+
+The new `CultureAwareDynamicObject` allows you to supply culture information using a `StringComparer`. This allows for case-insensitive property names.
+
+[#65 Preferred Constructor Attribute](https://github.com/TortugaResearch/Tortuga.Anchor/issues/65)
+
+If a class has multiple constructors, one can be marked as preferred. This is meant to be used by a future version of the Chain ORM.
 
 [#85 MultiValueDictionary Class](https://github.com/TortugaResearch/Tortuga.Anchor/issues/85)
 
@@ -9,6 +23,17 @@ The new `MultiValueDictionary` class is a dictionary that allows multiple values
 [#91 ReadonlyMultiValueDictionary](https://github.com/TortugaResearch/Tortuga.Anchor/issues/91)
 
 The new `ReadonlyMultiValueDictionary` class is a read-only wrapper around a `MultiValueDictionary`.
+
+[#93 Cache all Attributes at the class level](https://github.com/TortugaResearch/Tortuga.Anchor/issues/93)
+
+Adds the property `ClassMetadata.Attributes`.
+
+### Bugs
+
+[#88 PropertyMetadata is not reading attributes correctly](https://github.com/TortugaResearch/Tortuga.Anchor/issues/88)
+
+There were still places that were not using Attribute.GetCustomAttributes to ensure attributes on overriden properties were being detected.
+
 
 ### Technical Debt
 

@@ -22,7 +22,9 @@ public class ClassMetadata
 	{
 		TypeInfo = typeInfo;
 
-		var table = (TableAttribute?)typeInfo.GetCustomAttributes(typeof(TableAttribute), true).SingleOrDefault();
+		Attributes = ImmutableArray.CreateRange(Attribute.GetCustomAttributes(typeInfo, true));
+
+		var table = Attributes.OfType<TableAttribute>().SingleOrDefault();
 		if (table != null)
 		{
 			MappedTableName = table.Name;
@@ -37,7 +39,7 @@ public class ClassMetadata
 #pragma warning restore CS0618 // Type or member is obsolete
 		}
 
-		var view = (ViewAttribute?)typeInfo.GetCustomAttributes(typeof(ViewAttribute), true).SingleOrDefault();
+		var view = Attributes.OfType<ViewAttribute>().SingleOrDefault();
 		if (view != null)
 		{
 			MappedViewName = view.Name;
@@ -53,7 +55,7 @@ public class ClassMetadata
 
 		//List the properties that are affected when the indicated property is modified.
 		foreach (var property in Properties)
-			foreach (CalculatedFieldAttribute fieldList in property.PropertyInfo.GetCustomAttributes(typeof(CalculatedFieldAttribute), true))
+			foreach (CalculatedFieldAttribute fieldList in property.Attributes.OfType<CalculatedFieldAttribute>())
 				foreach (var field in fieldList.SourceProperties)
 				{
 					if (!Properties.Contains(field))
@@ -68,6 +70,11 @@ public class ClassMetadata
 		Constructors = new ConstructorMetadataCollection(typeInfo.DeclaredConstructors);
 		Methods = new MethodMetadataCollection(typeInfo.GetRuntimeMethods());
 	}
+
+	/// <summary>
+	/// Complete list of attributes that apply to this class
+	/// </summary>
+	public ImmutableArray<Attribute> Attributes { get; }
 
 	/// <summary>
 	/// Gets the database columns for this class.
