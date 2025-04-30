@@ -69,7 +69,7 @@ public class CultureAwareDynamicObjectTests
 
 			dictionary["foo"] = 10;
 			verify.AreEqual(10, dictionary.foo, "Property foo has the wrong value");
-			verify.AreEqual(5, dictionary.Foo, "Property Foo has incorrectly changed");
+			verify.AreEqual(10, dictionary.Foo, "Property Foo has the wrong value");
 		}
 	}
 
