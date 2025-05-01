@@ -73,8 +73,7 @@ INotifyCollectionChanged, INotifyPropertyChanged, INotifyCollectionChangedWeak, 
 		if (eventHandler == null)
 			throw new ArgumentNullException(nameof(eventHandler), $"{nameof(eventHandler)} is null.");
 
-		if (m_CollectionChangeEventManager == null)
-			m_CollectionChangeEventManager = new CollectionChangedEventManager(this);
+		m_CollectionChangeEventManager ??= new CollectionChangedEventManager(this);
 
 		m_CollectionChangeEventManager.AddHandler(eventHandler);
 	}

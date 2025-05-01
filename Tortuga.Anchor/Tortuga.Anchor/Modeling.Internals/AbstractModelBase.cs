@@ -13,7 +13,7 @@ namespace Tortuga.Anchor.Modeling.Internals;
 /// Abstract base class to deal with the limitations of generics. This is not meant to be used directly by client code.
 /// </summary>
 [DataContract(Namespace = "http://github.com/docevaad/Anchor")]
-public abstract partial class AbstractModelBase : INotifyPropertyChanged, INotifyPropertyChangedWeak, IValidatable
+public abstract partial class AbstractModelBase : INotifyPropertyChanged, INotifyPropertyChangedWeak, IValidatable, IDataErrorInfo
 {
 	PropertyChangedEventManager m_PropertyChangedEventManager;
 
@@ -201,10 +201,7 @@ public abstract partial class AbstractModelBase : INotifyPropertyChanged, INotif
 	{
 		ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
 	}
-}
 
-partial class AbstractModelBase : IDataErrorInfo
-{
 	/// <summary>
 	/// Returns the errors associated with the object. Does not include property level errors.
 	/// </summary>
@@ -216,7 +213,7 @@ partial class AbstractModelBase : IDataErrorInfo
 #pragma warning restore CA1033 // Interface methods should be callable by child types
 		{
 			var errors = from e in GetErrors("") select e.ToString();
-			return string.Join("\n", errors.ToArray());
+			return string.Join("\n", errors);
 		}
 	}
 
@@ -232,7 +229,7 @@ partial class AbstractModelBase : IDataErrorInfo
 #pragma warning restore CA1033 // Interface methods should be callable by child types
 		{
 			var errors = from e in GetErrors(columnName) select e.ToString();
-			return string.Join("\n", errors.ToArray());
+			return string.Join("\n", errors);
 		}
 	}
 }

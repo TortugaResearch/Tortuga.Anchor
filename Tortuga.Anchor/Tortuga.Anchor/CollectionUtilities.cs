@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using Tortuga.Anchor.Collections;
@@ -78,7 +77,7 @@ public static partial class CollectionUtilities
 	/// <typeparam name="T"></typeparam>
 	/// <param name="target">The target collection to be added to.</param>
 	/// <param name="list">The list.</param>
-	public static async Task AddRange<T>(this ICollection<T> target, IEnumerable<Task<T>> list)
+	public static async Task AddRangeAsync<T>(this ICollection<T> target, IEnumerable<Task<T>> list)
 	{
 		if (target == null)
 			throw new ArgumentNullException(nameof(target), $"{nameof(target)} is null.");
@@ -100,25 +99,25 @@ public static partial class CollectionUtilities
 	/// This is primarily meant to be used with poorly designed interfaces that return lists
 	/// disguised as IEnumerable.
 	/// </remarks>
-	[return: NotNullIfNotNull("source")]
+	[return: NotNullIfNotNull(nameof(source))]
 	public static IList<T>? AsList<T>(this IEnumerable<T>? source)
 	{
 		if (source == null)
 			return null;
 		if (source is IList<T> lists)
 			return lists;
-		return source.ToList();
+		return [.. source];
 	}
 
 	/// <summary>
-	/// Casts an IList&lt;T&gt; into a IReadOnlyList&lt;T&gt;. If the cast fails, the list is
+	/// Casts an IList&lt;T&gt; into a AsReadOnlyCollection&lt;T&gt;. If the cast fails, the list is
 	/// wrapped in an adapter.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <param name="source">The source. If the source is null, the result will be null.</param>
 	/// <returns>IReadOnlyList&lt;T&gt;.</returns>
 	/// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyCollection&lt;T&gt;.</remarks>
-	[return: NotNullIfNotNull("source")]
+	[return: NotNullIfNotNull(nameof(source))]
 	public static IReadOnlyCollection<T>? AsReadOnlyCollection<T>(this IEnumerable<T>? source)
 	{
 		if (source == null)
@@ -127,7 +126,7 @@ public static partial class CollectionUtilities
 		if (source is IReadOnlyCollection<T> result)
 			return result;
 
-		return new SimpleReadOnlyCollection<T>(source);
+		return [.. source];
 	}
 
 	/// <summary>
@@ -138,7 +137,7 @@ public static partial class CollectionUtilities
 	/// <param name="source">The source. If the source is null, the result will be null.</param>
 	/// <returns>IReadOnlyList&lt;T&gt;.</returns>
 	/// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
-	[return: NotNullIfNotNull("source")]
+	[return: NotNullIfNotNull(nameof(source))]
 	public static IReadOnlyList<T>? AsReadOnlyList<T>(this IEnumerable<T>? source)
 	{
 		if (source == null)
@@ -150,27 +149,8 @@ public static partial class CollectionUtilities
 		if (source is IList<T> list)
 			return new ReadOnlyCollection<T>(list);
 
-		return new ReadOnlyCollection<T>(source.ToList());
+		return [.. source];
 	}
-
-	///// <summary>
-	///// Creates a read-only list from an System.Collections.Generic.IEnumerable`1.
-	///// </summary>
-	///// <typeparam name="T"></typeparam>
-	///// <param name="source">The source.</param>
-	///// <returns>IReadOnlyList&lt;T&gt;.</returns>
-	///// <exception cref="ArgumentNullException">source</exception>
-	///// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
-	//public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
-	//{
-	//    if (source == null)
-	//        throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
-
-	//    if (source is IList<T> list)
-	//        return new ReadOnlyCollection<T>(list);
-	//    else
-	//        return new ReadOnlyCollection<T>(source.ToList());
-	//}
 
 	/// <summary>
 	/// Batches the specified enumeration into lists according to the indicated batch size.
@@ -211,7 +191,11 @@ public static partial class CollectionUtilities
 		}
 	}
 
-
+	//    if (source is IList<T> list)
+	//        return new ReadOnlyCollection<T>(list);
+	//    else
+	//        return new ReadOnlyCollection<T>(source.ToList());
+	//}
 	/// <summary>
 	/// Batches the specified enumeration into lightweight segments according to the indicated batch size.
 	/// </summary>
@@ -242,6 +226,18 @@ public static partial class CollectionUtilities
 		}
 	}
 
+	///// <summary>
+	///// Creates a read-only list from an System.Collections.Generic.IEnumerable`1.
+	///// </summary>
+	///// <typeparam name="T"></typeparam>
+	///// <param name="source">The source.</param>
+	///// <returns>IReadOnlyList&lt;T&gt;.</returns>
+	///// <exception cref="ArgumentNullException">source</exception>
+	///// <remarks>This is meant to be used for legacy codebases that predate IReadOnlyList&lt;T&gt;.</remarks>
+	//public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
+	//{
+	//    if (source == null)
+	//        throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
 	/// <summary>
 	/// Concatenates an item onto the emd of an enumeration.
 	/// </summary>
@@ -265,6 +261,61 @@ public static partial class CollectionUtilities
 				yield return element;
 			yield return item;
 		}
+	}
+
+	/// <summary>
+	/// Determines whether the source contains all of the specified values.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="source">The source to be checked.</param>
+	/// <param name="values">The values.</param>
+	/// <returns><c>true</c> if the source contains all of the specified values; otherwise, <c>false</c>.</returns>
+	/// <remarks>Duplicates in either collection will be ignored.</remarks>
+	public static bool ContainsAllOf<T>(this IEnumerable<T> source, params T[] values)
+	{
+		if (source == null)
+			throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+
+		if (values == null)
+			throw new ArgumentNullException(nameof(values), $"{nameof(values)} is null.");
+
+		var list = source.AsList();
+
+		foreach (var item in values)
+			if (!list.Contains(item))
+				return false;
+
+		return true;
+	}
+
+	/// <summary>
+	/// Determines whether the source contains all of the specified values and nothing else.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <param name="source">The source to be checked.</param>
+	/// <param name="values">The values.</param>
+	/// <returns><c>true</c> if the source contains all of the specified values and nothing else; otherwise, <c>false</c>.</returns>
+	/// <remarks>Duplicates in either collection will be ignored.</remarks>
+	public static bool ContainsOnly<T>(this IEnumerable<T> source, params T[] values)
+	{
+		if (source == null)
+			throw new ArgumentNullException(nameof(source), $"{nameof(source)} is null.");
+
+		if (values == null)
+			throw new ArgumentNullException(nameof(values), $"{nameof(values)} is null.");
+
+		var list = source.AsList();
+
+		foreach (var item in values)
+			if (!list.Contains(item))
+				return false;
+
+		//We can't just compare counts because there may be duplicates
+		foreach (var item in source)
+			if (!values.Contains(item))
+				return false;
+
+		return true;
 	}
 
 	/// <summary>
@@ -467,28 +518,23 @@ public static partial class CollectionUtilities
 		IntrospectiveSort(list, 0, list.Count, comparison);
 	}
 
-	class SimpleReadOnlyCollection<T> : IReadOnlyCollection<T>
-	{
-		readonly IEnumerable<T> m_List;
+	//sealed class SimpleReadOnlyCollection<T>(IEnumerable<T> list) : IReadOnlyCollection<T>
+	//{
+	//	readonly IEnumerable<T> m_List = list;
 
-		public SimpleReadOnlyCollection(IEnumerable<T> list)
-		{
-			m_List = list;
-		}
+	//	public int Count
+	//	{
+	//		get { return m_List.Count(); }
+	//	}
 
-		public int Count
-		{
-			get { return m_List.Count(); }
-		}
+	//	public IEnumerator<T> GetEnumerator()
+	//	{
+	//		return m_List.GetEnumerator();
+	//	}
 
-		public IEnumerator<T> GetEnumerator()
-		{
-			return m_List.GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return m_List.GetEnumerator();
-		}
-	}
+	//	IEnumerator IEnumerable.GetEnumerator()
+	//	{
+	//		return m_List.GetEnumerator();
+	//	}
+	//}
 }

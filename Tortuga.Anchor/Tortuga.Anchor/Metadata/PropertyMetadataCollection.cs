@@ -34,7 +34,7 @@ sealed public class PropertyMetadataCollection : IList<PropertyMetadata>
 					m_StringIndexedProperties.Add(value.PropertyChangedEventArgs.PropertyName!, value);
 			}
 		}
-		m_QuickList = ImmutableArray.CreateRange(m_Base.Values);
+		m_QuickList = [.. m_Base.Values];
 	}
 
 	/// <summary>
@@ -50,7 +50,7 @@ sealed public class PropertyMetadataCollection : IList<PropertyMetadata>
 
 	public ReadOnlyCollection<string> PropertyNames
 	{
-		get { return new ReadOnlyCollection<string>(m_Base.Keys.ToList()); }
+		get { return new ReadOnlyCollection<string>([.. m_Base.Keys]); }
 	}
 
 	PropertyMetadata IList<PropertyMetadata>.this[int index]

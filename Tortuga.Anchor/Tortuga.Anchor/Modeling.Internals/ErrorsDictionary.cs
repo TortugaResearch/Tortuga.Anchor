@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tortuga.Anchor.Modeling.Internals;
 
-internal class ErrorsDictionary
+sealed internal class ErrorsDictionary
 {
 	readonly Dictionary<string, IList<ValidationResult>> m_Errors = new();
 
@@ -28,12 +28,12 @@ internal class ErrorsDictionary
 	/// </summary>
 	public ReadOnlyCollection<ValidationResult> GetAllErrors()
 	{
-		List<ValidationResult> errors = new();
+		List<ValidationResult> errors = [];
 
 		foreach (var item in m_Errors)
 			errors.AddRange(item.Value);
 
-		return new ReadOnlyCollection<ValidationResult>(errors.Distinct().ToList());
+		return new ReadOnlyCollection<ValidationResult>([.. errors.Distinct()]);
 	}
 
 	public bool HasErrors()
@@ -51,10 +51,8 @@ internal class ErrorsDictionary
 	{
 		bool differences;
 
-		if (m_Errors.ContainsKey(propertyName)) //check for differences
+		if (m_Errors.TryGetValue(propertyName, out IList<ValidationResult>? oldErrors)) //check for differences
 		{
-			var oldErrors = m_Errors[propertyName];
-
 			if (oldErrors.Count != errors.Count)
 				differences = true;
 			else
@@ -94,10 +92,8 @@ internal class ErrorsDictionary
 		foreach (var p in (from err in errors from prop in err.MemberNames select prop))
 			affectedProperties.Add(p);
 
-		if (m_Errors.ContainsKey("")) //check for differences
+		if (m_Errors.TryGetValue("", out IList<ValidationResult>? oldErrors)) //check for differences
 		{
-			var oldErrors = m_Errors[""];
-
 			if (oldErrors.Count != errors.Count)
 				differences = true;
 			else
@@ -144,15 +140,14 @@ internal class ErrorsDictionary
 		IEnumerable<ValidationResult> errors;
 
 		//Fetch the property-level errors
-		if (m_Errors.ContainsKey(propertyName))
-			errors = m_Errors[propertyName];
+		if (m_Errors.TryGetValue(propertyName, out IList<ValidationResult>? value))
+			errors = value;
 		else
 			errors = Enumerable.Empty<ValidationResult>();
 
 		//Add the object-level errors related to this property
-		if (!string.IsNullOrEmpty(propertyName) && m_Errors.ContainsKey(""))
+		if (!string.IsNullOrEmpty(propertyName) && m_Errors.TryGetValue("", out IList<ValidationResult>? objectErrors))
 		{
-			var objectErrors = m_Errors[""];
 			errors = errors.Union(from e in objectErrors where e.MemberNames.Contains(propertyName) select e);
 		}
 

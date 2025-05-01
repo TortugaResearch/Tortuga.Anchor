@@ -169,37 +169,6 @@ public class RandomExtended : Random
 		return ((decimal)NextDouble() * (maxValue - minValue)) + minValue;
 	}
 
-#if !NET6_0_OR_GREATER
-	/// <summary>
-	/// Returns a random Int64 that is within the indicated range
-	/// </summary>
-	/// <param name="minValue">The inclusive minimum value.</param>
-	/// <param name="maxValue">The exclusive maximum value.</param>
-	/// <returns></returns>
-	/// <exception cref="ArgumentOutOfRangeException">maxValue;maxValue must be greater than or equal to minValue.</exception>
-	public long NextInt64(long minValue, long maxValue)
-	{
-		if (minValue > maxValue)
-			throw new ArgumentOutOfRangeException(nameof(maxValue), maxValue, $"{nameof(maxValue)} must be greater than or equal to {nameof(minValue)}.");
-
-		return (long)(NextDouble() * (maxValue - minValue)) + minValue;
-	}
-
-	/// <summary>
-	/// Returns a random Int64 that is less than maxValue
-	/// </summary>
-	/// <param name="maxValue">The exclusive maximum value.</param>
-	/// <returns></returns>
-	/// <exception cref="ArgumentOutOfRangeException">maxValue;maxValue must be greater than or equal to 0.</exception>
-	public long NextInt64(long maxValue)
-	{
-		if (maxValue < 0)
-			throw new ArgumentOutOfRangeException(nameof(maxValue), maxValue, $"{nameof(maxValue)} must be greater than or equal to 0.");
-
-		return NextInt64(0L, maxValue);
-	}
-#endif
-
 	/// <summary>
 	/// Pick and remove one item from the list.
 	/// </summary>

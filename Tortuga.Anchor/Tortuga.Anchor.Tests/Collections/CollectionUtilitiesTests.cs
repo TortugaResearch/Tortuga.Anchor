@@ -185,10 +185,19 @@ public class CollectionUtilitiesTests
 	[TestMethod]
 	public void AsList_Test3()
 	{
-		var x = Enumerable.Range(1, 5);
+		var x = Helper();
 		var y = x.AsList();
 		Assert.AreNotEqual(x, y);
 		Assert.AreEqual(x.Count(), y.Count);
+
+		IEnumerable<int> Helper()
+		{
+			yield return 1;
+			yield return 2;
+			yield return 3;
+			yield return 4;
+			yield return 5;
+		}
 	}
 
 	[TestMethod]
@@ -210,10 +219,19 @@ public class CollectionUtilitiesTests
 	[TestMethod]
 	public void AsReadOnlyCollection_Test3()
 	{
-		var x = Enumerable.Range(1, 5);
+		var x = Helper();
 		var y = x.AsReadOnlyCollection();
 		Assert.AreNotEqual(x, y);
 		Assert.AreEqual(x.Count(), y.Count);
+
+		IEnumerable<int> Helper()
+		{
+			yield return 1;
+			yield return 2;
+			yield return 3;
+			yield return 4;
+			yield return 5;
+		}
 	}
 
 	[TestMethod]
@@ -235,10 +253,19 @@ public class CollectionUtilitiesTests
 	[TestMethod]
 	public void AsReadOnlyList_Test3()
 	{
-		var x = Enumerable.Range(1, 5);
+		var x = Helper();
 		var y = x.AsReadOnlyList();
 		Assert.AreNotEqual(x, y);
 		Assert.AreEqual(x.Count(), y.Count);
+
+		IEnumerable<int> Helper()
+		{
+			yield return 1;
+			yield return 2;
+			yield return 3;
+			yield return 4;
+			yield return 5;
+		}
 	}
 
 	[TestMethod()]
@@ -384,7 +411,6 @@ public class CollectionUtilitiesTests
 			verify.ArgumentOutOfRangeException("batchSize", 0, () => sourceList.BatchAsSegments(0));
 		}
 	}
-
 
 	[TestMethod]
 	public void IndexOf_Test1()

@@ -23,18 +23,11 @@ public sealed class ViewAttribute : Attribute
 	/// <value>The name of the view.</value>
 	public string Name { get; }
 
-
 	/// <summary>
 	/// Gets or sets the schema of the view the class is mapped to.
 	/// </summary>
 	public string? Schema
 	{
-#if NET5_0_OR_GREATER
 		get; init;
-#else
-		get; set;
-#endif
 	}
-
-
 }

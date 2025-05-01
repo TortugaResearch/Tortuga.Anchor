@@ -14,7 +14,7 @@ public class ValidCollectionSizesAttribute : Attribute, ITestDataSource
 		yield return new object[] { 75 };
 	}
 
-	public string? GetDisplayName(MethodInfo methodInfo, object[] data)
+	public string? GetDisplayName(MethodInfo methodInfo, object?[]? data)
 	{
 		if (data != null)
 			return string.Format(CultureInfo.CurrentCulture, "{0} ({1})", methodInfo.Name, string.Join(",", data));

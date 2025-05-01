@@ -44,10 +44,12 @@ public sealed class WeakReferenceCollection<T> : ICollection<T>, IReadOnlyCollec
 	{
 		if (list == null)
 			throw new ArgumentNullException(nameof(list), $"{nameof(list)} is null.");
-		if (list.Any(i => i == null))
+
+		var temp = list.AsList();
+		if (temp.Any(i => i == null))
 			throw new ArgumentException($"{nameof(list)} is not allowed to contain null items", nameof(list));
 
-		foreach (var item in list)
+		foreach (var item in temp)
 			Add(item);
 	}
 
