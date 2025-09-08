@@ -1,4 +1,3 @@
-
 namespace Tests.Metadata;
 
 /// <summary>
@@ -8,4 +7,5 @@ class ShadowedMock : ShadowedMockBase
 {
 	public new int SimpleProperty { get; set; }
 	public new int SimpleProperty2 { get; set; }
+	public int SimpleProperty3 { get; set; }
 }

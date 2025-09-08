@@ -46,6 +46,24 @@ public class ClassMetadata
 			MappedViewSchemaName = view.Schema;
 		}
 
+		var properties = new List<PropertyInfo>();
+		var propertyNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+		Type? currentType = typeInfo;
+
+		while (currentType != null)
+		{
+			foreach (var property in currentType.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic))
+			{
+				if (!propertyNames.Contains(property.Name))
+				{
+					properties.Add(property);
+					propertyNames.Add(property.Name);
+				}
+			}
+			currentType = currentType.BaseType;
+		}
+
+		/*
 		var shadowingProperties = (from p in typeInfo.GetProperties() where IsHidingMember(p) select p).ToList();
 		var propertyList = typeInfo.GetProperties(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
@@ -53,6 +71,9 @@ public class ClassMetadata
 			!shadowingProperties.Contains(propertyInfo) && shadowingProperties.Any(p => string.CompareOrdinal(p.Name, propertyInfo.Name) == 0);
 
 		Properties = new PropertyMetadataCollection(propertyList.Where(p => !IsHidden(p)).Select((p, i) => new PropertyMetadata(p, i)));
+		*/
+
+		Properties = new PropertyMetadataCollection(properties.Select((p, i) => new PropertyMetadata(p, i)));
 
 		//List the properties that are affected when the indicated property is modified.
 		foreach (var property in Properties)
