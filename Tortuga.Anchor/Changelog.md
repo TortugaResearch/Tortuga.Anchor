@@ -1,3 +1,9 @@
+## Version 5.0.1
+
+### Bugs
+
+Exception thrown is a property is both shadowed and is shadowing another property.
+
 ## Version 5.0
 
 ### Breaking Changes

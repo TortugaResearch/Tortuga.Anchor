@@ -17,6 +17,7 @@
     <CleanupOutputPath>false</CleanupOutputPath>
     <HelpFileName />
     <HelpFileNamingMethod>MemberName</HelpFileNamingMethod>
+    <HelpFileLoadIndexPanelOnDemand>false</HelpFileLoadIndexPanelOnDemand>
     <ImageFolderPath />
     <Theme>FlatGray</Theme>
     <HtmlFormats>
