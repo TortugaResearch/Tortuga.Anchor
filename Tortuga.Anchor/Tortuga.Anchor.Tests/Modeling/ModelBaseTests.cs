@@ -67,6 +67,25 @@ public class ModelBaseTests
 	}
 
 	[TestMethod]
+	public void ModelBase_CharTest()
+	{
+		using (var verify = new Verify())
+		{
+			var person = new SimplePerson();
+
+			person.Sex = 'M';
+			Assert.AreEqual('M', person.Sex);
+
+			person.Gender = 'F';
+			Assert.AreEqual('F', person.Gender);
+
+			person.Gender = null;
+			Assert.AreEqual(null, person.Gender);
+
+		}
+	}
+
+	[TestMethod]
 	public void ModelBase_BasicValidation()
 	{
 		var person = new SimplePerson();

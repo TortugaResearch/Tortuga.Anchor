@@ -62,6 +62,19 @@ public class SimplePerson : ModelBase
 		set { Set(value, Secretary_Changed); }
 	}
 
+	public char Sex
+	{
+		get { return Get<char>(); }
+		set { Set(value); }
+	}
+
+	public char? Gender
+	{
+		get { return Get<char?>(); }
+		set { Set(value); }
+	}
+
+
 	public int SecretaryChangeCounter
 	{
 		get { return m_SecretaryChangeCounter; }
