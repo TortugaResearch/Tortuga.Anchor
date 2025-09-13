@@ -46,10 +46,103 @@ public static class StringUtilities
 	}
 
 	/// <summary>
+	/// Returns the index of the first occurrence of a substring in the StringBuilder, or -1 if not found.
+	/// </summary>
+	/// <param name="stringBuilder">The StringBuilder to search.</param>
+	/// <param name="value">The substring to seek.</param>
+	/// <param name="startIndex">The starting index for the search.</param>
+	/// <returns>The zero-based index position of value if found; otherwise, -1.</returns>
+	public static int IndexOf(this StringBuilder stringBuilder, string value, int startIndex = 0)
+	{
+		return IndexOf(stringBuilder, value, startIndex, StringComparison.Ordinal);
+	}
+
+
+	/// <summary>
+	/// Returns the index of the first occurrence of a substring in the StringBuilder, using the specified StringComparison, or -1 if not found.
+	/// </summary>
+	/// <param name="stringBuilder">The StringBuilder to search.</param>
+	/// <param name="value">The substring to seek.</param>
+	/// <param name="startIndex">The starting index for the search.</param>
+	/// <param name="comparisonType">The StringComparison option to use.</param>
+	/// <returns>The zero-based index position of value if found; otherwise, -1.</returns>
+	/// <remarks>This will allocate memory if you use a comparison type other than Ordinal or OrdinalIgnoreCase</remarks>
+	public static int IndexOf(this StringBuilder stringBuilder, string value, int startIndex, StringComparison comparisonType)
+	{
+		ArgumentNullException.ThrowIfNull(stringBuilder);
+		ArgumentNullException.ThrowIfNull(value);
+
+		var sbLength = stringBuilder.Length;
+		var length = value.Length;
+
+		if (length == 0)
+			return startIndex < sbLength ? startIndex : -1;
+
+		if (startIndex < 0 || startIndex > sbLength - length)
+			return -1;
+
+		switch (comparisonType)
+		{
+			case StringComparison.Ordinal:
+				{
+					for (var i = startIndex; i <= sbLength - length; i++)
+					{
+						var found = true;
+						for (var j = 0; j < length; j++)
+						{
+							if (stringBuilder[i + j] != value[j])
+							{
+								found = false;
+								break;
+							}
+						}
+						if (found)
+							return i;
+					}
+					return -1;
+				}
+
+			case StringComparison.OrdinalIgnoreCase:
+				{
+					for (var i = startIndex; i <= sbLength - length; i++)
+					{
+						var found = true;
+						for (var j = 0; j < length; j++)
+						{
+							if (char.ToUpperInvariant(stringBuilder[i + j]) != char.ToUpperInvariant(value[j]))
+							{
+								found = false;
+								break;
+							}
+						}
+						if (found)
+							return i;
+					}
+					return -1;
+				}
+
+			default:
+				//take the slow path for other comparison types
+				return stringBuilder.ToString().IndexOf(value, startIndex, comparisonType);
+		}
+	}
+
+	/// <summary>
+	/// Returns the index of the first occurrence of a substring in the StringBuilder, using the specified StringComparison, or -1 if not found.
+	/// </summary>
+	/// <param name="stringBuilder">The StringBuilder to search.</param>
+	/// <param name="value">The substring to seek.</param>
+	/// <param name="comparisonType">The StringComparison option to use.</param>
+	/// <returns>The zero-based index position of value if found; otherwise, -1.</returns>
+	public static int IndexOf(this StringBuilder stringBuilder, string value, StringComparison comparisonType)
+	{
+		return stringBuilder.IndexOf(value, 0, comparisonType);
+	}
+
+	/// <summary>
 	/// Indicates whether a specified string is null, empty, or consists only of white-space
 	/// characters.</summary>
 	/// <param name="value">The string to test</param>
-
 	public static bool IsNullOrEmpty([NotNullWhen(false)] this string? value) => string.IsNullOrEmpty(value);
 
 	/// <summary>
@@ -81,6 +174,7 @@ public static class StringUtilities
 	{
 		return string.IsNullOrWhiteSpace(value) ? replacementValue : value!;
 	}
+
 	/// <summary>
 	/// Joins the list of values using the specified separator and options.
 	/// </summary>
@@ -246,6 +340,99 @@ public static class StringUtilities
 		}
 		else
 			throw new ArgumentOutOfRangeException(nameof(option), option, "Option is not implemented.");
+	}
+
+	/// <summary>
+	/// Returns the index of the last occurrence of a substring in the StringBuilder, or -1 if not found.
+	/// </summary>
+	/// <param name="stringBuilder">The StringBuilder to search.</param>
+	/// <param name="value">The substring to seek.</param>
+	/// <param name="startIndex">The starting index for the search (searches backward from here).</param>
+	/// <returns>The zero-based index position of value if found; otherwise, -1.</returns>
+	public static int LastIndexOf(this StringBuilder stringBuilder, string value, int? startIndex = null)
+	{
+		return LastIndexOf(stringBuilder, value, startIndex, StringComparison.Ordinal);
+	}
+
+	/// <summary>
+	/// Returns the index of the last occurrence of a substring in the StringBuilder, using the specified StringComparison, or -1 if not found.
+	/// </summary>
+	/// <param name="sb">The StringBuilder to search.</param>
+	/// <param name="value">The substring to seek.</param>
+	/// <param name="startIndex">The starting index for the search (searches backward from here).</param>
+	/// <param name="comparisonType">The StringComparison option to use.</param>
+	/// <returns>The zero-based index position of value if found; otherwise, -1.</returns>
+	public static int LastIndexOf(this StringBuilder sb, string value, int? startIndex, StringComparison comparisonType)
+	{
+		ArgumentNullException.ThrowIfNull(sb);
+		ArgumentNullException.ThrowIfNull(value);
+
+		var length = value.Length;
+		var sbLength = sb.Length;
+
+		if (length == 0)
+			return (startIndex ?? sbLength - 1) < sbLength ? (startIndex ?? sbLength - 1) : -1;
+
+		var start = startIndex ?? sbLength - length;
+		if (start < 0 || start > sbLength - length)
+			start = sbLength - length;
+
+		switch (comparisonType)
+		{
+			case StringComparison.Ordinal:
+				{
+					for (var i = start; i >= 0; i--)
+					{
+						var found = true;
+						for (var j = 0; j < length; j++)
+						{
+							if (sb[i + j] != value[j])
+							{
+								found = false;
+								break;
+							}
+						}
+						if (found)
+							return i;
+					}
+					return -1;
+				}
+
+			case StringComparison.OrdinalIgnoreCase:
+				{
+					for (var i = start; i >= 0; i--)
+					{
+						var found = true;
+						for (var j = 0; j < length; j++)
+						{
+							if (char.ToUpperInvariant(sb[i + j]) != char.ToUpperInvariant(value[j]))
+							{
+								found = false;
+								break;
+							}
+						}
+						if (found)
+							return i;
+					}
+					return -1;
+				}
+
+			default:
+				//take the slow path for other comparison types
+				return sb.ToString().LastIndexOf(value, start, comparisonType);
+		}
+	}
+
+	/// <summary>
+	/// Returns the index of the last occurrence of a substring in the StringBuilder, using the specified StringComparison, or -1 if not found. 
+	/// </summary>
+	/// <param name="stringBuilder">The StringBuilder to search.</param>
+	/// <param name="value">The substring to seek.</param>
+	/// <param name="comparisonType">The StringComparison option to use.</param>
+	/// <returns>The zero-based index position of value if found; otherwise, -1.</returns>
+	public static int LastIndexOf(this StringBuilder stringBuilder, string value, StringComparison comparisonType)
+	{
+		return stringBuilder.LastIndexOf(value, null, comparisonType);
 	}
 
 	/// <summary>

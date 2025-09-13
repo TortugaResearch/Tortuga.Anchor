@@ -34,7 +34,7 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="System.Collections.Immutable" Version="9.0.4" />
+		<PackageReference Include="System.Collections.Immutable" Version="9.0.9" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 
