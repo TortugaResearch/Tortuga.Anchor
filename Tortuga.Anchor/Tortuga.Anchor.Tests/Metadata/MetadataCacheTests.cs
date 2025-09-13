@@ -1,162 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics;
 using System.Reflection;
 using Tests.Mocks;
 using Tortuga.Anchor.Metadata;
-using Tortuga.Anchor.Modeling;
 using Tortuga.Dragnet;
 
 namespace Tests.Metadata;
 
-public class NullTestsA
-{
-	public object NotNull { get; set; } = null!;
-	public object? Nullable { get; set; }
-
-#nullable disable
-	public object NullUnknown { get; set; }
-#nullable enable
-}
-
-public class EmptyColumn
-{
-	[Column(TypeName = "money")]
-	public int Property0 { get; set; }
-}
-
-[Table("TableBase")]
-public class Base
-{
-	[Decompose]
-	public ChildA ChildA { get; set; } = null!;
-
-	[Decompose("Bbb")]
-	public ChildB ChildB { get; set; } = null!;
-
-	public int Property0 { get; set; }
-}
-
-[Table("ChildTable")]
-[View("ChildView")]
-public class ChildA
-{
-	[Column("PropertyA2")]
-	public int Property { get; set; }
-
-	public int PropertyA1 { get; set; }
-
-	[NotMapped]
-	public int PropertyAX { get; set; }
-}
-
-public class ChildB
-{
-	[Column("PropertyB2")]
-	public int Property { get; set; }
-
-	public int PropertyB1 { get; set; }
-
-	[NotMapped]
-	public int PropertyBX { get; set; }
-}
-
-public class Generic<T>
-{
-	public class GenericNestedInGeneric<T2> { }
-
-	public class NestedInGeneric { }
-}
-
-public class OneConstructor
-{
-	public OneConstructor(int a)
-	{
-	}
-}
-
-public class OneConstructorPerferred
-{
-	[PreferredConstructor]
-	public OneConstructorPerferred(int a) { }
-}
-
-public class TwoConstructorsOnePerferred
-{
-	[PreferredConstructor]
-	public TwoConstructorsOnePerferred(int a) { }
-
-	public TwoConstructorsOnePerferred(int a, int b)
-	{
-	}
-}
-
-public class TwoConstructorsNonePerferred
-{
-	public TwoConstructorsNonePerferred(int a)
-	{
-	}
-
-	public TwoConstructorsNonePerferred(int a, int b)
-	{
-	}
-}
-
-public class TwoConstructorsTwoPerferred
-{
-	[PreferredConstructor]
-	public TwoConstructorsTwoPerferred(int a) { }
-
-	[PreferredConstructor]
-	public TwoConstructorsTwoPerferred(int a, int b) { }
-}
-
 [TestClass]
 public class MetadataCacheTests
 {
-	[TestMethod]
-	public void OneConstructor()
-	{
-		var metadata = MetadataCache.GetMetadata<OneConstructor>();
-		Assert.IsNull(metadata.Constructors.PreferredConstructor);
-	}
-
-	[TestMethod]
-	public void OneConstructorPerferred()
-	{
-		var metadata = MetadataCache.GetMetadata<OneConstructorPerferred>();
-		Assert.IsNotNull(metadata.Constructors.PreferredConstructor);
-	}
-
-	[TestMethod]
-	public void TwoConstructorsOnePerferred()
-	{
-		var metadata = MetadataCache.GetMetadata<TwoConstructorsOnePerferred>();
-		Assert.IsNotNull(metadata.Constructors.PreferredConstructor);
-	}
-
-	[TestMethod]
-	public void TwoConstructorsNonePerferred()
-	{
-		var metadata = MetadataCache.GetMetadata<TwoConstructorsNonePerferred>();
-		Assert.IsNull(metadata.Constructors.PreferredConstructor);
-	}
-
-	[TestMethod]
-	public void TwoConstructorsTwoPerferred()
-	{
-		try
-		{
-			var metadata = MetadataCache.GetMetadata<TwoConstructorsTwoPerferred>();
-			Assert.Fail();
-		}
-		catch (InvalidOperationException)
-		{
-			//Expected
-		}
-	}
-
 	[TestMethod]
 	public void AttributeInheritanceForProperties()
 	{
@@ -168,41 +22,117 @@ public class MetadataCacheTests
 	}
 
 	[TestMethod]
-	public void TableAttribute()
+	public void CloneTest_BypassProperties()
 	{
-		var meta = MetadataCache.GetMetadata<Base>();
-		Assert.AreEqual("TableBase", meta.MappedTableName);
+		var original = new SimplePerson()
+		{
+			FirstName = "A",
+			LastName = "B"
+		};
+		original.Boss.FirstName = "Tom";
+		var copy = MetadataCache.Clone(original, CloneOptions.BypassProperties);
+		Assert.AreEqual(original.Boss.FirstName, copy.Boss.FirstName);
+		Assert.AreSame(original.Boss, copy.Boss);
 	}
 
 	[TestMethod]
-	public void TableAndViewAttribute()
+	public void CloneTest_BypassProperties_DeepClone()
 	{
-		var meta = MetadataCache.GetMetadata<ChildA>();
-		Assert.AreEqual("ChildTable", meta.MappedTableName);
-		Assert.AreEqual("ChildView", meta.MappedViewName);
+		var original = new SimplePerson()
+		{
+			FirstName = "A",
+			LastName = "B"
+		};
+		original.Boss.FirstName = "Tom";
+		var copy = MetadataCache.Clone(original, CloneOptions.BypassProperties | CloneOptions.DeepClone);
+		Assert.AreEqual(original.Boss.FirstName, copy.Boss.FirstName);
+		Assert.AreNotSame(original.Boss, copy.Boss);
 	}
 
 	[TestMethod]
-	public void NullableProperty()
+	public void CloneTest_Deep()
 	{
-		var meta = MetadataCache.GetMetadata<NullTestsA>();
-		Assert.AreEqual(false, meta.Properties.Single(x => x.Name == "NotNull").IsReferenceNullable);
+		var original = new Base
+		{
+			Property0 = 10,
+			ChildA = new() { Property = 100, PropertyA1 = 110, PropertyAX = 120 },
+			ChildB = new() { Property = 200, PropertyB1 = 220, PropertyBX = 230 }
+		};
+
+		var copy = MetadataCache.Clone(original, CloneOptions.DeepClone);
+		Assert.IsNotNull(copy);
+		Assert.AreEqual(original.Property0, copy.Property0);
+
+		Assert.AreNotSame(original.ChildA, copy.ChildA);
+		Assert.AreEqual(original.ChildA.Property, copy.ChildA.Property);
+		Assert.AreEqual(original.ChildA.PropertyA1, copy.ChildA.PropertyA1);
+		Assert.AreEqual(original.ChildA.PropertyAX, copy.ChildA.PropertyAX);
+
+		Assert.AreNotSame(original.ChildB, copy.ChildB);
+		Assert.AreEqual(original.ChildB.Property, copy.ChildB.Property);
+		Assert.AreEqual(original.ChildB.PropertyB1, copy.ChildB.PropertyB1);
+		Assert.AreEqual(original.ChildB.PropertyBX, copy.ChildB.PropertyBX);
 	}
 
 	[TestMethod]
-	public void NonNullableProperty()
+	public void CloneTest_DeepClone_ReadonlyProperties()
 	{
-		var meta = MetadataCache.GetMetadata<NullTestsA>();
-		Assert.AreEqual(true, meta.Properties.Single(x => x.Name == "Nullable").IsReferenceNullable);
+		var original = new SimplePerson()
+		{
+			FirstName = "A",
+			LastName = "B"
+		};
+		original.Boss.FirstName = "Tom";
+		var copy = MetadataCache.Clone(original, CloneOptions.DeepClone, 1);
+		Assert.AreEqual(original.Boss.FirstName, copy.Boss.FirstName);
 	}
 
 	[TestMethod]
-	public void NullAgnostic()
+	public void CloneTest_Shallow()
 	{
-		var meta = MetadataCache.GetMetadata<NullTestsA>();
-		Assert.IsNull(meta.Properties.Single(x => x.Name == "NullUnknown").IsReferenceNullable);
+		var original = new Base();
+		original.Property0 = 10;
+		original.ChildA = new() { Property = 100, PropertyA1 = 110, PropertyAX = 120 };
+		original.ChildB = new() { Property = 200, PropertyB1 = 220, PropertyBX = 230 };
+
+		var copy = MetadataCache.Clone(original, CloneOptions.None);
+		Assert.IsNotNull(copy);
+		Assert.AreEqual(original.Property0, copy.Property0);
+		Assert.AreSame(original.ChildA, copy.ChildA);
+		Assert.AreSame(original.ChildB, copy.ChildB);
 	}
 
+	[TestMethod]
+	public void CloneTest_TakesPrecedenceOverUseClone()
+	{
+		var original = new WrapsICloneable(10);
+		var copy = MetadataCache.Clone(original, CloneOptions.UseClone | CloneOptions.UseIClonable);
+		Assert.AreEqual(11, copy.Cloneable?.Value); // ICloneable increments by 1
+		Assert.AreEqual(10, copy.NotCloneable?.Value); // Property-by-property
+	}
+
+	[TestMethod]
+	public void CloneTest_UsesCloneMethod()
+	{
+		var original = new WrapsCloneMethod(10);
+		var copy = MetadataCache.Clone(original, CloneOptions.UseClone);
+		Assert.AreEqual(12, copy.Cloneable?.Value); // Clone() increments by 2
+		Assert.AreEqual(10, copy.NotCloneable?.Value); // Property-by-property
+	}
+
+	[TestMethod]
+	public void CloneTest_WhenNoCloneOptions()
+	{
+		var original = new WrapsICloneable(10);
+		var copy = MetadataCache.Clone(original, CloneOptions.None);
+		Assert.AreEqual(10, copy.Cloneable?.Value); // Property-by-property
+		Assert.AreEqual(10, copy.NotCloneable?.Value); // Property-by-property
+
+		var original2 = new WrapsCloneMethod(10);
+		var copy2 = MetadataCache.Clone(original2, CloneOptions.None);
+		Assert.AreEqual(10, copy2.Cloneable?.Value); // Property-by-property
+		Assert.AreEqual(10, copy2.NotCloneable?.Value); // Property-by-property
+	}
 	[TestMethod]
 	public void MetadataCache_Constructors_Test()
 	{
@@ -1040,84 +970,38 @@ public class MetadataCacheTests
 	}
 
 	[TestMethod]
-	public void CloneTest_Shallow()
+	public void NonNullableProperty()
 	{
-		var original = new Base();
-		original.Property0 = 10;
-		original.ChildA = new() { Property = 100, PropertyA1 = 110, PropertyAX = 120 };
-		original.ChildB = new() { Property = 200, PropertyB1 = 220, PropertyBX = 230 };
-
-		var copy = MetadataCache.Clone(original, CloneOptions.None);
-		Assert.IsNotNull(copy);
-		Assert.AreEqual(original.Property0, copy.Property0);
-		Assert.AreSame(original.ChildA, copy.ChildA);
-		Assert.AreSame(original.ChildB, copy.ChildB);
+		var meta = MetadataCache.GetMetadata<NullTestsA>();
+		Assert.AreEqual(true, meta.Properties.Single(x => x.Name == "Nullable").IsReferenceNullable);
 	}
 
 	[TestMethod]
-	public void CloneTest_Deep()
+	public void NullableProperty()
 	{
-		var original = new Base
-		{
-			Property0 = 10,
-			ChildA = new() { Property = 100, PropertyA1 = 110, PropertyAX = 120 },
-			ChildB = new() { Property = 200, PropertyB1 = 220, PropertyBX = 230 }
-		};
-
-		var copy = MetadataCache.Clone(original, CloneOptions.DeepClone);
-		Assert.IsNotNull(copy);
-		Assert.AreEqual(original.Property0, copy.Property0);
-
-		Assert.AreNotSame(original.ChildA, copy.ChildA);
-		Assert.AreEqual(original.ChildA.Property, copy.ChildA.Property);
-		Assert.AreEqual(original.ChildA.PropertyA1, copy.ChildA.PropertyA1);
-		Assert.AreEqual(original.ChildA.PropertyAX, copy.ChildA.PropertyAX);
-
-		Assert.AreNotSame(original.ChildB, copy.ChildB);
-		Assert.AreEqual(original.ChildB.Property, copy.ChildB.Property);
-		Assert.AreEqual(original.ChildB.PropertyB1, copy.ChildB.PropertyB1);
-		Assert.AreEqual(original.ChildB.PropertyBX, copy.ChildB.PropertyBX);
+		var meta = MetadataCache.GetMetadata<NullTestsA>();
+		Assert.AreEqual(false, meta.Properties.Single(x => x.Name == "NotNull").IsReferenceNullable);
 	}
 
 	[TestMethod]
-	public void CloneTest_BypassProperties()
+	public void NullAgnostic()
 	{
-		var original = new SimplePerson()
-		{
-			FirstName = "A",
-			LastName = "B"
-		};
-		original.Boss.FirstName = "Tom";
-		var copy = MetadataCache.Clone(original, CloneOptions.BypassProperties);
-		Assert.AreEqual(original.Boss.FirstName, copy.Boss.FirstName);
-		Assert.AreSame(original.Boss, copy.Boss);
+		var meta = MetadataCache.GetMetadata<NullTestsA>();
+		Assert.IsNull(meta.Properties.Single(x => x.Name == "NullUnknown").IsReferenceNullable);
 	}
 
 	[TestMethod]
-	public void CloneTest_BypassProperties_DeepClone()
+	public void OneConstructor()
 	{
-		var original = new SimplePerson()
-		{
-			FirstName = "A",
-			LastName = "B"
-		};
-		original.Boss.FirstName = "Tom";
-		var copy = MetadataCache.Clone(original, CloneOptions.BypassProperties | CloneOptions.DeepClone);
-		Assert.AreEqual(original.Boss.FirstName, copy.Boss.FirstName);
-		Assert.AreNotSame(original.Boss, copy.Boss);
+		var metadata = MetadataCache.GetMetadata<OneConstructor>();
+		Assert.IsNull(metadata.Constructors.PreferredConstructor);
 	}
 
 	[TestMethod]
-	public void CloneTest_DeepClone_ReadonlyProperties()
+	public void OneConstructorPerferred()
 	{
-		var original = new SimplePerson()
-		{
-			FirstName = "A",
-			LastName = "B"
-		};
-		original.Boss.FirstName = "Tom";
-		var copy = MetadataCache.Clone(original, CloneOptions.DeepClone, 1);
-		Assert.AreEqual(original.Boss.FirstName, copy.Boss.FirstName);
+		var metadata = MetadataCache.GetMetadata<OneConstructorPerferred>();
+		Assert.IsNotNull(metadata.Constructors.PreferredConstructor);
 	}
 
 	[TestMethod]
@@ -1136,6 +1020,47 @@ public class MetadataCacheTests
 		}
 	}
 
+	[TestMethod]
+	public void TableAndViewAttribute()
+	{
+		var meta = MetadataCache.GetMetadata<ChildA>();
+		Assert.AreEqual("ChildTable", meta.MappedTableName);
+		Assert.AreEqual("ChildView", meta.MappedViewName);
+	}
+
+	[TestMethod]
+	public void TableAttribute()
+	{
+		var meta = MetadataCache.GetMetadata<Base>();
+		Assert.AreEqual("TableBase", meta.MappedTableName);
+	}
+
+	[TestMethod]
+	public void TwoConstructorsNonePerferred()
+	{
+		var metadata = MetadataCache.GetMetadata<TwoConstructorsNonePerferred>();
+		Assert.IsNull(metadata.Constructors.PreferredConstructor);
+	}
+
+	[TestMethod]
+	public void TwoConstructorsOnePerferred()
+	{
+		var metadata = MetadataCache.GetMetadata<TwoConstructorsOnePerferred>();
+		Assert.IsNotNull(metadata.Constructors.PreferredConstructor);
+	}
+	[TestMethod]
+	public void TwoConstructorsTwoPerferred()
+	{
+		try
+		{
+			var metadata = MetadataCache.GetMetadata<TwoConstructorsTwoPerferred>();
+			Assert.Fail();
+		}
+		catch (InvalidOperationException)
+		{
+			//Expected
+		}
+	}
 	public class AutoConstructor { }
 
 	public class DefaultConstructor
@@ -1151,7 +1076,7 @@ public class MetadataCacheTests
 		{
 		}
 
-#pragma warning disable IDE0060 // Remove unused parameter
+		//#pragma warning disable IDE0060 // Remove unused parameter
 
 		public MultiConstructor(int x)
 		{
@@ -1165,18 +1090,18 @@ public class MetadataCacheTests
 		{
 		}
 
-#pragma warning restore IDE0060 // Remove unused parameter
+		//#pragma warning restore IDE0060 // Remove unused parameter
 	}
 
 	public class NonDefaultConstructor
 	{
-#pragma warning disable IDE0060 // Remove unused parameter
+		//#pragma warning disable IDE0060 // Remove unused parameter
 
 		public NonDefaultConstructor(int x)
 		{
 		}
 
-#pragma warning restore IDE0060 // Remove unused parameter
+		//#pragma warning restore IDE0060 // Remove unused parameter
 	}
 
 	public class PrivateDefaultConstructor
@@ -1208,9 +1133,4 @@ public class MetadataCacheTests
 			set { }
 		}
 	}
-}
-
-public class Normal
-{
-	public class Nested { }
 }
