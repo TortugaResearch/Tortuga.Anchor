@@ -33,5 +33,14 @@ public enum CloneOptions
 	/// Invoke a parameterless Clone() method on any value that has one. If both UseClone and UseIClonable are specified, UseIClonable takes precedence.
 	/// </summary>
 	/// <remarks>Recursive cloning will not be used on objects where Clone() is invoked.</remarks>
-	UseClone = 8
+	UseClone = 8,
+
+
+	/// <summary>
+	/// When using the ReusePureObjects flag, the Clone operation will skip objects that are marked with the Pure attribute.
+	/// 
+	/// WARNING: The PureAttribute is not accessible unless the compiler constant CONTRACTS_FULL is defined.
+	/// </summary>
+	/// <remarks>This has no effect unless DeepClone is also specified.</remarks>
+	ReusePureObjects = 16
 }

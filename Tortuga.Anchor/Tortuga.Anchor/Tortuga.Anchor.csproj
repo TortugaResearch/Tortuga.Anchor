@@ -14,7 +14,7 @@
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<AnalysisLevel>latest</AnalysisLevel>
 
-
+		<DefineConstants>CONTRACTS_FULL</DefineConstants>
 		<Version>5.1.0</Version>
 		
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>

@@ -36,6 +36,28 @@ public class MetadataCacheTests
 	}
 
 	[TestMethod]
+	public void CloneTest_PureProperties()
+	{
+		var original = new PureWrapper() { NotCloneable = new() { Value = 5 }, PureClass = new() { Value = 10 } };
+		var copy = MetadataCache.Clone(original, CloneOptions.DeepClone | CloneOptions.ReusePureObjects);
+
+		Assert.AreEqual(original.PureClass, copy.PureClass);
+		Assert.AreNotEqual(original.NotCloneable, copy.NotCloneable);
+
+	}
+
+	[TestMethod]
+	public void CloneTest_PureProperties_WithSubclass()
+	{
+		var original = new PureWrapper() { NotCloneable = new() { Value = 5 }, PureClass = new PureSubClass() { Value = 10 } };
+		var copy = MetadataCache.Clone(original, CloneOptions.DeepClone | CloneOptions.ReusePureObjects);
+
+		Assert.AreEqual(original.PureClass, copy.PureClass);
+		Assert.AreNotEqual(original.NotCloneable, copy.NotCloneable);
+
+	}
+
+	[TestMethod]
 	public void CloneTest_BypassProperties_DeepClone()
 	{
 		var original = new SimplePerson()

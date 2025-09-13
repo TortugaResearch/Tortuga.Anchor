@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Reflection;
 using Tortuga.Anchor.Modeling;
@@ -45,6 +46,9 @@ public class ClassMetadata
 			MappedViewName = view.Name;
 			MappedViewSchemaName = view.Schema;
 		}
+
+		var pure = Attributes.OfType<PureAttribute>().SingleOrDefault();
+		IsPure = pure != null;
 
 		var properties = new List<PropertyInfo>();
 		var propertyNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -189,6 +193,12 @@ public class ClassMetadata
 	/// Properties on the indicated class
 	/// </summary>
 	public PropertyMetadataCollection Properties { get; internal set; }
+
+
+	/// <summary>
+	/// Gets a value indicating whether the class is marked with the Pure attribute. 
+	/// </summary>
+	public bool IsPure { get; }
 
 	/// <summary>
 	/// Gets the underlying type.
