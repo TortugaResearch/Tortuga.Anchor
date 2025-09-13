@@ -40,6 +40,14 @@ If an object has a `Clone` method, use it when performing deep cloning.
 
 When performing deep cloning, don't clone objects that have the `Pure` attribute. The assumption is that pure objects are immutable and thus can be safely reused.
 
+WARNING: C# will delete the `Pure` attribute from your classes unless you define the `CONTRACTS_FULL` compiler constant. You can do this in the project file.
+
+```
+<PropertyGroup>
+	<DefineConstants>CONTRACTS_FULL</DefineConstants>
+</PropertyGroup>
+```
+
 
 ## Version 5.0.1
 
