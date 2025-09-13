@@ -53,11 +53,34 @@ public static class StringUtilities
 	public static bool IsNullOrEmpty([NotNullWhen(false)] this string? value) => string.IsNullOrEmpty(value);
 
 	/// <summary>
+	/// Returns <paramref name="replacementValue"/> if <paramref name="value"/> is null or empty; otherwise returns <paramref name="value"/>.
+	/// Mimics SQL Server's ISNULL function for strings.
+	/// </summary>
+	/// <param name="value">The string to check.</param>
+	/// <param name="replacementValue">The value to use if <paramref name="value"/> is null or empty.</param>
+	/// <returns>The original string or the replacement value.</returns>
+	public static string IsNullOrEmpty(this string? value, string replacementValue)
+	{
+		return string.IsNullOrEmpty(value) ? replacementValue : value!;
+	}
+
+	/// <summary>
 	/// Indicates whether a specified string is null, empty, or consists only of white-space
 	/// characters.</summary>
 	/// <param name="value">The string to test</param>
 	public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? value) => string.IsNullOrWhiteSpace(value);
 
+	/// <summary>
+	/// Returns <paramref name="replacementValue"/> if <paramref name="value"/> is null, empty, or consists only of white-space characters; otherwise returns <paramref name="value"/>.
+	/// Mimics SQL Server's ISNULL function for strings, but uses IsNullOrWhiteSpace semantics.
+	/// </summary>
+	/// <param name="value">The string to check.</param>
+	/// <param name="replacementValue">The value to use if <paramref name="value"/> is null, empty, or white-space.</param>
+	/// <returns>The original string or the replacement value.</returns>
+	public static string IsNullOrWhiteSpace(this string? value, string replacementValue)
+	{
+		return string.IsNullOrWhiteSpace(value) ? replacementValue : value!;
+	}
 	/// <summary>
 	/// Joins the list of values using the specified separator and options.
 	/// </summary>
