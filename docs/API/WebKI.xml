@@ -143,6 +143,8 @@
   <HelpKINode Title="AddRange method" Url="html/M-Tortuga.Anchor.Collections.WeakReferenceCollection-1.AddRange.htm" />
   <HelpKINode Title="AddRange method" Url="html/Overload-Tortuga.Anchor.Collections.MultiValueDictionary-2.AddRange.htm" />
   <HelpKINode Title="AddRange method" Url="html/Overload-Tortuga.Anchor.CollectionUtilities.AddRange-.htm" />
+  <HelpKINode Title="AddRangeAsync(Of T) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AddRangeAsync--1.htm" />
+  <HelpKINode Title="AddRangeAsync&lt;T&gt; method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AddRangeAsync--1.htm" />
   <HelpKINode Title="AffectsCalculatedFields property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.AffectsCalculatedFields.htm" />
   <HelpKINode Title="AsList(Of T) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AsList--1.htm" />
   <HelpKINode Title="AsList&lt;T&gt; method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AsList--1.htm" />
@@ -285,6 +287,7 @@
   <HelpKINode Title="ClassMetadata.CSharpFullName property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.CSharpFullName.htm" />
   <HelpKINode Title="ClassMetadata.FSharpFullName property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.FSharpFullName.htm" />
   <HelpKINode Title="ClassMetadata.IsNullable property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.IsNullable.htm" />
+  <HelpKINode Title="ClassMetadata.IsPure property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.IsPure.htm" />
   <HelpKINode Title="ClassMetadata.MakeNonNullable method" Url="html/M-Tortuga.Anchor.Metadata.ClassMetadata.MakeNonNullable.htm" />
   <HelpKINode Title="ClassMetadata.MakeNullable method" Url="html/M-Tortuga.Anchor.Metadata.ClassMetadata.MakeNullable.htm" />
   <HelpKINode Title="ClassMetadata.MappedSchemaName property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.MappedSchemaName.htm" />
@@ -313,6 +316,8 @@
   <HelpKINode Title="CloneOptions.BypassProperties field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.BypassProperties.htm" />
   <HelpKINode Title="CloneOptions.DeepClone field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.DeepClone.htm" />
   <HelpKINode Title="CloneOptions.None field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.None.htm" />
+  <HelpKINode Title="CloneOptions.ReusePureObjects field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.ReusePureObjects.htm" />
+  <HelpKINode Title="CloneOptions.UseClone field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.UseClone.htm" />
   <HelpKINode Title="CloneOptions.UseIClonable field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.UseIClonable.htm" />
   <HelpKINode Title="CollectionChanged event" Url="html/E-Tortuga.Anchor.Collections.ReadOnlyObservableCollectionExtended-1.CollectionChanged.htm" />
   <HelpKINode Title="CollectionChangedEventManager class" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.CollectionChangedEventManager.htm" />
@@ -334,6 +339,8 @@
     <HelpKINode Title="methods" Url="html/Methods.T-Tortuga.Anchor.CollectionUtilities.htm" />
   </HelpKINode>
   <HelpKINode Title="CollectionUtilities.AddRange method" Url="html/Overload-Tortuga.Anchor.CollectionUtilities.AddRange-.htm" />
+  <HelpKINode Title="CollectionUtilities.AddRangeAsync(Of T) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AddRangeAsync--1.htm" />
+  <HelpKINode Title="CollectionUtilities.AddRangeAsync&lt;T&gt; method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AddRangeAsync--1.htm" />
   <HelpKINode Title="CollectionUtilities.AsList(Of T) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AsList--1.htm" />
   <HelpKINode Title="CollectionUtilities.AsList&lt;T&gt; method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AsList--1.htm" />
   <HelpKINode Title="CollectionUtilities.AsReadOnlyCollection(Of T) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.AsReadOnlyCollection--1.htm" />
@@ -424,8 +431,8 @@
   <HelpKINode Title="CopyTo method" Url="html/M-Tortuga.Anchor.Metadata.PropertyMetadataCollection.CopyTo.htm" />
   <HelpKINode Title="CopyTo method" Url="html/Overload-Tortuga.Anchor.Collections.ReadOnlyListSegment-1.CopyTo.htm" />
   <HelpKINode Title="Count property" Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Count.htm" />
+  <HelpKINode Title="Count property" Url="html/P-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.Count.htm" />
   <HelpKINode Title="Count property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Count.htm" />
-  <HelpKINode Title="Count property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.Count.htm" />
   <HelpKINode Title="Count property" Url="html/P-Tortuga.Anchor.Collections.ReadOnlyListSegment-1.Count.htm" />
   <HelpKINode Title="Count property" Url="html/P-Tortuga.Anchor.Collections.ReadOnlyMultiValueDictionary-2.Count.htm" />
   <HelpKINode Title="Count property" Url="html/P-Tortuga.Anchor.Collections.WeakReferenceCollection-1.Count.htm" />
@@ -662,9 +669,28 @@
   <HelpKINode Title="FixCasing field" Url="html/F-Tortuga.Anchor.Modeling.Internals.PropertySetModes.FixCasing.htm" />
   <HelpKINode Title="Flatten property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Flatten.htm" />
   <HelpKINode Title="Flatten property" Url="html/P-Tortuga.Anchor.Collections.ReadOnlyMultiValueDictionary-2.Flatten.htm" />
-  <HelpKINode Title="FlattenedMultiValueDictionary.Count property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.Count.htm" />
-  <HelpKINode Title="FlattenedMultiValueDictionary.GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.GetEnumerator.htm" />
-  <HelpKINode Title="FlattenedMultiValueDictionary.Values property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.Values.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary(Of TKey, TValue) class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary(Of TKey, TValue) class" Url="html/T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary(Of TKey, TValue) class">
+    <HelpKINode Title="about FlattenedMultiValueDictionary(Of TKey, TValue) class" Url="html/T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FlattenedMultiValueDictionary(Of TKey, TValue).Count property" Url="html/P-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.Count.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary(Of TKey, TValue).GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.GetEnumerator.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary(Of TKey, TValue).Values property" Url="html/P-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.Values.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary&lt;TKey, TValue&gt; class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary&lt;TKey, TValue&gt; class" Url="html/T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary&lt;TKey, TValue&gt; class">
+    <HelpKINode Title="about FlattenedMultiValueDictionary&lt;TKey, TValue&gt; class" Url="html/T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+    <HelpKINode Title="all members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+    <HelpKINode Title="methods" Url="html/Methods.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="FlattenedMultiValueDictionary&lt;TKey, TValue&gt;.Count property" Url="html/P-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.Count.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary&lt;TKey, TValue&gt;.GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.GetEnumerator.htm" />
+  <HelpKINode Title="FlattenedMultiValueDictionary&lt;TKey, TValue&gt;.Values property" Url="html/P-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.Values.htm" />
   <HelpKINode Title="FSharpFullName property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.FSharpFullName.htm" />
   <HelpKINode Title="Get(Of T) method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelBase-1.Get--1.htm" />
   <HelpKINode Title="Get(Of T) method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.Get--1.htm" />
@@ -682,7 +708,7 @@
   <HelpKINode Title="GetDefault&lt;T&gt; method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.GetDefault--1.htm" />
   <HelpKINode Title="GetDefault&lt;TValue&gt; method" Url="html/M-Tortuga.Anchor.Modeling.Internals.AbstractModelCollection-2.GetDefault--1.htm" />
   <HelpKINode Title="GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.Dictionary-3.GetEnumerator.htm" />
-  <HelpKINode Title="GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.GetEnumerator.htm" />
+  <HelpKINode Title="GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.GetEnumerator.htm" />
   <HelpKINode Title="GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.MultiValueDictionary-2.GetEnumerator.htm" />
   <HelpKINode Title="GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyListSegment-1.GetEnumerator.htm" />
   <HelpKINode Title="GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyMultiValueDictionary-2.GetEnumerator.htm" />
@@ -764,6 +790,7 @@
   <HelpKINode Title="IListener&lt;T&gt;.Invoke method" Url="html/M-Tortuga.Anchor.Eventing.IListener-1.Invoke.htm" />
   <HelpKINode Title="IndexOf method" Url="html/M-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.IndexOf.htm" />
   <HelpKINode Title="IndexOf method" Url="html/M-Tortuga.Anchor.Metadata.MethodMetadataCollection.IndexOf.htm" />
+  <HelpKINode Title="IndexOf method" Url="html/Overload-Tortuga.Anchor.StringUtilities.IndexOf.htm" />
   <HelpKINode Title="IndexOf(Of T) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.IndexOf--1.htm" />
   <HelpKINode Title="IndexOf&lt;T&gt; method" Url="html/M-Tortuga.Anchor.CollectionUtilities.IndexOf--1.htm" />
   <HelpKINode Title="Inequality operator" Url="html/M-Tortuga.Anchor.Collections.ReadOnlyListSegment-1.op_Inequality.htm" />
@@ -855,11 +882,12 @@
   <HelpKINode Title="IsIndexed property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.IsIndexed.htm" />
   <HelpKINode Title="IsKey property" Url="html/P-Tortuga.Anchor.Metadata.PropertyMetadata.IsKey.htm" />
   <HelpKINode Title="IsNullable property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.IsNullable.htm" />
-  <HelpKINode Title="IsNullOrEmpty method" Url="html/M-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm" />
-  <HelpKINode Title="IsNullOrWhiteSpace method" Url="html/M-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm" />
+  <HelpKINode Title="IsNullOrEmpty method" Url="html/Overload-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm" />
+  <HelpKINode Title="IsNullOrWhiteSpace method" Url="html/Overload-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm" />
   <HelpKINode Title="IsPreferred property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadata.IsPreferred.htm" />
   <HelpKINode Title="IsProtected property" Url="html/P-Tortuga.Anchor.Metadata.MethodMetadata.IsProtected.htm" />
   <HelpKINode Title="IsPublic property" Url="html/P-Tortuga.Anchor.Metadata.MethodMetadata.IsPublic.htm" />
+  <HelpKINode Title="IsPure property" Url="html/P-Tortuga.Anchor.Metadata.ClassMetadata.IsPure.htm" />
   <HelpKINode Title="IsPure property" Url="html/P-Tortuga.Anchor.Metadata.MethodMetadata.IsPure.htm" />
   <HelpKINode Title="IsReadOnly property" Url="html/P-Tortuga.Anchor.Dynamic.CultureAwareDynamicObject.IsReadOnly.htm" />
   <HelpKINode Title="IsReadOnly property" Url="html/P-Tortuga.Anchor.Metadata.ConstructorMetadataCollection.IsReadOnly.htm" />
@@ -936,6 +964,7 @@
   <HelpKINode Title="Keys property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Keys.htm" />
   <HelpKINode Title="Keys property" Url="html/P-Tortuga.Anchor.Collections.ReadOnlyMultiValueDictionary-2.Keys.htm" />
   <HelpKINode Title="Keys property" Url="html/P-Tortuga.Anchor.Dynamic.CultureAwareDynamicObject.Keys.htm" />
+  <HelpKINode Title="LastIndexOf method" Url="html/Overload-Tortuga.Anchor.StringUtilities.LastIndexOf.htm" />
   <HelpKINode Title="List property" Url="html/P-Tortuga.Anchor.Collections.ReadOnlyListSegment-1.List.htm" />
   <HelpKINode Title="Listener(Of T) class" Url="html/AllMembers.T-Tortuga.Anchor.Eventing.Listener-1.htm" />
   <HelpKINode Title="Listener(Of T) class" Url="html/T-Tortuga.Anchor.Eventing.Listener-1.htm" />
@@ -1078,14 +1107,6 @@
   <HelpKINode Title="MultiValueDictionary(Of TKey, TValue).ContainsKey method" Url="html/M-Tortuga.Anchor.Collections.MultiValueDictionary-2.ContainsKey.htm" />
   <HelpKINode Title="MultiValueDictionary(Of TKey, TValue).Count property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Count.htm" />
   <HelpKINode Title="MultiValueDictionary(Of TKey, TValue).Flatten property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Flatten.htm" />
-  <HelpKINode Title="MultiValueDictionary(Of TKey, TValue).FlattenedMultiValueDictionary class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-  <HelpKINode Title="MultiValueDictionary(Of TKey, TValue).FlattenedMultiValueDictionary class" Url="html/T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-  <HelpKINode Title="MultiValueDictionary(Of TKey, TValue).FlattenedMultiValueDictionary class">
-    <HelpKINode Title="about MultiValueDictionary(Of TKey, TValue).FlattenedMultiValueDictionary class" Url="html/T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-    <HelpKINode Title="properties" Url="html/Properties.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-  </HelpKINode>
   <HelpKINode Title="MultiValueDictionary(Of TKey, TValue).GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.MultiValueDictionary-2.GetEnumerator.htm" />
   <HelpKINode Title="MultiValueDictionary(Of TKey, TValue).Item property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Item--0-.htm" />
   <HelpKINode Title="MultiValueDictionary(Of TKey, TValue).Keys property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Keys.htm" />
@@ -1110,14 +1131,6 @@
   <HelpKINode Title="MultiValueDictionary&lt;TKey, TValue&gt;.ContainsKey method" Url="html/M-Tortuga.Anchor.Collections.MultiValueDictionary-2.ContainsKey.htm" />
   <HelpKINode Title="MultiValueDictionary&lt;TKey, TValue&gt;.Count property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Count.htm" />
   <HelpKINode Title="MultiValueDictionary&lt;TKey, TValue&gt;.Flatten property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Flatten.htm" />
-  <HelpKINode Title="MultiValueDictionary&lt;TKey, TValue&gt;.FlattenedMultiValueDictionary class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-  <HelpKINode Title="MultiValueDictionary&lt;TKey, TValue&gt;.FlattenedMultiValueDictionary class" Url="html/T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-  <HelpKINode Title="MultiValueDictionary&lt;TKey, TValue&gt;.FlattenedMultiValueDictionary class">
-    <HelpKINode Title="about MultiValueDictionary&lt;TKey, TValue&gt;.FlattenedMultiValueDictionary class" Url="html/T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-    <HelpKINode Title="all members" Url="html/AllMembers.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-    <HelpKINode Title="methods" Url="html/Methods.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-    <HelpKINode Title="properties" Url="html/Properties.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-  </HelpKINode>
   <HelpKINode Title="MultiValueDictionary&lt;TKey, TValue&gt;.GetEnumerator method" Url="html/M-Tortuga.Anchor.Collections.MultiValueDictionary-2.GetEnumerator.htm" />
   <HelpKINode Title="MultiValueDictionary&lt;TKey, TValue&gt;.Item property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Item--0-.htm" />
   <HelpKINode Title="MultiValueDictionary&lt;TKey, TValue&gt;.Keys property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Keys.htm" />
@@ -1600,6 +1613,8 @@
   <HelpKINode Title="RemoveRange(Of T) method" Url="html/M-Tortuga.Anchor.CollectionUtilities.RemoveRange--1.htm" />
   <HelpKINode Title="RemoveRange&lt;T&gt; method" Url="html/M-Tortuga.Anchor.CollectionUtilities.RemoveRange--1.htm" />
   <HelpKINode Title="ReturnType property" Url="html/P-Tortuga.Anchor.Metadata.MethodMetadata.ReturnType.htm" />
+  <HelpKINode Title="ReusePureObjects enumeration member" Url="html/T-Tortuga.Anchor.Metadata.CloneOptions.htm" />
+  <HelpKINode Title="ReusePureObjects field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.ReusePureObjects.htm" />
   <HelpKINode Title="RevalidateAll method" Url="html/M-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateAll.htm" />
   <HelpKINode Title="RevalidateObject event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateObject.htm" />
   <HelpKINode Title="RevalidateProperty event" Url="html/E-Tortuga.Anchor.Modeling.Internals.PropertyBagBase.RevalidateProperty.htm" />
@@ -1676,8 +1691,10 @@
     <HelpKINode Title="properties" Url="html/Properties.T-Tortuga.Anchor.StringUtilities.htm" />
   </HelpKINode>
   <HelpKINode Title="StringUtilities.AcquireStringBuilder method" Url="html/M-Tortuga.Anchor.StringUtilities.AcquireStringBuilder.htm" />
-  <HelpKINode Title="StringUtilities.IsNullOrEmpty method" Url="html/M-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm" />
-  <HelpKINode Title="StringUtilities.IsNullOrWhiteSpace method" Url="html/M-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm" />
+  <HelpKINode Title="StringUtilities.IndexOf method" Url="html/Overload-Tortuga.Anchor.StringUtilities.IndexOf.htm" />
+  <HelpKINode Title="StringUtilities.IsNullOrEmpty method" Url="html/Overload-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm" />
+  <HelpKINode Title="StringUtilities.IsNullOrWhiteSpace method" Url="html/Overload-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm" />
+  <HelpKINode Title="StringUtilities.LastIndexOf method" Url="html/Overload-Tortuga.Anchor.StringUtilities.LastIndexOf.htm" />
   <HelpKINode Title="StringUtilities.MaxSize property" Url="html/P-Tortuga.Anchor.StringUtilities.MaxSize.htm" />
   <HelpKINode Title="StringUtilities.Release method" Url="html/M-Tortuga.Anchor.StringUtilities.Release.htm" />
   <HelpKINode Title="TableAndViewAttribute class" Url="html/AllMembers.T-Tortuga.Anchor.Modeling.TableAndViewAttribute.htm" />
@@ -1712,14 +1729,14 @@
   <HelpKINode Title="Tortuga.Anchor.Collections.Dictionary(Of TKey1, TKey2, TValue) class" Url="html/T-Tortuga.Anchor.Collections.Dictionary-3.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.Dictionary&lt;TKey1, TKey2, TValue&gt; class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.Dictionary-3.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.Dictionary&lt;TKey1, TKey2, TValue&gt; class" Url="html/T-Tortuga.Anchor.Collections.Dictionary-3.htm" />
+  <HelpKINode Title="Tortuga.Anchor.Collections.FlattenedMultiValueDictionary(Of TKey, TValue) class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+  <HelpKINode Title="Tortuga.Anchor.Collections.FlattenedMultiValueDictionary(Of TKey, TValue) class" Url="html/T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+  <HelpKINode Title="Tortuga.Anchor.Collections.FlattenedMultiValueDictionary&lt;TKey, TValue&gt; class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
+  <HelpKINode Title="Tortuga.Anchor.Collections.FlattenedMultiValueDictionary&lt;TKey, TValue&gt; class" Url="html/T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.MultiValueDictionary(Of TKey, TValue) class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.MultiValueDictionary(Of TKey, TValue) class" Url="html/T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" />
-  <HelpKINode Title="Tortuga.Anchor.Collections.MultiValueDictionary(Of TKey, TValue).FlattenedMultiValueDictionary class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-  <HelpKINode Title="Tortuga.Anchor.Collections.MultiValueDictionary(Of TKey, TValue).FlattenedMultiValueDictionary class" Url="html/T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.MultiValueDictionary&lt;TKey, TValue&gt; class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.MultiValueDictionary&lt;TKey, TValue&gt; class" Url="html/T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" />
-  <HelpKINode Title="Tortuga.Anchor.Collections.MultiValueDictionary&lt;TKey, TValue&gt;.FlattenedMultiValueDictionary class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
-  <HelpKINode Title="Tortuga.Anchor.Collections.MultiValueDictionary&lt;TKey, TValue&gt;.FlattenedMultiValueDictionary class" Url="html/T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.ObservableCollectionExtended(Of T) class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.ObservableCollectionExtended(Of T) class" Url="html/T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm" />
   <HelpKINode Title="Tortuga.Anchor.Collections.ObservableCollectionExtended&lt;T&gt; class" Url="html/AllMembers.T-Tortuga.Anchor.Collections.ObservableCollectionExtended-1.htm" />
@@ -1915,6 +1932,8 @@
   <HelpKINode Title="UpdateMode.AcceptChanges field" Url="html/F-Tortuga.Anchor.Modeling.UpdateMode.AcceptChanges.htm" />
   <HelpKINode Title="UpdateMode.AcceptLocalChanges field" Url="html/F-Tortuga.Anchor.Modeling.UpdateMode.AcceptLocalChanges.htm" />
   <HelpKINode Title="UpdateMode.None field" Url="html/F-Tortuga.Anchor.Modeling.UpdateMode.None.htm" />
+  <HelpKINode Title="UseClone enumeration member" Url="html/T-Tortuga.Anchor.Metadata.CloneOptions.htm" />
+  <HelpKINode Title="UseClone field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.UseClone.htm" />
   <HelpKINode Title="UseIClonable enumeration member" Url="html/T-Tortuga.Anchor.Metadata.CloneOptions.htm" />
   <HelpKINode Title="UseIClonable field" Url="html/F-Tortuga.Anchor.Metadata.CloneOptions.UseIClonable.htm" />
   <HelpKINode Title="Validate method" Url="html/M-Tortuga.Anchor.ComponentModel.IValidatable.Validate.htm" />
@@ -1955,7 +1974,7 @@
   <HelpKINode Title="ValueChanged(Of T) delegate" Url="html/T-Tortuga.Anchor.Modeling.ValueChanged-1.htm" />
   <HelpKINode Title="ValueChanged&lt;T&gt; delegate" Url="html/T-Tortuga.Anchor.Modeling.ValueChanged-1.htm" />
   <HelpKINode Title="Values property" Url="html/P-Tortuga.Anchor.Collections.Dictionary-3.Values.htm" />
-  <HelpKINode Title="Values property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.Values.htm" />
+  <HelpKINode Title="Values property" Url="html/P-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.Values.htm" />
   <HelpKINode Title="Values property" Url="html/P-Tortuga.Anchor.Collections.MultiValueDictionary-2.Values.htm" />
   <HelpKINode Title="Values property" Url="html/P-Tortuga.Anchor.Collections.ReadOnlyMultiValueDictionary-2.Values.htm" />
   <HelpKINode Title="Values property" Url="html/P-Tortuga.Anchor.Dynamic.CultureAwareDynamicObject.Values.htm" />

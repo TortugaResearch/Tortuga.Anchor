@@ -11,10 +11,10 @@
     <meta name="file" content="M-Tortuga.Anchor.LockUtilities.AcquireAsync" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:msxsl="urn:schemas-microsoft-com:xslt" />
     <meta name="guid" content="M-Tortuga.Anchor.LockUtilities.AcquireAsync" xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:msxsl="urn:schemas-microsoft-com:xslt" />
     <xml xmlns:MSHelp="http://msdn.microsoft.com/mshelp" xmlns:mshelp="http://msdn.microsoft.com/mshelp" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
-      <MSHelp:Attr Name="AssetID" Value="M:Tortuga.Anchor.LockUtilities.AcquireAsync(SemaphoreSlim)" />
+      <MSHelp:Attr Name="AssetID" Value="M:Tortuga.Anchor.LockUtilities.AcquireAsync(SemaphoreSlim,CancellationToken)" />
       <MSHelp:TOCTitle Title="AcquireAsync Method " />
       <MSHelp:RLTitle Title="LockUtilities.AcquireAsync Method  (Tortuga.Anchor)" />
-      <MSHelp:Keyword Index="A" Term="M:Tortuga.Anchor.LockUtilities.AcquireAsync(SemaphoreSlim)" />
+      <MSHelp:Keyword Index="A" Term="M:Tortuga.Anchor.LockUtilities.AcquireAsync(SemaphoreSlim,CancellationToken)" />
       <MSHelp:Keyword Index="A" Term="frlrfTortugaAnchorLockUtilitiesClassAcquireAsyncTopic" />
       <MSHelp:Keyword Index="K" Term="AcquireAsync method" />
       <MSHelp:Keyword Index="K" Term="LockUtilities.AcquireAsync method" />
@@ -149,12 +149,12 @@
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" target="_self">FlattenedMultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" target="_self">MultiValueDictionary(TKey, TValue).FlattenedMultiValueDictionary Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
@@ -521,10 +521,13 @@
    <a href="N-Tortuga.Anchor.htm">Tortuga.Anchor</a><br />
     <b>Assembly:</b>
    <span sdata="assembly">Tortuga.Anchor</span> (in Tortuga.Anchor.dll)<div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">Syntax</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="syntaxSection"><!----></a><div class="CodeSnippetContainer"><div class="CodeSnippetContainerTabs"><div class="CodeSnippetContainerTabLeft"><!----></div><div class="CodeSnippetContainerTabFirst CSharpTab" id="CSharpTabId" style="background:white;border-bottom-color:white"><a href="javascript:setActiveTab('CodeSnippetContainerCode','CSharpCode','CSharpTabId');" title="C#">C#</a></div><div class="CodeSnippetContainerTab VisualBasicTab" id="VisualBasicTabId"><a href="javascript:setActiveTab('CodeSnippetContainerCode','VisualBasicCode','VisualBasicTabId');" title="Visual Basic">VB</a></div><div class="CodeSnippetContainerTabRight"><!----></div></div><div class="CodeSnippetContainerCodeCollection"><div class="CodeSnippetToolBar"><div class="CodeSnippetToolBarText" /></div><div class="CodeSnippetContainerCode CSharpCode"><pre xml:space="preserve" class="libCScode"><span class="keyword">public</span> <span class="keyword">static</span> <span class="nolink">Task</span>&lt;<span class="nolink">IDisposable</span>&gt; <span class="identifier">AcquireAsync</span>(
-	<span class="nolink">SemaphoreSlim</span> <span class="parameter">semaphore</span>
-)</pre></div><div class="CodeSnippetContainerCode VisualBasicCode"><pre xml:space="preserve" class="libCScode"><span class="keyword">Public</span> <span class="keyword">Shared</span> <span class="keyword">Function</span> <span class="identifier">AcquireAsync</span> ( _
-	<span class="parameter">semaphore</span> <span class="keyword">As</span> <span class="nolink">SemaphoreSlim</span> _
-) <span class="keyword">As</span> <span class="nolink">Task</span>(<span class="keyword">Of</span> <span class="nolink">IDisposable</span>)</pre></div></div></div><div id="parameters"><h4 class="subHeading">Parameters</h4><dl paramName="semaphore"><dt><span class="parameterItalic">semaphore</span></dt><dd>Type: <span class="nolink">SemaphoreSlim</span><br />The semaphore.</dd></dl></div><h4 class="subHeading">Return Value</h4>Task&lt;IDisposable&gt;.</div><div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">See Also</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="seeAlsoSection"><!----></a><div class="seeAlsoStyle"><a href="T-Tortuga.Anchor.LockUtilities.htm">LockUtilities Class</a></div><div class="seeAlsoStyle"><a href="N-Tortuga.Anchor.htm">Tortuga.Anchor Namespace</a></div></div></div>
+	<span class="keyword">this</span> <span class="nolink">SemaphoreSlim</span> <span class="parameter">semaphore</span>,
+	<span class="nolink">CancellationToken</span> <span class="parameter">cancellationToken</span>
+)</pre></div><div class="CodeSnippetContainerCode VisualBasicCode"><pre xml:space="preserve" class="libCScode">&lt;<a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.extensionattribute" target="_blank">ExtensionAttribute</a>&gt; _
+<span class="keyword">Public</span> <span class="keyword">Shared</span> <span class="keyword">Function</span> <span class="identifier">AcquireAsync</span> ( _
+	<span class="parameter">semaphore</span> <span class="keyword">As</span> <span class="nolink">SemaphoreSlim</span>, _
+	<span class="parameter">cancellationToken</span> <span class="keyword">As</span> <span class="nolink">CancellationToken</span> _
+) <span class="keyword">As</span> <span class="nolink">Task</span>(<span class="keyword">Of</span> <span class="nolink">IDisposable</span>)</pre></div></div></div><div id="parameters"><h4 class="subHeading">Parameters</h4><dl paramName="semaphore"><dt><span class="parameterItalic">semaphore</span></dt><dd>Type: <span class="nolink">SemaphoreSlim</span><br />The semaphore.</dd></dl><dl paramName="cancellationToken"><dt><span class="parameterItalic">cancellationToken</span></dt><dd>Type: <span class="nolink">CancellationToken</span><br /></dd></dl></div><h4 class="subHeading">Return Value</h4>Task&lt;IDisposable&gt;.</div><div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">See Also</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="seeAlsoSection"><!----></a><div class="seeAlsoStyle"><a href="T-Tortuga.Anchor.LockUtilities.htm">LockUtilities Class</a></div><div class="seeAlsoStyle"><a href="N-Tortuga.Anchor.htm">Tortuga.Anchor Namespace</a></div></div></div>
             </div>
           </div>
         </div>

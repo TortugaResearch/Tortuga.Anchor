@@ -48,7 +48,17 @@ public static class MetadataCache
 			if (options.HasFlag(CloneOptions.UseIClonable) && value is ICloneable cloneable)
 				return cloneable.Clone();
 
+			if (options.HasFlag(CloneOptions.UseClone))
+			{
+				var cloneMethod = GetMetadata(value.GetType()).Methods.Where(m => m.ParameterNames.Length == 0 && m.Name == "Clone").SingleOrDefault()?.MethodInfo;
+				if (cloneMethod != null)
+					return cloneMethod.Invoke(value, null);
+			}
+
 			if (!options.HasFlag(CloneOptions.DeepClone)) //deep clone not requested
+				return value;
+
+			if (options.HasFlag(CloneOptions.ReusePureObjects) && GetMetadata(value.GetType()).IsPure) //Pure objects can be safely reused.
 				return value;
 
 			if (maxRecursion <= 0) //out of recursions

@@ -19,6 +19,8 @@
       <MSHelp:Keyword Index="A" Term="F:Tortuga.Anchor.Metadata.CloneOptions.BypassProperties" />
       <MSHelp:Keyword Index="A" Term="F:Tortuga.Anchor.Metadata.CloneOptions.DeepClone" />
       <MSHelp:Keyword Index="A" Term="F:Tortuga.Anchor.Metadata.CloneOptions.UseIClonable" />
+      <MSHelp:Keyword Index="A" Term="F:Tortuga.Anchor.Metadata.CloneOptions.UseClone" />
+      <MSHelp:Keyword Index="A" Term="F:Tortuga.Anchor.Metadata.CloneOptions.ReusePureObjects" />
       <MSHelp:Keyword Index="A" Term="frlrfTortugaAnchorMetadataCloneOptionsClassTopic" />
       <MSHelp:Keyword Index="K" Term="CloneOptions enumeration" />
       <MSHelp:Keyword Index="K" Term="Tortuga.Anchor.Metadata.CloneOptions enumeration" />
@@ -26,11 +28,15 @@
       <MSHelp:Keyword Index="K" Term="BypassProperties enumeration member" />
       <MSHelp:Keyword Index="K" Term="DeepClone enumeration member" />
       <MSHelp:Keyword Index="K" Term="UseIClonable enumeration member" />
+      <MSHelp:Keyword Index="K" Term="UseClone enumeration member" />
+      <MSHelp:Keyword Index="K" Term="ReusePureObjects enumeration member" />
       <MSHelp:Keyword Index="F" Term="Tortuga.Anchor.Metadata.CloneOptions" />
       <MSHelp:Keyword Index="F" Term="Tortuga.Anchor.Metadata.CloneOptions.None" />
       <MSHelp:Keyword Index="F" Term="Tortuga.Anchor.Metadata.CloneOptions.BypassProperties" />
       <MSHelp:Keyword Index="F" Term="Tortuga.Anchor.Metadata.CloneOptions.DeepClone" />
       <MSHelp:Keyword Index="F" Term="Tortuga.Anchor.Metadata.CloneOptions.UseIClonable" />
+      <MSHelp:Keyword Index="F" Term="Tortuga.Anchor.Metadata.CloneOptions.UseClone" />
+      <MSHelp:Keyword Index="F" Term="Tortuga.Anchor.Metadata.CloneOptions.ReusePureObjects" />
       <MSHelp:Attr Name="HelpPriority" Value="2" />
       <MSHelp:Attr Name="APIType" Value="Managed" />
       <MSHelp:Attr Name="APILocation" Value="Tortuga.Anchor.dll" />
@@ -39,6 +45,8 @@
       <MSHelp:Attr Name="APIName" Value="Tortuga.Anchor.Metadata.CloneOptions.BypassProperties" />
       <MSHelp:Attr Name="APIName" Value="Tortuga.Anchor.Metadata.CloneOptions.DeepClone" />
       <MSHelp:Attr Name="APIName" Value="Tortuga.Anchor.Metadata.CloneOptions.UseIClonable" />
+      <MSHelp:Attr Name="APIName" Value="Tortuga.Anchor.Metadata.CloneOptions.UseClone" />
+      <MSHelp:Attr Name="APIName" Value="Tortuga.Anchor.Metadata.CloneOptions.ReusePureObjects" />
       <MSHelp:Attr Name="DevLang" Value="CSharp" />
       <MSHelp:Attr Name="DevLang" Value="VB" />
       <MSHelp:Attr Name="Locale" Value="en-us" />
@@ -146,12 +154,12 @@
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" target="_self">FlattenedMultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" target="_self">MultiValueDictionary(TKey, TValue).FlattenedMultiValueDictionary Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
@@ -517,9 +525,7 @@
     <b>Namespace:</b> 
    <a href="N-Tortuga.Anchor.Metadata.htm">Tortuga.Anchor.Metadata</a><br />
     <b>Assembly:</b>
-   <span sdata="assembly">Tortuga.Anchor</span> (in Tortuga.Anchor.dll)<div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">Syntax</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="syntaxSection"><!----></a><div class="CodeSnippetContainer"><div class="CodeSnippetContainerTabs"><div class="CodeSnippetContainerTabLeft"><!----></div><div class="CodeSnippetContainerTabFirst CSharpTab" id="CSharpTabId" style="background:white;border-bottom-color:white"><a href="javascript:setActiveTab('CodeSnippetContainerCode','CSharpCode','CSharpTabId');" title="C#">C#</a></div><div class="CodeSnippetContainerTab VisualBasicTab" id="VisualBasicTabId"><a href="javascript:setActiveTab('CodeSnippetContainerCode','VisualBasicCode','VisualBasicTabId');" title="Visual Basic">VB</a></div><div class="CodeSnippetContainerTabRight"><!----></div></div><div class="CodeSnippetContainerCodeCollection"><div class="CodeSnippetToolBar"><div class="CodeSnippetToolBarText" /></div><div class="CodeSnippetContainerCode CSharpCode"><pre xml:space="preserve" class="libCScode">[<a href="https://docs.microsoft.com/en-us/dotnet/api/system.flagsattribute" target="_blank">FlagsAttribute</a>]
-<span class="keyword">public</span> <span class="keyword">enum</span> <span class="identifier">CloneOptions</span></pre></div><div class="CodeSnippetContainerCode VisualBasicCode"><pre xml:space="preserve" class="libCScode">&lt;<a href="https://docs.microsoft.com/en-us/dotnet/api/system.flagsattribute" target="_blank">FlagsAttribute</a>&gt; _
-<span class="keyword">Public</span> <span class="keyword">Enumeration</span> <span class="identifier">CloneOptions</span></pre></div></div></div></div><div id="enumerationSection"><div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">Members</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="membersSection"><!----></a><table class="members" id="memberList" frame="lhs" cellpadding="2"><tr><th class="iconColumn" /><th class="nameColumn">Member name</th><th class="descriptionColumn">Description</th></tr><tr><td /><td target="F:Tortuga.Anchor.Metadata.CloneOptions.None"><span class="selflink">None</span></td><td>
+   <span sdata="assembly">Tortuga.Anchor</span> (in Tortuga.Anchor.dll)<div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">Syntax</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="syntaxSection"><!----></a><div class="CodeSnippetContainer"><div class="CodeSnippetContainerTabs"><div class="CodeSnippetContainerTabLeft"><!----></div><div class="CodeSnippetContainerTabFirst CSharpTab" id="CSharpTabId" style="background:white;border-bottom-color:white"><a href="javascript:setActiveTab('CodeSnippetContainerCode','CSharpCode','CSharpTabId');" title="C#">C#</a></div><div class="CodeSnippetContainerTab VisualBasicTab" id="VisualBasicTabId"><a href="javascript:setActiveTab('CodeSnippetContainerCode','VisualBasicCode','VisualBasicTabId');" title="Visual Basic">VB</a></div><div class="CodeSnippetContainerTabRight"><!----></div></div><div class="CodeSnippetContainerCodeCollection"><div class="CodeSnippetToolBar"><div class="CodeSnippetToolBarText" /></div><div class="CodeSnippetContainerCode CSharpCode"><pre xml:space="preserve" class="libCScode"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="identifier">CloneOptions</span></pre></div><div class="CodeSnippetContainerCode VisualBasicCode"><pre xml:space="preserve" class="libCScode"><span class="keyword">Public</span> <span class="keyword">Enumeration</span> <span class="identifier">CloneOptions</span></pre></div></div></div></div><div id="enumerationSection"><div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">Members</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="membersSection"><!----></a><table class="members" id="memberList" frame="lhs" cellpadding="2"><tr><th class="iconColumn" /><th class="nameColumn">Member name</th><th class="descriptionColumn">Description</th></tr><tr><td /><td target="F:Tortuga.Anchor.Metadata.CloneOptions.None"><span class="selflink">None</span></td><td>
    No optional behavior selected
    </td></tr><tr><td /><td target="F:Tortuga.Anchor.Metadata.CloneOptions.BypassProperties"><span class="selflink">BypassProperties</span></td><td>
    The bypass properties by directly copying the property bag. Only applies to classes that inherit from AbstractModelBase or AbstractModelCollection
@@ -527,6 +533,12 @@
    Perform a deep clone on all properties.
    </td></tr><tr><td /><td target="F:Tortuga.Anchor.Metadata.CloneOptions.UseIClonable"><span class="selflink">UseIClonable</span></td><td>
    Invoke IClonable.Clone() on any value that implements IClonable
+   </td></tr><tr><td /><td target="F:Tortuga.Anchor.Metadata.CloneOptions.UseClone"><span class="selflink">UseClone</span></td><td>
+   Invoke a parameterless Clone() method on any value that has one. If both UseClone and UseIClonable are specified, UseIClonable takes precedence.
+   </td></tr><tr><td /><td target="F:Tortuga.Anchor.Metadata.CloneOptions.ReusePureObjects"><span class="selflink">ReusePureObjects</span></td><td>
+   When using the ReusePureObjects flag, the Clone operation will skip objects that are marked with the Pure attribute.
+  
+   WARNING: The PureAttribute is not accessible unless the compiler constant CONTRACTS_FULL is defined.
    </td></tr></table></div></div><div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">See Also</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="seeAlsoSection"><!----></a><div class="seeAlsoStyle"><a href="N-Tortuga.Anchor.Metadata.htm">Tortuga.Anchor.Metadata Namespace</a></div></div></div>
             </div>
           </div>

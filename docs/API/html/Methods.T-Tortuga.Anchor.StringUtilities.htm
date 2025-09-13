@@ -114,14 +114,28 @@
 <div class="TreeItem">
 <img src="../Item.gif"/><a class="UnselectedNode" onclick="javascript: return SelectNode(this);" href="M-Tortuga.Anchor.StringUtilities.AcquireStringBuilder.htm" target="_self">AcquireStringBuilder Method </a>
 </div>
-<div class="TreeItem">
-<img src="../Item.gif"/><a class="UnselectedNode" onclick="javascript: return SelectNode(this);" href="M-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm" target="_self">IsNullOrEmpty Method </a>
+<div class="TreeNode">
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="Overload-Tortuga.Anchor.StringUtilities.IndexOf.htm" target="_self">IndexOf Method </a>
+<div class="Hidden">
 </div>
-<div class="TreeItem">
-<img src="../Item.gif"/><a class="UnselectedNode" onclick="javascript: return SelectNode(this);" href="M-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm" target="_self">IsNullOrWhiteSpace Method </a>
+</div>
+<div class="TreeNode">
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="Overload-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm" target="_self">IsNullOrEmpty Method </a>
+<div class="Hidden">
+</div>
+</div>
+<div class="TreeNode">
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="Overload-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm" target="_self">IsNullOrWhiteSpace Method </a>
+<div class="Hidden">
+</div>
 </div>
 <div class="TreeNode">
 <img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="#">Overload:Tortuga.Anchor.StringUtilities.Join</a>
+<div class="Hidden">
+</div>
+</div>
+<div class="TreeNode">
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="Overload-Tortuga.Anchor.StringUtilities.LastIndexOf.htm" target="_self">LastIndexOf Method </a>
 <div class="Hidden">
 </div>
 </div>
@@ -153,12 +167,12 @@
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" target="_self">FlattenedMultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" target="_self">MultiValueDictionary(TKey, TValue).FlattenedMultiValueDictionary Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
@@ -556,7 +570,49 @@
                         <img src="../icons/static.gif" alt="Static member" title="Static member" />
                       </td>
                       <td>
-                        <a href="M-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm">IsNullOrEmpty</a>
+                        <a href="M-Tortuga.Anchor.StringUtilities.IndexOf.htm">IndexOf(StringBuilder, String, Int32)</a>
+                      </td>
+                      <td>
+                        <div class="summary">
+   Returns the index of the first occurrence of a substring in the StringBuilder, or -1 if not found.
+   </div>
+                      </td>
+                    </tr>
+                    <tr data="public;static;declared;notNetfw;">
+                      <td>
+                        <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                        <img src="../icons/static.gif" alt="Static member" title="Static member" />
+                      </td>
+                      <td>
+                        <a href="M-Tortuga.Anchor.StringUtilities.IndexOf_1.htm">IndexOf(StringBuilder, String, Int32, StringComparison)</a>
+                      </td>
+                      <td>
+                        <div class="summary">
+   Returns the index of the first occurrence of a substring in the StringBuilder, using the specified StringComparison, or -1 if not found.
+   </div>
+                      </td>
+                    </tr>
+                    <tr data="public;static;declared;notNetfw;">
+                      <td>
+                        <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                        <img src="../icons/static.gif" alt="Static member" title="Static member" />
+                      </td>
+                      <td>
+                        <a href="M-Tortuga.Anchor.StringUtilities.IndexOf_2.htm">IndexOf(StringBuilder, String, StringComparison)</a>
+                      </td>
+                      <td>
+                        <div class="summary">
+   Returns the index of the first occurrence of a substring in the StringBuilder, using the specified StringComparison, or -1 if not found.
+   </div>
+                      </td>
+                    </tr>
+                    <tr data="public;static;declared;notNetfw;">
+                      <td>
+                        <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                        <img src="../icons/static.gif" alt="Static member" title="Static member" />
+                      </td>
+                      <td>
+                        <a href="M-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm">IsNullOrEmpty(Nullable<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>String<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span>)</a>
                       </td>
                       <td>
                         <div class="summary">
@@ -570,12 +626,42 @@
                         <img src="../icons/static.gif" alt="Static member" title="Static member" />
                       </td>
                       <td>
-                        <a href="M-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm">IsNullOrWhiteSpace</a>
+                        <a href="M-Tortuga.Anchor.StringUtilities.IsNullOrEmpty_1.htm">IsNullOrEmpty(Nullable<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>String<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span>, String)</a>
+                      </td>
+                      <td>
+                        <div class="summary">
+   Returns <span class="parameterItalic">replacementValue</span> if <span class="parameterItalic">value</span> is null or empty; otherwise returns <span class="parameterItalic">value</span>.
+   Mimics SQL Server's ISNULL function for strings.
+   </div>
+                      </td>
+                    </tr>
+                    <tr data="public;static;declared;notNetfw;">
+                      <td>
+                        <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                        <img src="../icons/static.gif" alt="Static member" title="Static member" />
+                      </td>
+                      <td>
+                        <a href="M-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm">IsNullOrWhiteSpace(Nullable<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>String<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span>)</a>
                       </td>
                       <td>
                         <div class="summary">
    Indicates whether a specified string is null, empty, or consists only of white-space
    characters.</div>
+                      </td>
+                    </tr>
+                    <tr data="public;static;declared;notNetfw;">
+                      <td>
+                        <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                        <img src="../icons/static.gif" alt="Static member" title="Static member" />
+                      </td>
+                      <td>
+                        <a href="M-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace_1.htm">IsNullOrWhiteSpace(Nullable<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>String<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span>, String)</a>
+                      </td>
+                      <td>
+                        <div class="summary">
+   Returns <span class="parameterItalic">replacementValue</span> if <span class="parameterItalic">value</span> is null, empty, or consists only of white-space characters; otherwise returns <span class="parameterItalic">value</span>.
+   Mimics SQL Server's ISNULL function for strings, but uses IsNullOrWhiteSpace semantics.
+   </div>
                       </td>
                     </tr>
                     <tr data="public;static;declared;notNetfw;">
@@ -603,6 +689,48 @@
                       <td>
                         <div class="summary">
    Joins the list of values using the specified separator and options.
+   </div>
+                      </td>
+                    </tr>
+                    <tr data="public;static;declared;notNetfw;">
+                      <td>
+                        <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                        <img src="../icons/static.gif" alt="Static member" title="Static member" />
+                      </td>
+                      <td>
+                        <a href="M-Tortuga.Anchor.StringUtilities.LastIndexOf.htm">LastIndexOf(StringBuilder, String, Nullable<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>Int32<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span>)</a>
+                      </td>
+                      <td>
+                        <div class="summary">
+   Returns the index of the last occurrence of a substring in the StringBuilder, or -1 if not found.
+   </div>
+                      </td>
+                    </tr>
+                    <tr data="public;static;declared;notNetfw;">
+                      <td>
+                        <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                        <img src="../icons/static.gif" alt="Static member" title="Static member" />
+                      </td>
+                      <td>
+                        <a href="M-Tortuga.Anchor.StringUtilities.LastIndexOf_1.htm">LastIndexOf(StringBuilder, String, Nullable<span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="fs">&lt;'</span><span class="nu">(</span></span>Int32<span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="fs">&gt;</span><span class="nu">)</span></span>, StringComparison)</a>
+                      </td>
+                      <td>
+                        <div class="summary">
+   Returns the index of the last occurrence of a substring in the StringBuilder, using the specified StringComparison, or -1 if not found.
+   </div>
+                      </td>
+                    </tr>
+                    <tr data="public;static;declared;notNetfw;">
+                      <td>
+                        <img src="../icons/pubmethod.gif" alt="Public method" title="Public method" />
+                        <img src="../icons/static.gif" alt="Static member" title="Static member" />
+                      </td>
+                      <td>
+                        <a href="M-Tortuga.Anchor.StringUtilities.LastIndexOf_2.htm">LastIndexOf(StringBuilder, String, StringComparison)</a>
+                      </td>
+                      <td>
+                        <div class="summary">
+   Returns the index of the last occurrence of a substring in the StringBuilder, using the specified StringComparison, or -1 if not found.
    </div>
                       </td>
                     </tr>
