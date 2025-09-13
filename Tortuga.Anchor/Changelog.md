@@ -1,3 +1,46 @@
+## Version 5.1
+
+## Features
+
+* [#97 string.IsNullOrEmpty(replacementValue)](https://github.com/TortugaResearch/Tortuga.Anchor/issues/97)
+
+The extension method `string.IsNullOrEmpty(replacementValue)` subsitutes an empty/null value with a replacement value.
+
+```
+//Old way 1
+string value;
+if ( myString.IsNullOrEmpty())
+	value  = replacementValue;
+else
+	value = myString;
+
+//Old way 2
+value  = myString.IsNullOrEmpty() ? myString : replacementValue;
+
+
+//New way
+value  = myString.IsNullOrEmpty(replacementValue);
+```
+
+
+* [#95 StringBuilder.IndexOf and LastIndexOf](https://github.com/TortugaResearch/Tortuga.Anchor/issues/95)
+
+The extension methods `StringBuilder.IndexOf and LastIndexOf` and `StringBuilder.IndexOf and LastIndexOf` mimic their `string` equivalents. 
+
+If you pass in a non-ordinal comparison type, then a new string will be allocated to perform this operation.
+
+
+* [#68 CloneOptions.UseClone](https://github.com/TortugaResearch/Tortuga.Anchor/issues/68)
+
+If an object has a `Clone` method, use it when performing deep cloning.
+
+
+* [#67 CloneOptions.ReusePureObjects](https://github.com/TortugaResearch/Tortuga.Anchor/issues/67)
+
+
+When performing deep cloning, don't clone objects that have the `Pure` attribute. The assumption is that pure objects are immutable and thus can be safely reused.
+
+
 ## Version 5.0.1
 
 ### Bugs
