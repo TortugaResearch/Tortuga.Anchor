@@ -102,6 +102,9 @@
 </div>
 </div>
 <div class="TreeItem">
+<img src="../Item.gif"/><a class="UnselectedNode" onclick="javascript: return SelectNode(this);" href="M-Tortuga.Anchor.CollectionUtilities.AddRangeAsync--1.htm" target="_self">AddRangeAsync(T) Method </a>
+</div>
+<div class="TreeItem">
 <img src="../Item.gif"/><a class="UnselectedNode" onclick="javascript: return SelectNode(this);" href="M-Tortuga.Anchor.CollectionUtilities.AsList--1.htm" target="_self">AsList(T) Method </a>
 </div>
 <div class="TreeItem">
@@ -188,12 +191,12 @@
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" target="_self">FlattenedMultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" target="_self">MultiValueDictionary(TKey, TValue).FlattenedMultiValueDictionary Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
@@ -560,10 +563,11 @@
    <a href="N-Tortuga.Anchor.htm">Tortuga.Anchor</a><br />
     <b>Assembly:</b>
    <span sdata="assembly">Tortuga.Anchor</span> (in Tortuga.Anchor.dll)<div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">Syntax</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="syntaxSection"><!----></a><div class="CodeSnippetContainer"><div class="CodeSnippetContainerTabs"><div class="CodeSnippetContainerTabLeft"><!----></div><div class="CodeSnippetContainerTabFirst CSharpTab" id="CSharpTabId" style="background:white;border-bottom-color:white"><a href="javascript:setActiveTab('CodeSnippetContainerCode','CSharpCode','CSharpTabId');" title="C#">C#</a></div><div class="CodeSnippetContainerTab VisualBasicTab" id="VisualBasicTabId"><a href="javascript:setActiveTab('CodeSnippetContainerCode','VisualBasicCode','VisualBasicTabId');" title="Visual Basic">VB</a></div><div class="CodeSnippetContainerTabRight"><!----></div></div><div class="CodeSnippetContainerCodeCollection"><div class="CodeSnippetToolBar"><div class="CodeSnippetToolBarText" /></div><div class="CodeSnippetContainerCode CSharpCode"><pre xml:space="preserve" class="libCScode"><span class="keyword">public</span> <span class="keyword">static</span> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean" target="_blank">bool</a> <span class="identifier">ContainsAllOf</span>&lt;T&gt;(
-	<span class="nolink">IEnumerable</span>&lt;T&gt; <span class="parameter">source</span>,
+	<span class="keyword">this</span> <span class="nolink">IEnumerable</span>&lt;T&gt; <span class="parameter">source</span>,
 	<span class="keyword">params</span> T[] <span class="parameter">values</span>
 )
-</pre></div><div class="CodeSnippetContainerCode VisualBasicCode"><pre xml:space="preserve" class="libCScode"><span class="keyword">Public</span> <span class="keyword">Shared</span> <span class="keyword">Function</span> <span class="identifier">ContainsAllOf</span>(<span class="keyword">Of</span> T) ( _
+</pre></div><div class="CodeSnippetContainerCode VisualBasicCode"><pre xml:space="preserve" class="libCScode">&lt;<a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.extensionattribute" target="_blank">ExtensionAttribute</a>&gt; _
+<span class="keyword">Public</span> <span class="keyword">Shared</span> <span class="keyword">Function</span> <span class="identifier">ContainsAllOf</span>(<span class="keyword">Of</span> T) ( _
 	<span class="parameter">source</span> <span class="keyword">As</span> <span class="nolink">IEnumerable</span>(<span class="keyword">Of</span> T), _
 	<span class="keyword">ParamArray</span> <span class="parameter">values</span> <span class="keyword">As</span> T() _
 ) <span class="keyword">As</span> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.boolean" target="_blank">Boolean</a></pre></div></div></div><h4 class="subHeading">Type Parameters</h4><dl><dt><span class="parameterItalic">T</span></dt><dd /></dl><div id="parameters"><h4 class="subHeading">Parameters</h4><dl paramName="source"><dt><span class="parameterItalic">source</span></dt><dd>Type: <span class="nolink">IEnumerable</span><span class="languageSpecificText"><span class="cs">&lt;</span><span class="vb">(Of </span><span class="cpp">&lt;</span><span class="nu">(</span><span class="fs">&lt;'</span></span><span class="selflink"><span class="typeparam">T</span></span><span class="languageSpecificText"><span class="cs">&gt;</span><span class="vb">)</span><span class="cpp">&gt;</span><span class="nu">)</span><span class="fs">&gt;</span></span><br />The source to be checked.</dd></dl><dl paramName="values"><dt><span class="parameterItalic">values</span></dt><dd>Type: <span class="languageSpecificText"><span class="cpp">array&lt;</span></span><span class="selflink"><span class="typeparam">T</span></span><span class="languageSpecificText"><span class="cpp">&gt;</span><span class="cs">[]</span><span class="vb">()</span><span class="nu">[]</span><span class="fs">[]</span></span><br />The values.</dd></dl></div><h4 class="subHeading">Return Value</h4><span class="code">true</span> if the source contains all of the specified values; otherwise, <span class="code">false</span>.</div><div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">Remarks</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="remarksSection"><!----></a>Duplicates in either collection will be ignored.</div><div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">See Also</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="seeAlsoSection"><!----></a><div class="seeAlsoStyle"><a href="T-Tortuga.Anchor.CollectionUtilities.htm">CollectionUtilities Class</a></div><div class="seeAlsoStyle"><a href="N-Tortuga.Anchor.htm">Tortuga.Anchor Namespace</a></div></div></div>

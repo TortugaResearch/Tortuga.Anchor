@@ -120,14 +120,28 @@
 <div class="TreeItem">
 <img src="../Item.gif"/><a class="UnselectedNode" onclick="javascript: return SelectNode(this);" href="M-Tortuga.Anchor.StringUtilities.AcquireStringBuilder.htm" target="_self">AcquireStringBuilder Method </a>
 </div>
-<div class="TreeItem">
-<img src="../Item.gif"/><a class="UnselectedNode" onclick="javascript: return SelectNode(this);" href="M-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm" target="_self">IsNullOrEmpty Method </a>
+<div class="TreeNode">
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="Overload-Tortuga.Anchor.StringUtilities.IndexOf.htm" target="_self">IndexOf Method </a>
+<div class="Hidden">
 </div>
-<div class="TreeItem">
-<img src="../Item.gif"/><a class="UnselectedNode" onclick="javascript: return SelectNode(this);" href="M-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm" target="_self">IsNullOrWhiteSpace Method </a>
+</div>
+<div class="TreeNode">
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="Overload-Tortuga.Anchor.StringUtilities.IsNullOrEmpty.htm" target="_self">IsNullOrEmpty Method </a>
+<div class="Hidden">
+</div>
+</div>
+<div class="TreeNode">
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="Overload-Tortuga.Anchor.StringUtilities.IsNullOrWhiteSpace.htm" target="_self">IsNullOrWhiteSpace Method </a>
+<div class="Hidden">
+</div>
 </div>
 <div class="TreeNode">
 <img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="#">Overload:Tortuga.Anchor.StringUtilities.Join</a>
+<div class="Hidden">
+</div>
+</div>
+<div class="TreeNode">
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="Overload-Tortuga.Anchor.StringUtilities.LastIndexOf.htm" target="_self">LastIndexOf Method </a>
 <div class="Hidden">
 </div>
 </div>
@@ -159,12 +173,12 @@
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.FlattenedMultiValueDictionary-2.htm" target="_self">FlattenedMultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
 <div class="TreeNode">
-<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.FlattenedMultiValueDictionary.htm" target="_self">MultiValueDictionary(TKey, TValue).FlattenedMultiValueDictionary Class</a>
+<img class="TreeNodeImg" onclick="javascript: Toggle(this);" src="../Collapsed.png"/><a class="UnselectedNode" onclick="javascript: return Expand(this);" href="T-Tortuga.Anchor.Collections.MultiValueDictionary-2.htm" target="_self">MultiValueDictionary(TKey, TValue) Class</a>
 <div class="Hidden">
 </div>
 </div>
@@ -531,8 +545,9 @@
    <a href="N-Tortuga.Anchor.htm">Tortuga.Anchor</a><br />
     <b>Assembly:</b>
    <span sdata="assembly">Tortuga.Anchor</span> (in Tortuga.Anchor.dll)<div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">Syntax</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="syntaxSection"><!----></a><div class="CodeSnippetContainer"><div class="CodeSnippetContainerTabs"><div class="CodeSnippetContainerTabLeft"><!----></div><div class="CodeSnippetContainerTabFirst CSharpTab" id="CSharpTabId" style="background:white;border-bottom-color:white"><a href="javascript:setActiveTab('CodeSnippetContainerCode','CSharpCode','CSharpTabId');" title="C#">C#</a></div><div class="CodeSnippetContainerTab VisualBasicTab" id="VisualBasicTabId"><a href="javascript:setActiveTab('CodeSnippetContainerCode','VisualBasicCode','VisualBasicTabId');" title="Visual Basic">VB</a></div><div class="CodeSnippetContainerTabRight"><!----></div></div><div class="CodeSnippetContainerCodeCollection"><div class="CodeSnippetToolBar"><div class="CodeSnippetToolBarText" /></div><div class="CodeSnippetContainerCode CSharpCode"><pre xml:space="preserve" class="libCScode"><span class="keyword">public</span> <span class="keyword">static</span> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.string" target="_blank">string</a> <span class="identifier">Release</span>(
-	<a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.stringbuilder" target="_blank">StringBuilder</a> <span class="parameter">stringBuilder</span>
-)</pre></div><div class="CodeSnippetContainerCode VisualBasicCode"><pre xml:space="preserve" class="libCScode"><span class="keyword">Public</span> <span class="keyword">Shared</span> <span class="keyword">Function</span> <span class="identifier">Release</span> ( _
+	<span class="keyword">this</span> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.stringbuilder" target="_blank">StringBuilder</a> <span class="parameter">stringBuilder</span>
+)</pre></div><div class="CodeSnippetContainerCode VisualBasicCode"><pre xml:space="preserve" class="libCScode">&lt;<a href="https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.extensionattribute" target="_blank">ExtensionAttribute</a>&gt; _
+<span class="keyword">Public</span> <span class="keyword">Shared</span> <span class="keyword">Function</span> <span class="identifier">Release</span> ( _
 	<span class="parameter">stringBuilder</span> <span class="keyword">As</span> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.stringbuilder" target="_blank">StringBuilder</a> _
 ) <span class="keyword">As</span> <a href="https://docs.microsoft.com/en-us/dotnet/api/system.string" target="_blank">String</a></pre></div></div></div><div id="parameters"><h4 class="subHeading">Parameters</h4><dl paramName="stringBuilder"><dt><span class="parameterItalic">stringBuilder</span></dt><dd>Type: <a href="https://docs.microsoft.com/en-us/dotnet/api/system.text.stringbuilder" target="_blank">StringBuilder</a><br />The string builder to release. Once released, it can no longer be used until re-acquired.</dd></dl></div><h4 class="subHeading">Return Value</h4>Contents of the string builder.</div><div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">Remarks</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="remarksSection"><!----></a>Though not strictly required, it is preferable to release a string builder onto the same thread that acquired it.</div><div class="LW_CollapsibleArea_Container"><div class="LW_CollapsibleArea_TitleDiv"><h2 class="LW_CollapsibleArea_Title">See Also</h2><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div><a id="seeAlsoSection"><!----></a><div class="seeAlsoStyle"><a href="T-Tortuga.Anchor.StringUtilities.htm">StringUtilities Class</a></div><div class="seeAlsoStyle"><a href="N-Tortuga.Anchor.htm">Tortuga.Anchor Namespace</a></div></div></div>
             </div>
